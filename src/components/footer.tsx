@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 
 export const Footer = () => {
     return (
-        <div className="w-full h-10 border-t justify-between items-center px-26 gap-2 flex" >
+        <div className="w-full h-10 border-t justify-between items-center px-26 gap-1 flex" >
             <div>
                 <span className="text-foreground">
                     © 2026 DietiEstates. All rights reserved.

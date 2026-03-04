@@ -1,24 +1,27 @@
-import LoginForm from "@/components/loginForm"
-import Header from "@/components/header"
-import { Footer } from "@/components/footer"
-import sfondo from "@/assets/sfondo.jpg"
+import '@mantine/core/styles.css';
+import { MantineProvider } from '@mantine/core';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import Login from '@/pages/Login';
+import { Register } from '@/pages/Register';
+import { Homepage } from '@/pages/Homepage';
 
 function App() {
   return (
-    <div className="h-screen flex flex-col overflow-hidden gap-2">
-      <Header />
-
-      <main className="relative flex-1 min-h-0 flex items-center justify-center rounded-xl overflow-hidden mx-26">
-        <img
-          src={sfondo}
-          alt="description"
-          className="w-full h-full object-cover"
-        />
-        <LoginForm />
-      </main>
-
-      <Footer />
-    </div>
+    <MantineProvider
+      theme={{
+        fontFamily: 'Nunito Sans, sans-serif',
+        headings: { fontFamily: 'Nunito Sans, sans-serif' },
+      }}
+    >
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/homepage" element={<Homepage />} />
+        </Routes>
+      </BrowserRouter>
+    </MantineProvider>
   )
 }
 

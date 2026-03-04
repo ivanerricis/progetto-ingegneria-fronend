@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -17,6 +18,7 @@ html, body, #root {
     --radius-2xl: calc(var(--radius) + 8px);
     --radius-3xl: calc(var(--radius) + 12px);
     --radius-4xl: calc(var(--radius) + 16px);
+    --font-sans: "Nunito Sans", ui-sans-serif, system-ui, sans-serif;
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-card: var(--card);
@@ -52,19 +54,19 @@ html, body, #root {
 
 :root {
     --radius: 0.625rem;
-    --background: oklch(98.89% 0.004 286.33);
-    --foreground: oklch(12.01% 0.045 284.57);
+    --background: oklch(96.42% 0.000 89.88);
+    --foreground: oklch(29.18% 0.055 275.28);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(31.72% 0.055 170.43);
+    --primary: oklch(36.27% 0.092 254.97);
     --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(63.55% 0.071 148.47);
+    --secondary: oklch(77.61% 0.048 239.49);
     --secondary-foreground: oklch(0.205 0 0);
     --muted: oklch(0.97 0 0);
     --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(82.529% 0.17086 80.013);
+    --accent: oklch(73.923% 0.16855 50.477);
     --accent-foreground: oklch(0.205 0 0);
     --destructive: oklch(0.577 0.245 27.325);
     --border: oklch(0.922 0 0);
@@ -86,19 +88,19 @@ html, body, #root {
 }
 
 .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(94.04% 0.026 288.32);
+    --background: oklch(15.91% 0.000 89.88);
+    --foreground: oklch(80.41% 0.043 277.92);
     --card: oklch(0.205 0 0);
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.205 0 0);
     --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(92.78% 0.051 176.44);
+    --primary: oklch(77.24% 0.080 254.53);
     --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(61.89% 0.071 148.41);
+    --secondary: oklch(40.22% 0.054 241.16);
     --secondary-foreground: oklch(0.985 0 0);
     --muted: oklch(0.269 0 0);
     --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(82.53% 0.171 80.01);
+    --accent: oklch(63.83% 0.182 44.57);
     --accent-foreground: oklch(0.985 0 0);
     --destructive: oklch(0.704 0.191 22.216);
     --border: oklch(1 0 0 / 10%);
@@ -124,6 +126,6 @@ html, body, #root {
     @apply border-border outline-ring/50;
     }
   body {
-    @apply bg-background text-foreground;
+        @apply bg-background text-foreground font-sans;
     }
 }
