@@ -26,11 +26,10 @@ export const CardRealEstate = ({ name: name, price: price, agencyName: agencyNam
                 {/* Parte superiore */}
                 <div className="flex h-1/2">
                     <div className="flex flex-col justify-start w-full text-bold text-xl dark:text-foreground">
-                        {/* {(name!="") : name ? "not found"} */}
-                        {name}
+                        {(name != "") ? name : "not found"}
                     </div>
                     <div className="rounded-sm h-fit p-2 bg-accent text-nowrap dark:text-foreground">
-                        {agencyName}
+                        {(agencyName != "") ? agencyName : "not found"}
                     </div>
                 </div>
 

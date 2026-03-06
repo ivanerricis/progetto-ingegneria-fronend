@@ -5,6 +5,7 @@ import Login from '@/pages/Login/Login';
 import { Register } from '@/pages/Register/Register';
 import { Homepage } from '@/pages/Homepage/Homepage';
 import { ThemeProvider } from './components/theme-provider';
+// import ProtectedRoute from './components/protected-route';
 
 function App() {
   return (
