@@ -1,33 +1,17 @@
 import { useEffect, useState } from "react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Field } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
-import CardRealEstate from "@/pages/Homepage/components/cardRealEstate"
+import CardRealEstate from "@/pages/Account/Homepage/components/cardRealEstate"
 import { ModeToggle } from "@/components/mode-toggle"
-import type { Advertisement } from "types/types"
+import type { Advertisement } from "@/types/types"
+import Header from "@/components/header"
+import FilterCombobox from "@/pages/Account/Homepage/components/filterCombobox"
 
-const extractAdvertisementsFromResponse = (responseBody: unknown): Advertisement[] => {
-    console.log("Raw API response:", responseBody)
-    if (Array.isArray(responseBody)) {
-        return responseBody as Advertisement[]
-    }
-
-    if (!responseBody || typeof responseBody !== "object") {
-        return []
-    }
-
-    const payload = responseBody as Record<string, unknown>
-    const candidateKeys = ["advertisements", "items", "results", "data"]
-
-    for (const key of candidateKeys) {
-        if (Array.isArray(payload[key])) {
-            return payload[key] as Advertisement[]
-        }
-    }
-
-    return []
+type AdvertisementsResponse = {
+    items: Advertisement[]
 }
 
 export const Homepage = () => {
@@ -38,73 +22,76 @@ export const Homepage = () => {
     const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? ""
 
     useEffect(() => {
-        let isMounted = true
+        const abortController = new AbortController()
 
         const fetchAdvertisements = async () => {
             setLoadError(null)
+            setIsLoadingAdvertisements(true)
 
             try {
                 const response = await fetch(`${apiBaseUrl}/account/advertisements`, {
                     method: "GET",
                     credentials: "include",
+                    signal: abortController.signal,
                 })
 
                 if (!response.ok) {
                     throw new Error("Impossibile caricare gli annunci")
                 }
 
-                const responseBody = await response.json().catch(() => null)
+                const responseBody = await response.json() as AdvertisementsResponse
 
-                if (!isMounted) {
-                    return
-                }
-
-                const rawAdvertisements = extractAdvertisementsFromResponse(responseBody)
-
-                setAdvertisements(rawAdvertisements)
+                setAdvertisements(responseBody.items)
             } catch (error) {
-                if (!isMounted) {
+                if (error instanceof DOMException && error.name === "AbortError") {
                     return
                 }
 
                 const message = error instanceof Error ? error.message : "Errore durante il caricamento degli annunci"
                 setLoadError(message)
             } finally {
-                if (isMounted) {
-                    setIsLoadingAdvertisements(false)
-                }
+                setIsLoadingAdvertisements(false)
             }
         }
 
         void fetchAdvertisements()
 
         return () => {
-            isMounted = false
+            abortController.abort()
         }
     }, [apiBaseUrl])
 
     return (
         <div className="flex flex-col min-h-screen max-h-screen">
-            <header className="flex flex-row items-center justify-between p-2 border-b-2">
-                <div className="flex justify-start flex-1">
-                    DietiEstates
-                </div>
-                <div className="flex justify-center flex-1">
+
+            <Header
+                isHomepage
+                left={
+                    <>
+                        <Button variant={"outline"}>
+                            DietiEstates
+                        </Button>
+                    </>
+                }
+                center={
                     <Field orientation="horizontal">
                         <Input type="search" placeholder="Cerca..." />
                         <Button variant={"outline"} size={"icon"}>
                             <Search />
                         </Button>
                     </Field>
-                </div>
-                <div className="flex justify-end flex-1 items-center gap-2">
-                    <ModeToggle />
-                    <Avatar>
-                        <AvatarImage src="https://github.com/shadcn.png" />
-                        <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                </div>
-            </header>
+                }
+                right={
+                    <>
+                        <ModeToggle />
+                        <Avatar>
+                            <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                    </>
+                }
+            />
+
+            {/* Main */}
             <main className="flex flex-col grow gap-2 overflow-y-hidden">
                 <div className="flex flex-col p-2 gap-2 overflow-y-scroll">
                     {isLoadingAdvertisements && (
@@ -121,32 +108,29 @@ export const Homepage = () => {
                         <p className="text-sm text-muted-foreground">Nessun annuncio disponibile.</p>
                     )}
 
+                    {advertisements.length !== 0 && (
+                        <div className="flex items-center justify-between">
+                            <div className="flex w-full text-foreground items-center text-start">
+                                Numero di annunci trovati: {advertisements.length}
+                            </div>
+                            <FilterCombobox />
+                        </div>
+                    )}
+
                     {advertisements.map((advertisement, index) => {
-                        const name = advertisement.name ?? advertisement.title ?? advertisement.description ?? ""
-                        const agencyName =
-                            advertisement.agencyName
-                            ?? advertisement.agency
-                            ?? advertisement.agencyAccountName
-                            ?? ""
-                        const price =
-                            advertisement.price
-                            ?? advertisement.amount
-                            ?? advertisement.listingPrice
-                            ?? advertisement.priceEuro
-                            ?? ""
-                        const key = advertisement.id ?? advertisement.advertisementId ?? `${name}-${index}`
+                        const key = advertisement.advertisementId ?? `${index}`
 
                         return (
                             <CardRealEstate
                                 key={String(key)}
-                                name={String(name)}
-                                agencyName={String(agencyName)}
-                                price={String(price)}
+                                advertisement={advertisement}
                             />
                         )
                     })}
                 </div>
             </main>
+
+            {/* Footer */}
             <footer className="h-10 border-t-2">
             </footer>
         </div>

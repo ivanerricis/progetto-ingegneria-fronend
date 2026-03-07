@@ -1,21 +1,23 @@
-import { Earth } from "lucide-react"
-import { Button } from "./ui/button"
-import { ModeToggle } from "./mode-toggle"
+type HeaderProps = {
+    left?: React.ReactNode
+    right?: React.ReactNode
+    center?: React.ReactNode
+    isHomepage?: boolean
+}
 
-export const Header = () => {
+export const Header = ({ left, right, center, isHomepage = false }: HeaderProps) => {
+    const horizontalPadding = isHomepage ? 'px-2' : 'px-26'
+
     return (
-        <div className="h-12 w-full border-b flex justify-between items-center px-26 gap-2 shadow-md" >
-            <div className="flex justify-start">
-                <Button variant={"outline"} >
-                    Console per agenti
-                </Button>
+        <div className={`h-12 w-full border-b flex justify-between items-center ${horizontalPadding} gap-2 shadow-md`} >
+            <div className="flex justify-start gap-1 items-center">
+                {left}
             </div>
-            <div className="flex gap-1 items-center justify-between">
-                <ModeToggle />
-                <Button variant={"outline"} >
-                    <Earth className="size-5" />
-                    Italiano
-                </Button>
+            <div className="flex gap-1 items-center justify-center">
+                {center}
+            </div>
+            <div className="flex gap-1 items-center justify-end">
+                {right}
             </div>
         </div>
     )

@@ -1,16 +1,16 @@
 import { type FormEvent, useState } from "react"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
-import { cn } from "@/lib/utils"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { Eye, EyeOff } from "lucide-react"
+import AgencyCombobox from "./agencyCombobox"
 
 export const LoginForm = () => {
     const navigate = useNavigate()
-    const [email, setEmail] = useState("")
+    const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -24,13 +24,11 @@ export const LoginForm = () => {
         setIsSubmitting(true)
 
         try {
-            const response = await fetch(`${apiBaseUrl}/auth/account/login`, {
+            const response = await fetch(`${apiBaseUrl}/auth/agent/login`, {
                 method: "POST",
                 credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password }),
             })
 
             const responseBody = await response.json().catch(() => null)
@@ -46,7 +44,7 @@ export const LoginForm = () => {
                 throw new Error(backendMessage)
             }
 
-            navigate("/homepage")
+            navigate("/agent/dashboard")
         } catch (submitError) {
             const message = submitError instanceof Error ? submitError.message : "Errore durante il login"
             setError(message)
@@ -57,20 +55,23 @@ export const LoginForm = () => {
 
     return (
         <Card className="w-full max-w-sm absolute" >
-            <CardHeader>
-                <CardTitle>Accedi al tuo account</CardTitle>
-            </CardHeader>
+            <CardTitle>Accedi</CardTitle>
+            <Separator orientation="horizontal" />
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col">
                 <CardContent>
                     <div className="flex flex-col">
                         <div className="grid gap-2 mb-6">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="agency">Seleziona un'agenzia</Label>
+                            <AgencyCombobox />
+                        </div>
+                        <div className="grid gap-2 mb-6">
+                            <Label htmlFor="username">Username</Label>
                             <Input
-                                id="email"
-                                type="email"
-                                placeholder="mariorossi@gmail.com"
-                                value={email}
-                                onChange={(event) => setEmail(event.target.value)}
+                                id="username"
+                                type="text"
+                                placeholder="mariorossi123"
+                                value={username}
+                                onChange={(event) => setUsername(event.target.value)}
                                 required
                             />
                         </div>
@@ -96,7 +97,8 @@ export const LoginForm = () => {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1"
+                                    aria-label={showPassword ? "Nascondi password" : "Mostra password"}
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 cursor-pointer"
                                 >
                                     {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                                 </button>
@@ -113,19 +115,6 @@ export const LoginForm = () => {
                     <Button type="submit" className="w-full" disabled={isSubmitting}>
                         {isSubmitting ? "Accesso in corso..." : "Accedi"}
                     </Button>
-                    <Button variant="outline" className="w-full" type="button" disabled={isSubmitting}>
-                        Accedi con Google
-                    </Button>
-                    <div className="flex gap-2 w-full items-center">
-                        <Separator />
-                        <div className="text-center text-sm text-muted-foreground">
-                            oppure
-                        </div>
-                        <Separator />
-                    </div>
-                    <Link to="/register" className={cn(buttonVariants({ variant: "secondary" }), "w-full")}>
-                        Registrati
-                    </Link>
                 </CardFooter>
             </form>
         </Card >

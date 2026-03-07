@@ -1,18 +1,18 @@
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { PasswordStrength } from "@/components/passwordStrength"
 import { Separator } from "@/components/ui/separator"
-import { Link } from "react-router-dom"
-import { cn } from "@/lib/utils"
+import { useNavigate } from "react-router-dom"
 
 export const RegisterForm = () => {
+    const navigate = useNavigate()
+
     return (
         <Card className="w-full max-w-md absolute" >
-            <CardHeader>
-                <CardTitle>Registrati</CardTitle>
-            </CardHeader>
+            <CardTitle>Registrati</CardTitle>
+            <Separator orientation="horizontal"></Separator>
             <CardContent>
                 <form>
                     <div className="flex flex-col gap-4">
@@ -65,9 +65,9 @@ export const RegisterForm = () => {
                     </div>
                     <Separator />
                 </div>
-                <Link to="/login" className={cn(buttonVariants({ variant: "secondary" }), "w-full")}>
+                <Button variant={"secondary"} onClick={() => navigate("/login")} className="w-full">
                     Accedi
-                </Link>
+                </Button>
             </CardFooter>
         </Card >
     )
