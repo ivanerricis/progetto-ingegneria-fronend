@@ -2,7 +2,7 @@ import CheckboxFilter from "./checkboxFilter";
 
 const SidebarFilter = () => {
     return (
-        <div className="h-full w-64 border-r p-2 overflow-y-auto">
+        <div className="h-full w-64 border-r p-2 overflow-y-auto dark:text-foreground">
             <div>Prezzo</div>
 
             {/* Checkbox filters */}

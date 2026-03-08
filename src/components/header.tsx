@@ -27,11 +27,11 @@ export const Header = ({
     isHomepage = false,
     mobileLeftMenuItems
 }: HeaderProps) => {
-    const horizontalPadding = isHomepage ? "px-2 sm:px-4 md:px-6" : "px-2 sm:px-6 sm:px-26"
+    const horizontalPadding = isHomepage ? "" : "sm:px-26"
     const hasMobileLeftMenu = Boolean(mobileLeftMenuItems && mobileLeftMenuItems.length > 0)
 
     return (
-        <div className={`w-full border-b ${horizontalPadding} py-2 shadow-md`}>
+        <div className={`w-full border-b ${horizontalPadding} p-2 shadow-md`}>
             <div className="flex justify-between gap-2 sm:flex-row sm:items-center">
                 <div className="flex flex-wrap items-center justify-start gap-1 sm:flex-1">
                     {hasMobileLeftMenu && (
