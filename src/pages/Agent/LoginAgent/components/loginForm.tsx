@@ -7,47 +7,46 @@ import { Separator } from "@/components/ui/separator"
 import { useNavigate } from "react-router-dom"
 import { Eye, EyeOff } from "lucide-react"
 import AgencyCombobox from "./agencyCombobox"
+import { useTranslation } from "react-i18next"
+import { useAgencies } from "@/hooks/useAgency"
+import { API_BASE_URL } from "@/lib/api/config"
+import { loginAgent } from "@/lib/api/auth"
 
 export const LoginForm = () => {
     const navigate = useNavigate()
+    const { t } = useTranslation("loginAgent")
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const [error, setError] = useState<string | null>(null)
-
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? ""
+    const [selectedAgencyId, setSelectedAgencyId] = useState("")
+    const [loginError, setLoginError] = useState<string | null>(null)
+    const { agencies, loading, error } = useAgencies(API_BASE_URL)
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        setError(null)
+        setLoginError(null)
         setIsSubmitting(true)
 
         try {
-            const response = await fetch(`${apiBaseUrl}/auth/agent/login`, {
-                method: "POST",
-                credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, password }),
-            })
-
-            const responseBody = await response.json().catch(() => null)
-
-            if (!response.ok) {
-                const backendMessage =
-                    responseBody && typeof responseBody.error === "string"
-                        ? responseBody.error
-                        : responseBody && typeof responseBody.message === "string"
-                            ? responseBody.message
-                            : "Credenziali non valide"
-
-                throw new Error(backendMessage)
+            if (!selectedAgencyId) {
+                throw new Error("Seleziona un'agenzia")
             }
+
+            await loginAgent(API_BASE_URL, {
+                username,
+                password,
+                agencyId: Number(selectedAgencyId),
+            })
 
             navigate("/agent/dashboard")
         } catch (submitError) {
-            const message = submitError instanceof Error ? submitError.message : "Errore durante il login"
-            setError(message)
+            const message =
+                submitError instanceof Error
+                    ? submitError.message
+                    : "Errore durante il login"
+
+            setLoginError(message)
         } finally {
             setIsSubmitting(false)
         }
@@ -62,14 +61,20 @@ export const LoginForm = () => {
                     <div className="flex flex-col">
                         <div className="grid gap-2 mb-6">
                             <Label htmlFor="agency">Seleziona un'agenzia</Label>
-                            <AgencyCombobox />
+                            <AgencyCombobox
+                                agencies={agencies}
+                                value={selectedAgencyId}
+                                onValueChange={setSelectedAgencyId}
+                                loading={loading}
+                                loadError={error}
+                            />
                         </div>
                         <div className="grid gap-2 mb-6">
-                            <Label htmlFor="username">Username</Label>
+                            <Label htmlFor="username">{t("fields.username.label")}</Label>
                             <Input
                                 id="username"
                                 type="text"
-                                placeholder="mariorossi123"
+                                placeholder={t("fields.username.placeholder")}
                                 value={username}
                                 onChange={(event) => setUsername(event.target.value)}
                                 required
@@ -77,26 +82,26 @@ export const LoginForm = () => {
                         </div>
                         <div className="grid gap-2 mb-2">
                             <div className="flex items-center">
-                                <Label htmlFor="password">Password</Label>
+                                <Label htmlFor="password">{t("fields.password.label")}</Label>
                                 <a
                                     href="#"
                                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                                 >
-                                    Hai dimenticato la password?
+                                    {t("links.forgotPassword")}
                                 </a>
                             </div>
                             <div className="relative">
                                 <Input
                                     id="password"
                                     type={showPassword ? "text" : "password"}
-                                    placeholder="La tua password"
+                                    placeholder={t("fields.password.placeholder")}
                                     value={password}
                                     onChange={(event) => setPassword(event.target.value)}
                                     required
                                 />
                                 <button
                                     type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
+                                    onClick={() => setShowPassword(v => !v)}
                                     aria-label={showPassword ? "Nascondi password" : "Mostra password"}
                                     className="absolute right-2 top-1/2 -translate-y-1/2 p-1 cursor-pointer"
                                 >
@@ -104,16 +109,16 @@ export const LoginForm = () => {
                                 </button>
                             </div>
                         </div>
-                        {error && (
+                        {loginError && (
                             <p className="text-sm text-destructive" role="alert">
-                                {error}
+                                {loginError}
                             </p>
                         )}
                     </div>
                 </CardContent>
                 <CardFooter className="flex-col gap-2">
                     <Button type="submit" className="w-full" disabled={isSubmitting}>
-                        {isSubmitting ? "Accesso in corso..." : "Accedi"}
+                        {isSubmitting ? t("buttons.submitting") : t("buttons.submit")}
                     </Button>
                 </CardFooter>
             </form>

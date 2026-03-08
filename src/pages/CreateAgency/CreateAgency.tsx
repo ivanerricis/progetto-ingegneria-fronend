@@ -4,9 +4,10 @@ import CreateAgencyForm from "@/pages/CreateAgency/components/createAgencyForm";
 import sfondo from "@/assets/sfondo.jpg"
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Earth } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Label } from "@/components/ui/label";
+import LanguageSwitcher from "@/components/languageSwitcher";
 
 const CreateAgency = () => {
     const navigate = useNavigate()
@@ -34,10 +35,7 @@ const CreateAgency = () => {
                 right={
                     <>
                         <ModeToggle />
-                        <Button variant={"outline"}>
-                            <Earth />
-                            Italiano
-                        </Button>
+                        <LanguageSwitcher />
                     </>
                 }
             />

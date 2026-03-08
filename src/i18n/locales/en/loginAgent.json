@@ -1,0 +1,20 @@
+{
+    "title": "Login",
+    "fields": {
+        "username": {
+            "label": "Username",
+            "placeholder": "mariorossi123"
+        },
+        "password": {
+            "label": "Password",
+            "placeholder": "Your password"
+        }
+    },
+    "links": {
+        "forgotPassword": "Forgot your password?"
+    },
+    "buttons": {
+        "submit": "Login",
+        "submitting": "Logging in..."
+    }
+}

@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label"
 import { useNavigate } from "react-router-dom"
 import { Separator } from "@/components/ui/separator"
 import { toast } from "sonner"
+import { API_BASE_URL } from "@/lib/api/config"
 
 export const CreateAgencyForm = () => {
     const navigate = useNavigate()
@@ -18,15 +19,13 @@ export const CreateAgencyForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? ""
-
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setError(null)
         setIsSubmitting(true)
 
         try {
-            const response = await fetch(`${apiBaseUrl}/auth/account/login`, {
+            const response = await fetch(`${API_BASE_URL}/auth/account/login`, {
                 method: "POST",
                 credentials: "include",
                 headers: {

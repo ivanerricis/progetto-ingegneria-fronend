@@ -7,8 +7,11 @@ import { Separator } from "@/components/ui/separator"
 import { useNavigate } from "react-router-dom"
 import { Eye, EyeOff } from "lucide-react"
 import { toast } from "sonner"
+import { useTranslation } from "react-i18next"
+import { API_BASE_URL } from "@/lib/api/config"
 
 export const LoginForm = () => {
+    const { t } = useTranslation("login")
     const navigate = useNavigate()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -16,15 +19,13 @@ export const LoginForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? ""
-
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setError(null)
         setIsSubmitting(true)
 
         try {
-            const response = await fetch(`${apiBaseUrl}/auth/account/login`, {
+            const response = await fetch(`${API_BASE_URL}/auth/account/login`, {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -62,13 +63,13 @@ export const LoginForm = () => {
 
     return (
         <Card className="w-full sm:max-w-sm absolute rounded-none sm:rounded-xl">
-            <CardTitle className="px-6 text-lg sm:text-xl">Accedi al tuo account</CardTitle>
+            <CardTitle className="px-6 text-lg sm:text-xl">{t("title")}</CardTitle>
             <Separator orientation="horizontal"></Separator>
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col">
                 <CardContent>
                     <div className="flex flex-col">
                         <div className="grid gap-2 mb-6">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="email">{t("fields.email.label")}</Label>
                             <Input
                                 id="email"
                                 type="email"
@@ -80,19 +81,19 @@ export const LoginForm = () => {
                         </div>
                         <div className="grid gap-2 mb-2">
                             <div className="flex justify-between gap-1 flex-row sm:items-center">
-                                <Label htmlFor="password">Password</Label>
+                                <Label htmlFor="password">{t("fields.password.label")}</Label>
                                 <a
                                     href="#"
                                     className="inline-block text-xs underline-offset-4 hover:underline sm:ml-auto sm:text-sm"
                                 >
-                                    Hai dimenticato la password?
+                                    {t("links.forgotPassword")}
                                 </a>
                             </div>
                             <div className="relative">
                                 <Input
                                     id="password"
                                     type={showPassword ? "text" : "password"}
-                                    placeholder="La tua password"
+                                    placeholder={t("fields.password.placeholder")}
                                     value={password}
                                     onChange={(event) => setPassword(event.target.value)}
                                     required
@@ -100,7 +101,7 @@ export const LoginForm = () => {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1"
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 cursor-pointer"
                                 >
                                     {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                                 </button>
@@ -115,20 +116,20 @@ export const LoginForm = () => {
                 </CardContent>
                 <CardFooter className="flex-col gap-2">
                     <Button type="submit" className="w-full" disabled={isSubmitting}>
-                        {isSubmitting ? "Accesso in corso..." : "Accedi"}
+                        {isSubmitting ? t("submitting") : t("buttons.submit")}
                     </Button>
                     <Button variant="outline" className="w-full" type="button" disabled={isSubmitting}>
-                        Accedi con Google
+                        {t("buttons.google")}
                     </Button>
                     <div className="flex gap-2 w-full items-center">
                         <Separator />
                         <div className="text-center text-sm text-muted-foreground">
-                            oppure
+                            {t("texts.or")}
                         </div>
                         <Separator />
                     </div>
                     <Button variant={"secondary"} onClick={() => navigate("/register")} className="w-full" disabled={isSubmitting}>
-                        Registrati
+                        {t("links.register")}
                     </Button>
                 </CardFooter>
             </form>

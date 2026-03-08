@@ -1,0 +1,20 @@
+{
+    "title": "Accedi",
+    "fields": {
+        "username": {
+            "label": "Username",
+            "placeholder": "mariorossi123"
+        },
+        "password": {
+            "label": "Password",
+            "placeholder": "La tua password"
+        }
+    },
+    "links": {
+        "forgotPassword": "Hai dimenticato la password?"
+    },
+    "buttons": {
+        "submit": "Accedi",
+        "submitting": "Accesso in corso..."
+    }
+}

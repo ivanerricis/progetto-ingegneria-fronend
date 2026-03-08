@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button"
-import { CalendarDays, HandCoins, Expand } from "lucide-react"
+import { CalendarDays, HandCoins } from "lucide-react"
 import type { Advertisement } from "@/types/types"
 import RealEstateCarousel from "@/pages/Account/Homepage/components/realEstateCarousel"
 import { formatPrice } from "@/utils/formatPrice"
+import FloorPlanIcon from "@/assets/icons/floorplan.svg"
+import ExpandIcon from "@/assets/icons/expand.svg"
 
 type CardRealEstateProps = {
     advertisement: Advertisement
@@ -23,7 +25,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
             </div>
 
             {/* Informazioni immobile */}
-            <div className="flex flex-col flex-1 gap-2 p-2 justify-between border-t sm:border-b-0 sm:border-l">
+            <div className="flex flex-col flex-1 gap-2 p-2 justify-between border-t sm:border-t-0 sm:border-b-0 sm:border-l">
 
                 {/* Informazioni generali */}
                 <div className="flex h-1/2 items-center justify-between">
@@ -41,11 +43,11 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
 
                 <div className="flex h-full w-full flex-start items-center gap-2">
                     <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2">
-                        <Expand />
+                        <img src={FloorPlanIcon} alt="floor plan icon" className="size-6" />
                         {advertisement.realEstate.rooms + " locali"}
                     </div>
                     <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2">
-                        <Expand />
+                        <img src={ExpandIcon} alt="expand icon" className="size-6" />
                         {advertisement.realEstate.size + " m²"}
                     </div>
                 </div>

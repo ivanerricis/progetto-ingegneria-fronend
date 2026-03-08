@@ -1,0 +1,24 @@
+{
+    "title": "Accedi",
+    "fields": {
+        "email": {
+            "label": "Email"
+        },
+        "password": {
+            "label": "Password",
+            "placeholder": "La tua password"
+        }
+    },
+    "links": {
+        "forgotPassword": "Hai dimenticato la password?",
+        "register": "Registrati"
+    },
+    "buttons": {
+        "submit": "Accedi",
+        "submitting": "Accesso in corso...",
+        "google": "Accedi con Google"
+    },
+    "texts": {
+        "or": "oppure"
+    }
+}

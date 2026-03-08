@@ -4,8 +4,8 @@ import sfondo from "@/assets/sfondo.jpg"
 import RegisterForm from "@/pages/Account/Register/components/registerForm"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle"
-import { Earth } from "lucide-react"
 import { useNavigate } from "react-router-dom"
+import LanguageSwitcher from "@/components/languageSwitcher"
 
 export const Register = () => {
     const navigate = useNavigate()
@@ -30,10 +30,7 @@ export const Register = () => {
                 right={
                     <>
                         <ModeToggle />
-                        <Button variant={"outline"}>
-                            <Earth />
-                            Italiano
-                        </Button>
+                        <LanguageSwitcher />
                     </>
                 }
             />

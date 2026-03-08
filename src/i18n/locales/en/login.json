@@ -1,0 +1,24 @@
+{
+    "title": "Login",
+    "fields": {
+        "email": {
+            "label": "Email"
+        },
+        "password": {
+            "label": "Password",
+            "placeholder": "Your password"
+        }
+    },
+    "links": {
+        "forgotPassword": "Forgot your password?",
+        "register": "Register"
+    },
+    "buttons": {
+        "submit": "Login",
+        "submitting": "Logging in...",
+        "google": "Login with Google"
+    },
+    "texts": {
+        "or": "or"
+    }
+}

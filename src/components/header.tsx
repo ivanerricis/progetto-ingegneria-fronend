@@ -27,7 +27,7 @@ export const Header = ({
     isHomepage = false,
     mobileLeftMenuItems
 }: HeaderProps) => {
-    const horizontalPadding = isHomepage ? "px-2 sm:px-4 md:px-6" : "px-3 sm:px-6 lg:px-26"
+    const horizontalPadding = isHomepage ? "px-2 sm:px-4 md:px-6" : "px-2 sm:px-6 sm:px-26"
     const hasMobileLeftMenu = Boolean(mobileLeftMenuItems && mobileLeftMenuItems.length > 0)
 
     return (

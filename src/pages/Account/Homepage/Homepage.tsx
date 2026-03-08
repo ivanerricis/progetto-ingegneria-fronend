@@ -1,78 +1,47 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Field } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { Search } from "lucide-react"
-import CardRealEstate from "@/pages/Account/Homepage/components/cardRealEstate"
+import { Menu, Search, X } from "lucide-react"
 import { ModeToggle } from "@/components/mode-toggle"
-import type { Advertisement } from "@/types/types"
 import Header from "@/components/header"
 import FilterCombobox from "@/pages/Account/Homepage/components/filterCombobox"
 import Loading from "@/pages/Loading/Loading"
-
-type AdvertisementsResponse = {
-    items: Advertisement[]
-}
+import SidebarFilter from "./components/sidebarFilter"
+import { Footer } from "@/components/footer"
+import AdvertisementsList from "./components/advertisementList"
+import useAdvertisements from "@/hooks/useAdvertisement"
+import { API_BASE_URL } from "@/lib/api/config"
+import { Label } from "@/components/ui/label"
 
 export const Homepage = () => {
-    const [advertisements, setAdvertisements] = useState<Advertisement[]>([])
-    const [isLoadingAdvertisements, setIsLoadingAdvertisements] = useState(true)
-    const [loadError, setLoadError] = useState<string | null>(null)
-
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? ""
-
-    useEffect(() => {
-        const abortController = new AbortController()
-
-        const fetchAdvertisements = async () => {
-            setLoadError(null)
-            setIsLoadingAdvertisements(true)
-
-            try {
-                const response = await fetch(`${apiBaseUrl}/account/advertisements`, {
-                    method: "GET",
-                    credentials: "include",
-                    signal: abortController.signal,
-                })
-
-                if (!response.ok) {
-                    throw new Error("Impossibile caricare gli annunci")
-                }
-
-                const responseBody = await response.json() as AdvertisementsResponse
-                console.log("Advertisements fetched:", responseBody.items)
-
-                setAdvertisements(responseBody.items)
-            } catch (error) {
-                if (error instanceof DOMException && error.name === "AbortError") {
-                    return
-                }
-
-                const message = error instanceof Error ? error.message : "Errore durante il caricamento degli annunci"
-                setLoadError(message)
-            } finally {
-                setIsLoadingAdvertisements(false)
-            }
-        }
-
-        void fetchAdvertisements()
-
-        return () => {
-            abortController.abort()
-        }
-    }, [apiBaseUrl])
+    const { advertisements, isLoading, error } = useAdvertisements(API_BASE_URL)
+    const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
 
     return (
-        <div className="flex flex-col min-h-screen max-h-screen">
+        <div className="flex flex-col min-h-screen max-h-screen h-full">
 
             <Header
                 isHomepage
                 left={
                     <>
-                        <Button className="hidden sm:flex" variant={"outline"}>
-                            DietiEstates
+                        {/* Mobile: menu button */}
+                        <Button
+                            type="button"
+                            variant="outline"
+                            size="icon"
+                            className="sm:hidden"
+                            aria-label="Apri filtri"
+                            onClick={() => setIsMobileSidebarOpen(true)}
+                        >
+                            <Menu />
                         </Button>
+
+                        {/* Desktop: brand button */}
+                        <Label className="hidden sm:flex text-xl">
+                            DietiEstates
+                        </Label>
                     </>
                 }
                 center={
@@ -93,54 +62,75 @@ export const Homepage = () => {
                 }
             />
 
+            {/* Mobile sidebar backdrop */}
+            {isMobileSidebarOpen && (
+                <button
+                    type="button"
+                    aria-label="Chiudi filtri"
+                    className="fixed inset-0 z-40 bg-black/40 sm:hidden"
+                    onClick={() => setIsMobileSidebarOpen(false)}
+                />
+            )}
+
+            {/* Mobile sidebar drawer */}
+            <aside
+                className={`fixed inset-y-0 left-0 z-50 w-72 transform border-r bg-background p-2 transition-transform duration-200 sm:hidden ${isMobileSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                    }`}
+            >
+                <div className="mb-2 flex items-center justify-end">
+                    <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        aria-label="Chiudi filtri"
+                        onClick={() => setIsMobileSidebarOpen(false)}
+                    >
+                        <X />
+                    </Button>
+                </div>
+                <SidebarFilter />
+            </aside>
+
             {/* Main */}
-            <main className="flex min-h-0 grow flex-col gap-2 overflow-hidden">
-                <div className="flex h-full min-h-0 flex-col gap-2 p-2">
-                    {isLoadingAdvertisements && (
+            <main className="flex min-h-0 h-full flex-1 gap-2 overflow-hidden">
+                {/* Desktop sidebar */}
+                <div className="hidden sm:block">
+                    <SidebarFilter />
+                </div>
+
+                <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden p-2">
+                    {isLoading && (
                         <div className="text-sm text-muted-foreground" role="status" aria-live="polite">
                             <Loading />
                         </div>
                     )}
 
-                    {loadError && (
+                    {error && (
                         <p className="text-sm text-destructive" role="alert">
-                            {loadError}
+                            {error}
                         </p>
                     )}
 
-                    {!isLoadingAdvertisements && !loadError && advertisements.length === 0 && (
+                    {!isLoading && !error && advertisements.length === 0 && (
                         <p className="text-sm text-muted-foreground">Nessun annuncio disponibile.</p>
                     )}
 
-                    {advertisements.length !== 0 && (
+                    {!isLoading && !error && advertisements.length !== 0 && (
                         <div className="flex items-center justify-between">
-                            <div className="flex w-full text-foreground items-center text-start">
+                            <div className="flex w-full items-center text-start text-foreground">
                                 Numero di annunci trovati: {advertisements.length}
                             </div>
                             <FilterCombobox />
                         </div>
                     )}
 
-                    <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto">
-                        {advertisements.map((advertisement, index) => {
-                            const hasValidId = advertisement.advertisementId !== undefined && advertisement.advertisementId !== null
-                            const fallbackKey = `${advertisement.title}-${advertisement.realEstate.id}-${index}`
-                            const key = hasValidId ? String(advertisement.advertisementId) : fallbackKey
-
-                            return (
-                                <CardRealEstate
-                                    key={key}
-                                    advertisement={advertisement}
-                                />
-                            )
-                        })}
+                    <div className="min-h-0 flex-1 overflow-y-auto pr-1">
+                        <AdvertisementsList advertisements={advertisements} />
                     </div>
                 </div>
             </main>
 
-            {/* Footer */}
-            <footer className="h-10 border-t-2">
-            </footer>
+            <Footer />
         </div>
     )
 }

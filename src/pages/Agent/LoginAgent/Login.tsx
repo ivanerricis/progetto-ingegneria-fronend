@@ -4,8 +4,8 @@ import LoginForm from "@/pages/Agent/LoginAgent/components/loginForm"
 import sfondo from "@/assets/sfondo.jpg"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle"
-import { Earth } from "lucide-react"
 import { useNavigate } from "react-router-dom"
+import LanguageSwitcher from "@/components/languageSwitcher"
 
 export const LoginAgent = () => {
     const navigate = useNavigate()
@@ -30,10 +30,7 @@ export const LoginAgent = () => {
                 right={
                     <>
                         <ModeToggle />
-                        <Button variant={"outline"}>
-                            <Earth />
-                            Italiano
-                        </Button>
+                        <LanguageSwitcher />
                     </>
                 }
             />
