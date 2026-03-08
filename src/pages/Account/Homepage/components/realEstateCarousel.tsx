@@ -14,7 +14,7 @@ const RealEstateCarousel = ({ photos = [] }: RealEstateCarouselProps) => {
     const slides = normalizedPhotos.length > 0 ? normalizedPhotos : [{ id: "fallback", url: sfondo, position: 0, format: "jpg" }]
 
     return (
-        <Carousel className="h-full w-full overflow-hidden rounded-l-md **:data-[slot=carousel-content]:h-full">
+        <Carousel className="h-full w-full overflow-hidden rounded-t-md sm:rounded-t-none sm:rounded-l-md **:data-[slot=carousel-content]:h-full">
             <CarouselContent className="ml-0 h-full">
                 {slides.map((photo) => (
                     <CarouselItem key={String(photo.id)} className="h-full basis-full pl-0">

@@ -54,7 +54,7 @@ export const LoginForm = () => {
     }
 
     return (
-        <Card className="w-full max-w-sm absolute" >
+        <Card className="w-full sm:max-w-md absolute rounded-none sm:rounded-xl" >
             <CardTitle>Accedi</CardTitle>
             <Separator orientation="horizontal" />
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col">

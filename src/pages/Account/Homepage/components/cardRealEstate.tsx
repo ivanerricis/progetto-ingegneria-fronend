@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { CalendarDays, HandCoins } from "lucide-react"
+import { CalendarDays, HandCoins, Expand } from "lucide-react"
 import type { Advertisement } from "@/types/types"
 import RealEstateCarousel from "@/pages/Account/Homepage/components/realEstateCarousel"
 import { formatPrice } from "@/utils/formatPrice"
@@ -9,46 +9,60 @@ type CardRealEstateProps = {
 }
 
 export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
-    const addressLabel = advertisement.realEstate?.addressInput?.trim()
-        || advertisement.realEstate?.addressFormatted?.trim()
+    const addressLabel = advertisement.realEstate?.addressFormatted?.trim()
         || "not found"
 
-    const agencyLabel = advertisement.agencyName?.trim() || "not found"
+    const agencyLabel = advertisement.agent.agency.name.trim() || "not found"
 
     return (
-        <div className="border w-full h-full flex rounded-md hover:shadow hover:cursor-pointer hover:bg-secondary">
+        <div className="border w-full h-fit flex flex-col sm:flex-row rounded-md hover:shadow hover:cursor-pointer hover:bg-secondary dark:text-foreground">
 
-            {/* Parte sinistra */}
-            <div className="flex w-72 h-60 min-w-60 min-h-60">
+            {/* Carousel */}
+            <div className="flex w-full sm:w-72 h-full sm:h-60 min-w-60 min-h-60">
                 <RealEstateCarousel photos={advertisement.photos} />
             </div>
 
-            {/* Parte destra */}
-            <div className="flex flex-col flex-1 p-2 justify-between border-l">
+            {/* Informazioni immobile */}
+            <div className="flex flex-col flex-1 gap-2 p-2 justify-between border-t sm:border-b-0 sm:border-l">
 
-                {/* Parte superiore */}
-                <div className="flex h-1/2">
-                    <div className="flex flex-col justify-start w-full text-bold text-xl dark:text-foreground">
+                {/* Informazioni generali */}
+                <div className="flex h-1/2 items-center justify-between">
+                    <div className="flex flex-col justify-start w-full text-bold text-xl">
                         {addressLabel}
                     </div>
-                    <div className="rounded-sm h-fit p-2 bg-accent text-nowrap dark:text-foreground">
+                    <div className="hidden sm:flex rounded-sm h-fit p-2 text-nowrap text-primary bg-primary/25">
                         {agencyLabel}
                     </div>
                 </div>
 
-                {/* Parte inferiore */}
-                <div className="flex justify-between items-center">
-                    <div className="flex items-center justify-start dark:text-foreground text-bold text-2xl bg-accent rounded-md px-2 py-1">
+                <div className="hidden sm:flex h-full w-full overflow-hidden line-clamp-3 text-ellipsis">
+                    {advertisement.description}
+                </div>
+
+                <div className="flex h-full w-full flex-start items-center gap-2">
+                    <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2">
+                        <Expand />
+                        {advertisement.realEstate.rooms + " locali"}
+                    </div>
+                    <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2">
+                        <Expand />
+                        {advertisement.realEstate.size + " m²"}
+                    </div>
+                </div>
+
+                {/* Prezzo + Buttons */}
+                <div className="flex flex-col items-start justify-start gap-2 sm:flex-row sm:justify-between">
+                    <div className="flex h-full items-center justify-start bg-primary/25 text-primary text-2xl rounded-md px-2">
                         {formatPrice(advertisement.price)}
                     </div>
 
                     {/* Buttons */}
-                    <div className="flex justify-end gap-1">
-                        <Button variant={"outline"}>
+                    <div className="flex w-full justify-between sm:justify-end gap-1">
+                        <Button variant={"outline"} className="border-accent text-accent sm:w-fit">
                             Offerta
                             <HandCoins />
                         </Button>
-                        <Button variant={"outline"}>
+                        <Button variant={"outline"} className="border-accent text-accent sm:w-fit">
                             Appuntamento
                             <CalendarDays />
                         </Button>

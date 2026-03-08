@@ -9,6 +9,7 @@ import { ModeToggle } from "@/components/mode-toggle"
 import type { Advertisement } from "@/types/types"
 import Header from "@/components/header"
 import FilterCombobox from "@/pages/Account/Homepage/components/filterCombobox"
+import Loading from "@/pages/Loading/Loading"
 
 type AdvertisementsResponse = {
     items: Advertisement[]
@@ -40,6 +41,7 @@ export const Homepage = () => {
                 }
 
                 const responseBody = await response.json() as AdvertisementsResponse
+                console.log("Advertisements fetched:", responseBody.items)
 
                 setAdvertisements(responseBody.items)
             } catch (error) {
@@ -68,7 +70,7 @@ export const Homepage = () => {
                 isHomepage
                 left={
                     <>
-                        <Button variant={"outline"}>
+                        <Button className="hidden sm:flex" variant={"outline"}>
                             DietiEstates
                         </Button>
                     </>
@@ -76,7 +78,7 @@ export const Homepage = () => {
                 center={
                     <Field orientation="horizontal">
                         <Input type="search" placeholder="Cerca..." />
-                        <Button variant={"outline"} size={"icon"}>
+                        <Button variant={"outline"} size={"icon"} className="hidden sm:flex">
                             <Search />
                         </Button>
                     </Field>
@@ -92,10 +94,12 @@ export const Homepage = () => {
             />
 
             {/* Main */}
-            <main className="flex flex-col grow gap-2 overflow-y-hidden">
-                <div className="flex flex-col p-2 gap-2 overflow-y-scroll">
+            <main className="flex min-h-0 grow flex-col gap-2 overflow-hidden">
+                <div className="flex h-full min-h-0 flex-col gap-2 p-2">
                     {isLoadingAdvertisements && (
-                        <p className="text-sm text-muted-foreground">Caricamento annunci in corso...</p>
+                        <div className="text-sm text-muted-foreground" role="status" aria-live="polite">
+                            <Loading />
+                        </div>
                     )}
 
                     {loadError && (
@@ -117,16 +121,20 @@ export const Homepage = () => {
                         </div>
                     )}
 
-                    {advertisements.map((advertisement, index) => {
-                        const key = advertisement.advertisementId ?? `${index}`
+                    <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto">
+                        {advertisements.map((advertisement, index) => {
+                            const hasValidId = advertisement.advertisementId !== undefined && advertisement.advertisementId !== null
+                            const fallbackKey = `${advertisement.title}-${advertisement.realEstate.id}-${index}`
+                            const key = hasValidId ? String(advertisement.advertisementId) : fallbackKey
 
-                        return (
-                            <CardRealEstate
-                                key={String(key)}
-                                advertisement={advertisement}
-                            />
-                        )
-                    })}
+                            return (
+                                <CardRealEstate
+                                    key={key}
+                                    advertisement={advertisement}
+                                />
+                            )
+                        })}
+                    </div>
                 </div>
             </main>
 

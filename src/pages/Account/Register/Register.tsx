@@ -11,7 +11,7 @@ export const Register = () => {
     const navigate = useNavigate()
 
     return (
-        <div className="h-screen flex flex-col overflow-hidden gap-2">
+        <div className="h-screen flex flex-col overflow-hidden sm:gap-2">
             <Header
                 left={
                     <>
@@ -23,6 +23,10 @@ export const Register = () => {
                         </Button>
                     </>
                 }
+                mobileLeftMenuItems={[
+                    { label: "Console agenti", onSelect: () => navigate("/agent/login") },
+                    { label: "Crea agenzia", onSelect: () => navigate("/create-agency") },
+                ]}
                 right={
                     <>
                         <ModeToggle />
@@ -34,7 +38,7 @@ export const Register = () => {
                 }
             />
 
-            <main className="relative flex-1 min-h-0 flex items-center justify-center rounded-xl overflow-hidden mx-26">
+            <main className="relative flex-1 min-h-0 flex items-center justify-center sm:rounded-xl overflow-hidden sm:mx-26">
                 <img
                     src={sfondo}
                     alt="description"

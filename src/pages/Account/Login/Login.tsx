@@ -11,7 +11,7 @@ export const Login = () => {
     const navigate = useNavigate()
 
     return (
-        <div className="h-screen flex flex-col overflow-hidden gap-2">
+        <div className="flex h-screen flex-col sm:gap-2 overflow-hidden">
             <Header
                 left={
                     <>
@@ -23,6 +23,10 @@ export const Login = () => {
                         </Button>
                     </>
                 }
+                mobileLeftMenuItems={[
+                    { label: "Console agenti", onSelect: () => navigate("/agent/login") },
+                    { label: "Crea agenzia", onSelect: () => navigate("/create-agency") },
+                ]}
                 right={
                     <>
                         <ModeToggle />
@@ -34,11 +38,11 @@ export const Login = () => {
                 }
             />
 
-            <main className="relative flex-1 min-h-0 flex items-center justify-center rounded-xl overflow-hidden mx-26">
+            <main className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden sm:rounded-xl sm:mx-26">
                 <img
                     src={sfondo}
                     alt="description"
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
                 />
                 <LoginForm />
             </main>

@@ -11,9 +11,10 @@ export const CreateAgencyForm = () => {
     const navigate = useNavigate()
     const [email, setEmail] = useState("")
     const [agencyName, setAgencyName] = useState("")
-    const [phone, setPhone] = useState("")
+    const [agencyPhone, setAgencyPhone] = useState("")
     const [adminName, setAdminName] = useState("")
     const [adminLastName, setAdminLastName] = useState("")
+    const [adminPhone, setAdminPhone] = useState("")
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
@@ -58,13 +59,13 @@ export const CreateAgencyForm = () => {
     }
 
     return (
-        <Card className="w-full max-w-sm absolute" >
+        <Card className="w-full sm:max-w-sm absolute rounded-none sm:rounded-xl" >
             <CardTitle>Crea la tua agenzia</CardTitle>
             <Separator orientation="horizontal" />
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col">
                 <CardContent>
                     <div className="flex flex-col">
-                        <div className="grid gap-2 mb-6">
+                        <div className="grid gap-2 mb-4">
                             <Label htmlFor="agencyName">Nome agenzia</Label>
                             <Input
                                 id="agencyName"
@@ -75,18 +76,18 @@ export const CreateAgencyForm = () => {
                                 required
                             />
                         </div>
-                        <div className="grid gap-2 mb-6">
-                            <Label htmlFor="phone">Numero di telefono dell'agenzia</Label>
+                        <div className="grid gap-2 mb-4">
+                            <Label htmlFor="agency_phone">Numero di telefono dell'agenzia</Label>
                             <Input
-                                id="phone"
+                                id="agency_phone"
                                 type="number"
                                 placeholder="Numero di telefono"
-                                value={phone}
-                                onChange={(event) => setPhone(event.target.value)}
+                                value={agencyPhone}
+                                onChange={(event) => setAgencyPhone(event.target.value)}
                                 required
                             />
                         </div>
-                        <div className="grid gap-2 mb-6">
+                        <div className="grid gap-2 mb-4">
                             <Label htmlFor="email">Email dell'agenzia</Label>
                             <Input
                                 id="email"
@@ -97,9 +98,8 @@ export const CreateAgencyForm = () => {
                                 required
                             />
                         </div>
-                        <Separator orientation="horizontal" />
-                        <div className="flex gap-2">
-                            <div className="grid gap-2 mb-6">
+                        <div className="flex flex-col">
+                            <div className="grid gap-2 mb-4">
                                 <Label htmlFor="adminName">Nome amministratore</Label>
                                 <Input
                                     id="adminName"
@@ -110,7 +110,7 @@ export const CreateAgencyForm = () => {
                                     required
                                 />
                             </div>
-                            <div className="grid gap-2 mb-6">
+                            <div className="grid gap-2 mb-4">
                                 <Label htmlFor="adminLastName">Cognome amministratore</Label>
                                 <Input
                                     id="adminLastName"
@@ -118,6 +118,17 @@ export const CreateAgencyForm = () => {
                                     placeholder="Rossi"
                                     value={adminLastName}
                                     onChange={(event) => setAdminLastName(event.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="grid gap-2 mb-4">
+                                <Label htmlFor="admin_phone">Numero di telefono dell'amministratore</Label>
+                                <Input
+                                    id="admin_phone"
+                                    type="number"
+                                    placeholder="Numero di telefono"
+                                    value={adminPhone}
+                                    onChange={(event) => setAdminPhone(event.target.value)}
                                     required
                                 />
                             </div>

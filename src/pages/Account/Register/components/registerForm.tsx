@@ -10,7 +10,7 @@ export const RegisterForm = () => {
     const navigate = useNavigate()
 
     return (
-        <Card className="w-full max-w-md absolute" >
+        <Card className="w-full sm:max-w-md absolute rounded-none sm:rounded-xl" >
             <CardTitle>Registrati</CardTitle>
             <Separator orientation="horizontal"></Separator>
             <CardContent>

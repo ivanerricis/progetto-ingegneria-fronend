@@ -61,8 +61,8 @@ export const LoginForm = () => {
     }
 
     return (
-        <Card className="w-full max-w-sm absolute" >
-            <CardTitle>Accedi al tuo account</CardTitle>
+        <Card className="w-full sm:max-w-sm absolute rounded-none sm:rounded-xl">
+            <CardTitle className="px-6 text-lg sm:text-xl">Accedi al tuo account</CardTitle>
             <Separator orientation="horizontal"></Separator>
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col">
                 <CardContent>
@@ -79,11 +79,11 @@ export const LoginForm = () => {
                             />
                         </div>
                         <div className="grid gap-2 mb-2">
-                            <div className="flex items-center">
+                            <div className="flex justify-between gap-1 flex-row sm:items-center">
                                 <Label htmlFor="password">Password</Label>
                                 <a
                                     href="#"
-                                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                                    className="inline-block text-xs underline-offset-4 hover:underline sm:ml-auto sm:text-sm"
                                 >
                                     Hai dimenticato la password?
                                 </a>

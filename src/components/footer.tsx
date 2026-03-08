@@ -2,13 +2,13 @@ import { Button } from "@/components/ui/button"
 
 export const Footer = () => {
     return (
-        <div className="w-full h-10 border-t justify-between items-center px-26 gap-1 flex" >
+        <div className="flex w-full flex-col items-center gap-2 border-t px-3 py-2 sm:h-10 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-26">
             <div>
-                <span className="text-foreground">
+                <span className="text-xs text-foreground sm:text-sm">
                     © 2026 DietiEstates. All rights reserved.
                 </span>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-1 sm:gap-2">
                 <Button variant={"link"} size={"sm"}>
                     Privacy Policy
                 </Button>
