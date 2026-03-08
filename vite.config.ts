@@ -14,16 +14,14 @@ export default defineConfig({
   css: {
     devSourcemap: true,
     postcss: {
-      plugins: [
-      ],
+      plugins: [],
     },
   },
   optimizeDeps: {
-    exclude: ['flag-icons'],
+    include: ['flag-icons'],
   },
   build: {
     rollupOptions: {
-      external: [/flag-icons/],
     },
   },
 })

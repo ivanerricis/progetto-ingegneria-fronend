@@ -7,7 +7,6 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useTranslation } from "react-i18next";
-import "flag-icons/css/flag-icons.min.css";
 
 const LanguageSwitcher = () => {
     const { i18n } = useTranslation();
