@@ -9,6 +9,7 @@ import LoginAgent from '@/pages/Agent/LoginAgent/Login';
 import CreateAgency from '@/pages/CreateAgency/CreateAgency';
 import Dashboard from '@/pages/Agent/Dashboard/Dashboard';
 import { Toaster } from '@/components/ui/sonner';
+import Advertisement from './pages/Account/Advertisement/Advertisement';
 // import ProtectedRoute from './components/protected-route';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/homepage" element={<Homepage />} />
+              <Route path="/account/advertisement/:id" element={<Advertisement />} />
 
               {/* Agent Routes */}
               <Route path="/agent/login" element={<LoginAgent />} />

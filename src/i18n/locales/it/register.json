@@ -1,0 +1,30 @@
+{
+    "title": "Registrati",
+    "fields": {
+        "firstName": {
+            "label": "Nome",
+            "placeholder": "Mario"
+        },
+        "lastname": {
+            "label": "Cognome",
+            "placeholder": "Rossi"
+        },
+        "email": {
+            "label": "Email",
+            "placeholder": "mariorossi@gmail.com"
+        },
+        "password": {
+            "label": "Password",
+            "placeholder": "La tua password"
+        }
+    },
+    "buttons": {
+        "submit": "Registrati",
+        "submitting": "Registrazione in corso...",
+        "google": "Registrati con Google",
+        "login": "Accedi"
+    },
+    "texts": {
+        "or": "oppure"
+    }
+}

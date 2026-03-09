@@ -51,14 +51,14 @@ export const Header = ({
                         </DropdownMenu>
                     )}
 
-                    <div className={hasMobileLeftMenu ? "hidden sm:flex sm:flex-wrap sm:items-center sm:gap-1" : "flex flex-wrap items-center gap-1"}>
+                    <div className={hasMobileLeftMenu ? "hidden sm:flex sm:flex-1 sm:items-center sm:gap-1" : "flex flex-1 items-center gap-1"}>
                         {left}
                     </div>
                 </div>
-                <div className="flex flex-wrap items-center justify-center gap-1 sm:flex-1">
+                <div className="flex flex-1 items-center justify-center gap-1 sm:flex-1">
                     {center}
                 </div>
-                <div className="flex flex-wrap items-center justify-start gap-1 sm:flex-1 sm:justify-end">
+                <div className="flex flex-1 items-center gap-1 sm:flex-1 justify-end">
                     {right}
                 </div>
             </div>

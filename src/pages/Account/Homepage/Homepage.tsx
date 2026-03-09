@@ -11,7 +11,7 @@ import Loading from "@/pages/Loading/Loading"
 import SidebarFilter from "./components/sidebarFilter"
 import { Footer } from "@/components/footer"
 import AdvertisementsList from "./components/advertisementList"
-import useAdvertisements from "@/hooks/useAdvertisement"
+import useAdvertisements from "@/hooks/useAdvertisements"
 import { API_BASE_URL } from "@/lib/api/config"
 import { Label } from "@/components/ui/label"
 

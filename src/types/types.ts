@@ -1,5 +1,5 @@
 export type Advertisement = {
-    advertisementId?: string | number
+    id?: string | number
     title: string
     description: string
     agent: Agent

@@ -5,19 +5,30 @@ import RealEstateCarousel from "@/pages/Account/Homepage/components/realEstateCa
 import { formatPrice } from "@/utils/formatPrice"
 import FloorPlanIcon from "@/assets/icons/floorplan.svg"
 import ExpandIcon from "@/assets/icons/expand.svg"
+import { useNavigate } from "react-router-dom"
 
 type CardRealEstateProps = {
     advertisement: Advertisement
 }
 
 export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
+    const navigate = useNavigate()
     const addressLabel = advertisement.realEstate?.addressFormatted?.trim()
         || "not found"
 
     const agencyLabel = advertisement.agent.agency.name.trim() || "not found"
 
+    const handleCardClick = () => {
+        const routeId = advertisement.id
+        navigate(`/account/advertisement/${String(routeId)}`)
+        console.log(advertisement)
+    }
+
     return (
-        <div className="border w-full h-fit flex flex-col sm:flex-row rounded-md hover:shadow hover:cursor-pointer hover:bg-secondary dark:text-foreground">
+        <div
+            onClick={handleCardClick}
+            className="border w-full h-fit flex flex-col sm:flex-row rounded-md hover:shadow hover:cursor-pointer hover:bg-secondary dark:text-foreground"
+        >
 
             {/* Carousel */}
             <div className="flex w-full sm:w-72 h-full sm:h-60 min-w-60 min-h-60">

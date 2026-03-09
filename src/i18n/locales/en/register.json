@@ -1,0 +1,30 @@
+{
+    "title": "Register",
+    "fields": {
+        "firstName": {
+            "label": "First Name",
+            "placeholder": "John"
+        },
+        "lastname": {
+            "label": "Last Name",
+            "placeholder": "Doe"
+        },
+        "email": {
+            "label": "Email",
+            "placeholder": "mariorossi@gmail.com"
+        },
+        "password": {
+            "label": "Password",
+            "placeholder": "Your password"
+        }
+    },
+    "buttons": {
+        "submit": "Register",
+        "submitting": "Registration in progress...",
+        "google": "Register with Google",
+        "login": "Login"
+    },
+    "texts": {
+        "or": "or"
+    }
+}

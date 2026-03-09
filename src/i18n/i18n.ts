@@ -4,6 +4,8 @@ import loginIt from "./locales/it/login.json"
 import loginEn from "./locales/en/login.json"
 import loginAgentIt from "./locales/it/loginAgent.json"
 import loginAgentEn from "./locales/en/loginAgent.json"
+import registerIt from "./locales/it/register.json"
+import registerEn from "./locales/en/register.json"
 
 i18n
     .use(initReactI18next)
@@ -12,10 +14,12 @@ i18n
             it: {
                 login: loginIt,
                 loginAgent: loginAgentIt,
+                register: registerIt,
             },
             en: {
                 login: loginEn,
                 loginAgent: loginAgentEn,
+                register: registerEn,
             }
         },
         lng: "it",
