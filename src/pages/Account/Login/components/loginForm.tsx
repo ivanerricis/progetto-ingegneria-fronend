@@ -116,7 +116,7 @@ export const LoginForm = () => {
                 </CardContent>
                 <CardFooter className="flex-col gap-2">
                     <Button type="submit" className="w-full" disabled={isSubmitting}>
-                        {isSubmitting ? t("submitting") : t("buttons.submit")}
+                        {isSubmitting ? t("buttons.submitting") : t("buttons.submit")}
                     </Button>
                     <Button variant="outline" className="w-full" type="button" disabled={isSubmitting}>
                         {t("buttons.google")}

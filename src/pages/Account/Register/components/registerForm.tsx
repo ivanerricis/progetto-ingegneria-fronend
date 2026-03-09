@@ -20,7 +20,10 @@ export const RegisterForm = () => {
                     <div className="flex flex-col gap-4">
                         <div className="flex flex-row gap-x-2">
                             <div className="grid gap-2">
-                                <Label htmlFor="firstname">{t("fields.firstName.label")}</Label>
+                                <Label htmlFor="firstname">
+                                    {t("fields.firstName.label")}
+                                    <span className="text-destructive">*</span>
+                                </Label>
                                 <Input
                                     id="firstname"
                                     type="text"
@@ -29,7 +32,10 @@ export const RegisterForm = () => {
                                 />
                             </div>
                             <div className="grid gap-2">
-                                <Label htmlFor="lastname">{t("fields.lastname.label")}</Label>
+                                <Label htmlFor="lastname">
+                                    {t("fields.lastname.label")}
+                                    <span className="text-destructive">*</span>
+                                </Label>
                                 <Input
                                     id="lastname"
                                     type="text"
@@ -39,7 +45,10 @@ export const RegisterForm = () => {
                             </div>
                         </div>
                         <div className="grid gap-2">
-                            <Label htmlFor="email">{t("fields.email.label")}</Label>
+                            <Label htmlFor="email">
+                                {t("fields.email.label")}
+                                <span className="text-destructive">*</span>
+                            </Label>
                             <Input
                                 id="email"
                                 type="email"

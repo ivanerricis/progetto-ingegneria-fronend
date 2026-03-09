@@ -3,11 +3,11 @@
     "fields": {
         "firstName": {
             "label": "First Name",
-            "placeholder": "John"
+            "placeholder": "Mario"
         },
         "lastname": {
             "label": "Last Name",
-            "placeholder": "Doe"
+            "placeholder": "Rossi"
         },
         "email": {
             "label": "Email",

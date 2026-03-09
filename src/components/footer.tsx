@@ -1,9 +1,15 @@
 import { Button } from "@/components/ui/button"
 
-export const Footer = () => {
+type FooterProps = {
+    isHomepage?: boolean
+}
+
+export const Footer = ({ isHomepage }: FooterProps) => {
+    const horizontalPadding = isHomepage ? "" : "sm:px-26"
+
     return (
-        <div className="flex w-full flex-col items-center gap-2 border-t px-3 py-2 lg:h-10 lg:flex-row lg:items-center lg:justify-between sm:px-26">
-            <div>
+        <div className={`flex w-full flex-col items-center gap-2 border-t ${horizontalPadding} py-2 lg:h-10 lg:flex-row lg:items-center lg:justify-between`}>
+            <div className="flex flex-wrap gap-1 sm:gap-2">
                 <span className="text-xs text-foreground sm:text-sm">
                     © 2026 DietiEstates. All rights reserved.
                 </span>

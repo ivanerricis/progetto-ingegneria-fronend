@@ -7,13 +7,13 @@ import { Menu, Search, X } from "lucide-react"
 import { ModeToggle } from "@/components/mode-toggle"
 import Header from "@/components/header"
 import FilterCombobox from "@/pages/Account/Homepage/components/filterCombobox"
-import Loading from "@/pages/Loading/Loading"
 import SidebarFilter from "./components/sidebarFilter"
 import { Footer } from "@/components/footer"
 import AdvertisementsList from "./components/advertisementList"
 import useAdvertisements from "@/hooks/useAdvertisements"
 import { API_BASE_URL } from "@/lib/api/config"
 import { Label } from "@/components/ui/label"
+import AdvertisementListSkeleton from "./components/advertisementListSkeleton"
 
 export const Homepage = () => {
     const { advertisements, isLoading, error } = useAdvertisements(API_BASE_URL)
@@ -100,9 +100,7 @@ export const Homepage = () => {
 
                 <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden p-2">
                     {isLoading && (
-                        <div className="text-sm text-muted-foreground" role="status" aria-live="polite">
-                            <Loading />
-                        </div>
+                        <AdvertisementListSkeleton />
                     )}
 
                     {error && (
@@ -124,13 +122,15 @@ export const Homepage = () => {
                         </div>
                     )}
 
-                    <div className="min-h-0 flex-1 overflow-y-auto pr-1">
-                        <AdvertisementsList advertisements={advertisements} />
-                    </div>
+                    {!isLoading && (
+                        <div className="min-h-0 flex-1 overflow-y-auto pr-1">
+                            <AdvertisementsList advertisements={advertisements} />
+                        </div>
+                    )}
                 </div>
             </main>
 
-            <Footer />
+            <Footer isHomepage/>
         </div>
     )
 }

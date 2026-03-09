@@ -1,5 +1,5 @@
 export type Advertisement = {
-    id?: string | number
+    id: string | number
     title: string
     description: string
     agent: Agent
@@ -10,7 +10,7 @@ export type Advertisement = {
 
 export type Photo = {
     id: string | number
-    format?: string
+    format: string
     position: number
     url: string
 }
@@ -47,4 +47,13 @@ export type Agent = {
 export type Agency = {
     id: string | number
     name: string
+    phoneNumber: string
+    email: string
+}
+
+export type Logo = {
+    id: string | number
+    format: string
+    url: string
+    agency: Agency
 }

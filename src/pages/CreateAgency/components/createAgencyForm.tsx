@@ -64,8 +64,12 @@ export const CreateAgencyForm = () => {
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col">
                 <CardContent>
                     <div className="flex flex-col">
-                        <div className="grid gap-2 mb-4">
-                            <Label htmlFor="agencyName">Nome agenzia</Label>
+                        <Label className="text-xl mb-2">Agenzia</Label>
+                        <div className="flex flex-col gap-2 mb-4">
+                            <Label htmlFor="agencyName">
+                                Nome
+                                <span className="text-destructive">*</span>
+                            </Label>
                             <Input
                                 id="agencyName"
                                 type="text"
@@ -75,8 +79,11 @@ export const CreateAgencyForm = () => {
                                 required
                             />
                         </div>
-                        <div className="grid gap-2 mb-4">
-                            <Label htmlFor="agency_phone">Numero di telefono dell'agenzia</Label>
+                        <div className="flex flex-col gap-2 mb-4">
+                            <Label htmlFor="agency_phone">
+                                Numero di telefono
+                                <span className="text-destructive">*</span>
+                            </Label>
                             <Input
                                 id="agency_phone"
                                 type="number"
@@ -86,8 +93,11 @@ export const CreateAgencyForm = () => {
                                 required
                             />
                         </div>
-                        <div className="grid gap-2 mb-4">
-                            <Label htmlFor="email">Email dell'agenzia</Label>
+                        <div className="flex flex-col gap-2 mb-4">
+                            <Label htmlFor="email">
+                                Email
+                                <span className="text-destructive">*</span>
+                            </Label>
                             <Input
                                 id="email"
                                 type="email"
@@ -97,31 +107,53 @@ export const CreateAgencyForm = () => {
                                 required
                             />
                         </div>
+                        <div className="flex flex-col gap-2 mb-4">
+                            <Label htmlFor="picture">
+                                Foto
+                                <span className="text-destructive">*</span>
+                            </Label>
+                            <Input id="picture" type="file" accept="image/*" />
+                        </div>
+
+                        <Separator orientation="horizontal" className="mb-4" />
+
                         <div className="flex flex-col">
-                            <div className="grid gap-2 mb-4">
-                                <Label htmlFor="adminName">Nome amministratore</Label>
-                                <Input
-                                    id="adminName"
-                                    type="text"
-                                    placeholder="Mario"
-                                    value={adminName}
-                                    onChange={(event) => setAdminName(event.target.value)}
-                                    required
-                                />
+                            <Label className="text-xl mb-2">Amministratore</Label>
+                            <div className="flex gap-4">
+                                <div className="flex flex-col gap-2 mb-4">
+                                    <Label htmlFor="adminName">
+                                        Nome
+                                        <span className="text-destructive">*</span>
+                                    </Label>
+                                    <Input
+                                        id="adminName"
+                                        type="text"
+                                        placeholder="Mario"
+                                        value={adminName}
+                                        onChange={(event) => setAdminName(event.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-2 mb-4">
+                                    <Label htmlFor="adminLastName">
+                                        Cognome
+                                        <span className="text-destructive">*</span>
+                                    </Label>
+                                    <Input
+                                        id="adminLastName"
+                                        type="text"
+                                        placeholder="Rossi"
+                                        value={adminLastName}
+                                        onChange={(event) => setAdminLastName(event.target.value)}
+                                        required
+                                    />
+                                </div>
                             </div>
-                            <div className="grid gap-2 mb-4">
-                                <Label htmlFor="adminLastName">Cognome amministratore</Label>
-                                <Input
-                                    id="adminLastName"
-                                    type="text"
-                                    placeholder="Rossi"
-                                    value={adminLastName}
-                                    onChange={(event) => setAdminLastName(event.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="grid gap-2 mb-4">
-                                <Label htmlFor="admin_phone">Numero di telefono dell'amministratore</Label>
+                            <div className="flex flex-col gap-2 mb-4">
+                                <Label htmlFor="admin_phone">
+                                    Numero di telefono
+                                    <span className="text-destructive">*</span>
+                                </Label>
                                 <Input
                                     id="admin_phone"
                                     type="number"

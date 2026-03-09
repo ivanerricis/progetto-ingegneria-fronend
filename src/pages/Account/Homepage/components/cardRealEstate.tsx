@@ -26,8 +26,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
 
     return (
         <div
-            onClick={handleCardClick}
-            className="border w-full h-fit flex flex-col sm:flex-row rounded-md hover:shadow hover:cursor-pointer hover:bg-secondary dark:text-foreground"
+            className="border w-full h-fit flex flex-col sm:flex-row rounded-md shadow-md hover:cursor-pointer hover:bg-secondary dark:text-foreground"
         >
 
             {/* Carousel */}
@@ -36,10 +35,12 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
             </div>
 
             {/* Informazioni immobile */}
-            <div className="flex flex-col flex-1 gap-2 p-2 justify-between border-t sm:border-t-0 sm:border-b-0 sm:border-l">
+            <div
+                onClick={handleCardClick}
+                className="flex flex-col flex-1 gap-2 p-2 justify-between border-t sm:border-t-0 sm:border-b-0 sm:border-l">
 
                 {/* Informazioni generali */}
-                <div className="flex h-1/2 items-center justify-between">
+                <div className="flex items-center justify-between">
                     <div className="flex flex-col justify-start w-full text-bold text-xl">
                         {addressLabel}
                     </div>

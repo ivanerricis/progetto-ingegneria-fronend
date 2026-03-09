@@ -6,11 +6,13 @@ type CheckboxFilterProps = {
 }
 
 const CheckboxFilter = ({ label }: CheckboxFilterProps) => {
+    const id = label.toLowerCase().replace(/\s+/g, "-");
+
     return (
-        <FieldGroup className="inline-flex w-fit max-w-max self-start items-center justify-start">
+        <FieldGroup className="inline-flex w-fit self-start items-center justify-start">
             <Field orientation="horizontal" className="gap-1">
-                <Checkbox id={label} name={label} />
-                <FieldLabel htmlFor={label} className="text-nowrap cursor-pointer">
+                <Checkbox id={id} name={id} />
+                <FieldLabel htmlFor={id} className="text-nowrap">
                     {label}
                 </FieldLabel>
             </Field>

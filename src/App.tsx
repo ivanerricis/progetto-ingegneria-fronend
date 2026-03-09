@@ -9,6 +9,7 @@ import LoginAgent from '@/pages/Agent/LoginAgent/Login';
 import CreateAgency from '@/pages/CreateAgency/CreateAgency';
 import Dashboard from '@/pages/Agent/Dashboard/Dashboard';
 import { Toaster } from '@/components/ui/sonner';
+import { TooltipProvider } from './components/ui/tooltip';
 import Advertisement from './pages/Account/Advertisement/Advertisement';
 // import ProtectedRoute from './components/protected-route';
 
@@ -22,26 +23,29 @@ function App() {
         }}
       >
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Navigate to="/login" replace />} />
-              <Route path="/create-agency" element={<CreateAgency />} />
+          <TooltipProvider>
 
-              {/* Account Routes */}
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/homepage" element={<Homepage />} />
-              <Route path="/account/advertisement/:id" element={<Advertisement />} />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Navigate to="/login" replace />} />
+                <Route path="/create-agency" element={<CreateAgency />} />
 
-              {/* Agent Routes */}
-              <Route path="/agent/login" element={<LoginAgent />} />
-              <Route path="/agent/dashboard" element={<Dashboard />} />
+                {/* Account Routes */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/homepage" element={<Homepage />} />
+                <Route path="/account/advertisement/:id" element={<Advertisement />} />
 
-              {/* Route di fallback per pagine non esistenti */}
-              <Route path="*" element={<Navigate to="/login" replace />} />
-            </Routes>
-          </BrowserRouter>
-          <Toaster closeButton position='top-center'/>
+                {/* Agent Routes */}
+                <Route path="/agent/login" element={<LoginAgent />} />
+                <Route path="/agent/dashboard" element={<Dashboard />} />
+
+                {/* Route di fallback per pagine non esistenti */}
+                <Route path="*" element={<Navigate to="/login" replace />} />
+              </Routes>
+            </BrowserRouter>
+            <Toaster closeButton position='top-center' />
+          </TooltipProvider>
         </ThemeProvider>
       </MantineProvider>
     </>

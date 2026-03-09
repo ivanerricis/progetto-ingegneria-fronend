@@ -55,10 +55,10 @@ export const Header = ({
                         {left}
                     </div>
                 </div>
-                <div className="flex flex-1 items-center justify-center gap-1 sm:flex-1">
+                <div className="flex flex-1 items-center justify-center gap-1">
                     {center}
                 </div>
-                <div className="flex flex-1 items-center gap-1 sm:flex-1 justify-end">
+                <div className="flex sm:flex-1 items-center gap-1 justify-end">
                     {right}
                 </div>
             </div>
