@@ -80,9 +80,10 @@ export const Homepage = () => {
                 <div className="mb-2 flex items-center justify-end">
                     <Button
                         type="button"
-                        variant="ghost"
+                        variant="outline"
                         size="icon"
                         aria-label="Chiudi filtri"
+                        className="rounded-sm"
                         onClick={() => setIsMobileSidebarOpen(false)}
                     >
                         <X />
@@ -98,7 +99,7 @@ export const Homepage = () => {
                     <SidebarFilter />
                 </div>
 
-                <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden p-2">
+                <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden p-2 sm:border-l">
                     {isLoading && (
                         <AdvertisementListSkeleton />
                     )}

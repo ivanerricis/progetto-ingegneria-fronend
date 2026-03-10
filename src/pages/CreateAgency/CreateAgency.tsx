@@ -22,7 +22,7 @@ const CreateAgency = () => {
     }
 
     return (
-        <div className="flex flex-col w-full h-screen items-center justify-center sm:gap-2">
+        <div className="h-screen flex flex-col overflow-hidden sm:gap-2">
             <Header
                 left={
                     <>
@@ -40,10 +40,9 @@ const CreateAgency = () => {
                 }
             />
             <main className="relative flex-1 min-h-0 flex items-center justify-center sm:rounded-xl overflow-hidden sm:mx-26">
-                <img
-                    src={sfondo}
-                    alt="description"
-                    className="w-full h-full object-cover"
+                <div
+                    className="hidden sm:block absolute inset-0 bg-cover bg-center bg-no-repeat"
+                    style={{ backgroundImage: `url(${sfondo})` }}
                 />
                 <CreateAgencyForm />
             </main>

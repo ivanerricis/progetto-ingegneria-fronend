@@ -58,9 +58,9 @@ export const CreateAgencyForm = () => {
     }
 
     return (
-        <Card className="w-full sm:max-w-sm absolute rounded-none sm:rounded-xl" >
+        <Card className="w-full px-20 border-none sm:px-0 sm:max-w-sm absolute rounded-none sm:rounded-xl" >
             <CardTitle>Crea la tua agenzia</CardTitle>
-            <Separator orientation="horizontal" />
+            <Separator orientation="horizontal" className="hidden sm:flex"/>
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col">
                 <CardContent>
                     <div className="flex flex-col">

@@ -12,9 +12,9 @@ export const RegisterForm = () => {
     const {t} = useTranslation("register")
 
     return (
-        <Card className="w-full sm:max-w-md absolute rounded-none sm:rounded-xl" >
+        <Card className="w-full px-20 border-none sm:px-0 sm:max-w-md absolute rounded-none sm:rounded-xl" >
             <CardTitle>{t("title")}</CardTitle>
-            <Separator orientation="horizontal"></Separator>
+            <Separator orientation="horizontal" className="hidden sm:flex"></Separator>
             <CardContent>
                 <form>
                     <div className="flex flex-col gap-4">

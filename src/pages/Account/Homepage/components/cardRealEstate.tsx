@@ -84,11 +84,11 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
 
                     {/* Buttons */}
                     <div className="flex w-full justify-between sm:justify-end gap-1">
-                        <Button variant={"outline"} className="rounded-sm sm:w-fit">
+                        <Button variant={"outline"} className="flex-1 rounded-sm sm:w-fit sm:flex-none">
                             Offerta
                             <HandCoins />
                         </Button>
-                        <Button variant={"outline"} className="rounded-sm sm:w-fit">
+                        <Button variant={"outline"} className="flex-1 rounded-sm sm:w-fit sm:flex-none">
                             Appuntamento
                             <CalendarDays />
                         </Button>
