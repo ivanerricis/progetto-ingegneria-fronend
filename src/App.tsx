@@ -7,10 +7,15 @@ import { Homepage } from '@/pages/Account/Homepage/Homepage';
 import { ThemeProvider } from '@/components/theme-provider';
 import LoginAgent from '@/pages/Agent/LoginAgent/Login';
 import CreateAgency from '@/pages/CreateAgency/CreateAgency';
-import Dashboard from '@/pages/Agent/Dashboard/Dashboard';
+import DashboardLayout from '@/pages/Agent/Dashboard/DashboardLayout';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from './components/ui/tooltip';
 import Advertisement from './pages/Account/Advertisement/Advertisement';
+import Appointments from './pages/Agent/Dashboard/Appointments';
+import Offers from './pages/Agent/Dashboard/Offers';
+import Advertisements from './pages/Agent/Dashboard/Advertisements';
+import DashboardHome from './pages/Agent/Dashboard/DashboardHome';
+import CreateAdvertisement from './pages/Agent/Dashboard/CreateAdvertisement';
 // import ProtectedRoute from './components/protected-route';
 
 function App() {
@@ -38,7 +43,13 @@ function App() {
 
                 {/* Agent Routes */}
                 <Route path="/agent/login" element={<LoginAgent />} />
-                <Route path="/agent/dashboard" element={<Dashboard />} />
+                <Route path="/agent/dashboard" element={<DashboardLayout />} >
+                  <Route index element={<DashboardHome />} />
+                  <Route path="/agent/dashboard/advertisements" element={<Advertisements />} />
+                  <Route path="/agent/dashboard/appointments" element={<Appointments />} />
+                  <Route path="/agent/dashboard/offers" element={<Offers />} />
+                  <Route path="/agent/dashboard/create-advertisement" element={<CreateAdvertisement />} />
+                </Route>
 
                 {/* Route di fallback per pagine non esistenti */}
                 <Route path="*" element={<Navigate to="/login" replace />} />

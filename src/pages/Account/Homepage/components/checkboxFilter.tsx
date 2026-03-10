@@ -10,7 +10,7 @@ const CheckboxFilter = ({ label }: CheckboxFilterProps) => {
 
     return (
         <FieldGroup className="inline-flex w-fit self-start items-center justify-start">
-            <Field orientation="horizontal" className="gap-1">
+            <Field orientation="horizontal" className="flex justify-start items-center gap-1">
                 <Checkbox id={id} name={id} />
                 <FieldLabel htmlFor={id} className="text-nowrap">
                     {label}

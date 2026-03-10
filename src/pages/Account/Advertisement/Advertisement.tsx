@@ -16,7 +16,12 @@ const Advertisement = () => {
     const { advertisement, isLoading, error } = useAdvertisement(API_BASE_URL, id)
 
     const handleBackClick = () => {
-        navigate("/homepage")
+        if (window.history.length > 1) {
+            navigate(-1)
+            return
+        }
+
+        navigate("/account/login")
     }
 
     return (
