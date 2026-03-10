@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { CalendarDays, HandCoins } from "lucide-react"
+import { Bath, CalendarDays, HandCoins } from "lucide-react"
 import type { Advertisement } from "@/types/types"
 import RealEstateCarousel from "@/pages/Account/Homepage/components/realEstateCarousel"
 import { formatPrice } from "@/utils/formatPrice"
@@ -21,16 +21,19 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
     const handleCardClick = () => {
         const routeId = advertisement.id
         navigate(`/account/advertisement/${String(routeId)}`)
-        console.log(advertisement)
     }
 
     return (
         <div
-            className="border w-full h-fit flex flex-col sm:flex-row rounded-md shadow-md hover:cursor-pointer hover:bg-secondary dark:text-foreground"
+            className="relative bg-background border w-full h-fit flex flex-col sm:flex-row rounded-md shadow-md hover:cursor-pointer hover:bg-secondary dark:text-foreground"
         >
 
+            <div className="absolute z-20 top-2 left-2 bg-primary text-sm text-primary-foreground px-2 py-1 rounded-sm">
+                {advertisement.type === "sale" ? "Vendita" : "Affitto"}
+            </div>
+
             {/* Carousel */}
-            <div className="flex w-full sm:w-72 h-full sm:h-60 min-w-60 min-h-60">
+            <div className="flex w-full sm:w-80 h-full sm:h-60 min-w-60 min-h-60">
                 <RealEstateCarousel photos={advertisement.photos} />
             </div>
 
@@ -44,7 +47,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
                     <div className="flex flex-col justify-start w-full text-bold text-xl">
                         {addressLabel}
                     </div>
-                    <div className="hidden sm:flex rounded-sm h-fit p-2 text-nowrap text-primary bg-primary/25">
+                    <div className="hidden sm:flex sm:items-center sm:rounded-sm sm:h-full sm:p-2 sm:text-nowrap sm:text-primary bg-primary/25">
                         {agencyLabel}
                     </div>
                 </div>
@@ -53,30 +56,39 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
                     {advertisement.description}
                 </div>
 
-                <div className="flex h-full w-full flex-start items-center gap-2">
-                    <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2">
+                {/* Icons */}
+                <div className="hidden sm:flex h-full w-full flex-start items-center gap-2 text-primary">
+                    <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2 bg-primary/25 text-primary p-2 border">
                         <img src={FloorPlanIcon} alt="floor plan icon" className="size-6" />
                         {advertisement.realEstate.rooms + " locali"}
                     </div>
-                    <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2">
+                    <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2 bg-primary/25 text-primary p-2 border">
                         <img src={ExpandIcon} alt="expand icon" className="size-6" />
                         {advertisement.realEstate.size + " m²"}
+                    </div>
+                    <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2 bg-primary/25 text-primary p-2 border">
+                        <Bath />
+                        {advertisement.realEstate.bathrooms + " bagni"}
+                    </div>
+                    <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2 bg-primary/25 text-primary p-2 border">
+                        <Bath />
+                        {advertisement.realEstate.floor + " piano"}
                     </div>
                 </div>
 
                 {/* Prezzo + Buttons */}
                 <div className="flex flex-col items-start justify-start gap-2 sm:flex-row sm:justify-between">
-                    <div className="flex h-full items-center justify-start bg-primary/25 text-primary text-2xl rounded-md px-2">
+                    <div className="flex h-full items-center justify-start border border-primary text-primary text-2xl text-bold rounded-sm px-2">
                         {formatPrice(advertisement.price)}
                     </div>
 
                     {/* Buttons */}
                     <div className="flex w-full justify-between sm:justify-end gap-1">
-                        <Button variant={"outline"} className="border-accent text-accent sm:w-fit">
+                        <Button variant={"outline"} className="rounded-sm sm:w-fit">
                             Offerta
                             <HandCoins />
                         </Button>
-                        <Button variant={"outline"} className="border-accent text-accent sm:w-fit">
+                        <Button variant={"outline"} className="rounded-sm sm:w-fit">
                             Appuntamento
                             <CalendarDays />
                         </Button>

@@ -36,6 +36,7 @@ export type RealEstate = {
     size: number
     solarPanels: boolean
     terrace: boolean
+    bathrooms: number
 }
 
 export type Agent = {

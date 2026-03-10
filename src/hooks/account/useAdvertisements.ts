@@ -25,6 +25,7 @@ export default function useAdvertisements(apiBaseUrl: string) {
 
                 const data = await response.json()
                 setAdvertisements(data.items)
+                console.log(data.items)
 
             } catch (error) {
                 if (error instanceof DOMException && error.name === "AbortError") return

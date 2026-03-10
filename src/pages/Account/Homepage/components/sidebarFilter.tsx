@@ -2,16 +2,25 @@ import { Label } from "@/components/ui/label";
 import CheckboxFilter from "./checkboxFilter";
 import { PriceSlider } from "./priceSlider";
 import { Separator } from "@/components/ui/separator";
+import { BathSlider } from "./bathSlider";
 
 const SidebarFilter = () => {
     return (
-        <div className="h-full w-64 flex flex-col border-r p-4 dark:text-foreground gap-4">
+        <div className="h-full w-64 flex flex-col border-r p-4 dark:text-foreground gap-4 bg-background">
+
             <div className="flex flex-col gap-1">
                 <Label className="text-xl">Prezzo</Label>
                 <PriceSlider />
             </div>
 
-            <Separator className="mt-2"/>
+            <Separator className="mt-2" />
+
+            <div className="flex flex-col gap-1">
+                <Label className="text-xl">Bagni</Label>
+                <BathSlider />
+            </div>
+
+            <Separator className="mt-2" />
 
             {/* Checkbox filters */}
             <div className="h-full flex flex-col gap-1">
