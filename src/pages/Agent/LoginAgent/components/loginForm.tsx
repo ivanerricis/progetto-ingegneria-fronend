@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom"
 import { Eye, EyeOff } from "lucide-react"
 import AgencyCombobox from "./agencyCombobox"
 import { useTranslation } from "react-i18next"
-import { useAgencies } from "@/hooks/useAgency"
+import { useAgencies } from "@/hooks/agent/useAgency"
 import { API_BASE_URL } from "@/lib/api/config"
 import { loginAgent } from "@/lib/api/auth"
 

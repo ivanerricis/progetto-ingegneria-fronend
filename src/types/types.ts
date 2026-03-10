@@ -6,6 +6,8 @@ export type Advertisement = {
     photos: Photo[]
     price: string | number
     realEstate: RealEstate
+    type: "sale" | "rent"
+    status: "active" | "sold" | "rented"
 }
 
 export type Photo = {

@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import useAdvertisement from "@/hooks/useAdvertisement";
+import useAdvertisement from "@/hooks/account/useAdvertisement";
 import { API_BASE_URL } from "@/lib/api/config";
 import { formatPrice } from "@/utils/formatPrice";
 import { Search } from "lucide-react";
