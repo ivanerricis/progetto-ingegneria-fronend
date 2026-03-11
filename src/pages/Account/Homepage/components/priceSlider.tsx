@@ -9,7 +9,7 @@ export function PriceSlider() {
 
     return (
         <div className="flex flex-col gap-3">
-            <div className="w-full flex items-center justify-between">
+            <div className="w-full flex items-center justify-between p-1">
                 <Label>{formatPrice(minValue)}</Label>
                 <Label>{formatPrice(maxValue)}</Label>
             </div>

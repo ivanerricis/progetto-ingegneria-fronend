@@ -52,6 +52,7 @@ export type Agency = {
     name: string
     phoneNumber: string
     email: string
+    logo: Logo
 }
 
 export type Logo = {

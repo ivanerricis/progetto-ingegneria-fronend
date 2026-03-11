@@ -3,8 +3,9 @@ import { Bath, CalendarDays, HandCoins } from "lucide-react"
 import type { Advertisement } from "@/types/types"
 import RealEstateCarousel from "@/pages/Account/Homepage/components/realEstateCarousel"
 import { formatPrice } from "@/utils/formatPrice"
-import FloorPlanIcon from "@/assets/icons/floorplan.svg"
-import ExpandIcon from "@/assets/icons/expand.svg"
+import FloorPlanIcon from "@/assets/icons/floorplan.svg?react"
+import ExpandIcon from "@/assets/icons/expand-2.svg?react"
+import StairsIcon from "@/assets/icons/stairs.svg?react"
 import { useNavigate } from "react-router-dom"
 
 type CardRealEstateProps = {
@@ -58,27 +59,29 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
 
                 {/* Icons */}
                 <div className="hidden sm:flex h-full w-full flex-start items-center gap-2 text-primary">
-                    <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2 bg-primary/25 text-primary p-2 border">
-                        <img src={FloorPlanIcon} alt="floor plan icon" className="size-6" />
+                    <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2 bg-primary/20 text-primary p-2 border">
+                        <FloorPlanIcon className="size-6" />
                         {advertisement.realEstate.rooms + " locali"}
                     </div>
-                    <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2 bg-primary/25 text-primary p-2 border">
-                        <img src={ExpandIcon} alt="expand icon" className="size-6" />
+                    <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2 bg-primary/20 text-primary p-2 border">
+                        <ExpandIcon className="size-7" />
                         {advertisement.realEstate.size + " m²"}
                     </div>
-                    <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2 bg-primary/25 text-primary p-2 border">
+                    <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2 bg-primary/20 text-primary p-2 border">
                         <Bath />
                         {advertisement.realEstate.bathrooms + " bagni"}
                     </div>
-                    <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2 bg-primary/25 text-primary p-2 border">
-                        <Bath />
-                        {advertisement.realEstate.floor + " piano"}
+                    <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2 bg-primary/20 text-primary p-2 border">
+                        <StairsIcon className="size-6" />
+                        {advertisement.realEstate.floor === 0
+                            ? "Piano terra"
+                            : advertisement.realEstate.floor + " piano"}
                     </div>
                 </div>
 
                 {/* Prezzo + Buttons */}
                 <div className="flex flex-col items-start justify-start gap-2 sm:flex-row sm:justify-between">
-                    <div className="flex h-full items-center justify-start border border-primary text-primary text-2xl text-bold rounded-sm px-2">
+                    <div className="flex h-full items-center justify-start border-2 border-primary text-primary text-2xl text-bold rounded-sm px-2">
                         {formatPrice(advertisement.price)}
                     </div>
 

@@ -22,7 +22,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
 
     return (
         <div
-            className="border w-full h-fit flex flex-col rounded-sm shadow-md hover:cursor-pointer hover:bg-secondary dark:text-foreground"
+            className="border-2 w-full h-fit flex flex-col rounded-sm shadow-md hover:cursor-pointer hover:bg-secondary dark:text-foreground"
         >
 
             {/* Carousel */}
@@ -42,7 +42,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
 
                 {/* Prezzo + Buttons */}
                 <div className="flex items-center justify-between gap-2">
-                    <div className="flex h-full items-center justify-start bg-primary/25 text-primary text-2xl rounded-sm px-2">
+                    <div className="flex h-full items-center justify-start border-2 border-primary text-primary text-2xl text-bold rounded-sm px-2">
                         {formatPrice(advertisement.price)}
                     </div>
 

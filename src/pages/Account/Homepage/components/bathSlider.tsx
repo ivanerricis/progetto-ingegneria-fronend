@@ -8,7 +8,7 @@ export function BathSlider() {
 
     return (
         <div className="flex flex-col gap-3">
-            <div className="w-full flex items-center justify-between">
+            <div className="w-full flex items-center justify-between p-1">
                 <Label>{minValue}</Label>
                 <Label>{maxValue}</Label>
             </div>

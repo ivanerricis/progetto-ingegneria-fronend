@@ -1,89 +1,101 @@
 import { Button } from "@/components/ui/button";
 import useAdvertisements from "@/hooks/agent/useAdvertisements";
 import { API_BASE_URL } from "@/lib/api/config";
-import AdvertisementsList from "@/pages/Agent/Dashboard/components/advertisementList";
-import AdvertisementListSkeleton from "@/pages/Account/Homepage/components/advertisementListSkeleton";
-import type { Advertisement } from "@/types/types";
-import { BadgeCheck, Clock, Plus } from "lucide-react";
+import DashboardFilterSelect from "@/pages/Agent/Dashboard/components/dashboardFilterSelect";
+import { BadgeCheck, CalendarClock, Clock, Plus, Tag } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { RadioGroupCard } from "./components/radioGroupCard";
+import AdvertisementsPanel from "./components/advertisementsPanel";
+import { Label } from "@/components/ui/label";
 
-type AdvertisementTabPanelProps = {
-    advertisements: Advertisement[]
-    isLoading: boolean
-    error: string | null
-}
+type StatusFilter = "inProgress" | "completed"
+type TypeFilter = "rent" | "sale"
 
-function AdvertisementTabPanel({ advertisements, isLoading, error }: AdvertisementTabPanelProps) {
-    return (
-        <div className="flex flex-col gap-2">
-            {isLoading && (
-                <AdvertisementListSkeleton />
-            )}
+const statusOptions = [
+    {
+        value: "inProgress",
+        label: "In corso",
+        icon: <Clock className="text-foreground" />,
+    },
+    {
+        value: "completed",
+        label: "Conclusi",
+        icon: <BadgeCheck className="text-foreground" />,
+    },
+] as const
 
-            {error && (
-                <p className="text-sm text-destructive" role="alert">
-                    {error}
-                </p>
-            )}
-
-            {!isLoading && !error && advertisements.length === 0 && (
-                <p className="text-sm text-muted-foreground">Nessun annuncio disponibile.</p>
-            )}
-
-            {!isLoading && !error && (
-                <div className="pr-1">
-                    <AdvertisementsList advertisements={advertisements} />
-                </div>
-            )}
-        </div>
-    )
-}
+const typeOptions = [
+    {
+        value: "rent",
+        label: "In affitto",
+        icon: <CalendarClock className="text-foreground" />,
+    },
+    {
+        value: "sale",
+        label: "In vendita",
+        icon: <Tag className="text-foreground" />,
+    },
+] as const
 
 export default function Advertisements() {
     const navigate = useNavigate()
     const { advertisements, isLoading, error } = useAdvertisements(API_BASE_URL)
-    const [activeTab, setActiveTab] = useState<"onsale" | "rental">("onsale")
-    const saleAdvertisements = advertisements.filter((advertisement) => advertisement.type === "sale")
-    const rentalAdvertisements = advertisements.filter((advertisement) => advertisement.type === "rent")
-    const activeAdvertisements = activeTab === "onsale" ? saleAdvertisements : rentalAdvertisements
+
+    const [statusFilter, setStatusFilter] = useState<StatusFilter>("inProgress")
+    const [typeFilter, setTypeFilter] = useState<TypeFilter>("sale")
+
+    const filteredAdvertisements = advertisements.filter((advertisement) => {
+        const matchesStatus =
+            statusFilter === "inProgress"
+                ? advertisement.status === "active"
+                : advertisement.status === "sold" || advertisement.status === "rented"
+
+        const matchesType = advertisement.type === typeFilter
+
+        return matchesStatus && matchesType
+    })
 
     return (
         <div className="flex h-full min-h-0 w-full flex-col gap-2 overflow-hidden">
-            <Button className="w-fit rounded-sm" onClick={() => navigate("/agent/dashboard/create-advertisement")}>
-                <Plus />
-                Aggiungi annuncio
-            </Button>
-            <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "onsale" | "rental")} className="w-full min-h-0 flex-1 overflow-hidden">
-                <TabsList className="rounded-sm">
-                    <TabsTrigger value="onsale" className="rounded-sm">
-                        In corso
-                        <Clock />
-                    </TabsTrigger>
-                    <TabsTrigger value="rental" className="rounded-sm">
-                        Conclusi
-                        <BadgeCheck />
-                    </TabsTrigger>
-                </TabsList>
-
-                {!isLoading && !error && activeAdvertisements.length !== 0 && (
+            <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden">
+                <div className="flex flex-col gap-4">
                     <div className="flex items-center justify-between">
-                        <div className="flex items-center text-start text-foreground">
-                            Numero di annunci trovati: {activeAdvertisements.length}
-                        </div>
-                        <RadioGroupCard />
-                    </div>
-                )}
+                        <div className="flex gap-2">
+                            <DashboardFilterSelect
+                                value={statusFilter}
+                                placeholder="Stato"
+                                options={[...statusOptions]}
+                                onValueChange={(value) => setStatusFilter(value as StatusFilter)}
+                            />
 
-                <TabsContent value="onsale" className="w-full min-h-0 flex-1 overflow-y-auto border p-2 rounded-sm">
-                    <AdvertisementTabPanel advertisements={saleAdvertisements} isLoading={isLoading} error={error} />
-                </TabsContent>
-                <TabsContent value="rental" className="w-full min-h-0 flex-1 overflow-y-auto border p-2 rounded-sm">
-                    <AdvertisementTabPanel advertisements={rentalAdvertisements} isLoading={isLoading} error={error} />
-                </TabsContent>
-            </Tabs>
+                            <DashboardFilterSelect
+                                value={typeFilter}
+                                placeholder="Tipologia"
+                                options={[...typeOptions]}
+                                onValueChange={(value) => setTypeFilter(value as TypeFilter)}
+                            />
+                        </div>
+                        <Button className="w-fit rounded-sm" onClick={() => navigate("/agent/dashboard/create-advertisement")}>
+                            <Plus />
+                            <Label className="hidden sm:block">Aggiungi annuncio</Label>
+                        </Button>
+                    </div>
+
+                    {!isLoading && !error && (
+                        <div className="flex items-center text-start text-foreground">
+                            Numero di annunci trovati: {filteredAdvertisements.length}
+                        </div>
+                    )}
+                </div>
+
+                <div className="w-full min-h-0 flex-1 overflow-y-auto pr-1">
+                    <AdvertisementsPanel
+                        advertisements={filteredAdvertisements}
+                        isLoading={isLoading}
+                        error={error}
+                    />
+                </div>
+            </div>
         </div>
     );
 }

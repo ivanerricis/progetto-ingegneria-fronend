@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Field } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { Menu, Search, X } from "lucide-react"
+import { Search, SlidersHorizontal, X } from "lucide-react"
 import { ModeToggle } from "@/components/mode-toggle"
 import Header from "@/components/header"
 import FilterCombobox from "@/pages/Account/Homepage/components/filterCombobox"
@@ -35,7 +35,7 @@ export const Homepage = () => {
                             aria-label="Apri filtri"
                             onClick={() => setIsMobileSidebarOpen(true)}
                         >
-                            <Menu />
+                            <SlidersHorizontal />
                         </Button>
 
                         {/* Desktop: brand button */}
@@ -74,7 +74,7 @@ export const Homepage = () => {
 
             {/* Mobile sidebar drawer */}
             <aside
-                className={`fixed inset-y-0 left-0 z-50 w-72 transform border-r bg-background p-2 transition-transform duration-200 sm:hidden ${isMobileSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                className={`fixed inset-y-0 left-0 z-50 sm:z-0 w-72 transform border-r bg-background p-2 transition-transform duration-200 sm:hidden ${isMobileSidebarOpen ? "translate-x-0" : "-translate-x-full"
                     }`}
             >
                 <div className="mb-2 flex items-center justify-end">
@@ -131,7 +131,7 @@ export const Homepage = () => {
                 </div>
             </main>
 
-            <Footer isHomepage/>
+            <Footer isHomepage />
         </div>
     )
 }

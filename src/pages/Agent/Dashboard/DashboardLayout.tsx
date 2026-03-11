@@ -20,8 +20,8 @@ const DashboardLayout = () => {
                         <ModeToggle />
                     }
                 />
-                <main className="min-h-0 flex-1 bg-secondary p-2">
-                    <div className="h-full w-full overflow-y-auto rounded-xl bg-background p-4">
+                <main className="min-h-0 flex-1">
+                    <div className="h-full w-full overflow-y-auto bg-background p-2">
                         <Outlet />
                     </div>
                 </main>
