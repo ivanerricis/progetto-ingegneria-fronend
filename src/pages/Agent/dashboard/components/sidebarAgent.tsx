@@ -9,10 +9,7 @@ const SidebarAgent = () => {
     const navigate = useNavigate()
     const { agent, logout, refreshAgent } = useAgent()
 
-    const displayName =
-        `${agent?.firstName ?? ""} ${agent?.lastName ?? ""}`.trim() ||
-        agent?.username ||
-        "Agente"
+    const displayName = agent?.username || "Agente"
 
     const handleLogout = async () => {
         try {
