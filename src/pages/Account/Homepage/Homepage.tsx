@@ -11,12 +11,11 @@ import SidebarFilter from "./components/sidebarFilter"
 import { Footer } from "@/components/footer"
 import AdvertisementsList from "./components/advertisementList"
 import useAdvertisements from "@/hooks/account/useAdvertisements"
-import { API_BASE_URL } from "@/lib/api/config"
 import { Label } from "@/components/ui/label"
 import AdvertisementListSkeleton from "./components/advertisementListSkeleton"
 
 export const Homepage = () => {
-    const { advertisements, isLoading, error } = useAdvertisements(API_BASE_URL)
+    const { advertisements, isLoading, error } = useAdvertisements()
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
 
     return (

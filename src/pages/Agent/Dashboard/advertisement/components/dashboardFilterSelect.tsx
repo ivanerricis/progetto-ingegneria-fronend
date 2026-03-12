@@ -36,8 +36,8 @@ export default function DashboardFilterSelect({
                 {options.map((option) => (
                     <SelectItem key={option.value} value={option.value} className="text-foreground">
                         <span className="flex items-center gap-2">
-                            <span>{option.label}</span>
                             {option.icon}
+                            <span>{option.label}</span>
                         </span>
                     </SelectItem>
                 ))}

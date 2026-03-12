@@ -24,11 +24,12 @@ const AgencyCombobox = ({
     loadError = null,
 }: AgencyComboboxProps) => {
     const selectedAgency = agencies.find((a) => String(a.id) === value);
+    const agencyNameToId = new Map(agencies.map((agency) => [agency.name, String(agency.id)]));
 
     return (
-        <Combobox items={agencies.map((agency) => `${agency.id} - ${agency.name}`)}>
+        <Combobox items={agencies.map((agency) => agency.name)}>
             <ComboboxInput
-                placeholder={selectedAgency ? `${selectedAgency.id} - ${selectedAgency.name}` : "Seleziona un'agenzia"}
+                placeholder={selectedAgency ? selectedAgency.name : "Seleziona un'agenzia"}
             />
             <ComboboxContent>
                 <ComboboxEmpty>
@@ -41,13 +42,17 @@ const AgencyCombobox = ({
 
                 <ComboboxList>
                     {(item) => {
-                        const [idPart] = item.split(" - ");
+                        const agencyId = agencyNameToId.get(item);
                         return (
                             <ComboboxItem
                                 key={item}
                                 value={item}
-                                onSelect={() => onValueChange(idPart)}
-                                onClick={() => onValueChange(idPart)}
+                                onSelect={() => {
+                                    if (agencyId) onValueChange(agencyId);
+                                }}
+                                onClick={() => {
+                                    if (agencyId) onValueChange(agencyId);
+                                }}
                             >
                                 {item}
                             </ComboboxItem>

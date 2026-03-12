@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom"
 import { Eye, EyeOff } from "lucide-react"
 import { toast } from "sonner"
 import { useTranslation } from "react-i18next"
-import { API_BASE_URL } from "@/lib/api/config"
+import { loginAccount } from "@/lib/api/auth"
 
 export const LoginForm = () => {
     const { t } = useTranslation("login")
@@ -25,35 +25,14 @@ export const LoginForm = () => {
         setIsSubmitting(true)
 
         try {
-            const response = await fetch(`${API_BASE_URL}/auth/account/login`, {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-            })
-
-            const responseBody = await response.json().catch(() => null)
-
-            if (!response.ok) {
-                const backendMessage =
-                    responseBody && typeof responseBody.error === "string"
-                        ? responseBody.error
-                        : responseBody && typeof responseBody.message === "string"
-                            ? responseBody.message
-                            : "Credenziali non valide"
-
-                throw new Error(backendMessage)
-            }
+            await loginAccount({ email, password })
 
             navigate("/homepage")
         } catch (submitError) {
-            let message = "Errore durante il login"
-            if (submitError instanceof Error) {
-                console.log(submitError.message)
-                message = "Non sei connesso ad Internet"
-            }
+            const message =
+                submitError instanceof Error
+                    ? submitError.message
+                    : "Errore durante il login"
             setError(message)
             toast.error("Login fallito: " + message)
         } finally {
@@ -62,7 +41,7 @@ export const LoginForm = () => {
     }
 
     return (
-        <Card className="w-full px-16 border-none sm:px-0 sm:border sm:max-w-sm absolute rounded-none sm:rounded-xl">
+        <Card className="w-full px-14 border-none shadow-none sm:shadow-sm sm:px-0 sm:border sm:max-w-sm absolute rounded-none sm:rounded-xl">
             <CardTitle className="px-6 sm:px-6 text-lg sm:text-xl">{t("title")}</CardTitle>
             <Separator orientation="horizontal" className="hidden sm:flex"></Separator>
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col">

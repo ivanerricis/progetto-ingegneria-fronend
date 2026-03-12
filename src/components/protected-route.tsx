@@ -1,42 +1,31 @@
 import { type ReactNode, useEffect, useState } from "react"
 import { Navigate } from "react-router-dom"
+import { apiClient } from "@/lib/api/config"
 
 type ProtectedRouteProps = {
     children: ReactNode
+    authCheckPath: string
+    redirectTo?: string
 }
 
-export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+export const ProtectedRoute = ({ children, authCheckPath, redirectTo = "/login" }: ProtectedRouteProps) => {
     const [isChecking, setIsChecking] = useState(true)
     const [isAuthorized, setIsAuthorized] = useState(false)
-
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? ""
-    const authCheckPath = import.meta.env.VITE_AUTH_CHECK_PATH ?? "/auth/me"
 
     useEffect(() => {
         let isMounted = true
 
         const checkSession = async () => {
             try {
-                const response = await fetch(`${apiBaseUrl}${authCheckPath}`, {
-                    method: "GET",
-                    credentials: "include",
-                })
+                await apiClient.get(authCheckPath)
 
-                if (!isMounted) {
-                    return
-                }
-
-                setIsAuthorized(response.ok)
+                if (!isMounted) return
+                setIsAuthorized(true)
             } catch {
-                if (!isMounted) {
-                    return
-                }
-
+                if (!isMounted) return
                 setIsAuthorized(false)
             } finally {
-                if (isMounted) {
-                    setIsChecking(false)
-                }
+                if (isMounted) setIsChecking(false)
             }
         }
 
@@ -45,7 +34,7 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
         return () => {
             isMounted = false
         }
-    }, [apiBaseUrl, authCheckPath])
+    }, [authCheckPath])
 
     if (isChecking) {
         return (
@@ -56,7 +45,7 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     }
 
     if (!isAuthorized) {
-        return <Navigate to="/login" replace />
+        return <Navigate to={redirectTo} replace />
     }
 
     return <>{children}</>

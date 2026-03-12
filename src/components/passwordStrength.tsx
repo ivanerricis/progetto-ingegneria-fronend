@@ -4,9 +4,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 
+type PasswordStrengthProps = {
+    big?: boolean
+    disable?: boolean
+}
+
 function PasswordRequirement({ meets, label }: { meets: boolean; label: string }) {
     return (
-        <div className={cn('mt-1.5 text-sm', meets ? 'text-teal-500' : 'text-red-500')}>
+        <div className={cn('mt-1.5 text-sm', meets ? 'text-confirm' : 'text-destructive')}>
             <div className="inline-flex items-center gap-1.5">
                 {meets ? <Check size={14} strokeWidth={1.5} /> : <X size={14} strokeWidth={1.5} />}
                 <span>{label}</span>
@@ -34,7 +39,7 @@ function getStrength(password: string) {
     return Math.max(100 - (100 / (requirements.length + 1)) * multiplier, 0);
 }
 
-export function PasswordStrength() {
+export function PasswordStrength({ big = false, disable = false }: PasswordStrengthProps) {
     const [value, setValue] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const strength = getStrength(value);
@@ -43,7 +48,7 @@ export function PasswordStrength() {
     ));
 
     const barColorClass =
-        strength > 80 ? 'bg-teal-500' : strength > 50 ? 'bg-yellow-500' : 'bg-red-500';
+        strength > 80 ? 'bg-confirm' : strength > 50 ? 'bg-yellow-500' : 'bg-red-500';
 
     const bars = Array(4)
         .fill(0)
@@ -55,17 +60,17 @@ export function PasswordStrength() {
                     value.length > 0 && index === 0
                         ? barColorClass
                         : strength >= ((index + 1) / 4) * 100
-                          ? barColorClass
-                          : 'bg-muted'
+                            ? barColorClass
+                            : 'bg-muted'
                 )}
                 aria-label={`Password strength segment ${index + 1}`}
             />
         ));
 
     return (
-        <div className="space-y-2">
+        <div className="space-y-2 w-full">
             <div className="grid gap-2">
-                <Label htmlFor="password-strength">Password</Label>
+                {big ? <></> : <Label htmlFor="password-strength">Password</Label>}
                 <div className="relative">
                     <Input
                         id="password-strength"
@@ -73,8 +78,9 @@ export function PasswordStrength() {
                         onChange={(event) => setValue(event.currentTarget.value)}
                         type={showPassword ? 'text' : 'password'}
                         placeholder="La tua password"
-                        className="pr-10"
+                        className="pr-10 w-full"
                         required
+                        disabled={disable}
                     />
                     <button
                         type="button"
@@ -87,12 +93,12 @@ export function PasswordStrength() {
                 </div>
             </div>
 
-            <div className="mb-4 mt-2 flex w-full gap-1.5">
+            {disable ? <></> : <div className="mb-4 mt-2 flex w-full gap-1.5">
                 {bars}
-            </div>
+            </div>}
 
-            <PasswordRequirement label="Ha almeno 8 caratteri" meets={value.length > 7} />
-            {checks}
+            {disable ? <></> : <PasswordRequirement label="Ha almeno 8 caratteri" meets={value.length > 7} />}
+            {disable ? <></> : checks}
         </div>
     );
 }

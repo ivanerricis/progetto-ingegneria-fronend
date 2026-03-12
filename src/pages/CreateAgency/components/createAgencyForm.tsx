@@ -6,7 +6,8 @@ import { Label } from "@/components/ui/label"
 import { useNavigate } from "react-router-dom"
 import { Separator } from "@/components/ui/separator"
 import { toast } from "sonner"
-import { API_BASE_URL } from "@/lib/api/config"
+import axios from "axios"
+import { apiClient } from "@/lib/api/config"
 
 export const CreateAgencyForm = () => {
     const navigate = useNavigate()
@@ -25,31 +26,19 @@ export const CreateAgencyForm = () => {
         setIsSubmitting(true)
 
         try {
-            const response = await fetch(`${API_BASE_URL}/auth/account/login`, {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email }),
-            })
-
-            const responseBody = await response.json().catch(() => null)
-
-            if (!response.ok) {
-                const backendMessage =
-                    responseBody && typeof responseBody.error === "string"
-                        ? responseBody.error
-                        : responseBody && typeof responseBody.message === "string"
-                            ? responseBody.message
-                            : "Credenziali non valide"
-
-                throw new Error(backendMessage)
-            }
+            await apiClient.post("/auth/account/login", { email })
 
             navigate("/homepage")
         } catch (submitError) {
-            const message = submitError instanceof Error ? submitError.message : "Errore durante il login"
+            let message = "Errore durante il login"
+            if (axios.isAxiosError(submitError)) {
+                message =
+                    submitError.response?.data?.error ??
+                    submitError.response?.data?.message ??
+                    "Credenziali non valide"
+            } else if (submitError instanceof Error) {
+                message = submitError.message
+            }
             setError(message)
             toast.error("Creazione agenzia fallita: " + message)
         } finally {
@@ -58,7 +47,7 @@ export const CreateAgencyForm = () => {
     }
 
     return (
-        <Card className="w-full px-16 border-none sm:px-0 sm:max-w-sm absolute rounded-none sm:rounded-xl" >
+        <Card className="w-full px-14 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-sm absolute rounded-none sm:rounded-xl" >
             <CardTitle>Crea la tua agenzia</CardTitle>
             <Separator orientation="horizontal" className="hidden sm:flex"/>
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col">

@@ -40,6 +40,7 @@ body,
     --color-border: var(--border);
     --color-input: var(--input);
     --color-ring: var(--ring);
+    --color-confirm: var(--confirm);
     --color-chart-1: var(--chart-1);
     --color-chart-2: var(--chart-2);
     --color-chart-3: var(--chart-3);
@@ -75,6 +76,7 @@ body,
     --border: oklch(0.92 0.004 286.32);
     --input: oklch(0.92 0.004 286.32);
     --ring: oklch(0.708 0 0);
+    --confirm: oklch(79.335% 0.25794 143.251);
     --chart-1: oklch(0.809 0.105 251.813);
     --chart-2: oklch(0.623 0.214 259.815);
     --chart-3: oklch(0.546 0.245 262.881);
@@ -109,6 +111,7 @@ body,
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
     --ring: oklch(0.556 0 0);
+    --confirm: oklch(79.335% 0.25794 143.251);
     --chart-1: oklch(0.809 0.105 251.813);
     --chart-2: oklch(0.623 0.214 259.815);
     --chart-3: oklch(0.546 0.245 262.881);

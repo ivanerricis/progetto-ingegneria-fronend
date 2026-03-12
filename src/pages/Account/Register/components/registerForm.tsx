@@ -12,7 +12,7 @@ export const RegisterForm = () => {
     const {t} = useTranslation("register")
 
     return (
-        <Card className="w-full px-16 border-none sm:px-0 sm:max-w-md absolute rounded-none sm:rounded-xl" >
+        <Card className="w-full px-14 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-md absolute rounded-none sm:rounded-xl" >
             <CardTitle>{t("title")}</CardTitle>
             <Separator orientation="horizontal" className="hidden sm:flex"></Separator>
             <CardContent>

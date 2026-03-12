@@ -16,6 +16,7 @@
     "@mantine/hooks": "^8.3.15",
     "@tabler/icons-react": "^3.38.0",
     "@tailwindcss/vite": "^4.2.1",
+    "axios": "^1.13.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",

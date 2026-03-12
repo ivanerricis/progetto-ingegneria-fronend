@@ -1,7 +1,9 @@
 import type { Advertisement } from "@/types/types"
 import { useEffect, useState } from "react"
+import axios from "axios"
+import { apiClient } from "@/lib/api/config"
 
-export default function useAdvertisement(apiBaseUrl: string, advertisementId?: string) {
+export default function useAdvertisement(advertisementId?: string) {
     const [advertisement, setAdvertisement] = useState<Advertisement | null>(null)
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -21,21 +23,13 @@ export default function useAdvertisement(apiBaseUrl: string, advertisementId?: s
             setIsLoading(true)
 
             try {
-                const response = await fetch(`${apiBaseUrl}/agent/advertisements/${advertisementId}`, {
-                    credentials: "include",
-                    signal: abortController.signal
+                const { data } = await apiClient.get(`/agent/advertisements/${advertisementId}`, {
+                    signal: abortController.signal,
                 })
-
-                if (!response.ok) {
-                    throw new Error("Impossibile caricare l'annuncio")
-                }
-
-                const data = await response.json()
                 const item = data?.item ?? data?.advertisement ?? data
                 setAdvertisement(item)
-
             } catch (error) {
-                if (error instanceof DOMException && error.name === "AbortError") return
+                if (axios.isCancel(error)) return
 
                 setError(error instanceof Error ? error.message : "Errore")
             } finally {
@@ -46,7 +40,7 @@ export default function useAdvertisement(apiBaseUrl: string, advertisementId?: s
         fetchAdvertisement()
 
         return () => abortController.abort()
-    }, [apiBaseUrl, advertisementId])
+    }, [advertisementId])
 
     return { advertisement, isLoading, error }
 }

@@ -9,7 +9,6 @@ import { Eye, EyeOff } from "lucide-react"
 import AgencyCombobox from "./agencyCombobox"
 import { useTranslation } from "react-i18next"
 import { useAgencies } from "@/hooks/agent/useAgency"
-import { API_BASE_URL } from "@/lib/api/config"
 import { loginAgent } from "@/lib/api/auth"
 
 export const LoginForm = () => {
@@ -21,7 +20,7 @@ export const LoginForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [selectedAgencyId, setSelectedAgencyId] = useState("")
     const [loginError, setLoginError] = useState<string | null>(null)
-    const { agencies, loading, error } = useAgencies(API_BASE_URL)
+    const { agencies, loading, error } = useAgencies()
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -33,7 +32,7 @@ export const LoginForm = () => {
                 throw new Error("Seleziona un'agenzia")
             }
 
-            await loginAgent(API_BASE_URL, {
+            await loginAgent({
                 username,
                 password,
                 agencyId: Number(selectedAgencyId),
@@ -53,7 +52,7 @@ export const LoginForm = () => {
     }
 
     return (
-        <Card className="w-full px-16 border-none sm:px-0 sm:max-w-md absolute rounded-none sm:rounded-xl" >
+        <Card className="w-full px-14 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-md absolute rounded-none sm:rounded-xl" >
             <CardTitle>Accedi</CardTitle>
             <Separator orientation="horizontal" className="hidden sm:flex"/>
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col">

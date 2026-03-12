@@ -1,0 +1,67 @@
+import { PasswordStrength } from "@/components/passwordStrength";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Check, Pencil } from "lucide-react";
+import { useState } from "react";
+
+export default function Profile() {
+    const [disable, setDisable] = useState(true)
+
+    return (
+        <div className="w-full h-full flex items-center justify-center pt-24 px-2 sm:px-40">
+            <div className="flex flex-col justify-start items-center gap-8 w-full h-full">
+                <div className="flex flex-col justify-center gap-6">
+                    <Label className="text-2xl font-bold w-full h-full">Le tue informazioni</Label>
+                    <div className="flex gap-6">
+                        <div className="flex flex-col gap-1 w-full">
+                            <Label className="text-xl text-nowrap">Nome</Label>
+                            <Input disabled className="w-full"/>
+                        </div>
+                        <div className="flex flex-col gap-1 w-full">
+                            <Label className="text-xl text-nowrap">Cognome</Label>
+                            <Input disabled className="w-full"/>
+                        </div>
+                    </div>
+                    <div className="flex gap-6">
+                        <div className="flex flex-col gap-1 w-full">
+                            <Label className="text-xl text-nowrap">Email</Label>
+                            <Input disabled className="w-full"/>
+                        </div>
+                        <div className="flex flex-col gap-1 w-full">
+                            <Label className="text-xl text-nowrap">Numero di telefono</Label>
+                            <Input disabled className="w-full"/>
+                        </div>
+                    </div>
+                    <div className="flex gap-6">
+                        <div className="flex flex-col gap-1 w-full">
+                            <Label className="text-xl">Password</Label>
+                            <div className="flex gap-6 w-full">
+                                <PasswordStrength big disable={disable} />
+                                <div className="flex gap-2">
+                                    <Button
+                                        disabled={!disable}
+                                        onClick={() => setDisable(!disable)}
+                                        className="flex items-center justify-center">
+                                        <Pencil />
+                                        <Label className="hidden sm:flex">Modifica password</Label>
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex">
+                        <Button
+                            variant={"confirm"}
+                            disabled={disable}
+                            onClick={() => setDisable(!disable)}
+                            className={`flex items-center justify-center ${disable ? "hidden" : "flex items-center justify-start"} `}>
+                            <Check className="size-5" />
+                            Salva
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}

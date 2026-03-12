@@ -1,11 +1,10 @@
 import { Button } from "@/components/ui/button";
 import useAdvertisements from "@/hooks/agent/useAdvertisements";
-import { API_BASE_URL } from "@/lib/api/config";
-import DashboardFilterSelect from "@/pages/Agent/Dashboard/components/dashboardFilterSelect";
+import DashboardFilterSelect from "@/pages/Agent/Dashboard/advertisement/components/dashboardFilterSelect";
 import { BadgeCheck, CalendarClock, Clock, Plus, Tag } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AdvertisementsPanel from "./components/advertisementsPanel";
+import AdvertisementsPanel from "@/pages/Agent/Dashboard/advertisement/components/advertisementsPanel";
 import { Label } from "@/components/ui/label";
 
 type StatusFilter = "inProgress" | "completed"
@@ -15,12 +14,12 @@ const statusOptions = [
     {
         value: "inProgress",
         label: "In corso",
-        icon: <Clock className="text-foreground" />,
+        icon: <Clock className="text-foreground size-5" />,
     },
     {
         value: "completed",
         label: "Conclusi",
-        icon: <BadgeCheck className="text-foreground" />,
+        icon: <BadgeCheck className="text-foreground size-5" />,
     },
 ] as const
 
@@ -28,18 +27,18 @@ const typeOptions = [
     {
         value: "rent",
         label: "In affitto",
-        icon: <CalendarClock className="text-foreground" />,
+        icon: <CalendarClock className="text-foreground size-5" />,
     },
     {
         value: "sale",
         label: "In vendita",
-        icon: <Tag className="text-foreground" />,
+        icon: <Tag className="text-foreground size-5" />,
     },
 ] as const
 
 export default function Advertisements() {
     const navigate = useNavigate()
-    const { advertisements, isLoading, error } = useAdvertisements(API_BASE_URL)
+    const { advertisements, isLoading, error } = useAdvertisements()
 
     const [statusFilter, setStatusFilter] = useState<StatusFilter>("inProgress")
     const [typeFilter, setTypeFilter] = useState<TypeFilter>("sale")
@@ -76,8 +75,8 @@ export default function Advertisements() {
                             />
                         </div>
                         <Button className="w-fit rounded-sm" onClick={() => navigate("/agent/dashboard/create-advertisement")}>
-                            <Plus />
-                            <Label className="hidden sm:block">Aggiungi annuncio</Label>
+                            <Plus className="size-5"/>
+                            <Label className="hidden sm:block text-md">Aggiungi annuncio</Label>
                         </Button>
                     </div>
 

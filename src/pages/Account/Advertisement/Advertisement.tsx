@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import useAdvertisement from "@/hooks/account/useAdvertisement";
-import { API_BASE_URL } from "@/lib/api/config";
 import { formatPrice } from "@/utils/formatPrice";
 import { Search } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -13,7 +12,7 @@ import { useNavigate, useParams } from "react-router-dom";
 const Advertisement = () => {
     const navigate = useNavigate()
     const { id } = useParams()
-    const { advertisement, isLoading, error } = useAdvertisement(API_BASE_URL, id)
+    const { advertisement, isLoading, error } = useAdvertisement(id)
 
     const handleBackClick = () => {
         if (window.history.length > 1) {
