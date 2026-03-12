@@ -1,7 +1,7 @@
 import { Footer } from "@/components/footer";
 import Header from "@/components/header";
 import CreateAgencyForm from "@/pages/CreateAgency/components/createAgencyForm";
-import sfondo from "@/assets/sfondo.jpg"
+import sfondo from "@/assets/sfondo.webp";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";

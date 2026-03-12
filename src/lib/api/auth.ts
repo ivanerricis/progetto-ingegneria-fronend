@@ -48,6 +48,7 @@ export async function loginAgent(data: {
 }) {
     try {
         const response = await apiClient.post("/auth/agent/login", data)
+        console.log("Login Agent Response:", response.data)
         return response.data
     } catch (err) {
         if (axios.isAxiosError(err)) {

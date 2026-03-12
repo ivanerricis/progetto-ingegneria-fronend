@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next"
 import { useAgencies } from "@/hooks/agent/useAgency"
 import { loginAgent } from "@/lib/api/auth"
 import { useAgent } from "@/providers/agent-provider"
+import type { Agent } from "@/types/types"
 
 export const LoginForm = () => {
     const navigate = useNavigate()
@@ -34,37 +35,35 @@ export const LoginForm = () => {
                 throw new Error("Seleziona un'agenzia")
             }
 
-            const loginResponse = await loginAgent({
+            const loginResponse: Agent = await loginAgent({
                 username,
                 password,
                 agencyId: Number(selectedAgencyId),
             })
 
-            const responseAgent =
-                (loginResponse && typeof loginResponse === "object" && "agent" in loginResponse
-                    ? loginResponse.agent
-                    : null) ??
-                (loginResponse && typeof loginResponse === "object" && "user" in loginResponse
-                    ? loginResponse.user
-                    : null)
+            // const selectedAgency = agencies.find((agency) => String(agency.id) === selectedAgencyId)
 
-            const selectedAgency = agencies.find((agency) => String(agency.id) === selectedAgencyId)
-
-            if (responseAgent && typeof responseAgent === "object") {
-                setAgent({
-                    id: "id" in responseAgent ? (responseAgent.id as string | number) : undefined,
-                    username: "username" in responseAgent ? String(responseAgent.username ?? "") : username,
-                    firstName: "firstName" in responseAgent ? String(responseAgent.firstName ?? "") : undefined,
-                    lastName: "lastName" in responseAgent ? String(responseAgent.lastName ?? "") : undefined,
-                    email: "email" in responseAgent ? String(responseAgent.email ?? "") : undefined,
-                    agencyId: Number(selectedAgencyId),
-                    agencyName: selectedAgency?.name,
-                })
+            if (loginResponse) {
+                setAgent(loginResponse)
             } else {
                 setAgent({
-                    username,
-                    agencyId: Number(selectedAgencyId),
-                    agencyName: selectedAgency?.name,
+                    id: "",
+                    username: "",
+                    firstName: "",
+                    lastName: "",
+                    phoneNumber: "",
+                    agency: {
+                        id: "",
+                        name: "",
+                        phoneNumber: "",
+                        email: "",
+                        logo: {
+                            id: "",
+                            format: "",
+                            url: "",
+                            agency: {} as any,
+                        },
+                    },
                 })
             }
 
@@ -84,7 +83,7 @@ export const LoginForm = () => {
     return (
         <Card className="w-full px-14 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-md absolute rounded-none sm:rounded-xl" >
             <CardTitle>Accedi</CardTitle>
-            <Separator orientation="horizontal" className="hidden sm:flex"/>
+            <Separator orientation="horizontal" className="hidden sm:flex" />
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col">
                 <CardContent>
                     <div className="flex flex-col">

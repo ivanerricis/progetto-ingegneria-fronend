@@ -1,6 +1,6 @@
 import { Footer } from "@/components/footer"
 import Header from "@/components/header"
-import sfondo from "@/assets/sfondo.jpg"
+import sfondo from "@/assets/sfondo.webp"
 import RegisterForm from "@/pages/Account/register/components/registerForm"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle"
