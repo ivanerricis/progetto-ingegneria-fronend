@@ -1,19 +1,19 @@
 import { useState } from "react"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Field } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { Search, SlidersHorizontal, X } from "lucide-react"
+import { Search, SlidersHorizontal } from "lucide-react"
 import { ModeToggle } from "@/components/mode-toggle"
 import Header from "@/components/header"
-import FilterCombobox from "@/pages/Account/Homepage/components/filterCombobox"
+import FilterCombobox from "@/pages/Account/homepage/components/filterCombobox"
 import SidebarFilter from "./components/sidebarFilter"
 import { Footer } from "@/components/footer"
 import AdvertisementsList from "./components/advertisementList"
 import useAdvertisements from "@/hooks/account/useAdvertisements"
 import { Label } from "@/components/ui/label"
 import AdvertisementListSkeleton from "./components/advertisementListSkeleton"
-
+import { AccountBadge } from "@/pages/Account/homepage/components/accountBadge"
+import MobileSidebar from "./components/mobileSidebar"
 export const Homepage = () => {
     const { advertisements, isLoading, error } = useAdvertisements()
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
@@ -54,42 +54,12 @@ export const Homepage = () => {
                 right={
                     <>
                         <ModeToggle />
-                        <Avatar>
-                            <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
+                        <AccountBadge />
                     </>
                 }
             />
 
-            {/* Mobile sidebar backdrop */}
-            {isMobileSidebarOpen && (
-                <button
-                    type="button"
-                    aria-label="Chiudi filtri"
-                    className="fixed inset-0 z-40 bg-black/40 sm:hidden"
-                    onClick={() => setIsMobileSidebarOpen(false)}
-                />
-            )}
-
-            {/* Mobile sidebar drawer */}
-            <aside
-                className={`fixed inset-y-0 left-0 z-50 sm:z-0 w-72 transform border-r bg-background p-2 transition-transform duration-200 sm:hidden ${isMobileSidebarOpen ? "translate-x-0" : "-translate-x-full"
-                    }`}
-            >
-                <div className="mb-2 flex items-center justify-end">
-                    <Button
-                        type="button"
-                        variant="outline"
-                        size="icon"
-                        aria-label="Chiudi filtri"
-                        className="rounded-sm"
-                        onClick={() => setIsMobileSidebarOpen(false)}
-                    >
-                        <X />
-                    </Button>
-                </div>
-                <SidebarFilter />
-            </aside>
+            <MobileSidebar open={isMobileSidebarOpen} onClose={() => setIsMobileSidebarOpen(false)} />
 
             {/* Main */}
             <main className="flex min-h-0 h-full flex-1 gap-2 overflow-hidden">

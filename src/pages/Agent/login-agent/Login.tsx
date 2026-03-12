@@ -1,6 +1,6 @@
 import { Footer } from "@/components/footer"
 import Header from "@/components/header"
-import LoginForm from "@/pages/Agent/LoginAgent/components/loginForm"
+import LoginForm from "@/pages/Agent/login-agent/components/loginForm"
 import sfondo from "@/assets/sfondo.jpg"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle"

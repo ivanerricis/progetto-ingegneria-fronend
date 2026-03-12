@@ -1,13 +1,13 @@
 import { Footer } from "@/components/footer"
 import Header from "@/components/header"
-import LoginForm from "@/pages/Account/Login/components/loginForm"
 import sfondo from "@/assets/sfondo.jpg"
+import RegisterForm from "@/pages/Account/register/components/registerForm"
 import { Button } from "@/components/ui/button"
-import { useNavigate } from "react-router-dom"
 import { ModeToggle } from "@/components/mode-toggle"
+import { useNavigate } from "react-router-dom"
 import LanguageSwitcher from "@/components/languageSwitcher"
 
-export const Login = () => {
+export const Register = () => {
     const navigate = useNavigate()
 
     return (
@@ -40,7 +40,7 @@ export const Login = () => {
                     className="hidden sm:block absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{ backgroundImage: `url(${sfondo})` }}
                 />
-                <LoginForm />
+                <RegisterForm />
             </main>
 
             <Footer />
@@ -48,4 +48,4 @@ export const Login = () => {
     )
 }
 
-export default Login
+export default Register

@@ -9,10 +9,13 @@ import { Eye, EyeOff } from "lucide-react"
 import { toast } from "sonner"
 import { useTranslation } from "react-i18next"
 import { loginAccount } from "@/lib/api/auth"
+import { useAccount } from "@/providers/account-provider"
+import type { Account } from "@/types/types"
 
 export const LoginForm = () => {
     const { t } = useTranslation("login")
     const navigate = useNavigate()
+    const { setAccount } = useAccount()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
@@ -25,7 +28,17 @@ export const LoginForm = () => {
         setIsSubmitting(true)
 
         try {
-            await loginAccount({ email, password })
+            const loginResponse: Account = await loginAccount({ email, password })
+            if (loginResponse) {
+                setAccount(loginResponse)
+            } else {
+                setAccount({
+                    id: "",
+                    firstName: "",
+                    lastName: "",
+                    email,
+                })
+            }
 
             navigate("/homepage")
         } catch (submitError) {

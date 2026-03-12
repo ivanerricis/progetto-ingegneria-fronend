@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Pencil, Trash } from "lucide-react"
 import type { Advertisement } from "@/types/types"
-import RealEstateCarousel from "@/pages/Agent/Dashboard/advertisement/components/realEstateCarousel"
+import RealEstateCarousel from "@/pages/Agent/dashboard/advertisement/components/realEstateCarousel"
 import { formatPrice } from "@/utils/formatPrice"
 import { useNavigate } from "react-router-dom"
 

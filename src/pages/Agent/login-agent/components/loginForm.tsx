@@ -10,6 +10,7 @@ import AgencyCombobox from "./agencyCombobox"
 import { useTranslation } from "react-i18next"
 import { useAgencies } from "@/hooks/agent/useAgency"
 import { loginAgent } from "@/lib/api/auth"
+import { useAgent } from "@/providers/agent-provider"
 
 export const LoginForm = () => {
     const navigate = useNavigate()
@@ -21,6 +22,7 @@ export const LoginForm = () => {
     const [selectedAgencyId, setSelectedAgencyId] = useState("")
     const [loginError, setLoginError] = useState<string | null>(null)
     const { agencies, loading, error } = useAgencies()
+    const { setAgent } = useAgent()
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -32,11 +34,39 @@ export const LoginForm = () => {
                 throw new Error("Seleziona un'agenzia")
             }
 
-            await loginAgent({
+            const loginResponse = await loginAgent({
                 username,
                 password,
                 agencyId: Number(selectedAgencyId),
             })
+
+            const responseAgent =
+                (loginResponse && typeof loginResponse === "object" && "agent" in loginResponse
+                    ? loginResponse.agent
+                    : null) ??
+                (loginResponse && typeof loginResponse === "object" && "user" in loginResponse
+                    ? loginResponse.user
+                    : null)
+
+            const selectedAgency = agencies.find((agency) => String(agency.id) === selectedAgencyId)
+
+            if (responseAgent && typeof responseAgent === "object") {
+                setAgent({
+                    id: "id" in responseAgent ? (responseAgent.id as string | number) : undefined,
+                    username: "username" in responseAgent ? String(responseAgent.username ?? "") : username,
+                    firstName: "firstName" in responseAgent ? String(responseAgent.firstName ?? "") : undefined,
+                    lastName: "lastName" in responseAgent ? String(responseAgent.lastName ?? "") : undefined,
+                    email: "email" in responseAgent ? String(responseAgent.email ?? "") : undefined,
+                    agencyId: Number(selectedAgencyId),
+                    agencyName: selectedAgency?.name,
+                })
+            } else {
+                setAgent({
+                    username,
+                    agencyId: Number(selectedAgencyId),
+                    agencyName: selectedAgency?.name,
+                })
+            }
 
             navigate("/agent/dashboard")
         } catch (submitError) {

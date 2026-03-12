@@ -44,6 +44,7 @@ export type Agent = {
     firstName: string
     lastName: string
     phoneNumber: string
+    username: string
     agency: Agency
 }
 
@@ -60,4 +61,10 @@ export type Logo = {
     format: string
     url: string
     agency: Agency
+}
+export type Account = {
+    id: string | number
+    firstName: string
+    lastName: string
+    email: string
 }

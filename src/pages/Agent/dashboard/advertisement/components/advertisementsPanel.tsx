@@ -1,4 +1,4 @@
-import AdvertisementListSkeleton from "@/pages/Account/Homepage/components/advertisementListSkeleton"
+import AdvertisementListSkeleton from "@/pages/Account/homepage/components/advertisementListSkeleton"
 import type { Advertisement } from "@/types/types"
 import AdvertisementsList from "./advertisementList"
 

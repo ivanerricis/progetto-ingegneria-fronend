@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import CheckboxFilter from "@/pages/Account/Homepage/components/checkboxFilter";
+import CheckboxFilter from "@/pages/Account/homepage/components/checkboxFilter";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FileUpload from "@/pages/Agent/Dashboard/CreateAdvertisement";
+import FileUpload from "@/pages/Agent/dashboard/advertisement/components/fileUpload";
 import { Textarea } from "@/components/ui/textarea";
 
 export default function CreateAdvertisement() {
+    const [description, setDescription] = useState("")
     const navigate = useNavigate()
 
     const handleGoBack = () => {
@@ -19,7 +21,7 @@ export default function CreateAdvertisement() {
     }
 
     return (
-        <div className="w-full h-full flex flex-col gap-4">
+        <div className="w-full h-full flex flex-col gap-4 pr-2">
             <div className="flex flex-col w-full h-full gap-6">
 
                 {/* Upload photos */}
@@ -29,12 +31,21 @@ export default function CreateAdvertisement() {
 
                 {/* Description */}
                 <div className="flex flex-col">
-                    <Label className="text-xl">Descrizione</Label>
-                    <Textarea placeholder="Descrizione dell'immobile" className="h-32" />
+                    <div className="flex items-center justify-between">
+                        <Label className="text-xl">Descrizione</Label>
+                        <span className="text-sm text-muted-foreground">{description.length}/2000</span>
+                    </div>
+                    <Textarea
+                        placeholder="Descrizione dell'immobile"
+                        className="h-32 max-h-32 min-h-32 text-foreground"
+                        value={description}
+                        onChange={(event) => setDescription(event.target.value)}
+                        maxLength={2000}
+                    />
                 </div>
 
                 {/* Checkboxes */}
-                <div className="flex flex-col w-full border p-4 gap-2 rounded-md">
+                <div className="flex flex-col w-full gap-2">
                     <Label className="text-xl">Servizi</Label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 h-full w-full">
                         <div className="flex flex-col h-full w-full gap-1">

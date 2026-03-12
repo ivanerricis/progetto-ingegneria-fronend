@@ -54,7 +54,7 @@ export default function FileUpload() {
     ));
 
     return (
-        <div className="flex items-center justify-center p-2">
+        <div className="flex items-center justify-center">
             <form action="#" method="post">
                 <Label htmlFor="file-upload-2" className="text-xl">
                     Carica le foto della casa

@@ -32,7 +32,7 @@ export default function DashboardFilterSelect({
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
 
-            <SelectContent>
+            <SelectContent position="popper">
                 {options.map((option) => (
                     <SelectItem key={option.value} value={option.value} className="text-foreground">
                         <span className="flex items-center gap-2">

@@ -49,7 +49,7 @@ export const CreateAgencyForm = () => {
     return (
         <Card className="w-full px-14 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-sm absolute rounded-none sm:rounded-xl" >
             <CardTitle>Crea la tua agenzia</CardTitle>
-            <Separator orientation="horizontal" className="hidden sm:flex"/>
+            <Separator orientation="horizontal" className="hidden sm:flex" />
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col">
                 <CardContent>
                     <div className="flex flex-col">
@@ -98,7 +98,7 @@ export const CreateAgencyForm = () => {
                         </div>
                         <div className="flex flex-col gap-2 mb-4">
                             <Label htmlFor="picture">
-                                Foto
+                                Logo
                                 <span className="text-destructive">*</span>
                             </Label>
                             <Input id="picture" type="file" accept="image/*" />

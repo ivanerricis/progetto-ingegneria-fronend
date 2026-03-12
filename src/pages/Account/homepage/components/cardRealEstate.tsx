@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Bath, CalendarDays, HandCoins } from "lucide-react"
 import type { Advertisement } from "@/types/types"
-import RealEstateCarousel from "@/pages/Account/Homepage/components/realEstateCarousel"
+import RealEstateCarousel from "@/pages/Account/homepage/components/realEstateCarousel"
 import { formatPrice } from "@/utils/formatPrice"
 import FloorPlanIcon from "@/assets/icons/floorplan.svg?react"
 import ExpandIcon from "@/assets/icons/expand-2.svg?react"
@@ -48,9 +48,23 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
                     <div className="flex flex-col justify-start w-full text-bold text-xl">
                         {addressLabel}
                     </div>
-                    <div className="hidden sm:flex sm:items-center sm:rounded-sm sm:h-full sm:p-2 sm:text-nowrap sm:text-primary bg-primary/25">
-                        {agencyLabel}
-                    </div>
+                    {advertisement.agent.agency.logo === null || advertisement.agent.agency.logo === undefined ?
+                        (<div className="hidden sm:flex sm:items-center sm:rounded-sm sm:h-full sm:p-2 sm:text-nowrap sm:text-primary bg-primary/25">
+                            {agencyLabel}
+                        </div>)
+                        :
+                        (
+                            <div className="hidden sm:flex sm:items-center sm:rounded-sm sm:h-full">
+                                <img
+                                    src={advertisement.agent.agency.logo.url}
+                                    alt="Immagine immobile"
+                                    className="block object-cover h-10 w-auto rounded-sm aspect-video"
+                                    loading="lazy"
+                                />
+                            </div>
+                        )
+                    }
+
                 </div>
 
                 <div className="hidden sm:flex h-full w-full overflow-hidden line-clamp-3 text-ellipsis">
