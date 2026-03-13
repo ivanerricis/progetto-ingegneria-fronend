@@ -7,7 +7,7 @@ type Props = {
 
 export default function AdvertisementsList({ advertisements }: Props) {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2">
             {advertisements.map((advertisement, index) => {
                 const hasValidId =
                     advertisement.id !== undefined &&

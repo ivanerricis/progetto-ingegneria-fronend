@@ -55,7 +55,7 @@ export default function Advertisements() {
     })
 
     return (
-        <div className="flex h-full min-h-0 w-full flex-col gap-2 overflow-hidden">
+        <div className="flex h-full min-h-0 w-full flex-col gap-2 overflow-hidden p-2">
             <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden">
                 <div className="flex flex-col gap-4">
                     <div className="flex items-center justify-between">

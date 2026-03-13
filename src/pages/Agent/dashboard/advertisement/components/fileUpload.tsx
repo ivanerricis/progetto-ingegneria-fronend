@@ -20,27 +20,12 @@ export default function FileUpload() {
 
     const filesList = files.map((file) => (
         <li key={file.name} className="relative">
-            <Card className="relative aspect-square">
-                <div className="absolute right-3 top-3">
-                    <Button
-                        type="button"
-                        variant="destructive"
-                        size="sm"
-                        aria-label="Remove file"
-                        onClick={() =>
-                            setFiles((prevFiles) =>
-                                prevFiles.filter((prevFile) => prevFile.name !== file.name)
-                            )
-                        }
-                    >
-                        <Trash className="h-4 w-4" aria-hidden={true} />
-                    </Button>
-                </div>
-                <CardContent className="flex h-full flex-col items-center justify-center gap-3 p-0 text-center">
-                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-muted">
+            <Card className="relative aspect-square rounded-sm">
+                <CardContent className="flex h-full flex-col items-center justify-center gap-3 p-3 text-center">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm bg-muted">
                         <FileIcon className="h-5 w-5 text-foreground" aria-hidden={true} />
                     </span>
-                    <div className="min-w-0 w-full px-2">
+                    <div className="min-w-0 w-full">
                         <p className="truncate text-sm text-foreground" title={file.name}>
                             {file.name}
                         </p>
@@ -48,6 +33,20 @@ export default function FileUpload() {
                             {file.size} bytes
                         </p>
                     </div>
+                    <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        aria-label="Remove file"
+                        className="rounded-sm w-full"
+                        onClick={() =>
+                            setFiles((prevFiles) =>
+                                prevFiles.filter((prevFile) => prevFile.name !== file.name)
+                            )
+                        }
+                    >
+                        <Trash aria-hidden={true} />
+                    </Button>
                 </CardContent>
             </Card>
         </li>
@@ -67,7 +66,7 @@ export default function FileUpload() {
                                 isDragActive
                                     ? "border-primary bg-primary/10 ring-2 ring-primary/20"
                                     : "border-border",
-                                "flex justify-center rounded-md border border-dashed px-6 py-20 transition-colors duration-200"
+                                "flex justify-center rounded-sm border border-dashed px-6 py-20 transition-colors duration-200"
                             )}
                         >
                             <div>
@@ -97,12 +96,9 @@ export default function FileUpload() {
                     </div>
                     {filesList.length > 0 && (
                         <div className="w-full">
-                            <h4 className="text-balance font-medium text-foreground">
-                                File caricati
-                            </h4>
                             <ul
                                 role="list"
-                                className="mt-4 grid grid-cols-3 gap-2"
+                                className="grid grid-cols-3 gap-2"
                             >
                                 {filesList}
                             </ul>

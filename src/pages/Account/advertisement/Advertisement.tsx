@@ -1,13 +1,13 @@
 import Header from "@/components/header";
 import { ModeToggle } from "@/components/mode-toggle";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Field } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
 import useAdvertisement from "@/hooks/account/useAdvertisement";
 import { formatPrice } from "@/utils/formatPrice";
-import { Search } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
+import { AccountBadge } from "@/pages/Account/homepage/components/accountBadge";
+import { Label } from "@/components/ui/label";
+import { Footer } from "@/components/footer";
 
 const Advertisement = () => {
     const navigate = useNavigate()
@@ -26,25 +26,19 @@ const Advertisement = () => {
     return (
         <div className="flex flex-col min-h-screen max-h-screen h-full">
             <Header
+                isHomepage
                 left={
-                    <Button onClick={handleBackClick}>
-                        Back
+                    <Button
+                        variant={"outline"}
+                        onClick={handleBackClick}>
+                        <ArrowLeft />
+                        <Label className="hidden sm:flex text-md">Indietro</Label>
                     </Button>
-                }
-                center={
-                    <Field orientation="horizontal">
-                        <Input type="search" placeholder="Cerca..." />
-                        <Button variant={"outline"} size={"icon"}>
-                            <Search />
-                        </Button>
-                    </Field>
                 }
                 right={
                     <>
                         <ModeToggle />
-                        <Avatar>
-                            <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
+                        <AccountBadge />
                     </>
                 }
             />
@@ -58,14 +52,15 @@ const Advertisement = () => {
                 )}
 
                 {!isLoading && !error && advertisement && (
-                    <div className="space-y-2">
-                        <h1 className="text-2xl font-bold">{advertisement.title}</h1>
-                        <p className="text-muted-foreground">{advertisement.realEstate.addressFormatted}</p>
-                        <p>{advertisement.description}</p>
-                        <p className="text-lg font-semibold">{formatPrice(advertisement.price)}</p>
+                    <div className="flex flex-col gap-2">
+                        <Label className="text-2xl font-bold">{advertisement.title}</Label>
+                        <Label className="text-muted-foreground">{advertisement.realEstate.addressFormatted}</Label>
+                        <Label>{advertisement.description}</Label>
+                        <Label className="text-lg font-semibold">{formatPrice(advertisement.price)}</Label>
                     </div>
                 )}
             </div>
+            <Footer isHomepage />
         </div>
     );
 }

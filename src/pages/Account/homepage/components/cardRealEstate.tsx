@@ -7,6 +7,7 @@ import FloorPlanIcon from "@/assets/icons/floorplan.svg?react"
 import ExpandIcon from "@/assets/icons/expand-2.svg?react"
 import StairsIcon from "@/assets/icons/stairs.svg?react"
 import { useNavigate } from "react-router-dom"
+import type { MouseEvent } from "react"
 
 type CardRealEstateProps = {
     advertisement: Advertisement
@@ -24,9 +25,14 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
         navigate(`/account/advertisement/${String(routeId)}`)
     }
 
+    const handleActionButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation()
+    }
+
     return (
         <div
-            className="relative bg-background border w-full h-fit flex flex-col sm:flex-row rounded-md shadow-md hover:cursor-pointer hover:bg-secondary dark:text-foreground"
+            onClick={handleCardClick}
+            className="relative bg-background border w-full h-fit flex flex-col lg:flex-row rounded-md shadow-md hover:cursor-pointer hover:bg-secondary dark:text-foreground"
         >
 
             <div className="absolute z-20 top-2 left-2 bg-primary text-sm text-primary-foreground px-2 py-1 rounded-sm">
@@ -40,7 +46,6 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
 
             {/* Informazioni immobile */}
             <div
-                onClick={handleCardClick}
                 className="flex flex-col flex-1 gap-2 p-2 justify-between border-t sm:border-t-0 sm:border-b-0 sm:border-l">
 
                 {/* Informazioni generali */}
@@ -101,11 +106,19 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
 
                     {/* Buttons */}
                     <div className="flex w-full justify-between sm:justify-end gap-1">
-                        <Button variant={"outline"} className="flex-1 rounded-sm sm:w-fit sm:flex-none">
+                        <Button
+                            variant={"outline"}
+                            className="flex-1 rounded-sm sm:w-fit sm:flex-none"
+                            onClick={handleActionButtonClick}
+                        >
                             Offerta
                             <HandCoins />
                         </Button>
-                        <Button variant={"outline"} className="flex-1 rounded-sm sm:w-fit sm:flex-none">
+                        <Button
+                            variant={"outline"}
+                            className="flex-1 rounded-sm sm:w-fit sm:flex-none"
+                            onClick={handleActionButtonClick}
+                        >
                             Appuntamento
                             <CalendarDays />
                         </Button>

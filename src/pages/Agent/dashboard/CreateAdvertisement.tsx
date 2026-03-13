@@ -21,7 +21,7 @@ export default function CreateAdvertisement() {
     }
 
     return (
-        <div className="w-full h-full flex flex-col gap-4 pr-2">
+        <div className="w-full h-full flex flex-col gap-4 p-4">
             <div className="flex flex-col w-full h-full gap-6">
 
                 {/* Upload photos */}
@@ -76,10 +76,10 @@ export default function CreateAdvertisement() {
                     <Label className="text-xl">Prezzo</Label>
                     <Input type="number" placeholder="Prezzo dell'immobile" />
                 </div>
-            </div>
-            <div className="flex gap-2 items-center justify-start">
-                <Button>Crea annuncio</Button>
-                <Button variant={"destructive"} onClick={handleGoBack}>Annulla</Button>
+                <div className="flex gap-2 items-center justify-start">
+                    <Button>Crea annuncio</Button>
+                    <Button variant={"destructive"} onClick={handleGoBack}>Annulla</Button>
+                </div>
             </div>
         </div>
     )

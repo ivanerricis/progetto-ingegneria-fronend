@@ -93,3 +93,63 @@ export async function logoutAgent() {
         throw err
     }
 }
+
+export async function updateAccountPassword(
+    accountId: string | number,
+    data: {
+        currentPassword: string
+        newPassword: string
+    }
+) {
+    try {
+        const response = await apiClient.patch(`/account/${accountId}/password`, data)
+        return response.data
+    } catch (err) {
+        if (axios.isAxiosError(err)) {
+            const message =
+                err.response?.data?.error ??
+                err.response?.data?.message ??
+                "Aggiornamento password non riuscito"
+            throw new Error(message)
+        }
+        throw err
+    }
+}
+
+export async function updateAgentPassword(
+    agentId: string | number,
+    data: {
+        currentPassword: string
+        newPassword: string
+    }
+) {
+    try {
+        const response = await apiClient.patch(`/agent/${agentId}/password`, data)
+        return response.data
+    } catch (err) {
+        if (axios.isAxiosError(err)) {
+            const message =
+                err.response?.data?.error ??
+                err.response?.data?.message ??
+                "Aggiornamento password non riuscito"
+            throw new Error(message)
+        }
+        throw err
+    }
+}
+
+export async function deleteAccount(accountId: string | number) {
+    try {
+        const response = await apiClient.delete(`/account/delete/${accountId}`)
+        return response.data
+    } catch (err) {
+        if (axios.isAxiosError(err)) {
+            const message =
+                err.response?.data?.error ??
+                err.response?.data?.message ??
+                "Eliminazione account non riuscita"
+            throw new Error(message)
+        }
+        throw err
+    }
+}

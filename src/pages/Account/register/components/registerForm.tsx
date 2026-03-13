@@ -119,7 +119,7 @@ export const RegisterForm = () => {
                         )}
                     </div>
                 </CardContent>
-                <CardFooter className="flex-col gap-2">
+                <CardFooter className="flex-col gap-2 mt-2">
                     <Button type="submit" className="w-full" disabled={isSubmitting}>
                         {isSubmitting ? t("buttons.submitting") : t("buttons.submit")}
                     </Button>

@@ -21,7 +21,7 @@ const DashboardLayout = () => {
                     }
                 />
                 <main className="min-h-0 flex-1">
-                    <div className="h-full w-full overflow-y-auto bg-background p-2">
+                    <div className="h-full w-full overflow-y-auto bg-background">
                         <Outlet />
                     </div>
                 </main>
