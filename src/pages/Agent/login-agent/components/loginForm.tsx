@@ -12,6 +12,7 @@ import { useAgencies } from "@/hooks/agent/useAgency"
 import { loginAgent } from "@/lib/api/auth"
 import { useAgent } from "@/providers/agent-provider"
 import type { Agent } from "@/types/types"
+import { toast } from "sonner"
 
 export const LoginForm = () => {
     const navigate = useNavigate()
@@ -21,13 +22,11 @@ export const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [selectedAgencyId, setSelectedAgencyId] = useState("")
-    const [loginError, setLoginError] = useState<string | null>(null)
     const { agencies, loading, error } = useAgencies()
     const { setAgent } = useAgent()
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        setLoginError(null)
         setIsSubmitting(true)
 
         try {
@@ -52,6 +51,7 @@ export const LoginForm = () => {
                     firstName: "",
                     lastName: "",
                     phoneNumber: "",
+                    createdAt: new Date(),
                     agency: {
                         id: "",
                         name: "",
@@ -74,14 +74,14 @@ export const LoginForm = () => {
                     ? submitError.message
                     : "Errore durante il login"
 
-            setLoginError(message)
+            toast.error("Login fallito: " + message)
         } finally {
             setIsSubmitting(false)
         }
     }
 
     return (
-        <Card className="w-full px-14 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-md absolute rounded-none sm:rounded-xl" >
+        <Card className="w-full px-14 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-sm absolute rounded-none sm:rounded-xl" >
             <CardTitle>Accedi</CardTitle>
             <Separator orientation="horizontal" className="hidden sm:flex" />
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col">
@@ -137,11 +137,6 @@ export const LoginForm = () => {
                                 </button>
                             </div>
                         </div>
-                        {loginError && (
-                            <p className="text-sm text-destructive" role="alert">
-                                {loginError}
-                            </p>
-                        )}
                     </div>
                 </CardContent>
                 <CardFooter className="flex-col gap-2">

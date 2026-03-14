@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { deleteAccount } from "@/lib/api/auth";
 import { toast } from "sonner";
+import { formatCreatedAt } from "@/utils/formatCreatedAt";
 
 export default function Profile() {
     const { account } = useAccount()
@@ -71,9 +72,15 @@ export default function Profile() {
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-1 flex-1">
-                            <Label className="text-xl text-nowrap">Email</Label>
-                            <Input disabled className="w-full" value={account.email} />
+                        <div className="flex gap-4">
+                            <div className="flex flex-col gap-1 w-full">
+                                <Label className="text-xl text-nowrap">Email</Label>
+                                <Input disabled className="w-full" value={account.email} />
+                            </div>
+                            <div className="flex flex-col gap-1 w-full">
+                                <Label className="text-xl text-nowrap">Creato il</Label>
+                                <Input disabled className="w-full" value={formatCreatedAt(account.createdAt)} />
+                            </div>
                         </div>
 
                         <div className="flex flex-col sm:flex-row flex-1 gap-4">

@@ -20,11 +20,9 @@ export const LoginForm = () => {
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const [error, setError] = useState<string | null>(null)
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        setError(null)
         setIsSubmitting(true)
 
         try {
@@ -37,6 +35,7 @@ export const LoginForm = () => {
                     firstName: "",
                     lastName: "",
                     email,
+                    createdAt: new Date(),
                 })
             }
 
@@ -46,7 +45,6 @@ export const LoginForm = () => {
                 submitError instanceof Error
                     ? submitError.message
                     : "Errore durante il login"
-            setError(message)
             toast.error("Login fallito: " + message)
         } finally {
             setIsSubmitting(false)
@@ -55,7 +53,7 @@ export const LoginForm = () => {
 
     return (
         <Card className="w-full px-14 border-none shadow-none sm:shadow-sm sm:px-0 sm:border sm:max-w-sm absolute rounded-none sm:rounded-xl">
-            <CardTitle className="px-6 sm:px-6 text-lg sm:text-xl">{t("title")}</CardTitle>
+            <CardTitle>{t("title")}</CardTitle>
             <Separator orientation="horizontal" className="hidden sm:flex"></Separator>
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col">
                 <CardContent>
@@ -71,7 +69,7 @@ export const LoginForm = () => {
                                 required
                             />
                         </div>
-                        <div className="grid gap-2 mb-2">
+                        <div className="grid gap-2">
                             <div className="flex justify-between gap-1 flex-row sm:items-center">
                                 <Label htmlFor="password">{t("fields.password.label")}</Label>
                                 <a
@@ -99,11 +97,6 @@ export const LoginForm = () => {
                                 </button>
                             </div>
                         </div>
-                        {error && (
-                            <p className="text-sm text-destructive" role="alert">
-                                {error}
-                            </p>
-                        )}
                     </div>
                 </CardContent>
                 <CardFooter className="flex-col gap-2">

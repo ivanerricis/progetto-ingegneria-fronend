@@ -32,7 +32,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
     return (
         <div
             onClick={handleCardClick}
-            className="relative bg-background border w-full h-fit flex flex-col lg:flex-row rounded-md shadow-md hover:cursor-pointer hover:bg-secondary dark:text-foreground"
+            className="relative bg-background border w-full h-fit flex flex-col 2xl:flex-row rounded-md shadow-md hover:cursor-pointer hover:bg-secondary dark:text-foreground"
         >
 
             <div className="absolute z-20 top-2 left-2 bg-primary text-sm text-primary-foreground px-2 py-1 rounded-sm">
@@ -72,12 +72,12 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
 
                 </div>
 
-                <div className="hidden sm:flex h-full w-full overflow-hidden line-clamp-3 text-ellipsis">
+                <div className="hidden text-muted-foreground sm:block w-full line-clamp-3">
                     {advertisement.description}
                 </div>
 
                 {/* Icons */}
-                <div className="hidden sm:flex h-full w-full flex-start items-center gap-2 text-primary">
+                <div className="hidden sm:flex w-full flex-start items-center gap-2 text-primary">
                     <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2 bg-primary/20 text-primary p-2 border">
                         <FloorPlanIcon className="size-6" />
                         {advertisement.realEstate.rooms + " locali"}

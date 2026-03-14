@@ -138,15 +138,18 @@ export default function Password() {
                 }
                 right={<ModeToggle />}
             />
-            <div className="flex-1 flex items-center justify-center px-6 py-10">
-                <Card className="w-full max-w-lg">
+            <div className="flex-1 flex items-center justify-center">
+                <Card className="w-full border-none max-w-lg px-6">
                     <CardHeader>
                         <CardTitle>Aggiorna password</CardTitle>
                     </CardHeader>
                     <form onSubmit={handleSubmit}>
                         <CardContent className="space-y-4">
                             <div className="grid gap-2">
-                                <Label htmlFor="current-password">Password attuale</Label>
+                                <div className="flex">
+                                    <Label htmlFor="current-password">Password attuale</Label>
+                                    <Label className="text-destructive! ml-2">*</Label>
+                                </div>
                                 <div className="relative">
                                     <Input
                                         id="current-password"
@@ -178,7 +181,10 @@ export default function Password() {
                             />
 
                             <div className="grid gap-2">
-                                <Label htmlFor="confirm-password">Conferma nuova password</Label>
+                                <div className="flex">
+                                    <Label htmlFor="confirm-password">Conferma nuova password</Label>
+                                    <Label className="text-destructive! ml-2">*</Label>
+                                </div>
                                 <div className="relative">
                                     <Input
                                         id="confirm-password"

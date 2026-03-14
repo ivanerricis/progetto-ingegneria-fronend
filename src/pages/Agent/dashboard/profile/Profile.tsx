@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 import { useAgent } from "@/providers/agent-provider";
 import { Pencil } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { formatCreatedAt } from "@/utils/formatCreatedAt";
 
 export default function Profile() {
     const { agent } = useAgent()
@@ -46,6 +47,13 @@ export default function Profile() {
                             <Label className="text-xl text-nowrap">Email Agenzia</Label>
                             <Input disabled className="w-full" value={agent.agency.email} />
                         </div>
+                    </div>
+                    <div className="flex flex-col sm:flex-row gap-6 w-full">
+                        <div className="flex flex-col gap-1">
+                            <Label className="text-xl text-nowrap">Creato il</Label>
+                            <Input disabled className="w-full" value={formatCreatedAt(agent.createdAt)} />
+                        </div>
+                        <div className="hidden sm:flex sm:flex-1 p-3"></div>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-6 w-full">
                         <Button

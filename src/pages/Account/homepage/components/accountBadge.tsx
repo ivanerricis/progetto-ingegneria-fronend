@@ -28,7 +28,7 @@ export const AccountBadge = () => {
                     {(account?.firstName?.charAt(0) ?? '') + (account?.lastName?.charAt(0) ?? '')}
                 </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
+            <DropdownMenuContent className="z-400">
                 <DropdownMenuItem onClick={() => navigate("/profile")}>
                     <User className="text-foreground" />
                     Profilo

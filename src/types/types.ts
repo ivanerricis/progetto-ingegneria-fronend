@@ -10,6 +10,15 @@ export type Advertisement = {
     status: "active" | "sold" | "rented"
 }
 
+export type Appointment = {
+    id: string | number
+    date: Date
+    time: string
+    client: Account
+    advertisement: Advertisement
+    agent: Agent
+}
+
 export type Photo = {
     id: string | number
     format: string
@@ -20,6 +29,14 @@ export type Photo = {
 export type RealEstate = {
     id: string | number
     addressFormatted: string
+    coordinates?: {
+        latitude: number
+        longitude: number
+    }
+    location?: {
+        type: string
+        coordinates: [number, number]
+    }
     airConditioning: boolean
     balcony: boolean
     concierge: boolean
@@ -45,6 +62,7 @@ export type Agent = {
     lastName: string
     phoneNumber: string
     username: string
+    createdAt: Date
     agency: Agency
 }
 
@@ -67,4 +85,5 @@ export type Account = {
     firstName: string
     lastName: string
     email: string
+    createdAt: Date
 }

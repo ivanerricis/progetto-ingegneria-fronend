@@ -21,7 +21,6 @@ body,
     --radius-2xl: calc(var(--radius) + 8px);
     --radius-3xl: calc(var(--radius) + 12px);
     --radius-4xl: calc(var(--radius) + 16px);
-    --font-sans: "Nunito Sans", ui-sans-serif, system-ui, sans-serif;
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-card: var(--card);
@@ -128,6 +127,15 @@ body,
 }
 
 @layer base {
+    @font-face {
+        font-family: "Poppins";
+        src: url("./assets/fonts/NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf");
+        font-weight: normal;
+        font-display: swap;
+    }
+}
+
+@layer base {
     * {
         @apply border-border outline-ring/50;
     }
@@ -140,7 +148,7 @@ body,
 /* Firefox */
 * {
     scrollbar-width: auto;
-    scrollbar-color: var(--muted) transparent;
+    scrollbar-color: var(--primary) transparent;
 }
 
 /* Chrome, Edge, Safari */
@@ -150,7 +158,7 @@ body,
 }
 
 *::-webkit-scrollbar-track {
-    background: var(--muted);
+    background: var(--primary);
     border-radius: 999px;
 }
 
@@ -162,4 +170,34 @@ body,
 
 *::-webkit-scrollbar-thumb:hover {
     background: var(--primary);
+}
+
+.real-estate-price-icon:hover .real-estate-price-icon__badge {
+    border-color: var(--primary) !important;
+}
+
+.real-estate-price-icon__badge {
+    background: var(--card);
+    color: var(--card-foreground);
+    max-width: fit-content;
+    padding: 6px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+    border: 1px solid color-mix(in oklch, var(--foreground) 12%, transparent);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: border-color 160ms ease;
+}
+
+.real-estate-price-icon__title {
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+
+.real-estate-price-icon__price {
+    font-size: 15px;
+    font-weight: 700;
 }

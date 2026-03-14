@@ -8,6 +8,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import ProtectedRoute from './components/protected-route';
 import { AccountProvider } from '@/providers/account-provider';
 import { AgentProvider } from '@/providers/agent-provider';
+import Loading from '@/pages/Loading/Loading';
 
 // Lazy loading delle pagine Account
 const Login = lazy(() => import('@/pages/Account/login/Login'));
@@ -40,7 +41,7 @@ function App() {
     >
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <TooltipProvider>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loading />}>
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Navigate to="/login" replace />} />
@@ -65,7 +66,11 @@ function App() {
                       <AccountPassword />
                     </ProtectedRoute>
                   } />
-                  <Route path="/account/advertisement/:id" element={<Advertisement />} />
+                  <Route path="/account/advertisement/:id" element={
+                    <ProtectedRoute authCheckPath="/auth/account" redirectTo="/login">
+                      <Advertisement />
+                    </ProtectedRoute>
+                  } />
                 </Route>
 
                 {/* Agent Routes */}

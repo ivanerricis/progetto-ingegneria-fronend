@@ -6,7 +6,7 @@ import { BathSlider } from "./bathSlider";
 
 const SidebarFilter = () => {
     return (
-        <div className="h-full w-46 flex flex-col p-4 dark:text-foreground gap-4 bg-background">
+        <div className="h-full w-46 flex flex-col p-2 dark:text-foreground gap-4 bg-background">
 
             <div className="flex flex-col gap-1">
                 <Label className="text-xl">Prezzo</Label>
