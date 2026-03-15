@@ -43,7 +43,11 @@ export const Header = ({
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="start" className="sm:hidden">
                                 {mobileLeftMenuItems?.map((item, index) => (
-                                    <DropdownMenuItem key={`${item.label}-${index}`} onSelect={item.onSelect}>
+                                    <DropdownMenuItem
+                                        key={`${item.label}-${index}`}
+                                        onSelect={item.onSelect}
+                                        className="text-md"
+                                    >
                                         {item.label}
                                     </DropdownMenuItem>
                                 ))}

@@ -88,7 +88,7 @@ export default function Password() {
     return (
         <div className="w-full h-full flex flex-col">
             <div className="flex-1 flex items-center justify-center px-6 py-10">
-                <Card className="w-full max-w-lg">
+                <Card className="w-full max-w-lg border-none">
                     <CardHeader>
                         <CardTitle>Aggiorna password</CardTitle>
                     </CardHeader>

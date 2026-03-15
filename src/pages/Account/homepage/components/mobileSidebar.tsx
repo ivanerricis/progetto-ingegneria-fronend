@@ -15,14 +15,14 @@ const MobileSidebar = ({ open, onClose }: Props) => {
                 <button
                     type="button"
                     aria-label="Chiudi filtri"
-                    className="fixed inset-0 z-40 bg-black/40 sm:hidden"
+                    className="fixed inset-0 z-40 bg-black/40 xl:hidden"
                     onClick={onClose}
                 />
             )}
 
             {/* Drawer */}
             <aside
-                className={`fixed inset-y-0 left-0 z-50 w-72 transform border-r bg-background p-2 transition-transform duration-200 sm:hidden
+                className={`fixed inset-y-0 left-0 z-50 w-72 transform border-r bg-background p-2 transition-transform duration-200 xl:hidden
                     ${open ? "translate-x-0" : "-translate-x-full"}`}
             >
                 <div className="mb-2 flex items-center justify-end">

@@ -9,14 +9,19 @@ import { AccountBadge } from "@/pages/Account/homepage/components/accountBadge";
 import { Label } from "@/components/ui/label";
 import { Footer } from "@/components/footer";
 import RealEstateCarousel from "@/pages/Account/advertisement/components/realEstateCarousel";
-import ExpandIcon from "@/assets/icons/expand-2.svg?react"
-import StairsIcon from "@/assets/icons/stairs.svg?react"
-import ElevatorIcon from "@/assets/icons/elevator.svg?react"
 import type { ReactNode } from "react"
-import Loading from "@/pages/Loading/Loading";
 import { ContactCard } from "@/pages/Account/advertisement/components/contactCard";
 import { RealEstateMap } from "@/components/map/realEstateMap";
 import { Separator } from "@/components/ui/separator";
+import { AdvertisementSkeleton } from "@/pages/Account/advertisement/components/advertisementSkeleton";
+
+import ExpandIcon from "@/assets/icons/expand-2.svg?react"
+import StairsIcon from "@/assets/icons/stairs.svg?react"
+import ElevatorIcon from "@/assets/icons/elevator.svg?react"
+import GarageIcon from "@/assets/icons/garage.svg?react"
+import FloorPlanIcon from "@/assets/icons/floorplan.svg?react"
+import BalconyIcon from "@/assets/icons/balcony.svg?react"
+import TerraceIcon from "@/assets/icons/terrace.svg?react"
 
 const hasValue = <T,>(value: T | null | undefined): value is T => value !== null && value !== undefined
 
@@ -28,8 +33,8 @@ type FeatureItemProps = {
 
 const FeatureItem = ({ children, icon, iconSizeClassName = "size-8" }: FeatureItemProps) => (
     <div className="flex items-center gap-1 rounded-sm border dark:*:text-primary *:text-primary bg-primary/20 p-1">
-        {icon && <div className={`${iconSizeClassName} flex items-center justify-center`}>{icon}</div>}
-        <Label className="text-md">{children}</Label>
+        {icon && <div className={`${iconSizeClassName} flex items-center justify-center *:size-7`}>{icon}</div>}
+        <Label className="text-md font-semibold">{children}</Label>
     </div>
 )
 
@@ -81,7 +86,7 @@ const Advertisement = () => {
 
     if (isLoading) {
         return renderPage(
-            <Loading />
+            <AdvertisementSkeleton />
         )
     }
 
@@ -122,28 +127,30 @@ const Advertisement = () => {
                     <Separator orientation="horizontal" className="shrink-0" />
 
                     <div className="flex flex-col gap-1">
-                        <Label className="font-bold text-xl">Descrizione</Label>
-                        <Label className="text-muted-foreground!">{advertisement.description}</Label>
+                        <Label className="font-bold text-2xl">Descrizione</Label>
+                        <Label className="text-muted-foreground! text-lg">{advertisement.description}</Label>
                     </div>
 
                     <Separator orientation="horizontal" className="shrink-0" />
 
                     <div className="flex flex-col gap-1">
-                        <Label className="font-bold text-xl">Caratteristiche</Label>
+                        <Label className="font-bold text-2xl">Caratteristiche</Label>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 *:text-foreground">
                             {hasValue(advertisement.realEstate.rooms) && (
-                                <FeatureItem>
+                                <FeatureItem icon={<FloorPlanIcon />}>
                                     {advertisement.realEstate.rooms} locali
                                 </FeatureItem>
                             )}
                             {hasValue(advertisement.realEstate.size) && (
                                 <FeatureItem icon={<ExpandIcon />}>
-                                    {advertisement.realEstate.size} mq
+                                    {advertisement.realEstate.size} m²
                                 </FeatureItem>
                             )}
                             {hasValue(advertisement.realEstate.bathrooms) && (
                                 <FeatureItem icon={<Bath />}>
-                                    {advertisement.realEstate.bathrooms} bagni
+                                    {advertisement.realEstate.bathrooms === 1
+                                        ? "1 bagno"
+                                        : advertisement.realEstate.bathrooms + " bagni"}
                                 </FeatureItem>
                             )}
                             {hasValue(advertisement.realEstate.floor) && (
@@ -159,7 +166,7 @@ const Advertisement = () => {
                                 </FeatureItem>
                             )}
                             {hasValue(advertisement.realEstate.balcony) && (
-                                <FeatureItem>Con balcone</FeatureItem>
+                                <FeatureItem icon={<BalconyIcon />}>Con balcone</FeatureItem>
                             )}
                             {hasValue(advertisement.realEstate.concierge) && (
                                 <FeatureItem icon={<Contact />}>Con concierge</FeatureItem>
@@ -176,7 +183,7 @@ const Advertisement = () => {
                                 <FeatureItem icon={<ShelvingUnit />}>Arredato</FeatureItem>
                             )}
                             {hasValue(advertisement.realEstate.garage) && (
-                                <FeatureItem icon={<ShelvingUnit />}>Con garage</FeatureItem>
+                                <FeatureItem icon={<GarageIcon />}>Con garage</FeatureItem>
                             )}
                             {hasValue(advertisement.realEstate.garden) && (
                                 <FeatureItem icon={<Fence />}>Con giardino</FeatureItem>
@@ -191,7 +198,7 @@ const Advertisement = () => {
                                 <FeatureItem icon={<SolarPanel />}>Con pannelli solari</FeatureItem>
                             )}
                             {hasValue(advertisement.realEstate.terrace) && (
-                                <FeatureItem>Con terrazzo</FeatureItem>
+                                <FeatureItem icon={<TerraceIcon />}>Con terrazzo</FeatureItem>
                             )}
                         </div>
                     </div>
@@ -199,7 +206,7 @@ const Advertisement = () => {
                     <Separator orientation="horizontal" className="shrink-0" />
 
                     <div className="flex flex-col gap-2">
-                        <Label className="font-bold text-xl">Posizione</Label>
+                        <Label className="font-bold text-2xl">Posizione</Label>
                         {hasMapCoordinates ? (
                             <div className="h-100 overflow-hidden rounded-md border">
                                 <RealEstateMap advertisements={[advertisement]} />

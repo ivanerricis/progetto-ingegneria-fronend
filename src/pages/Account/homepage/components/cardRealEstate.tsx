@@ -32,7 +32,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
     return (
         <div
             onClick={handleCardClick}
-            className="relative bg-background border w-full h-fit flex flex-col 2xl:flex-row rounded-md shadow-md hover:cursor-pointer hover:bg-secondary dark:text-foreground"
+            className="relative bg-background border w-full h-fit flex flex-col md:flex-row rounded-md shadow-md hover:cursor-pointer hover:bg-secondary dark:text-foreground"
         >
 
             <div className="absolute z-20 top-2 left-2 bg-primary text-sm text-primary-foreground px-2 py-1 rounded-sm">
@@ -72,7 +72,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
 
                 </div>
 
-                <div className="hidden text-muted-foreground sm:block w-full line-clamp-3">
+                <div className="hidden text-muted-foreground sm:block w-full line-clamp-3 min-h-18 max-h-18">
                     {advertisement.description}
                 </div>
 

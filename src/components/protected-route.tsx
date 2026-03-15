@@ -1,5 +1,5 @@
 import { type ReactNode, useEffect, useState } from "react"
-import { Navigate } from "react-router-dom"
+import { Navigate, useLocation } from "react-router-dom"
 import { apiClient } from "@/lib/api/config"
 
 type ProtectedRouteProps = {
@@ -9,11 +9,13 @@ type ProtectedRouteProps = {
 }
 
 export const ProtectedRoute = ({ children, authCheckPath, redirectTo = "/login" }: ProtectedRouteProps) => {
+    const location = useLocation()
     const [isChecking, setIsChecking] = useState(true)
     const [isAuthorized, setIsAuthorized] = useState(false)
 
     useEffect(() => {
         let isMounted = true
+        setIsChecking(true)
 
         const checkSession = async () => {
             try {
@@ -34,11 +36,11 @@ export const ProtectedRoute = ({ children, authCheckPath, redirectTo = "/login" 
         return () => {
             isMounted = false
         }
-    }, [authCheckPath])
+    }, [authCheckPath, location.pathname])
 
     if (isChecking) {
         return (
-            <div className="h-screen w-full flex items-center justify-center text-sm text-muted-foreground">
+            <div className="h-screen w-full flex items-center justify-center text-md text-muted-foreground">
                 Verifica sessione in corso...
             </div>
         )

@@ -22,7 +22,7 @@ const AgencyInfoRow = ({ label, value }: AgencyInfoRowProps) => (
 
 export const ContactCard = ({ agent }: Props) => {
     return (
-        <div className="flex h-fit shrink-0 flex-col gap-2 rounded-md border p-6 sm:sticky sm:self-start">
+        <div className="flex md:w-80 h-fit shrink-0 flex-col gap-2 rounded-md border p-6 sm:sticky sm:self-start">
             <Label className="text-2xl text-bold">Contatta l'agenzia</Label>
             <div className="flex flex-col gap-2">
                 <Button>
@@ -37,7 +37,7 @@ export const ContactCard = ({ agent }: Props) => {
             <Separator className="mt-2"/>
             <div>
                 <AgencyInfoRow label="Agente" value={`${agent.firstName} ${agent.lastName}`} />
-                <AgencyInfoRow label="Numero di telefono" value={agent.phoneNumber} />
+                <AgencyInfoRow label="Telefono" value={agent.phoneNumber} />
             </div>
             <Separator />
             <div className="flex flex-col gap-1">

@@ -22,16 +22,16 @@ export function ModeToggle() {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="z-400">
-                <DropdownMenuItem className="group/sun flex items-center justify-start" onClick={() => setTheme("light")}>
-                    <Sun className="text-foreground group-hover/sun:text-background dark:group-hover/sun:text-foreground"/>
+                <DropdownMenuItem className="group/sun flex items-center justify-start text-md" onClick={() => setTheme("light")}>
+                    <Sun className="text-foreground group-hover/sun:text-background dark:group-hover/sun:text-foreground size-5"/>
                     Chiaro
                 </DropdownMenuItem>
-                <DropdownMenuItem className="group/moon flex items-center justify-start" onClick={() => setTheme("dark")}>
-                    <Moon className="text-foreground group-hover/moon:text-background dark:group-hover/moon:text-foreground"/>
+                <DropdownMenuItem className="group/moon flex items-center justify-start text-md" onClick={() => setTheme("dark")}>
+                    <Moon className="text-foreground group-hover/moon:text-background dark:group-hover/moon:text-foreground size-5"/>
                     Scuro
                 </DropdownMenuItem>
-                <DropdownMenuItem className="group/computer flex items-center justify-start" onClick={() => setTheme("system")}>
-                    <Computer className="text-foreground group-hover/computer:text-background dark:group-hover/computer:text-foreground"/>
+                <DropdownMenuItem className="group/computer flex items-center justify-start text-md" onClick={() => setTheme("system")}>
+                    <Computer className="text-foreground group-hover/computer:text-background dark:group-hover/computer:text-foreground size-5"/>
                     Sistema
                 </DropdownMenuItem>
             </DropdownMenuContent>

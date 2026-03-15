@@ -1,7 +1,7 @@
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -9,6 +9,7 @@ import ProtectedRoute from './components/protected-route';
 import { AccountProvider } from '@/providers/account-provider';
 import { AgentProvider } from '@/providers/agent-provider';
 import Loading from '@/pages/Loading/Loading';
+import { apiClient } from '@/lib/api/config';
 
 // Lazy loading delle pagine Account
 const Login = lazy(() => import('@/pages/Account/login/Login'));
@@ -31,6 +32,50 @@ const CreateAdvertisement = lazy(() => import('@/pages/Agent/dashboard/CreateAdv
 const AgentProfile = lazy(() => import('@/pages/Agent/dashboard/profile/Profile'));
 const AgentPassword = lazy(() => import('@/pages/Agent/dashboard/password/Password'));
 
+const SessionEntryRedirect = () => {
+  const [target, setTarget] = useState<string | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const resolveTarget = async () => {
+      try {
+        await apiClient.get('/auth/account');
+        if (isMounted) setTarget('/homepage');
+        return;
+      } catch {
+        // Ignore and try agent session.
+      }
+
+      try {
+        await apiClient.get('/auth/agent');
+        if (isMounted) setTarget('/agent/dashboard');
+        return;
+      } catch {
+        // Ignore and fallback to login.
+      }
+
+      if (isMounted) setTarget('/login');
+    };
+
+    void resolveTarget();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  if (!target) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center text-md text-muted-foreground">
+        Verifica sessione in corso...
+      </div>
+    );
+  }
+
+  return <Navigate to={target} replace />;
+};
+
 function App() {
   return (
     <MantineProvider
@@ -44,7 +89,7 @@ function App() {
           <Suspense fallback={<Loading />}>
             <BrowserRouter>
               <Routes>
-                <Route path="/" element={<Navigate to="/login" replace />} />
+                <Route path="/" element={<SessionEntryRedirect />} />
                 <Route path="/create-agency" element={<CreateAgency />} />
 
                 {/* Account Routes */}

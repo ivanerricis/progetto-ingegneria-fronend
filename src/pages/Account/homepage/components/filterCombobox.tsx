@@ -18,7 +18,7 @@ type FilterComboboxProps = {
 const FilterCombobox = ({ value, onValueChange }: FilterComboboxProps) => {
     return (
         <Select value={value} onValueChange={(nextValue) => onValueChange(nextValue as FilterOption)}>
-            <SelectTrigger className="w-42 mr-5">
+            <SelectTrigger className="w-42 sm:mr-5">
                 <ArrowUpDown className="text-foreground"/>
                 <SelectValue />
             </SelectTrigger>

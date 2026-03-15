@@ -1,4 +1,4 @@
-import { Earth } from "lucide-react";
+import { ChevronDown, Earth } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
@@ -24,15 +24,16 @@ const LanguageSwitcher = () => {
                 <Button variant="outline" className="gap-2">
                     <Earth className="h-4 w-4" />
                     {currentLabel}
+                    <ChevronDown />
                 </Button>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="end">
-                <DropdownMenuItem className="flex items-center" onClick={() => changeLanguage("it")}>
+                <DropdownMenuItem className="flex items-center text-md" onClick={() => changeLanguage("it")}>
                     <span className="fi fi-it"></span>
                     Italiano
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center" onClick={() => changeLanguage("en")}>
+                <DropdownMenuItem className="flex items-center text-md" onClick={() => changeLanguage("en")}>
                     <span className="fi fi-gb"></span>
                     English
                 </DropdownMenuItem>

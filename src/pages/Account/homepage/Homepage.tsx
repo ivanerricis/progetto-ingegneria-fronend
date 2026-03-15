@@ -17,6 +17,7 @@ import MobileSidebar from "./components/mobileSidebar"
 import MobileMapSidebar from "./components/mobileMapSidebar"
 import { RealEstateMap } from "@/components/map/realEstateMap"
 import type { Advertisement } from "@/types/types"
+import { ButtonGroup } from "@/components/ui/button-group"
 
 const defaultFilter: FilterOption = "Più vicini"
 const defaultReferencePoint: [number, number] = [40.8518, 14.2681]
@@ -111,7 +112,7 @@ export const Homepage = () => {
                             type="button"
                             variant="outline"
                             size="icon"
-                            className="sm:hidden"
+                            className="xl:hidden"
                             aria-label="Apri filtri"
                             onClick={() => {
                                 setIsMobileMapOpen(false)
@@ -125,7 +126,7 @@ export const Homepage = () => {
                             type="button"
                             variant="outline"
                             size="icon"
-                            className="sm:hidden"
+                            className="xl:hidden"
                             aria-label="Apri mappa"
                             onClick={() => {
                                 setIsMobileSidebarOpen(false)
@@ -136,17 +137,19 @@ export const Homepage = () => {
                         </Button>
 
                         {/* Desktop: brand button */}
-                        <Label className="hidden sm:flex text-xl">
+                        <Label className="hidden xl:flex text-xl">
                             DietiEstates
                         </Label>
                     </>
                 }
                 center={
-                    <Field orientation="horizontal">
-                        <Input type="search" placeholder="Cerca..." />
-                        <Button variant={"outline"} size={"icon"} className="hidden sm:flex">
-                            <Search />
-                        </Button>
+                    <Field>
+                        <ButtonGroup>
+                            <Input id="input-button-group" placeholder="Cerca..." />
+                            <Button variant="outline">
+                                <Search />
+                            </Button>
+                        </ButtonGroup>
                     </Field>
                 }
                 right={
@@ -167,7 +170,7 @@ export const Homepage = () => {
             {/* Main */}
             <main className="flex min-h-0 h-full flex-1 overflow-hidden">
                 {/* Desktop sidebar */}
-                <div className="hidden sm:block">
+                <div className="hidden xl:block">
                     <SidebarFilter />
                 </div>
 
@@ -194,14 +197,14 @@ export const Homepage = () => {
                     )}
 
                     {hasResults && (
-                        <div className="min-h-0 flex-1 overflow-y-auto pr-1">
+                        <div className="min-h-0 flex-1 overflow-y-auto pr-1 overflow-x-hidden">
                             <AdvertisementsList advertisements={sortedAdvertisements} />
                         </div>
                     )}
                 </div>
 
                 {/* Desktop map sidebar */}
-                <div className="hidden sm:block h-full flex-1 bg-background">
+                <div className="hidden xl:block h-full flex-1 bg-background">
                     <RealEstateMap advertisements={sortedAdvertisements} />
                 </div>
             </main>

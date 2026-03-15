@@ -201,3 +201,17 @@ body,
     font-size: 15px;
     font-weight: 700;
 }
+
+.real-estate-marker-popup .leaflet-popup-content-wrapper {
+    padding: 0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.real-estate-marker-popup .leaflet-popup-content {
+    margin: 0;
+}
+
+.real-estate-marker-popup .leaflet-popup-tip {
+    background: var(--card);
+}

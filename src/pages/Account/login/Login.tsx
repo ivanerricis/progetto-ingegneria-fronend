@@ -6,9 +6,42 @@ import { Button } from "@/components/ui/button"
 import { useNavigate } from "react-router-dom"
 import { ModeToggle } from "@/components/mode-toggle"
 import LanguageSwitcher from "@/components/languageSwitcher"
+import { useEffect } from "react"
+import { apiClient } from "@/lib/api/config"
 
 export const Login = () => {
     const navigate = useNavigate()
+
+    useEffect(() => {
+        let isMounted = true
+
+        const redirectIfAuthenticated = async () => {
+            try {
+                await apiClient.get("/auth/account")
+                if (isMounted) {
+                    navigate("/homepage", { replace: true })
+                }
+                return
+            } catch {
+                // Ignore and try agent session.
+            }
+
+            try {
+                await apiClient.get("/auth/agent")
+                if (isMounted) {
+                    navigate("/agent/dashboard", { replace: true })
+                }
+            } catch {
+                // Ignore: stay on account login.
+            }
+        }
+
+        void redirectIfAuthenticated()
+
+        return () => {
+            isMounted = false
+        }
+    }, [navigate])
 
     return (
         <div className="flex h-screen flex-col sm:gap-2 overflow-hidden">

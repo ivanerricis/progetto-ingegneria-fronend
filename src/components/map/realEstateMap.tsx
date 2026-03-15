@@ -1,9 +1,11 @@
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import MarkerClusterGroup from "react-leaflet-cluster"
 import { createPriceIcon } from "./markerIcon"
 import { useNavigate } from "react-router-dom"
 import type { Advertisement } from "@/types/types"
+import { MarkerHoverCard } from "./markerHoverCard"
+import type { Marker as LeafletMarker } from "leaflet"
 
 type Props = {
     advertisements: Advertisement[]
@@ -11,10 +13,10 @@ type Props = {
 
 type MarkerData = {
     id: string
-    title: string
     price: number
     latitude: number
     longitude: number
+    photos: Advertisement["photos"]
 }
 
 const extractCoordinates = (ad: Advertisement): { latitude: number; longitude: number } | null => {
@@ -101,6 +103,33 @@ const RefreshMapSize = () => {
 
 export const RealEstateMap = ({ advertisements }: Props) => {
     const navigate = useNavigate()
+    const closePopupTimeouts = useRef<Record<string, number>>({})
+
+    const clearCloseTimeout = (markerId: string) => {
+        const timeoutId = closePopupTimeouts.current[markerId]
+
+        if (timeoutId !== undefined) {
+            window.clearTimeout(timeoutId)
+            delete closePopupTimeouts.current[markerId]
+        }
+    }
+
+    const scheduleClosePopup = (markerId: string, marker: LeafletMarker) => {
+        clearCloseTimeout(markerId)
+
+        closePopupTimeouts.current[markerId] = window.setTimeout(() => {
+            marker.closePopup()
+            delete closePopupTimeouts.current[markerId]
+        }, 140)
+    }
+
+    useEffect(() => {
+        return () => {
+            Object.values(closePopupTimeouts.current).forEach((timeoutId) => {
+                window.clearTimeout(timeoutId)
+            })
+        }
+    }, [])
 
     const markers = advertisements
         .map((ad) => {
@@ -114,10 +143,10 @@ export const RealEstateMap = ({ advertisements }: Props) => {
 
             return {
                 id: String(ad.id),
-                title: ad.realEstate.addressFormatted,
                 price: Number.isFinite(parsedPrice) ? parsedPrice : 0,
                 latitude: coordinates.latitude,
                 longitude: coordinates.longitude,
+                photos: ad.photos,
             }
         })
         .filter((marker): marker is NonNullable<typeof marker> => marker !== null)
@@ -142,13 +171,39 @@ export const RealEstateMap = ({ advertisements }: Props) => {
                         position={[marker.latitude, marker.longitude]}
                         icon={createPriceIcon(marker.price)}
                         eventHandlers={{
+                            mouseover: (event) => {
+                                clearCloseTimeout(marker.id)
+                                event.target.openPopup()
+                            },
+                            mouseout: (event) => {
+                                scheduleClosePopup(marker.id, event.target)
+                            },
+                            popupopen: (event) => {
+                                const popupElement = event.target.getPopup()?.getElement()
+
+                                if (!popupElement) return
+
+                                popupElement.onmouseenter = () => {
+                                    clearCloseTimeout(marker.id)
+                                }
+
+                                popupElement.onmouseleave = () => {
+                                    scheduleClosePopup(marker.id, event.target)
+                                }
+                            },
                             click: () => navigate(`/account/advertisement/${marker.id}`)
                         }}
                     >
-                        <Popup>
-                            <strong>{marker.title}</strong>
-                            <br />
-                            {marker.price}
+                        <Popup
+                            closeButton={false}
+                            autoClose={false}
+                            closeOnClick={false}
+                            className="real-estate-marker-popup"
+                        >
+                            <MarkerHoverCard
+                                photos={marker.photos}
+                                price={marker.price}
+                            />
                         </Popup>
                     </Marker>
                 ))}

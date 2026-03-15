@@ -60,30 +60,29 @@ export default function Profile() {
                 <div className="flex flex-col justify-start items-center gap-8 w-full h-full">
                     <div className="flex flex-col gap-6">
                         <Label className="text-2xl font-bold w-full h-full">Le tue informazioni</Label>
-
-                        <div className="flex gap-4">
+                        <div className="flex flex-col sm:flex-row gap-4">
                             <div className="flex flex-col gap-1 w-full">
-                                <Label className="text-xl text-nowrap">Nome</Label>
+                                <Label className="text-lg text-nowrap">Nome</Label>
                                 <Input disabled className="w-full" value={account.firstName} />
                             </div>
                             <div className="flex flex-col gap-1 w-full">
-                                <Label className="text-xl text-nowrap">Cognome</Label>
+                                <Label className="text-lg text-nowrap">Cognome</Label>
                                 <Input disabled className="w-full" value={account.lastName} />
                             </div>
                         </div>
 
-                        <div className="flex gap-4">
+                        <div className="flex flex-col sm:flex-row gap-4">
                             <div className="flex flex-col gap-1 w-full">
-                                <Label className="text-xl text-nowrap">Email</Label>
+                                <Label className="text-lg text-nowrap">Email</Label>
                                 <Input disabled className="w-full" value={account.email} />
                             </div>
                             <div className="flex flex-col gap-1 w-full">
-                                <Label className="text-xl text-nowrap">Creato il</Label>
+                                <Label className="text-lg text-nowrap">Creato il</Label>
                                 <Input disabled className="w-full" value={formatCreatedAt(account.createdAt)} />
                             </div>
                         </div>
 
-                        <div className="flex flex-col sm:flex-row flex-1 gap-4">
+                        <div className="flex flex-col flex-1 gap-4">
                             <Button
                                 type="button"
                                 onClick={() => navigate(`/account/${account.id}/password`)}
@@ -108,9 +107,9 @@ export default function Profile() {
             <Footer isHomepage />
 
             <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-                <DialogContent showCloseButton={false}>
+                <DialogContent showCloseButton={false} className="border border-destructive">
                     <DialogHeader>
-                        <DialogTitle>Elimina account</DialogTitle>
+                        <DialogTitle className="text-destructive!">Elimina account</DialogTitle>
                         <DialogDescription>
                             Sei sicuro di voler eliminare il tuo account? Questa azione è irreversibile e tutti i tuoi dati verranno persi.
                         </DialogDescription>
