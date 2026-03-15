@@ -9,7 +9,7 @@ const CheckboxFilter = ({ label }: CheckboxFilterProps) => {
         <label className="flex items-center gap-2 cursor-pointer rounded-full w-fit h-fit">
             <input type="checkbox" className="sr-only peer" />
 
-            <span className="border font-bold rounded-full px-3 py-1 whitespace-wrap text-nowrap dark:text-foreground
+            <span className="border-3 font-bold rounded-full px-3 py-1 whitespace-wrap text-nowrap dark:text-foreground
                    transition-all duration-200 ease-out motion-reduce:transition-none
                    peer-checked:shadow-sm
                    peer-checked:border-primary
