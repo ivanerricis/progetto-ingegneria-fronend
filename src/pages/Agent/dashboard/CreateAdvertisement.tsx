@@ -131,7 +131,7 @@ export default function CreateAdvertisement() {
                         </div>
                         <Textarea
                             placeholder="Descrizione dell'immobile"
-                            className="h-full min-h-32 text-foreground"
+                            className="h-41 min-h-41 max-h-41 text-foreground"
                             value={description}
                             onChange={(event) => setDescription(event.target.value)}
                             maxLength={2000}

@@ -56,7 +56,7 @@ export default function Profile() {
                 right={<ModeToggle />}
             />
 
-            <div className="flex-1 flex items-center justify-center p-10 sm:px-40">
+            <div className="flex-1 flex items-center justify-center sm:px-40">
                 <div className="flex flex-col justify-start items-center gap-8 w-full h-full">
                     <div className="flex flex-col gap-6">
                         <Label className="text-2xl font-bold w-full h-full">Le tue informazioni</Label>

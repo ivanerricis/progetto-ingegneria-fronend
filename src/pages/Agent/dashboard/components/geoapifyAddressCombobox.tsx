@@ -124,7 +124,7 @@ const GeoapifyAddressCombobox = ({
                 });
             }}
         >
-            <ComboboxInput placeholder={placeholder} showClear />
+            <ComboboxInput placeholder={placeholder} showClear className="rounded-sm"/>
             <ComboboxContent>
                 <ComboboxEmpty>
                     {isLoading ? "Ricerca indirizzi..." : "Nessun risultato trovato."}

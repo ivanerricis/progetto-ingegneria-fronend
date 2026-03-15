@@ -101,7 +101,7 @@ export const Homepage = () => {
     const hasResults = !isLoading && !hasError && sortedAdvertisements.length > 0
 
     return (
-        <div className="flex flex-col min-h-screen max-h-screen h-full">
+        <div className="flex min-h-screen flex-col xl:h-full xl:max-h-screen">
 
             <Header
                 isHomepage
@@ -168,13 +168,13 @@ export const Homepage = () => {
             />
 
             {/* Main */}
-            <main className="flex min-h-0 h-full flex-1 overflow-hidden">
+            <main className="flex flex-1 xl:min-h-0 xl:h-full xl:overflow-hidden">
                 {/* Desktop sidebar */}
                 <div className="hidden xl:block">
                     <SidebarFilter />
                 </div>
 
-                <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden p-2 sm:border-l">
+                <div className="flex flex-1 flex-col gap-2 p-2 sm:border-l xl:min-h-0 xl:overflow-hidden">
                     {isLoading && <AdvertisementListSkeleton />}
 
                     {hasError && (
@@ -197,7 +197,7 @@ export const Homepage = () => {
                     )}
 
                     {hasResults && (
-                        <div className="min-h-0 flex-1 overflow-y-auto pr-1 overflow-x-hidden">
+                        <div className="overflow-x-hidden pr-1 xl:min-h-0 xl:flex-1 xl:overflow-y-auto">
                             <AdvertisementsList advertisements={sortedAdvertisements} />
                         </div>
                     )}

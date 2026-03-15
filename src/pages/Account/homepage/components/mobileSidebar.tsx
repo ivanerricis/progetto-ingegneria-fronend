@@ -22,10 +22,10 @@ const MobileSidebar = ({ open, onClose }: Props) => {
 
             {/* Drawer */}
             <aside
-                className={`fixed inset-y-0 left-0 z-50 w-72 transform border-r bg-background p-2 transition-transform duration-200 xl:hidden
+                className={`fixed inset-y-0 left-0 z-50 flex w-72 transform flex-col overflow-hidden border-r bg-background p-2 transition-transform duration-200 xl:hidden
                     ${open ? "translate-x-0" : "-translate-x-full"}`}
             >
-                <div className="mb-2 flex items-center justify-end">
+                <div className="mb-2 flex shrink-0 items-center justify-end">
                     <Button
                         type="button"
                         variant="outline"
@@ -37,7 +37,9 @@ const MobileSidebar = ({ open, onClose }: Props) => {
                         <X />
                     </Button>
                 </div>
-                <SidebarFilter />
+                <div className="min-h-0 flex-1">
+                    <SidebarFilter />
+                </div>
             </aside>
         </>
     )

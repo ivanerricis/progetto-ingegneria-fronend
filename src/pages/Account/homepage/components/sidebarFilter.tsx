@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button";
 
 const SidebarFilter = () => {
     return (
-        <div className="h-full w-70 flex flex-col p-2 dark:text-foreground gap-4 bg-background">
+        <div className="flex h-full w-70 flex-col gap-4 bg-background p-2 dark:text-foreground">
 
-            <div className="flex flex-col gap-4 overflow-y-auto">
+            <div className="min-h-0 flex flex-1 flex-col gap-4 overflow-y-auto">
                 <div className="flex flex-col gap-1">
                     <Label className="text-xl">Prezzo</Label>
                     <RangeSliderFilter
