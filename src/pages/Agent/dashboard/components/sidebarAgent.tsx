@@ -43,12 +43,12 @@ const SidebarAgent = () => {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             <DropdownMenuItem className="text-md" onClick={() => navigateTo("/agent/dashboard/profile")}>
-                                <Pencil className="text-foreground" />
+                                <Pencil className="text-foreground size-5" />
                                 Modifica
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem className="text-md" onClick={handleLogout}>
-                                <LogOut className="text-foreground" />
+                                <LogOut className="text-foreground size-5" />
                                 Logout
                             </DropdownMenuItem>
                         </DropdownMenuContent>

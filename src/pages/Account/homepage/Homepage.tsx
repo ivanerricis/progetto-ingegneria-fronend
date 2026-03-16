@@ -1,11 +1,9 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Field } from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
-import { Map, Search, SlidersHorizontal } from "lucide-react"
+import { Map, SlidersHorizontal } from "lucide-react"
 import { ModeToggle } from "@/components/mode-toggle"
 import Header from "@/components/header"
-import FilterCombobox, { type FilterOption } from "@/pages/Account/homepage/components/filterCombobox"
 import SidebarFilter from "./components/sidebarFilter"
 import { Footer } from "@/components/footer"
 import AdvertisementsList from "./components/advertisementList"
@@ -16,89 +14,20 @@ import { AccountBadge } from "@/pages/Account/homepage/components/accountBadge"
 import MobileSidebar from "./components/mobileSidebar"
 import MobileMapSidebar from "./components/mobileMapSidebar"
 import { RealEstateMap } from "@/components/map/realEstateMap"
-import type { Advertisement } from "@/types/types"
 import { ButtonGroup } from "@/components/ui/button-group"
-
-const defaultFilter: FilterOption = "Più vicini"
-const defaultReferencePoint: [number, number] = [40.8518, 14.2681]
-
-const getCoordinates = (advertisement: Advertisement): [number, number] | null => {
-    const locationCoordinates = advertisement.realEstate.location?.coordinates
-
-    if (Array.isArray(locationCoordinates) && locationCoordinates.length >= 2) {
-        const [longitude, latitude] = locationCoordinates
-
-        if (Number.isFinite(latitude) && Number.isFinite(longitude)) {
-            return [latitude, longitude]
-        }
-    }
-
-    const coordinates = advertisement.realEstate.coordinates
-
-    if (
-        coordinates
-        && Number.isFinite(coordinates.latitude)
-        && Number.isFinite(coordinates.longitude)
-    ) {
-        return [coordinates.latitude, coordinates.longitude]
-    }
-
-    return null
-}
-
-const getDistanceFromReference = (advertisement: Advertisement) => {
-    const coordinates = getCoordinates(advertisement)
-
-    if (!coordinates) return Number.POSITIVE_INFINITY
-
-    const [latitude, longitude] = coordinates
-    const [referenceLatitude, referenceLongitude] = defaultReferencePoint
-
-    return Math.hypot(latitude - referenceLatitude, longitude - referenceLongitude)
-}
-
-const getAdvertisementOrderValue = (advertisement: Advertisement, fallbackIndex: number) => {
-    const numericId = Number(advertisement.id)
-    return Number.isFinite(numericId) ? numericId : fallbackIndex
-}
-
-const sortAdvertisements = (advertisements: Advertisement[], selectedFilter: FilterOption) => {
-    return [...advertisements].sort((leftAdvertisement, rightAdvertisement) => {
-        switch (selectedFilter) {
-            case "Più costosi":
-                return Number(rightAdvertisement.price) - Number(leftAdvertisement.price)
-            case "Meno costosi":
-                return Number(leftAdvertisement.price) - Number(rightAdvertisement.price)
-            case "Più grandi":
-                return rightAdvertisement.realEstate.size - leftAdvertisement.realEstate.size
-            case "Meno grandi":
-                return leftAdvertisement.realEstate.size - rightAdvertisement.realEstate.size
-            case "Più lontani":
-                return getDistanceFromReference(rightAdvertisement) - getDistanceFromReference(leftAdvertisement)
-            case "Più recenti":
-                return getAdvertisementOrderValue(rightAdvertisement, advertisements.indexOf(rightAdvertisement))
-                    - getAdvertisementOrderValue(leftAdvertisement, advertisements.indexOf(leftAdvertisement))
-            case "Meno recenti":
-                return getAdvertisementOrderValue(leftAdvertisement, advertisements.indexOf(leftAdvertisement))
-                    - getAdvertisementOrderValue(rightAdvertisement, advertisements.indexOf(rightAdvertisement))
-            case "Più vicini":
-            default:
-                return getDistanceFromReference(leftAdvertisement) - getDistanceFromReference(rightAdvertisement)
-        }
-    })
-}
+import { PaginationAdvertisements } from "./components/paginationAdvertisements"
+import { CitySearchInput } from "./components/citySearchInput"
+import { useHomepageSearch } from "@/hooks/account/useHomepageSearch"
 
 export const Homepage = () => {
     const { advertisements, isLoading, error } = useAdvertisements()
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
     const [isMobileMapOpen, setIsMobileMapOpen] = useState(false)
-    const [selectedFilter, setSelectedFilter] = useState<FilterOption>(defaultFilter)
-
-    const sortedAdvertisements = sortAdvertisements(advertisements, selectedFilter)
+    const { city, setCity } = useHomepageSearch()
 
     const hasError = Boolean(error)
-    const isEmpty = !isLoading && !hasError && sortedAdvertisements.length === 0
-    const hasResults = !isLoading && !hasError && sortedAdvertisements.length > 0
+    const isEmpty = !isLoading && !hasError && advertisements.length === 0
+    const hasResults = !isLoading && !hasError && advertisements.length > 0
 
     return (
         <div className="flex min-h-screen flex-col xl:h-full xl:max-h-screen">
@@ -107,7 +36,6 @@ export const Homepage = () => {
                 isHomepage
                 left={
                     <>
-                        {/* Mobile: menu button */}
                         <Button
                             type="button"
                             variant="outline"
@@ -136,19 +64,19 @@ export const Homepage = () => {
                             <Map />
                         </Button>
 
-                        {/* Desktop: brand button */}
                         <Label className="hidden xl:flex text-xl">
                             DietiEstates
                         </Label>
                     </>
                 }
                 center={
-                    <Field>
+                    <Field className="w-full max-w-md">
                         <ButtonGroup>
-                            <Input id="input-button-group" placeholder="Cerca..." />
-                            <Button variant="outline">
-                                <Search />
-                            </Button>
+                            <CitySearchInput
+                                value={city}
+                                onCitySelect={setCity}
+                                placeholder="Cerca città..."
+                            />
                         </ButtonGroup>
                     </Field>
                 }
@@ -164,12 +92,10 @@ export const Homepage = () => {
             <MobileMapSidebar
                 open={isMobileMapOpen}
                 onClose={() => setIsMobileMapOpen(false)}
-                advertisements={sortedAdvertisements}
+                advertisements={advertisements}
             />
 
-            {/* Main */}
             <main className="flex flex-1 xl:min-h-0 xl:h-full xl:overflow-hidden">
-                {/* Desktop sidebar */}
                 <div className="hidden xl:block">
                     <SidebarFilter />
                 </div>
@@ -190,25 +116,25 @@ export const Homepage = () => {
                     {hasResults && (
                         <div className="flex items-center justify-between">
                             <div className="flex w-full items-center text-start text-foreground">
-                                Numero di annunci trovati: {sortedAdvertisements.length}
+                                Risultati della ricerca: {advertisements.length}
                             </div>
-                            <FilterCombobox value={selectedFilter} onValueChange={setSelectedFilter} />
                         </div>
                     )}
 
                     {hasResults && (
-                        <div className="overflow-x-hidden pr-1 xl:min-h-0 xl:flex-1 xl:overflow-y-auto">
-                            <AdvertisementsList advertisements={sortedAdvertisements} />
-                        </div>
+                        <>
+                            <div className="overflow-x-hidden pr-1 xl:min-h-0 xl:flex-1 xl:overflow-y-auto">
+                                <AdvertisementsList advertisements={advertisements} />
+                            </div>
+                            <PaginationAdvertisements />
+                        </>
                     )}
                 </div>
 
-                {/* Desktop map sidebar */}
                 <div className="hidden xl:block h-full flex-1 bg-background">
-                    <RealEstateMap advertisements={sortedAdvertisements} />
+                    <RealEstateMap advertisements={advertisements} />
                 </div>
             </main>
-
             <Footer isHomepage />
         </div>
     )

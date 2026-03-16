@@ -82,7 +82,7 @@ export default function Advertisements() {
 
                     {!isLoading && !error && (
                         <div className="flex items-center text-start text-foreground">
-                            Numero di annunci trovati: {filteredAdvertisements.length}
+                            Risultati della ricerca: {filteredAdvertisements.length}
                         </div>
                     )}
                 </div>

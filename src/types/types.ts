@@ -42,17 +42,17 @@ export type RealEstate = {
     concierge: boolean
     elevator: boolean
     energyClass: string
-    floor: number
     furnished: boolean
     garage: boolean
     garden: boolean
     heating: boolean
-    housetype: string
     parking: boolean
-    rooms: number
-    size: number
     solarPanels: boolean
     terrace: boolean
+    housetype: string
+    rooms: number
+    size: number
+    floor: number
     bathrooms: number
 }
 

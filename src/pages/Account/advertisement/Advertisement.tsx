@@ -111,9 +111,9 @@ const Advertisement = () => {
 
     return (
         renderPage(
-            <div className="flex w-full flex-col gap-2 sm:h-full sm:min-h-0 sm:flex-row 2xl:px-50">
+            <div className="flex w-full flex-col gap-2 sm:h-full sm:min-h-0 sm:flex-row 2xl:px-60">
                 <div className="flex flex-1 flex-col gap-4 sm:min-h-0 sm:overflow-y-auto sm:pr-2">
-                    <div className="flex w-full border rounded-md aspect-video sm:min-h-100 max-h-120">
+                    <div className="flex w-full border rounded-md aspect-video sm:min-h-120 max-h-140">
                         <RealEstateCarousel photos={advertisement.photos} />
                     </div>
                     <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -216,7 +216,7 @@ const Advertisement = () => {
                         )}
                     </div>
                 </div>
-                <ContactCard agent={advertisement.agent} />
+                <ContactCard advertisement={advertisement} />
             </div>
         )
     );

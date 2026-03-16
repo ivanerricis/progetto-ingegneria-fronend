@@ -2,7 +2,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ArrowUpDown } from "lucide-react"
 
 export const filterOptions = [
-    "Più vicini", "Più lontani",
+    "Più vicini",
     "Più costosi", "Meno costosi",
     "Più grandi", "Meno grandi",
     "Più recenti", "Meno recenti",
@@ -19,12 +19,15 @@ const FilterCombobox = ({ value, onValueChange }: FilterComboboxProps) => {
     return (
         <Select value={value} onValueChange={(nextValue) => onValueChange(nextValue as FilterOption)}>
             <SelectTrigger className="w-42 sm:mr-5">
-                <ArrowUpDown className="text-foreground"/>
+                <ArrowUpDown className="text-foreground" />
                 <SelectValue />
             </SelectTrigger>
             <SelectContent position="popper">
                 {filterOptions.map((filter) => (
-                    <SelectItem key={filter} value={filter}>
+                    <SelectItem
+                        className="text-md"
+                        key={filter}
+                        value={filter}>
                         {filter}
                     </SelectItem>
                 ))}

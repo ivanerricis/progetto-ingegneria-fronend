@@ -7,7 +7,9 @@ import FloorPlanIcon from "@/assets/icons/floorplan.svg?react"
 import ExpandIcon from "@/assets/icons/expand-2.svg?react"
 import StairsIcon from "@/assets/icons/stairs.svg?react"
 import { useNavigate } from "react-router-dom"
-import type { MouseEvent } from "react"
+import { useState, type MouseEvent } from "react"
+import { DialogCreateAppointment } from "./dialogCreateAppointment"
+import { DialogCreateOffer } from "./dialogCreateOffer"
 
 type CardRealEstateProps = {
     advertisement: Advertisement
@@ -15,6 +17,9 @@ type CardRealEstateProps = {
 
 export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
     const navigate = useNavigate()
+    const [showAppointmentDialog, setShowAppointmentDialog] = useState(false)
+    const [showOfferDialog, setShowOfferDialog] = useState(false)
+
     const addressLabel = advertisement.realEstate?.addressFormatted?.trim()
         || "not found"
 
@@ -25,8 +30,14 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
         navigate(`/account/advertisement/${String(routeId)}`)
     }
 
-    const handleActionButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
+    const handleOfferButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation()
+        setShowOfferDialog(true)
+    }
+
+    const handleAppointmentButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation()
+        setShowAppointmentDialog(true)
     }
 
     return (
@@ -109,7 +120,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
                         <Button
                             variant={"outline"}
                             className="flex-1 rounded-sm sm:w-fit sm:flex-none"
-                            onClick={handleActionButtonClick}
+                            onClick={handleOfferButtonClick}
                         >
                             Offerta
                             <HandCoins />
@@ -117,14 +128,26 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
                         <Button
                             variant={"outline"}
                             className="flex-1 rounded-sm sm:w-fit sm:flex-none"
-                            onClick={handleActionButtonClick}
+                            onClick={handleAppointmentButtonClick}
                         >
-                            Appuntamento
+                            Prenota
                             <CalendarDays />
                         </Button>
                     </div>
                 </div>
             </div>
+
+            <DialogCreateAppointment
+                showAppointmentDialog={showAppointmentDialog}
+                setShowAppointmentDialog={setShowAppointmentDialog}
+                advertisement={advertisement}
+            />
+
+            <DialogCreateOffer
+                showOfferDialog={showOfferDialog}
+                setShowOfferDialog={setShowOfferDialog}
+                advertisement={advertisement}
+            />
         </div>
     )
 }

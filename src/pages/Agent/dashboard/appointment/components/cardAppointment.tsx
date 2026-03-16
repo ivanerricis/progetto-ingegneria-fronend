@@ -1,5 +1,6 @@
+import { Button } from "@/components/ui/button";
 import type { Appointment } from "@/types/types";
-import { Button } from "@mantine/core";
+import { Pencil, Trash } from "lucide-react";
 
 type Props = {
     appointment?: Appointment
@@ -18,11 +19,13 @@ export const CardAppointment = ({ appointment }: Props) => {
             </div>
 
             {/* Buttons */}
-            <div>
+            <div className="flex gap-2">
                 <Button variant="outline">
+                    <Pencil />
                     Modifica
                 </Button>
-                <Button variant="outline">
+                <Button variant="destructive">
+                    <Trash />
                     Elimina
                 </Button>
             </div>

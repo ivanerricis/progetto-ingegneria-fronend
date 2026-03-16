@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import type { Agent } from "@/types/types";
+import type { Advertisement } from "@/types/types";
 import { Calendar, HandCoins } from "lucide-react";
+import { DialogCreateOffer } from "@/pages/Account/homepage/components/dialogCreateOffer";
+import { useState } from "react";
 
 type Props = {
-    agent: Agent
+    advertisement: Advertisement
 }
 
 type AgencyInfoRowProps = {
@@ -20,7 +22,9 @@ const AgencyInfoRow = ({ label, value }: AgencyInfoRowProps) => (
     </div>
 )
 
-export const ContactCard = ({ agent }: Props) => {
+export const ContactCard = ({ advertisement }: Props) => {
+    const [showOfferDialog, setShowOfferDialog] = useState(false);
+
     return (
         <div className="flex md:w-80 h-fit shrink-0 flex-col gap-2 rounded-md border p-6 sm:sticky sm:self-start">
             <Label className="text-2xl text-bold">Contatta l'agenzia</Label>
@@ -29,29 +33,29 @@ export const ContactCard = ({ agent }: Props) => {
                     <Calendar />
                     Prenota un appuntamento
                 </Button>
-                <Button>
+                <Button onClick={() => setShowOfferDialog(true)}>
                     <HandCoins />
                     Fai un'offerta
                 </Button>
             </div>
-            <Separator className="mt-2"/>
+            <Separator className="mt-2" />
             <div>
-                <AgencyInfoRow label="Agente" value={`${agent.firstName} ${agent.lastName}`} />
-                <AgencyInfoRow label="Telefono" value={agent.phoneNumber} />
+                <AgencyInfoRow label="Agente" value={`${advertisement.agent.firstName} ${advertisement.agent.lastName}`} />
+                <AgencyInfoRow label="Telefono" value={advertisement.agent.phoneNumber} />
             </div>
             <Separator />
             <div className="flex flex-col gap-1">
-                <AgencyInfoRow label="Agenzia" value={agent.agency.name} />
-                <AgencyInfoRow label="Email" value={agent.agency.email} />
-                <AgencyInfoRow label="Telefono" value={agent.agency.phoneNumber} />
-                {!agent.agency.logo?.url ? (
+                <AgencyInfoRow label="Agenzia" value={advertisement.agent.agency.name} />
+                <AgencyInfoRow label="Email" value={advertisement.agent.agency.email} />
+                <AgencyInfoRow label="Telefono" value={advertisement.agent.agency.phoneNumber} />
+                {!advertisement.agent.agency.logo?.url ? (
                     <div className="hidden sm:flex sm:items-center sm:rounded-sm sm:h-full sm:p-2 sm:text-nowrap sm:text-primary bg-primary/25">
-                        {agent.agency.name}
+                        {advertisement.agent.agency.name}
                     </div>
                 ) : (
                     <div className="hidden sm:flex sm:items-center sm:rounded-sm sm:h-full">
                         <img
-                            src={agent.agency.logo.url}
+                            src={advertisement.agent.agency.logo.url}
                             alt="Immagine immobile"
                             className="block object-cover h-10 w-auto rounded-sm aspect-video"
                             loading="lazy"
@@ -59,6 +63,12 @@ export const ContactCard = ({ agent }: Props) => {
                     </div>
                 )}
             </div>
+
+            <DialogCreateOffer
+                advertisement={advertisement}
+                showOfferDialog={showOfferDialog}
+                setShowOfferDialog={setShowOfferDialog}
+            />
         </div>
     );
 }
