@@ -1,10 +1,17 @@
-import type { Appointment } from "@/types/types"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { apiClient } from "@/lib/api/config"
 
+export type AppointmentsResult = {
+    appointmentId: number
+    account: { id: number, firstName: string, lastName: string }
+    advertisement: {id: number, addressFormatted: string, previewPhoto: string}
+    appointmentAt: string
+    status: "requested" | "confirmed" | "rejected" | "cancelled"
+}
+
 export default function useAppointments() {
-    const [appointments, setAppointments] = useState<Appointment[]>([])
+    const [appointments, setAppointments] = useState<AppointmentsResult[]>([])
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 

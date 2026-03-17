@@ -1,8 +1,8 @@
-import type { Appointment } from "@/types/types"
 import { CardAppointment } from "./cardAppointment"
+import type { AppointmentsResult } from "@/hooks/agent/useAppointments"
 
 type Props = {
-    appointments: Appointment[]
+    appointments: AppointmentsResult[]
 }
 
 export default function AppointmentsList({ appointments }: Props) {
@@ -12,7 +12,7 @@ export default function AppointmentsList({ appointments }: Props) {
 
                 return (
                     <CardAppointment
-                        key={appointment.id}
+                        key={appointment.appointmentId}
                         appointment={appointment}
                     />
                 )

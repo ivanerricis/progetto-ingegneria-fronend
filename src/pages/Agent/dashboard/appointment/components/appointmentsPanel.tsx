@@ -1,9 +1,9 @@
 import AdvertisementListSkeleton from "@/pages/Account/homepage/components/advertisementListSkeleton"
-import type { Appointment } from "@/types/types"
 import AppointmentsList from "./appointmentsList"
+import type { AppointmentsResult } from "@/hooks/agent/useAppointments"
 
 type AppointmentsTabPanelProps = {
-    appointments: Appointment[]
+    appointments: AppointmentsResult[]
     isLoading: boolean
     error: string | null
 }
