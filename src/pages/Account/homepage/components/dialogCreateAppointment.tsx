@@ -21,7 +21,7 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
     const [open, setOpen] = useState(false)
     const [date, setDate] = useState<Date | undefined>(undefined)
     const [selectedTime, setSelectedTime] = useState<string>("");
-    const { times, loading: timesLoading, error: timesError } = useAvailableTimes(advertisement.id, date);
+    const { times, loading: timesLoading } = useAvailableTimes(advertisement.id, date);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 

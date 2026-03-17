@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label"
 import { useNavigate } from "react-router-dom"
 import { Separator } from "@/components/ui/separator"
 import { toast } from "sonner"
-import axios from "axios"
 import { apiClient } from "@/lib/api/config"
 
 export const CreateAgencyForm = () => {
@@ -43,18 +42,9 @@ export const CreateAgencyForm = () => {
             })
             toast.success("Agenzia creata con successo!")
             navigate("/homepage")
-        } catch (submitError) {
-            let message = "Errore durante la creazione dell'agenzia"
-            if (axios.isAxiosError(submitError)) {
-                message =
-                    submitError.response?.data?.error ??
-                    submitError.response?.data?.message ??
-                    "Errore generico"
-            } else if (submitError instanceof Error) {
-                message = submitError.message
-            }
-            setError(message)
-            toast.error("Creazione agenzia fallita: " + message)
+        } catch (CatchError) {
+            setError(CatchError instanceof Error ? CatchError.message : "Errore durante la creazione dell'agenzia")
+            toast.error("Creazione agenzia fallita: " + error)
         } finally {
             setIsSubmitting(false)
         }
