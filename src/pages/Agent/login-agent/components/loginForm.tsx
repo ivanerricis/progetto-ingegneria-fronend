@@ -81,7 +81,7 @@ export const LoginForm = () => {
     }
 
     return (
-        <Card className="w-full px-14 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-sm absolute rounded-none sm:rounded-xl" >
+        <Card className="w-full px-10 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-sm absolute rounded-none sm:rounded-xl" >
             <CardTitle>Accedi</CardTitle>
             <Separator orientation="horizontal" className="hidden sm:flex" />
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col">

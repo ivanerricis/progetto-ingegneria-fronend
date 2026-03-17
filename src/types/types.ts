@@ -4,6 +4,7 @@ export type Advertisement = {
     description: string
     agent: Agent
     photos: Photo[]
+    previewPhoto: Photo
     price: string | number
     realEstate: RealEstate
     type: "sale" | "rent"
@@ -12,8 +13,8 @@ export type Advertisement = {
 
 export type Appointment = {
     id: string | number
-    date: Date
-    time: string
+    appointmentAt: Date
+    status: "requested" | "confirmed" | "rejected" | "cancelled"
     client: Account
     advertisement: Advertisement
     agent: Agent

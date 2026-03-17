@@ -7,6 +7,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useTranslation } from "react-i18next";
+import { Label } from "./ui/label";
 
 const LanguageSwitcher = () => {
     const { i18n } = useTranslation();
@@ -21,21 +22,21 @@ const LanguageSwitcher = () => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="gap-2">
-                    <Earth className="h-4 w-4" />
-                    {currentLabel}
-                    <ChevronDown />
+                <Button variant="outline" size={"lg"} className="gap-2">
+                    <Earth className="size-5" />
+                    <Label className="hidden sm:flex text-lg">{currentLabel}</Label>
+                    <ChevronDown className="size-5"/>
                 </Button>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="end">
-                <DropdownMenuItem className="flex items-center text-md" onClick={() => changeLanguage("it")}>
+                <DropdownMenuItem className="flex items-center text-lg" onClick={() => changeLanguage("it")}>
                     <span className="fi fi-it"></span>
-                    Italiano
+                    <Label className="text-lg">Italiano</Label>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center text-md" onClick={() => changeLanguage("en")}>
+                <DropdownMenuItem className="flex items-center text-lg" onClick={() => changeLanguage("en")}>
                     <span className="fi fi-gb"></span>
-                    English
+                    <Label className="text-lg">English</Label>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

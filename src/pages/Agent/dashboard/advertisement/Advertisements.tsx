@@ -74,9 +74,9 @@ export default function Advertisements() {
                                 onValueChange={(value) => setTypeFilter(value as TypeFilter)}
                             />
                         </div>
-                        <Button className="w-fit rounded-sm" onClick={() => navigate("/agent/dashboard/create-advertisement")}>
-                            <Plus className="size-5"/>
-                            <Label className="hidden sm:block text-md">Aggiungi annuncio</Label>
+                        <Button size={"lg"} className="w-fit rounded-sm" onClick={() => navigate("/agent/dashboard/create-advertisement")}>
+                            <Plus className="size-6"/>
+                            <Label className="hidden sm:block text-lg">Aggiungi annuncio</Label>
                         </Button>
                     </div>
 

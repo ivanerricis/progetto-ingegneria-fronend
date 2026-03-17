@@ -39,7 +39,7 @@ export const Homepage = () => {
                         <Button
                             type="button"
                             variant="outline"
-                            size="icon"
+                            size="icon-lg"
                             className="xl:hidden"
                             aria-label="Apri filtri"
                             onClick={() => {
@@ -47,13 +47,13 @@ export const Homepage = () => {
                                 setIsMobileSidebarOpen(true)
                             }}
                         >
-                            <SlidersHorizontal />
+                            <SlidersHorizontal className="size-6" />
                         </Button>
 
                         <Button
                             type="button"
                             variant="outline"
-                            size="icon"
+                            size="icon-lg"
                             className="xl:hidden"
                             aria-label="Apri mappa"
                             onClick={() => {
@@ -61,7 +61,7 @@ export const Homepage = () => {
                                 setIsMobileMapOpen(true)
                             }}
                         >
-                            <Map />
+                            <Map className="size-6" />
                         </Button>
 
                         <Label className="hidden xl:flex text-xl">
@@ -70,15 +70,11 @@ export const Homepage = () => {
                     </>
                 }
                 center={
-                    <Field className="w-full max-w-md">
-                        <ButtonGroup>
-                            <CitySearchInput
-                                value={city}
-                                onCitySelect={setCity}
-                                placeholder="Cerca città..."
-                            />
-                        </ButtonGroup>
-                    </Field>
+                    <CitySearchInput
+                        value={city}
+                        onCitySelect={setCity}
+                        placeholder="Cerca città..."
+                    />
                 }
                 right={
                     <>

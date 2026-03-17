@@ -11,26 +11,36 @@ export function useAvailableTimes(advertisementId?: string | number, date?: Date
       setTimes([]);
       return;
     }
-    setLoading(true);
-    setError(null);
+
     const controller = new AbortController();
+
     const fetchTimes = async () => {
+      setLoading(true);
+      setError(null);
+
       try {
         const formattedDate = date.toISOString().split("T")[0];
-        const { data } = await apiClient.post(
-          `/advertisement/available_day/${advertisementId}`,
-          { date: formattedDate },
-          { signal: controller.signal }
+
+        const { data } = await apiClient.get(
+          `/advertisement/available_slots/${advertisementId}/${formattedDate}`,
+          {
+            params: { date: formattedDate },
+            signal: controller.signal
+          }
         );
-        setTimes(Array.isArray(data) ? data : data?.times ?? []);
+
+        setTimes(Array.isArray(data) ? data : data?.slots ?? []);
       } catch (err: any) {
-        if (err.name === "CanceledError") return;
+        if (err.name === "CanceledError" || err.code === "ERR_CANCELED") return;
+
         setError(err.message || "Errore nel caricamento degli orari disponibili");
       } finally {
         setLoading(false);
       }
     };
+
     fetchTimes();
+
     return () => controller.abort();
   }, [advertisementId, date]);
 

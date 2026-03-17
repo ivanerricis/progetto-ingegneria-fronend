@@ -8,7 +8,7 @@ import type { Advertisement } from "@/types/types";
 import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { apiClient } from "@/lib/api/config";
-import { useAvailableTimes } from "@/hooks/account/useAvailableTimes";
+import { useAvailableTimes } from "@/hooks/account/useAvailableSlots";
 import { toast } from "sonner";
 
 type Props = {
@@ -37,7 +37,7 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
         setError(null);
         try {
             const formattedDate = date.toISOString().split("T")[0];
-            await apiClient.post(`/appointment/create_appointment/${advertisement.id}`, {
+            await apiClient.post(`/advertisement/create_appointment/${advertisement.id}`, {
                 date: formattedDate,
                 time: selectedTime,
             });
@@ -61,9 +61,9 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
                 className="flex flex-col gap-6 sm:max-w-md"
             >
                 <DialogTitle>Prenota un appuntamento</DialogTitle>
-                <DialogDescription className="hidden"/>
+                <DialogDescription className="hidden" />
                 <div className="flex flex-col gap-1">
-                    <Label className="text-lg">Seleziona una data</Label>
+                    <Label className="text-xl">Seleziona una data</Label>
                     <Popover open={open} onOpenChange={setOpen}>
                         <PopoverTrigger asChild>
                             <Button
@@ -90,24 +90,31 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
                     </Popover>
                 </div>
                 <div className="flex flex-col gap-1">
-                    <Label className="text-lg">Seleziona un orario</Label>
+                    <Label className="text-xl">Seleziona un orario</Label>
                     <Select value={selectedTime} onValueChange={setSelectedTime} disabled={!date || timesLoading || times.length === 0}>
-                        <SelectTrigger className="w-full">
-                            <SelectValue placeholder={timesLoading ? "Caricamento..." : (!date ? "Seleziona una data prima" : (times.length === 0 ? "Nessun orario disponibile" : "Scegli un orario"))} />
+                        <SelectTrigger className="w-full text-lg!">
+                            <SelectValue
+                                placeholder={timesLoading ? "Caricamento..." : (!date ? "Seleziona una data prima" : (times.length === 0 ? "Nessun orario disponibile" : "Scegli un orario"))}
+                            />
                         </SelectTrigger>
                         <SelectContent position={"popper"}>
                             <SelectGroup>
-                                {timesError && <div className="px-2 py-1 text-destructive text-sm">Errore nel caricamento</div>}
                                 {times.map((time) => (
-                                    <SelectItem key={time} value={time}>{time}</SelectItem>
+                                    <SelectItem
+                                        key={time}
+                                        value={time}
+                                        className="text-lg"
+                                        >
+                                        {time}
+                                    </SelectItem>
                                 ))}
                             </SelectGroup>
                         </SelectContent>
                     </Select>
                 </div>
                 <DialogFooter>
-                    <Button variant={"outline"} onClick={handleClose} disabled={loading}>Annulla</Button>
-                    <Button disabled={!date || !selectedTime || loading} onClick={handleCreateAppointment}>
+                    <Button variant={"outline"} size={"lg"} onClick={handleClose} disabled={loading}>Annulla</Button>
+                    <Button disabled={!date || !selectedTime || loading} size={"lg"} onClick={handleCreateAppointment}>
                         {loading ? "Prenotazione..." : "Prenota"}
                     </Button>
                 </DialogFooter>

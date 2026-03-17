@@ -26,9 +26,13 @@ const CreateAgency = () => {
             <Header
                 left={
                     <>
-                        <Button className="flex items-center justify-center" variant={"outline"} onClick={handleGoBack}>
-                            <ArrowLeft />
-                            <Label className="hidden sm:flex">Torna indietro</Label>
+                        <Button
+                            className="size-10 sm:w-fit sm:h-10 sm:px-4 sm:py-2"
+                            variant={"outline"}
+                            onClick={handleGoBack}
+                        >
+                            <ArrowLeft className="size-5" />
+                            <Label className="hidden sm:flex text-lg">Torna indietro</Label>
                         </Button>
                     </>
                 }

@@ -1,10 +1,10 @@
-import type { Advertisement } from "@/types/types"
+import type { Appointment } from "@/types/types"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { apiClient } from "@/lib/api/config"
 
-export default function useAdvertisements() {
-    const [advertisements, setAdvertisements] = useState<Advertisement[]>([])
+export default function useAppointments() {
+    const [appointments, setAppointments] = useState<Appointment[]>([])
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
@@ -16,10 +16,11 @@ export default function useAdvertisements() {
             setIsLoading(true)
 
             try {
-                const { data } = await apiClient.get("/agent/advertisements", {
+                const { data } = await apiClient.get("/agent/appointments", {
                     signal: abortController.signal,
                 })
-                setAdvertisements(data.items)
+                setAppointments(data.appointments)
+                console.log(data.appointments)
             } catch (error) {
                 if (axios.isCancel(error)) return
 
@@ -34,5 +35,5 @@ export default function useAdvertisements() {
         return () => abortController.abort()
     }, [])
 
-    return { advertisements, isLoading, error }
+    return { appointments, isLoading, error }
 }

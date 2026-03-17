@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom"
 import LanguageSwitcher from "@/components/languageSwitcher"
 import { useEffect } from "react"
 import { apiClient } from "@/lib/api/config"
+import { Label } from "@/components/ui/label"
 
 export const LoginAgent = () => {
     const navigate = useNavigate()
@@ -48,11 +49,11 @@ export const LoginAgent = () => {
             <Header
                 left={
                     <>
-                        <Button variant={"outline"} onClick={() => navigate("/login")}>
-                            Console utente
+                        <Button variant={"outline"} size={"lg"} onClick={() => navigate("/login")}>
+                            <Label className="text-lg">Console utente</Label>
                         </Button>
-                        <Button variant={"outline"} onClick={() => navigate("/create-agency")}>
-                            Crea agenzia
+                        <Button variant={"outline"} size={"lg"} onClick={() => navigate("/create-agency")}>
+                            <Label className="text-lg">Crea agenzia</Label>
                         </Button>
                     </>
                 }

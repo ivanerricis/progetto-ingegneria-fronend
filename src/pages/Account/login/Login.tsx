@@ -8,6 +8,7 @@ import { ModeToggle } from "@/components/mode-toggle"
 import LanguageSwitcher from "@/components/languageSwitcher"
 import { useEffect } from "react"
 import { apiClient } from "@/lib/api/config"
+import { Label } from "@/components/ui/label"
 
 export const Login = () => {
     const navigate = useNavigate()
@@ -48,11 +49,11 @@ export const Login = () => {
             <Header
                 left={
                     <>
-                        <Button variant={"outline"} onClick={() => navigate("/agent/login")}>
-                            Console agenti
+                        <Button variant={"outline"} size={"lg"} onClick={() => navigate("/agent/login")}>
+                            <Label className="text-lg">Console agenti</Label>
                         </Button>
-                        <Button variant={"outline"} onClick={() => navigate("/create-agency")}>
-                            Crea agenzia
+                        <Button variant={"outline"} size={"lg"} onClick={() => navigate("/create-agency")}>
+                            <Label className="text-lg">Crea agenzia</Label>
                         </Button>
                     </>
                 }

@@ -6,6 +6,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
 
 type SelectOption = {
     value: string
@@ -28,17 +29,17 @@ export default function DashboardFilterSelect({
 }: DashboardFilterSelectProps) {
     return (
         <Select value={value} onValueChange={onValueChange}>
-            <SelectTrigger className="w-38 rounded-sm text-foreground">
+            <SelectTrigger className="w-44 rounded-sm h-10! text-foreground">
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
 
             <SelectContent position="popper">
                 {options.map((option) => (
                     <SelectItem key={option.value} value={option.value} className="text-foreground">
-                        <span className="flex items-center gap-2">
+                        <div className="flex items-center justify-start gap-2">
                             {option.icon}
-                            <span>{option.label}</span>
-                        </span>
+                            <Label className="text-lg">{option.label}</Label>
+                        </div>
                     </SelectItem>
                 ))}
             </SelectContent>

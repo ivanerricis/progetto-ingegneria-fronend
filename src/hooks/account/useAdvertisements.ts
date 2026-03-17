@@ -62,7 +62,6 @@ const useAdvertisements = () => {
                     setTotalPages(response.data.pagination.totalPages ?? 1);
                     setTotalElements(response.data.pagination.total ?? 0);
                 }
-                console.log("Fetched advertisements:", response.data);
             } catch (err: any) {
                 if (err.name !== "AbortError" && err.name !== "CanceledError") {
                     setError("Errore nel caricamento degli annunci.");

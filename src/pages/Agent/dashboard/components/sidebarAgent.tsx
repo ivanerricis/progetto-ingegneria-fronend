@@ -4,6 +4,26 @@ import { BookUser, Building2, HandCoins, LogOut, Pencil, User, Users } from "luc
 import { useNavigate } from "react-router-dom";
 import { useAgent } from "@/providers/agent-provider";
 import { toast } from "sonner";
+import type { ReactNode } from "react";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+
+type SideBarItemProps = {
+    icon: ReactNode;
+    label: string;
+    onClick: () => void;
+};
+
+function SideBarItem({ icon, label, onClick }: SideBarItemProps) {
+    return (
+        <SidebarMenuItem>
+            <SidebarMenuButton variant={"outline"} onClick={onClick} size={"lg"} className="[&>svg]:size-6 border flex items-center justify-start">
+                {icon}
+                <Label className="text-xl">{label}</Label>
+            </SidebarMenuButton>
+        </SidebarMenuItem>
+    );
+}
 
 const SidebarAgent = () => {
     const navigate = useNavigate()
@@ -36,10 +56,10 @@ const SidebarAgent = () => {
                 <SidebarMenuItem>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <SidebarMenuButton variant={"outline"} onClick={() => navigateTo("/agent/dashboard/profile")} size={"lg"} className="[&>svg]:size-6 border h-10">
-                                <User />
-                                {displayName}
-                            </SidebarMenuButton>
+                            <Button variant={"outline"} size={"lg"} onClick={() => navigateTo("/agent/dashboard/profile")} className="w-full flex items-center justify-start">
+                                <User className="size-6!" />
+                                <Label className="text-xl">{displayName}</Label>
+                            </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             <DropdownMenuItem className="text-md" onClick={() => navigateTo("/agent/dashboard/profile")}>
@@ -57,30 +77,26 @@ const SidebarAgent = () => {
             </SidebarHeader>
             <SidebarContent className="px-2 pt-2">
                 <SidebarMenu className="gap-2">
-                    <SidebarMenuItem>
-                        <SidebarMenuButton variant={"outline"} onClick={() => navigateTo("/agent/dashboard/advertisements")} size={"lg"} className="[&>svg]:size-6 border">
-                            <Building2 />
-                            <span className="text-xl">Annunci</span>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton variant={"outline"} onClick={() => navigateTo("/agent/dashboard/appointments")} size={"lg"} className="[&>svg]:size-6 border">
-                            <Users />
-                            <span className="text-xl">Appuntamenti</span>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton variant={"outline"} onClick={() => navigateTo("/agent/dashboard/offers")} size={"lg"} className="[&>svg]:size-6 border">
-                            <HandCoins />
-                            <span className="text-xl">Offerte</span>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton variant={"outline"} onClick={() => navigateTo("/agent/dashboard/agents")} size={"lg"} className="[&>svg]:size-6 border">
-                            <BookUser />
-                            <span className="text-xl">Agenti</span>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
+                    <SideBarItem
+                        icon={<Building2 />}
+                        label="Annunci"
+                        onClick={() => navigateTo("/agent/dashboard/advertisements")}
+                    />
+                    <SideBarItem
+                        icon={<Users />}
+                        label="Appuntamenti"
+                        onClick={() => navigateTo("/agent/dashboard/appointments")}
+                    />
+                    <SideBarItem
+                        icon={<HandCoins />}
+                        label="Offerte"
+                        onClick={() => navigateTo("/agent/dashboard/offers")}
+                    />
+                    <SideBarItem
+                        icon={<BookUser />}
+                        label="Agenti"
+                        onClick={() => navigateTo("/agent/dashboard/agents")}
+                    />
                 </SidebarMenu>
             </SidebarContent>
         </Sidebar >

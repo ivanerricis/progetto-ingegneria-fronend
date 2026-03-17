@@ -3,6 +3,8 @@ import { Input } from "@/components/ui/input"
 import { useGeoapifyCities, type CityOption } from "@/hooks/account/useGeoapifyCities"
 import { Loader2, MapPin, X } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Label } from "@/components/ui/label"
+import { Button } from "@/components/ui/button"
 
 interface CitySearchInputProps {
     value: string
@@ -71,14 +73,14 @@ export const CitySearchInput = ({
     }
 
     return (
-        <div ref={containerRef} className={cn("relative w-full", className)}>
-            <div className="relative">
+        <div ref={containerRef} className={cn("relative w-full h-full", className)}>
+            <div className="relative h-full!">
                 <Input
                     value={inputValue}
                     onChange={handleInputChange}
                     onFocus={() => suggestions.length > 0 && setIsOpen(true)}
                     placeholder={placeholder}
-                    className="pr-8"
+                    className="pr-8 h-full text-lg!"
                     autoComplete="off"
                 />
                 <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center">
@@ -99,17 +101,18 @@ export const CitySearchInput = ({
             </div>
 
             {isOpen && suggestions.length > 0 && (
-                <ul className="absolute z-9999 mt-1 w-full rounded-md border bg-popover shadow-md">
+                <ul className="absolute z-9999 w-fit -left-12 sm:left-0 rounded-sm border bg-popover shadow-md">
                     {suggestions.map((city) => (
                         <li key={`${city.lat}-${city.lon}`}>
-                            <button
+                            <Button
                                 type="button"
-                                className="flex w-full items-center gap-2 px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground text-left"
+                                variant={"ghost"}
+                                className="flex w-full rounded-sm! justify-start items-center gap-2 px-2! py-2 text-sm"
                                 onClick={() => handleSelect(city)}
                             >
-                                <MapPin className="h-3.5 w-3.5 shrink-0 text-foreground" />
-                                <span>{city.label}</span>
-                            </button>
+                                <MapPin className="size-5 shrink-0 text-foreground" />
+                                <Label className="text-lg">{city.label}</Label>
+                            </Button>
                         </li>
                     ))}
                 </ul>

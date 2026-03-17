@@ -19,23 +19,37 @@ export const CreateAgencyForm = () => {
     const [adminPhone, setAdminPhone] = useState("")
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState<string | null>(null)
+    const [logoFile, setLogoFile] = useState<File | null>(null)
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setError(null)
         setIsSubmitting(true)
 
-        try {
-            await apiClient.post("/auth/account/login", { email })
+        const formData = new FormData()
+        formData.append("name", agencyName)
+        formData.append("agencyPhoneNumber", "+39"+agencyPhone)
+        formData.append("email", email)
+        if (logoFile) {
+            formData.append("logo", logoFile)
+        }
+        formData.append("firstName", adminName)
+        formData.append("lastName", adminLastName)
+        formData.append("agentPhoneNumber", "+39"+adminPhone)
 
+        try {
+            await apiClient.post("/auth/agency/create", formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            })
+            toast.success("Agenzia creata con successo!")
             navigate("/homepage")
         } catch (submitError) {
-            let message = "Errore durante il login"
+            let message = "Errore durante la creazione dell'agenzia"
             if (axios.isAxiosError(submitError)) {
                 message =
                     submitError.response?.data?.error ??
                     submitError.response?.data?.message ??
-                    "Credenziali non valide"
+                    "Errore generico"
             } else if (submitError instanceof Error) {
                 message = submitError.message
             }
@@ -47,7 +61,7 @@ export const CreateAgencyForm = () => {
     }
 
     return (
-        <Card className="w-full px-14 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-sm absolute rounded-none sm:rounded-xl" >
+        <Card className="w-full px-10 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-sm absolute rounded-none sm:rounded-xl" >
             <CardTitle>Crea la tua agenzia</CardTitle>
             <Separator orientation="horizontal" className="hidden sm:flex" />
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col">
@@ -55,12 +69,12 @@ export const CreateAgencyForm = () => {
                     <div className="flex flex-col">
                         <Label className="text-xl mb-2">Agenzia</Label>
                         <div className="flex flex-col gap-2 mb-4">
-                            <Label htmlFor="agencyName">
+                            <Label htmlFor="name">
                                 Nome
                                 <span className="text-destructive">*</span>
                             </Label>
                             <Input
-                                id="agencyName"
+                                id="name"
                                 type="text"
                                 placeholder="Nome agenzia"
                                 value={agencyName}
@@ -69,12 +83,12 @@ export const CreateAgencyForm = () => {
                             />
                         </div>
                         <div className="flex flex-col gap-2 mb-4">
-                            <Label htmlFor="agency_phone">
+                            <Label htmlFor="agencyPhoneNumber">
                                 Numero di telefono
                                 <span className="text-destructive">*</span>
                             </Label>
                             <Input
-                                id="agency_phone"
+                                id="agencyPhoneNumber"
                                 type="number"
                                 placeholder="Numero di telefono"
                                 value={agencyPhone}
@@ -101,7 +115,19 @@ export const CreateAgencyForm = () => {
                                 Logo
                                 <span className="text-destructive">*</span>
                             </Label>
-                            <Input id="picture" type="file" accept="image/*" />
+                            <Input
+                                id="picture"
+                                type="file"
+                                accept="image/*"
+                                required
+                                onChange={e => {
+                                    if (e.target.files && e.target.files[0]) {
+                                        setLogoFile(e.target.files[0])
+                                    } else {
+                                        setLogoFile(null)
+                                    }
+                                }}
+                            />
                         </div>
 
                         <Separator orientation="horizontal" className="mb-4" />
@@ -110,12 +136,12 @@ export const CreateAgencyForm = () => {
                             <Label className="text-xl mb-2">Amministratore</Label>
                             <div className="flex gap-4">
                                 <div className="flex flex-col gap-2 mb-4">
-                                    <Label htmlFor="adminName">
+                                    <Label htmlFor="firstName">
                                         Nome
                                         <span className="text-destructive">*</span>
                                     </Label>
                                     <Input
-                                        id="adminName"
+                                        id="firstName"
                                         type="text"
                                         placeholder="Mario"
                                         value={adminName}
@@ -124,12 +150,12 @@ export const CreateAgencyForm = () => {
                                     />
                                 </div>
                                 <div className="flex flex-col gap-2 mb-4">
-                                    <Label htmlFor="adminLastName">
+                                    <Label htmlFor="lastName">
                                         Cognome
                                         <span className="text-destructive">*</span>
                                     </Label>
                                     <Input
-                                        id="adminLastName"
+                                        id="lastName"
                                         type="text"
                                         placeholder="Rossi"
                                         value={adminLastName}
@@ -139,12 +165,12 @@ export const CreateAgencyForm = () => {
                                 </div>
                             </div>
                             <div className="flex flex-col gap-2 mb-4">
-                                <Label htmlFor="admin_phone">
+                                <Label htmlFor="agentPhoneNumber">
                                     Numero di telefono
                                     <span className="text-destructive">*</span>
                                 </Label>
                                 <Input
-                                    id="admin_phone"
+                                    id="agentPhoneNumber"
                                     type="number"
                                     placeholder="Numero di telefono"
                                     value={adminPhone}
@@ -153,11 +179,6 @@ export const CreateAgencyForm = () => {
                                 />
                             </div>
                         </div>
-                        {error && (
-                            <p className="text-sm text-destructive" role="alert">
-                                {error}
-                            </p>
-                        )}
                     </div>
                 </CardContent>
                 <CardFooter className="flex-col gap-2">

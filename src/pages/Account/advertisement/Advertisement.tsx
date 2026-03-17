@@ -63,8 +63,10 @@ const Advertisement = () => {
                 left={
                     <Button
                         variant={"outline"}
-                        onClick={handleBackClick}>
-                        <ArrowLeft />
+                        onClick={handleBackClick}
+                        className="size-10 sm:w-fit sm:h-10 sm:px-4 sm:py-2"
+                    >
+                        <ArrowLeft className="size-5" />
                         <Label className="hidden sm:flex text-md">Indietro</Label>
                     </Button>
                 }

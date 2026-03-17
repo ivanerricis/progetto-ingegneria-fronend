@@ -50,6 +50,7 @@ export const DialogCreateOffer = ({ showOfferDialog, setShowOfferDialog, adverti
                 <DialogDescription className="hidden" />
                 <div className="flex flex-col gap-2">
                     <Input
+                        className="text-lg!"
                         placeholder="Inserisci la tua offerta"
                         type="number"
                         min={0}
