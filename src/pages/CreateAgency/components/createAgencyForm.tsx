@@ -1,183 +1,173 @@
-import { type FormEvent, useState } from "react"
+import { useState, type FormEvent } from "react"
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { Stepper } from "@/components/stepper"
 import { useNavigate } from "react-router-dom"
-import { Separator } from "@/components/ui/separator"
 import { toast } from "sonner"
 import { apiClient } from "@/lib/api/config"
+import { Label } from "@/components/ui/label"
+
+const steps = ["Agenzia", "Amministratore", "Conferma"]
 
 export const CreateAgencyForm = () => {
     const navigate = useNavigate()
-    const [email, setEmail] = useState("")
+    const [step, setStep] = useState(0)
+
     const [agencyName, setAgencyName] = useState("")
     const [agencyPhone, setAgencyPhone] = useState("")
+    const [email, setEmail] = useState("")
+    const [logoFile, setLogoFile] = useState<File | null>(null)
+
     const [adminName, setAdminName] = useState("")
     const [adminLastName, setAdminLastName] = useState("")
     const [adminPhone, setAdminPhone] = useState("")
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const [error, setError] = useState<string | null>(null)
-    const [logoFile, setLogoFile] = useState<File | null>(null)
 
-    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        setError(null)
-        setIsSubmitting(true)
+    const [loading, setLoading] = useState(false)
+
+    const next = () => setStep((s) => Math.min(s + 1, steps.length - 1))
+    const back = () => setStep((s) => Math.max(s - 1, 0))
+
+    const handleSubmit = async (e?: FormEvent) => {
+        e?.preventDefault()
+        setLoading(true)
 
         const formData = new FormData()
         formData.append("name", agencyName)
-        formData.append("agencyPhoneNumber", "+39"+agencyPhone)
+        formData.append("agencyPhoneNumber", "+39" + agencyPhone)
         formData.append("email", email)
-        if (logoFile) {
-            formData.append("logo", logoFile)
-        }
+        if (logoFile) formData.append("logo", logoFile)
         formData.append("firstName", adminName)
         formData.append("lastName", adminLastName)
-        formData.append("agentPhoneNumber", "+39"+adminPhone)
+        formData.append("agentPhoneNumber", "+39" + adminPhone)
 
         try {
-            await apiClient.post("/auth/agency/create", formData, {
-                headers: { "Content-Type": "multipart/form-data" },
-            })
+            await apiClient.post("/auth/agency/create", formData)
             toast.success("Agenzia creata con successo!")
             navigate("/homepage")
-        } catch (CatchError) {
-            setError(CatchError instanceof Error ? CatchError.message : "Errore durante la creazione dell'agenzia")
-            toast.error("Creazione agenzia fallita: " + error)
+        } catch (err: any) {
+            toast.error(err?.response?.data?.message ?? "Errore")
         } finally {
-            setIsSubmitting(false)
+            setLoading(false)
         }
     }
 
     return (
-        <Card className="w-full px-10 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-sm absolute rounded-none sm:rounded-xl" >
+        <Card className="w-full flex justify-between px-6 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-sm absolute h-109 rounded-none sm:rounded-xl">
             <CardTitle>Crea la tua agenzia</CardTitle>
-            <Separator orientation="horizontal" className="hidden sm:flex" />
-            <form onSubmit={handleSubmit} className="gap-4 flex flex-col">
-                <CardContent>
-                    <div className="flex flex-col">
-                        <Label className="text-xl mb-2">Agenzia</Label>
-                        <div className="flex flex-col gap-2 mb-4">
-                            <Label htmlFor="name">
-                                Nome
-                                <span className="text-destructive">*</span>
-                            </Label>
+
+            <form onSubmit={handleSubmit} className="gap-4 flex flex-col h-full">
+                <CardContent className="flex flex-col">
+                    <Stepper steps={steps} current={step} />
+
+                    {/* STEP 1 */}
+                    {step === 0 && (
+                        <div className="flex flex-col gap-4">
                             <Input
-                                id="name"
-                                type="text"
                                 placeholder="Nome agenzia"
                                 value={agencyName}
-                                onChange={(event) => setAgencyName(event.target.value)}
+                                onChange={e => setAgencyName(e.target.value)}
                                 required
                             />
-                        </div>
-                        <div className="flex flex-col gap-2 mb-4">
-                            <Label htmlFor="agencyPhoneNumber">
-                                Numero di telefono
-                                <span className="text-destructive">*</span>
-                            </Label>
                             <Input
-                                id="agencyPhoneNumber"
-                                type="number"
-                                placeholder="Numero di telefono"
+                                placeholder="Telefono agenzia"
                                 value={agencyPhone}
-                                onChange={(event) => setAgencyPhone(event.target.value)}
+                                onChange={e => setAgencyPhone(e.target.value)}
                                 required
                             />
-                        </div>
-                        <div className="flex flex-col gap-2 mb-4">
-                            <Label htmlFor="email">
-                                Email
-                                <span className="text-destructive">*</span>
-                            </Label>
                             <Input
-                                id="email"
                                 type="email"
-                                placeholder="mariorossi@gmail.com"
+                                placeholder="Email"
                                 value={email}
-                                onChange={(event) => setEmail(event.target.value)}
+                                onChange={e => setEmail(e.target.value)}
                                 required
                             />
-                        </div>
-                        <div className="flex flex-col gap-2 mb-4">
-                            <Label htmlFor="picture">
-                                Logo
-                                <span className="text-destructive">*</span>
-                            </Label>
                             <Input
-                                id="picture"
                                 type="file"
                                 accept="image/*"
+                                onChange={e => setLogoFile(e.target.files?.[0] ?? null)}
                                 required
-                                onChange={e => {
-                                    if (e.target.files && e.target.files[0]) {
-                                        setLogoFile(e.target.files[0])
-                                    } else {
-                                        setLogoFile(null)
-                                    }
-                                }}
                             />
                         </div>
+                    )}
 
-                        <Separator orientation="horizontal" className="mb-4" />
+                    {/* STEP 2 */}
+                    {step === 1 && (
+                        <div className="flex flex-col gap-4">
+                            <Input
+                                placeholder="Nome amministratore"
+                                value={adminName}
+                                onChange={e => setAdminName(e.target.value)}
+                                required
+                            />
+                            <Input
+                                placeholder="Cognome amministratore"
+                                value={adminLastName}
+                                onChange={e => setAdminLastName(e.target.value)}
+                                required
+                            />
+                            <Input
+                                placeholder="Telefono amministratore"
+                                value={adminPhone}
+                                onChange={e => setAdminPhone(e.target.value)}
+                                required
+                            />
+                        </div>
+                    )}
 
-                        <div className="flex flex-col">
-                            <Label className="text-xl mb-2">Amministratore</Label>
-                            <div className="flex gap-4">
-                                <div className="flex flex-col gap-2 mb-4">
-                                    <Label htmlFor="firstName">
-                                        Nome
-                                        <span className="text-destructive">*</span>
-                                    </Label>
-                                    <Input
-                                        id="firstName"
-                                        type="text"
-                                        placeholder="Mario"
-                                        value={adminName}
-                                        onChange={(event) => setAdminName(event.target.value)}
-                                        required
-                                    />
-                                </div>
-                                <div className="flex flex-col gap-2 mb-4">
-                                    <Label htmlFor="lastName">
-                                        Cognome
-                                        <span className="text-destructive">*</span>
-                                    </Label>
-                                    <Input
-                                        id="lastName"
-                                        type="text"
-                                        placeholder="Rossi"
-                                        value={adminLastName}
-                                        onChange={(event) => setAdminLastName(event.target.value)}
-                                        required
-                                    />
-                                </div>
+                    {/* STEP 3 */}
+                    {step === 2 && (
+                        <div className="flex flex-col gap-4 text-sm *:flex *:gap-2 *:*:text-lg">
+                            <div>
+                                <Label className="font-bold">Nome agenzia: </Label>
+                                <Label>{agencyName}</Label>
                             </div>
-                            <div className="flex flex-col gap-2 mb-4">
-                                <Label htmlFor="agentPhoneNumber">
-                                    Numero di telefono
-                                    <span className="text-destructive">*</span>
-                                </Label>
-                                <Input
-                                    id="agentPhoneNumber"
-                                    type="number"
-                                    placeholder="Numero di telefono"
-                                    value={adminPhone}
-                                    onChange={(event) => setAdminPhone(event.target.value)}
-                                    required
-                                />
+                            <div>
+                                <Label className="font-bold">Email: </Label>
+                                <Label>{email}</Label>
+                            </div>
+                            <div>
+                                <Label className="font-bold">Telefono agenzia: </Label>
+                                <Label>{agencyPhone}</Label>
+                            </div>
+                            <div>
+                                <Label className="font-bold">Nome amministratore: </Label>
+                                <Label>{adminName}</Label>
+                            </div>
+                            <div>
+                                <Label className="font-bold">Cognome amministratore: </Label>
+                                <Label>{adminLastName}</Label>
+                            </div>
+                            <div>
+                                <Label className="font-bold">Telefono amministratore: </Label>
+                                <Label>{adminPhone}</Label>
                             </div>
                         </div>
-                    </div>
+                    )}
                 </CardContent>
-                <CardFooter className="flex-col gap-2">
-                    <Button type="submit" className="w-full" disabled={isSubmitting}>
-                        {isSubmitting ? "Creazione in corso..." : "Crea agenzia"}
-                    </Button>
-                </CardFooter>
             </form>
-        </Card >
+
+            <CardFooter className="flex justify-between">
+                {step === 0 && (
+                    <div>
+
+                    </div>
+                )}
+                {step > 0 && (
+                    <Button variant="outline" onClick={back}>
+                        Indietro
+                    </Button>
+                )}
+
+                {step < steps.length - 1 ? (
+                    <Button onClick={next}>Avanti</Button>
+                ) : (
+                    <Button onClick={handleSubmit} disabled={loading}>
+                        {loading ? "Creazione..." : "Crea agenzia"}
+                    </Button>
+                )}
+            </CardFooter>
+        </Card>
     )
 }
 
