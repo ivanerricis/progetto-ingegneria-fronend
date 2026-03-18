@@ -67,7 +67,7 @@ const Advertisement = () => {
                         className="size-10 sm:w-fit sm:h-10 sm:px-4 sm:py-2"
                     >
                         <ArrowLeft className="size-5" />
-                        <Label className="hidden sm:flex text-md">Indietro</Label>
+                        <Label className="hidden sm:flex text-lg">Indietro</Label>
                     </Button>
                 }
                 right={

@@ -18,7 +18,7 @@ const CreateAgency = () => {
             return
         }
 
-        navigate("/agent/login")
+        navigate("/account/login")
     }
 
     return (
@@ -43,7 +43,7 @@ const CreateAgency = () => {
                     </>
                 }
             />
-            <main className="relative flex-1 min-h-0 flex items-center justify-center sm:rounded-xl overflow-hidden sm:mx-26">
+            <main className="relative flex-1 min-h-0 flex items-center justify-center sm:rounded-xl overflow-hidden overflow-y-auto sm:mx-26">
                 <div
                     className="hidden sm:block absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{ backgroundImage: `url(${sfondo})` }}

@@ -29,10 +29,11 @@ const AgencyCombobox = ({
     return (
         <Combobox items={agencies.map((agency) => agency.name)}>
             <ComboboxInput
+                className="text-lg"
                 placeholder={selectedAgency ? selectedAgency.name : "Seleziona un'agenzia"}
             />
             <ComboboxContent>
-                <ComboboxEmpty>
+                <ComboboxEmpty className="text-lg">
                     {loading
                         ? "Caricamento agenzie..."
                         : loadError
@@ -45,6 +46,7 @@ const AgencyCombobox = ({
                         const agencyId = agencyNameToId.get(item);
                         return (
                             <ComboboxItem
+                                className="text-lg"
                                 key={item}
                                 value={item}
                                 onSelect={() => {

@@ -5,8 +5,9 @@ import type { Advertisement } from "@/types/types";
 import { Calendar, HandCoins } from "lucide-react";
 import { DialogCreateOffer } from "@/pages/Account/homepage/components/dialogCreateOffer";
 import { useState } from "react";
+import { DialogCreateAppointment } from "../../homepage/components/dialogCreateAppointment";
 
-type Props = {
+type ContactCardProps = {
     advertisement: Advertisement
 }
 
@@ -22,18 +23,19 @@ const AgencyInfoRow = ({ label, value }: AgencyInfoRowProps) => (
     </div>
 )
 
-export const ContactCard = ({ advertisement }: Props) => {
+export const ContactCard = ({ advertisement }: ContactCardProps) => {
     const [showOfferDialog, setShowOfferDialog] = useState(false);
+    const [showAppointmentDialog, setShowAppointmentDialog] = useState(false)
 
     return (
         <div className="flex md:w-80 h-fit shrink-0 flex-col gap-2 rounded-md border p-6 sm:sticky sm:self-start">
             <Label className="text-2xl text-bold">Contatta l'agenzia</Label>
             <div className="flex flex-col gap-2">
-                <Button>
+                <Button size={"lg"} onClick={() => setShowAppointmentDialog(true)}>
                     <Calendar />
                     Prenota un appuntamento
                 </Button>
-                <Button onClick={() => setShowOfferDialog(true)}>
+                <Button size={"lg"} onClick={() => setShowOfferDialog(true)}>
                     <HandCoins />
                     Fai un'offerta
                 </Button>
@@ -68,6 +70,12 @@ export const ContactCard = ({ advertisement }: Props) => {
                 advertisement={advertisement}
                 showOfferDialog={showOfferDialog}
                 setShowOfferDialog={setShowOfferDialog}
+            />
+
+            <DialogCreateAppointment
+                advertisement={advertisement}
+                showAppointmentDialog={showAppointmentDialog}
+                setShowAppointmentDialog={setShowAppointmentDialog}
             />
         </div>
     );

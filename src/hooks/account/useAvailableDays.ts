@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { apiClient } from "@/lib/api/config";
 
-export function useAvailableSlots(advertisementId?: string | number, date?: Date) {
-  const [slots, setSlots] = useState<string[]>([]);
+export function useAvailableDays(advertisementId?: string | number) {
+  const [daysSet, setDaysSet] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!advertisementId || !date) {
-      setSlots([]);
+    if (!advertisementId) {
       return;
     }
 
@@ -19,17 +18,14 @@ export function useAvailableSlots(advertisementId?: string | number, date?: Date
       setError(null);
 
       try {
-        const formattedDate = date.toISOString().split("T")[0];
-
         const { data } = await apiClient.get(
-          `/advertisement/available_slots/${advertisementId}/${formattedDate}`,
+          `/advertisement/available_days/${advertisementId}`,
           {
-            params: { date: formattedDate },
             signal: controller.signal
           }
         );
 
-        setSlots(Array.isArray(data) ? data : data?.slots ?? []);
+        setDaysSet(new Set(Array.isArray(data) ? data : data?.days ?? []));
       } catch (err: any) {
         if (err.name === "CanceledError" || err.code === "ERR_CANCELED") return;
 
@@ -42,7 +38,7 @@ export function useAvailableSlots(advertisementId?: string | number, date?: Date
     fetchTimes();
 
     return () => controller.abort();
-  }, [advertisementId, date]);
+  }, [advertisementId]);
 
-  return { slots, loading, error };
+  return { daysSet, loading, error };
 }

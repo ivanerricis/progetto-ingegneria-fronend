@@ -58,8 +58,8 @@ export default function Advertisements() {
         <div className="flex h-full min-h-0 w-full flex-col gap-2 overflow-hidden p-2">
             <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden">
                 <div className="flex flex-col gap-4">
-                    <div className="flex items-center justify-between">
-                        <div className="flex gap-2">
+                    <div className="flex sm:items-center justify-between">
+                        <div className="flex flex-col sm:flex-row gap-2">
                             <DashboardFilterSelect
                                 value={statusFilter}
                                 placeholder="Stato"
@@ -74,7 +74,7 @@ export default function Advertisements() {
                                 onValueChange={(value) => setTypeFilter(value as TypeFilter)}
                             />
                         </div>
-                        <Button size={"lg"} className="w-fit rounded-sm" onClick={() => navigate("/agent/dashboard/create-advertisement")}>
+                        <Button size={"lg"} className="size-10 sm:w-fit sm:h-10 sm:px-4 sm:py-2" onClick={() => navigate("/agent/dashboard/create-advertisement")}>
                             <Plus className="size-6"/>
                             <Label className="hidden sm:block text-lg">Aggiungi annuncio</Label>
                         </Button>

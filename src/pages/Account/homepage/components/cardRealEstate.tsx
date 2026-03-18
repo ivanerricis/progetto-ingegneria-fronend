@@ -88,7 +88,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
                 </div>
 
                 {/* Icons */}
-                <div className="hidden sm:flex w-full flex-start items-center gap-2 text-primary">
+                <div className="hidden sm:flex flex-wrap w-full flex-start items-center gap-2 text-primary">
                     <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2 bg-primary/20 text-primary p-2 border">
                         <FloorPlanIcon className="size-6" />
                         {advertisement.realEstate.rooms + " locali"}
@@ -137,17 +137,21 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
                 </div>
             </div>
 
-            <DialogCreateAppointment
-                showAppointmentDialog={showAppointmentDialog}
-                setShowAppointmentDialog={setShowAppointmentDialog}
-                advertisement={advertisement}
-            />
+            {showAppointmentDialog && (
+                <DialogCreateAppointment
+                    showAppointmentDialog={showAppointmentDialog}
+                    setShowAppointmentDialog={setShowAppointmentDialog}
+                    advertisement={advertisement}
+                />
+            )}
 
-            <DialogCreateOffer
-                showOfferDialog={showOfferDialog}
-                setShowOfferDialog={setShowOfferDialog}
-                advertisement={advertisement}
-            />
+            {showOfferDialog && (
+                <DialogCreateOffer
+                    showOfferDialog={showOfferDialog}
+                    setShowOfferDialog={setShowOfferDialog}
+                    advertisement={advertisement}
+                />
+            )}
         </div>
     )
 }

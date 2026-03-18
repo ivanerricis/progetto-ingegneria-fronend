@@ -81,14 +81,14 @@ export const LoginForm = () => {
     }
 
     return (
-        <Card className="w-full px-10 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-sm absolute rounded-none sm:rounded-xl" >
+        <Card className="w-full px-6 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-md absolute rounded-none sm:rounded-xl" >
             <CardTitle>Accedi</CardTitle>
             <Separator orientation="horizontal" className="hidden sm:flex" />
-            <form onSubmit={handleSubmit} className="gap-4 flex flex-col">
+            <form onSubmit={handleSubmit} className="gap-2 flex flex-col sm:p-2">
                 <CardContent>
                     <div className="flex flex-col">
-                        <div className="grid gap-2 mb-6">
-                            <Label htmlFor="agency">Seleziona un'agenzia</Label>
+                        <div className="grid gap-1 mb-4">
+                            <Label htmlFor="agency" className="text-lg">Seleziona un'agenzia</Label>
                             <AgencyCombobox
                                 agencies={agencies}
                                 value={selectedAgencyId}
@@ -97,20 +97,21 @@ export const LoginForm = () => {
                                 loadError={error}
                             />
                         </div>
-                        <div className="grid gap-2 mb-6">
-                            <Label htmlFor="username">{t("fields.username.label")}</Label>
+                        <div className="grid gap-1 mb-4">
+                            <Label htmlFor="username" className="text-lg">{t("fields.username.label")}</Label>
                             <Input
                                 id="username"
                                 type="text"
                                 placeholder={t("fields.username.placeholder")}
+                                className="text-lg!"
                                 value={username}
                                 onChange={(event) => setUsername(event.target.value)}
                                 required
                             />
                         </div>
-                        <div className="grid gap-2 mb-2">
-                            <div className="flex items-center">
-                                <Label htmlFor="password">{t("fields.password.label")}</Label>
+                        <div className="grid gap-1 mb-2">
+                            <div className="flex items-center justify-between">
+                                <Label htmlFor="password" className="text-lg">{t("fields.password.label")}</Label>
                                 <a
                                     href="#"
                                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
@@ -123,6 +124,7 @@ export const LoginForm = () => {
                                     id="password"
                                     type={showPassword ? "text" : "password"}
                                     placeholder={t("fields.password.placeholder")}
+                                    className="text-lg!"
                                     value={password}
                                     onChange={(event) => setPassword(event.target.value)}
                                     required
@@ -139,8 +141,13 @@ export const LoginForm = () => {
                         </div>
                     </div>
                 </CardContent>
-                <CardFooter className="flex-col gap-2">
-                    <Button type="submit" className="w-full" disabled={isSubmitting}>
+                <CardFooter className="flex-col gap-2 mt-2">
+                    <Button
+                        size={"lg"}
+                        type="submit"
+                        className="w-full"
+                        disabled={isSubmitting}
+                    >
                         {isSubmitting ? t("buttons.submitting") : t("buttons.submit")}
                     </Button>
                 </CardFooter>

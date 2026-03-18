@@ -52,29 +52,30 @@ export const LoginForm = () => {
     }
 
     return (
-        <Card className="w-full px-10 border-none shadow-none sm:shadow-sm sm:px-0 sm:border sm:max-w-sm absolute rounded-none sm:rounded-xl">
+        <Card className="w-full px-6 border-none shadow-none sm:shadow-sm sm:px-0 sm:border sm:max-w-sm absolute rounded-none sm:rounded-xl">
             <CardTitle>{t("title")}</CardTitle>
             <Separator orientation="horizontal" className="hidden sm:flex"></Separator>
-            <form onSubmit={handleSubmit} className="gap-4 flex flex-col">
+            <form onSubmit={handleSubmit} className="gap-4 flex flex-col sm:p-2">
                 <CardContent>
                     <div className="flex flex-col">
-                        <div className="grid gap-2 mb-6">
-                            <Label htmlFor="email">{t("fields.email.label")}</Label>
+                        <div className="grid gap-1 mb-4">
+                            <Label htmlFor="email" className="text-lg">{t("fields.email.label")}</Label>
                             <Input
                                 id="email"
                                 type="email"
                                 placeholder="mariorossi@gmail.com"
+                                className="text-lg!"
                                 value={email}
                                 onChange={(event) => setEmail(event.target.value)}
                                 required
                             />
                         </div>
-                        <div className="grid gap-2">
-                            <div className="flex justify-between gap-1 flex-row sm:items-center">
-                                <Label htmlFor="password">{t("fields.password.label")}</Label>
+                        <div className="grid gap-1">
+                            <div className="flex items-center justify-between gap-1">
+                                <Label htmlFor="password" className="text-lg">{t("fields.password.label")}</Label>
                                 <a
                                     href="#"
-                                    className="inline-block text-xs underline-offset-4 hover:underline sm:ml-auto sm:text-sm"
+                                    className="inline-block text-sm underline-offset-4 hover:underline sm:ml-auto sm:text-md"
                                 >
                                     {t("links.forgotPassword")}
                                 </a>
@@ -84,6 +85,7 @@ export const LoginForm = () => {
                                     id="password"
                                     type={showPassword ? "text" : "password"}
                                     placeholder={t("fields.password.placeholder")}
+                                    className="text-lg!"
                                     value={password}
                                     onChange={(event) => setPassword(event.target.value)}
                                     required
@@ -99,21 +101,38 @@ export const LoginForm = () => {
                         </div>
                     </div>
                 </CardContent>
-                <CardFooter className="flex-col gap-2">
-                    <Button type="submit" className="w-full" disabled={isSubmitting}>
+                <CardFooter className="flex-col gap-2 mt-2">
+                    <Button
+                        size={"lg"}
+                        type="submit"
+                        className="w-full"
+                        disabled={isSubmitting}
+                    >
                         {isSubmitting ? t("buttons.submitting") : t("buttons.submit")}
                     </Button>
-                    <Button variant="outline" className="w-full" type="button" disabled={isSubmitting}>
+                    <Button
+                        variant="outline"
+                        size={"lg"}
+                        className="w-full"
+                        type="button"
+                        disabled={isSubmitting}
+                    >
                         {t("buttons.google")}
                     </Button>
                     <div className="flex gap-2 w-full items-center">
                         <Separator />
-                        <div className="text-center text-sm text-muted-foreground">
+                        <div className="text-center text-md text-muted-foreground">
                             {t("texts.or")}
                         </div>
                         <Separator />
                     </div>
-                    <Button variant={"secondary"} onClick={() => navigate("/register")} className="w-full" disabled={isSubmitting}>
+                    <Button
+                        variant={"secondary"}
+                        size={"lg"}
+                        onClick={() => navigate("/register")}
+                        className="w-full"
+                        disabled={isSubmitting}
+                    >
                         {t("links.register")}
                     </Button>
                 </CardFooter>

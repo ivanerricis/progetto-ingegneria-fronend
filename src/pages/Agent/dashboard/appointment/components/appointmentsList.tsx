@@ -7,7 +7,7 @@ type Props = {
 
 export default function AppointmentsList({ appointments }: Props) {
     return (
-        <div className="flex flex-wrap gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2">
             {appointments.map((appointment) => {
 
                 return (

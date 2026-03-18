@@ -78,11 +78,9 @@ const SidebarAgent = () => {
                             >
                                 <div className="flex items-center justify-start gap-2">
                                     <User className="size-6!" />
-                                    <Label className="text-xl text-truncate">{displayName}</Label>
+                                    <Label className="text-xl text-truncate cursor-pointer">{displayName}</Label>
                                 </div>
-                                <div className="p-0.5 rounded-sm border flex items-center justify-center">
-                                    <ChevronDown className="size-5" />
-                                </div>
+                                <ChevronDown className="size-5" />
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">

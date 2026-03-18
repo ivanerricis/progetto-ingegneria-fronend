@@ -88,3 +88,13 @@ export type Account = {
     email: string
     createdAt: Date
 }
+
+export type Offer = {
+    id: string | number
+    createdAt: Date
+    price: number
+    status: "pending" | "accepted" | "rejected"
+    madeBy: Account | Agent
+    advertisement: Advertisement
+    account: Account
+}

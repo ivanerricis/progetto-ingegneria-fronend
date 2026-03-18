@@ -37,8 +37,8 @@ export const Header = ({
                     {hasMobileLeftMenu && (
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant={"outline"} className="sm:hidden">
-                                    <Menu />
+                                <Button variant={"outline"}size={"icon-lg"} className="sm:hidden">
+                                    <Menu className="size-5"/>
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="start" className="sm:hidden">

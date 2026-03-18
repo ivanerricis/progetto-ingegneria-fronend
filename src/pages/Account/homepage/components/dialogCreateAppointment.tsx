@@ -8,8 +8,10 @@ import type { Advertisement } from "@/types/types";
 import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { apiClient } from "@/lib/api/config";
-import { useAvailableTimes } from "@/hooks/account/useAvailableSlots";
+import { useAvailableSlots } from "@/hooks/account/useAvailableSlots";
 import { toast } from "sonner";
+import { useAvailableDays } from "@/hooks/account/useAvailableDays";
+import { formatLocalDate } from "@/utils/formatLocalDate";
 
 type Props = {
     showAppointmentDialog: boolean
@@ -21,7 +23,8 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
     const [open, setOpen] = useState(false)
     const [date, setDate] = useState<Date | undefined>(undefined)
     const [selectedTime, setSelectedTime] = useState<string>("");
-    const { times, loading: timesLoading } = useAvailableTimes(advertisement.id, date);
+    const { slots, loading: slotsLoading } = useAvailableSlots(advertisement.id, date);
+    const { daysSet, loading: daysLoading } = useAvailableDays(advertisement.id)
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -36,7 +39,7 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
         setLoading(true);
         setError(null);
         try {
-            const formattedDate = date.toISOString().split("T")[0];
+            const formattedDate = formatLocalDate(date);
             await apiClient.post(`/advertisement/create_appointment/${advertisement.id}`, {
                 date: formattedDate,
                 time: selectedTime,
@@ -79,11 +82,16 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
                             <Calendar
                                 mode="single"
                                 selected={date}
-                                defaultMonth={date}
+                                defaultMonth={daysSet.size ? new Date([...daysSet][0]) : new Date()}
                                 captionLayout="dropdown"
                                 onSelect={(date) => {
                                     setDate(date)
                                     setOpen(false)
+                                }}
+                                disabled={(day) => {
+                                    if (daysLoading) return true;
+
+                                    return !daysSet.has(formatLocalDate(day))
                                 }}
                             />
                         </PopoverContent>
@@ -91,21 +99,21 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
                 </div>
                 <div className="flex flex-col gap-1">
                     <Label className="text-xl">Seleziona un orario</Label>
-                    <Select value={selectedTime} onValueChange={setSelectedTime} disabled={!date || timesLoading || times.length === 0}>
+                    <Select value={selectedTime} onValueChange={setSelectedTime} disabled={!date || slotsLoading || slots.length === 0}>
                         <SelectTrigger className="w-full text-lg!">
                             <SelectValue
-                                placeholder={timesLoading ? "Caricamento..." : (!date ? "Seleziona una data prima" : (times.length === 0 ? "Nessun orario disponibile" : "Scegli un orario"))}
+                                placeholder={slotsLoading ? "Caricamento..." : (!date ? "Seleziona una data prima" : (slots.length === 0 ? "Nessun orario disponibile" : "Scegli un orario"))}
                             />
                         </SelectTrigger>
                         <SelectContent position={"popper"}>
                             <SelectGroup>
-                                {times.map((time) => (
+                                {slots.map((slot) => (
                                     <SelectItem
-                                        key={time}
-                                        value={time}
+                                        key={slot}
+                                        value={slot}
                                         className="text-lg"
-                                        >
-                                        {time}
+                                    >
+                                        {slot}
                                     </SelectItem>
                                 ))}
                             </SelectGroup>
