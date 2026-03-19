@@ -2,11 +2,11 @@ import { useState, type FormEvent } from "react"
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Stepper } from "@/components/stepper"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 import { apiClient } from "@/lib/api/config"
 import { Label } from "@/components/ui/label"
+import { Stepper } from "@/components/stepper"
 
 const steps = ["Agenzia", "Amministratore", "Conferma"]
 
@@ -53,12 +53,12 @@ export const CreateAgencyForm = () => {
     }
 
     return (
-        <Card className="w-full flex justify-between px-6 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-sm absolute h-109 rounded-none sm:rounded-xl">
+        <Card className="w-full flex justify-between px-6 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-sm absolute h-115 rounded-none sm:rounded-xl">
             <CardTitle>Crea la tua agenzia</CardTitle>
 
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col h-full">
                 <CardContent className="flex flex-col">
-                    <Stepper steps={steps} current={step} />
+                    <Stepper steps={steps} current={step}/>
 
                     {/* STEP 1 */}
                     {step === 0 && (
@@ -67,12 +67,14 @@ export const CreateAgencyForm = () => {
                                 placeholder="Nome agenzia"
                                 value={agencyName}
                                 onChange={e => setAgencyName(e.target.value)}
+                                className="text-lg!"
                                 required
                             />
                             <Input
                                 placeholder="Telefono agenzia"
                                 value={agencyPhone}
                                 onChange={e => setAgencyPhone(e.target.value)}
+                                className="text-lg!"
                                 required
                             />
                             <Input
@@ -80,12 +82,14 @@ export const CreateAgencyForm = () => {
                                 placeholder="Email"
                                 value={email}
                                 onChange={e => setEmail(e.target.value)}
+                                className="text-lg!"
                                 required
                             />
                             <Input
                                 type="file"
                                 accept="image/*"
                                 onChange={e => setLogoFile(e.target.files?.[0] ?? null)}
+                                className="text-lg!"
                                 required
                             />
                         </div>
@@ -98,18 +102,21 @@ export const CreateAgencyForm = () => {
                                 placeholder="Nome amministratore"
                                 value={adminName}
                                 onChange={e => setAdminName(e.target.value)}
+                                className="text-lg!"
                                 required
                             />
                             <Input
                                 placeholder="Cognome amministratore"
                                 value={adminLastName}
                                 onChange={e => setAdminLastName(e.target.value)}
+                                className="text-lg!"
                                 required
                             />
                             <Input
                                 placeholder="Telefono amministratore"
                                 value={adminPhone}
                                 onChange={e => setAdminPhone(e.target.value)}
+                                className="text-lg!"
                                 required
                             />
                         </div>

@@ -10,7 +10,7 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { ModeToggle } from "@/components/mode-toggle"
 import { RegisterPasswordField, isRegisterPasswordValid } from "@/components/register-password-field"
-import { updateAccountPassword } from "@/lib/api/auth"
+import { updateAccountPassword } from "@/lib/api/account"
 import { useAccount } from "@/providers/account-provider"
 
 export default function Password() {

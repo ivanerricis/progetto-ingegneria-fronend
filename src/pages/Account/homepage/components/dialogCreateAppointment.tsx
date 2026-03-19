@@ -7,26 +7,25 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import type { Advertisement } from "@/types/types";
 import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
-import { apiClient } from "@/lib/api/config";
 import { useAvailableSlots } from "@/hooks/account/useAvailableSlots";
 import { toast } from "sonner";
 import { useAvailableDays } from "@/hooks/account/useAvailableDays";
 import { formatLocalDate } from "@/utils/formatLocalDate";
+import { CreateAppointment } from "@/lib/api/account";
 
-type Props = {
+type DialogProps = {
     showAppointmentDialog: boolean
     setShowAppointmentDialog: (value: boolean) => void
     advertisement: Advertisement
 }
 
-export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointmentDialog, advertisement }: Props) => {
-    const [open, setOpen] = useState(false)
+export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointmentDialog, advertisement }: DialogProps) => {
+    const [isOpenPopover, setIsOpenPopover] = useState(false)
     const [date, setDate] = useState<Date | undefined>(undefined)
     const [selectedTime, setSelectedTime] = useState<string>("");
-    const { slots, loading: slotsLoading } = useAvailableSlots(advertisement.id, date);
+    const [isLoading, setIsLoading] = useState(false);
     const { daysSet, loading: daysLoading } = useAvailableDays(advertisement.id)
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+    const { slots, loading: slotsLoading } = useAvailableSlots(advertisement.id, date);
 
     const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
@@ -36,23 +35,22 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
 
     const handleCreateAppointment = async () => {
         if (!date || !selectedTime) return;
-        setLoading(true);
-        setError(null);
+        setIsLoading(true);
         try {
-            const formattedDate = formatLocalDate(date);
-            await apiClient.post(`/advertisement/create_appointment/${advertisement.id}`, {
-                date: formattedDate,
-                time: selectedTime,
-            });
+            CreateAppointment(date, selectedTime, advertisement.id)
             setShowAppointmentDialog(false);
             setDate(undefined);
             setSelectedTime("");
             toast.success("Appuntamento creato con successo!");
-        } catch (err: any) {
-            setError(err?.response?.data?.message || err.message || "Errore nella creazione dell'appuntamento");
-            toast.error(error);
+        } catch (submitError) {
+            console.log(submitError)
+            const message =
+                submitError instanceof Error
+                    ? submitError.message
+                    : "Errore durante la creazione dell'appuntamento"
+            toast.error("Creazione fallita: " + message)
         } finally {
-            setLoading(false);
+            setIsLoading(false);
         }
     };
 
@@ -67,7 +65,7 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
                 <DialogDescription className="hidden" />
                 <div className="flex flex-col gap-1">
                     <Label className="text-xl">Seleziona una data</Label>
-                    <Popover open={open} onOpenChange={setOpen}>
+                    <Popover open={isOpenPopover} onOpenChange={setIsOpenPopover}>
                         <PopoverTrigger asChild>
                             <Button
                                 variant="outline"
@@ -86,7 +84,7 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
                                 captionLayout="dropdown"
                                 onSelect={(date) => {
                                     setDate(date)
-                                    setOpen(false)
+                                    setIsOpenPopover(false)
                                 }}
                                 disabled={(day) => {
                                     if (daysLoading) return true;
@@ -121,9 +119,9 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
                     </Select>
                 </div>
                 <DialogFooter>
-                    <Button variant={"outline"} size={"lg"} onClick={handleClose} disabled={loading}>Annulla</Button>
-                    <Button disabled={!date || !selectedTime || loading} size={"lg"} onClick={handleCreateAppointment}>
-                        {loading ? "Prenotazione..." : "Prenota"}
+                    <Button variant={"outline"} size={"lg"} onClick={handleClose} disabled={isLoading}>Annulla</Button>
+                    <Button disabled={!date || !selectedTime || isLoading} size={"lg"} onClick={handleCreateAppointment}>
+                        {isLoading ? "Prenotazione..." : "Prenota"}
                     </Button>
                 </DialogFooter>
             </DialogContent>

@@ -58,7 +58,7 @@ export default function Profile() {
 
             <div className="flex-1 flex items-center justify-center sm:px-40">
                 <div className="flex flex-col justify-start items-center gap-8 w-full h-full">
-                    <div className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-4">
                         <Label className="text-2xl font-bold w-full h-full">Le tue informazioni</Label>
                         <div className="flex flex-col sm:flex-row gap-4">
                             <div className="flex flex-col gap-1 w-full">

@@ -17,9 +17,7 @@ type AccountContextType = {
     refreshAccount: () => Promise<void>;
 };
 
-const AccountContext = createContext<AccountContextType | undefined>(
-    undefined
-);
+const AccountContext = createContext<AccountContextType | undefined>(undefined);
 
 const STORAGE_KEY = "account";
 

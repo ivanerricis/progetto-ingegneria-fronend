@@ -31,6 +31,7 @@ export async function loginAccount(data: {
         return response.data
     } catch (err) {
         if (axios.isAxiosError(err)) {
+            console.log(err)
             const message =
                 err.response?.data?.error ??
                 err.response?.data?.message ??
@@ -88,50 +89,6 @@ export async function logoutAgent() {
                 err.response?.data?.error ??
                 err.response?.data?.message ??
                 "Logout non riuscito"
-            throw new Error(message)
-        }
-        throw err
-    }
-}
-
-export async function updateAccountPassword(
-    accountId: string | number,
-    data: {
-        currentPassword: string
-        newPassword: string
-    }
-) {
-    try {
-        const response = await apiClient.patch(`/account/${accountId}/password`, data)
-        return response.data
-    } catch (err) {
-        if (axios.isAxiosError(err)) {
-            const message =
-                err.response?.data?.error ??
-                err.response?.data?.message ??
-                "Aggiornamento password non riuscito"
-            throw new Error(message)
-        }
-        throw err
-    }
-}
-
-export async function updateAgentPassword(
-    agentId: string | number,
-    data: {
-        currentPassword: string
-        newPassword: string
-    }
-) {
-    try {
-        const response = await apiClient.patch(`/agent/${agentId}/password`, data)
-        return response.data
-    } catch (err) {
-        if (axios.isAxiosError(err)) {
-            const message =
-                err.response?.data?.error ??
-                err.response?.data?.message ??
-                "Aggiornamento password non riuscito"
             throw new Error(message)
         }
         throw err

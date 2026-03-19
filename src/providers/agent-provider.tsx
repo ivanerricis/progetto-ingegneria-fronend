@@ -17,9 +17,7 @@ type AgentContextType = {
     refreshAgent: () => Promise<void>;
 };
 
-const AgentContext = createContext<AgentContextType | undefined>(
-    undefined
-);
+const AgentContext = createContext<AgentContextType | undefined>(undefined);
 
 const STORAGE_KEY = "agent";
 

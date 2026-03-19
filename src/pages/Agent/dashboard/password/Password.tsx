@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Footer } from "@/components/footer"
 import { RegisterPasswordField, isRegisterPasswordValid } from "@/components/register-password-field"
-import { updateAgentPassword } from "@/lib/api/auth"
+import { updateAgentPassword } from "@/lib/api/agent"
 import { useAgent } from "@/providers/agent-provider"
 
 export default function Password() {

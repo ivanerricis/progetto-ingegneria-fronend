@@ -41,6 +41,7 @@ export const LoginForm = () => {
 
             navigate("/homepage")
         } catch (submitError) {
+            console.log(submitError)
             const message =
                 submitError instanceof Error
                     ? submitError.message

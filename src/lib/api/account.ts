@@ -1,0 +1,68 @@
+import axios, { isAxiosError } from "axios"
+import { apiClient } from "./config"
+import { formatLocalDate } from "@/utils/formatLocalDate"
+
+export async function updateAccountPassword(
+    accountId: string | number,
+    data: {
+        currentPassword: string
+        newPassword: string
+    }
+) {
+    try {
+        const response = await apiClient.patch(`/account/${accountId}/password`, data)
+        return response.data
+    } catch (err) {
+        if (axios.isAxiosError(err)) {
+            const message =
+                err.response?.data?.error ??
+                err.response?.data?.message ??
+                "Aggiornamento password non riuscito"
+            throw new Error(message)
+        }
+        throw err
+    }
+}
+
+export async function CreateAppointment(date: Date, selectedTime: string, advertisementId: string | number) {
+    try {
+        const formattedDate = formatLocalDate(date);
+        const response = await apiClient.post(`/advertisement/create_appointment/${advertisementId}`, {
+            date: formattedDate,
+            time: selectedTime,
+        });
+
+        return response.data
+    } catch (error) {
+        if (isAxiosError(error)) {
+
+            const message =
+                error.response?.data?.error ??
+                error.response?.data?.message ??
+                "Impossibile creare l'appuntamento"
+            throw new Error(message)
+        }
+
+        throw error
+    }
+}
+
+export async function CreateOffer(advertisementId: string | number, price: number) {
+
+    try {
+        const response = await apiClient.post(`/advertisement/create_offer/${advertisementId}`, { price },);
+
+        return response.data;
+    } catch (error) {
+        if (isAxiosError(error)) {
+
+            const message =
+                error.response?.data?.error ??
+                error.response?.data?.message ??
+                "Impossibile creare l'offerta"
+            throw new Error(message)
+        }
+
+        throw error
+    }
+}
