@@ -46,7 +46,7 @@ const AgencyCombobox = ({
                         const agencyId = agencyNameToId.get(item);
                         return (
                             <ComboboxItem
-                                className="text-lg"
+                                className="text-lg hover:text-background! dark:hover:text-foreground! cursor-pointer"
                                 key={item}
                                 value={item}
                                 onSelect={() => {

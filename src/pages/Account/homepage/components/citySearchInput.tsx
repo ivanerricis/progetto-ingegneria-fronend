@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from "react"
-import { Input } from "@/components/ui/input"
 import { useGeoapifyCities, type CityOption } from "@/hooks/account/useGeoapifyCities"
-import { Loader2, MapPin, X } from "lucide-react"
+import { Loader2, MapPin, Search, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
 
 interface CitySearchInputProps {
     value: string
@@ -75,14 +75,17 @@ export const CitySearchInput = ({
     return (
         <div ref={containerRef} className={cn("relative w-full h-full", className)}>
             <div className="relative h-full!">
-                <Input
-                    value={inputValue}
-                    onChange={handleInputChange}
-                    onFocus={() => suggestions.length > 0 && setIsOpen(true)}
-                    placeholder={placeholder}
-                    className="pr-8 h-full text-lg!"
-                    autoComplete="off"
-                />
+                <InputGroup>
+                    <InputGroupInput
+                        value={inputValue}
+                        onChange={handleInputChange}
+                        onFocus={() => suggestions.length > 0 && setIsOpen(true)}
+                        placeholder={placeholder}
+                        className="pr-8 h-full text-lg!"
+                        autoComplete="off"
+                    />
+                    <InputGroupAddon><Search className="size-5"/></InputGroupAddon>
+                </InputGroup>
                 <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center">
                     {isLoading && (
                         <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
@@ -101,17 +104,17 @@ export const CitySearchInput = ({
             </div>
 
             {isOpen && suggestions.length > 0 && (
-                <ul className="absolute z-9999 w-fit -left-12 sm:left-0 rounded-sm border bg-popover shadow-md">
+                <ul className="absolute z-9999 w-fit -left-12 sm:left-0 rounded-sm border bg-popover shadow-md max-w-xs sm:max-w-fit">
                     {suggestions.map((city) => (
                         <li key={`${city.lat}-${city.lon}`}>
                             <Button
                                 type="button"
                                 variant={"ghost"}
-                                className="flex w-full rounded-sm! justify-start items-center gap-2 px-2! py-2 text-sm"
+                                className="flex w-full rounded-sm! justify-start items-center gap-2 px-2! py-2 text-sm hover:*:text-background hover:*:dark:text-foreground"
                                 onClick={() => handleSelect(city)}
                             >
                                 <MapPin className="size-5 shrink-0 text-foreground" />
-                                <Label className="text-lg">{city.label}</Label>
+                                <Label className="text-lg truncate">{city.label}</Label>
                             </Button>
                         </li>
                     ))}

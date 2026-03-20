@@ -1,6 +1,7 @@
 import { type ReactNode, useEffect, useState } from "react"
 import { Navigate, useLocation } from "react-router-dom"
 import { apiClient } from "@/lib/api/config"
+import Loading from "@/pages/Loading/Loading"
 
 type ProtectedRouteProps = {
     children: ReactNode
@@ -40,9 +41,7 @@ export const ProtectedRoute = ({ children, authCheckPath, redirectTo = "/login" 
 
     if (isChecking) {
         return (
-            <div className="h-screen w-full flex items-center justify-center text-md text-muted-foreground">
-                Verifica sessione in corso...
-            </div>
+            <Loading />
         )
     }
 

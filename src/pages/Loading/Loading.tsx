@@ -1,10 +1,8 @@
-import { Spinner } from "@/components/ui/spinner"
+import "@/assets/css/spinner.css";
 
 const Loading = () => {
     return (
-        <div className="flex w-full h-full items-center justify-center">
-            <Spinner className="text-foreground size-14"/>
-        </div>
+        <div className="spinner"></div>
     )
 }
 

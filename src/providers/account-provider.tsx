@@ -1,5 +1,6 @@
 import {
     createContext,
+    useCallback,
     useContext,
     useEffect,
     useState,
@@ -29,7 +30,7 @@ export const AccountProvider = ({ children }: Props) => {
     const [account, setAccountState] = useState<Account | null>(null);
     const [loading, setLoading] = useState(true);
 
-    const setAccount = (acc: Account | null) => {
+    const setAccount = useCallback((acc: Account | null) => {
         setAccountState(acc);
 
         if (acc) {
@@ -37,21 +38,23 @@ export const AccountProvider = ({ children }: Props) => {
         } else {
             localStorage.removeItem(STORAGE_KEY);
         }
-    };
+    }, []);
 
-    const refreshAccount = async () => {
+    const refreshAccount = useCallback(async () => {
         try {
             const res = await apiClient.get<Account>("/auth/account");
             setAccount(res.data);
         } catch {
             setAccount(null);
         }
-    };
+    }, [setAccount]);
 
     const logout = async () => {
         try {
             await apiClient.post("/auth/account/logout");
-        } catch { }
+        } catch {
+            console.log("Logout failed, but clearing account data anyway.");
+        }
 
         setAccount(null);
     };
@@ -60,7 +63,7 @@ export const AccountProvider = ({ children }: Props) => {
         setLogoutHandler(() => {
             setAccount(null);
         });
-    }, []);
+    }, [setAccount]);
 
     useEffect(() => {
         const init = async () => {
@@ -78,7 +81,7 @@ export const AccountProvider = ({ children }: Props) => {
         };
 
         init();
-    }, []);
+    }, [refreshAccount]);
 
     return (
         <AccountContext.Provider

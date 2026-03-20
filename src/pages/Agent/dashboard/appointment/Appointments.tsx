@@ -30,7 +30,7 @@ const statusOptions = [
 ] as const
 
 export default function Appointments() {
-    const { appointments, isLoading, error } = useAppointments()
+    const { appointments, isLoading, error, confirmAppointment, rejectAppointment } = useAppointments()
 
     const [statusFilter, setStatusFilter] = useState<StatusFilter>("requested")
 
@@ -67,6 +67,8 @@ export default function Appointments() {
                         appointments={filteredAppointments}
                         isLoading={isLoading}
                         error={error}
+                        onConfirm={confirmAppointment}
+                        onReject={rejectAppointment}
                     />
                 </div>
             </div>

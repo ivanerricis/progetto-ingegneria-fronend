@@ -134,7 +134,7 @@ const SidebarFilter = () => {
                             type="button"
                             variant={rooms === r ? "default" : "outline"}
                             size="sm"
-                            className="w-10"
+                            className="w-10 rounded-sm"
                             onClick={() => setFilter("rooms", rooms === r ? null : r)}
                         >
                             {r}
@@ -156,7 +156,7 @@ const SidebarFilter = () => {
                             type="button"
                             variant={bathrooms === b ? "default" : "outline"}
                             size="sm"
-                            className="w-10"
+                            className="w-10 rounded-sm"
                             onClick={() => setFilter("bathrooms", bathrooms === b ? null : b)}
                         >
                             {b}
@@ -180,6 +180,7 @@ const SidebarFilter = () => {
                                 type="button"
                                 variant={selected ? "default" : "outline"}
                                 size="sm"
+                                className="rounded-sm"
                                 onClick={() =>
                                     setFilter("housingType", selected ? null : type)
                                 }
@@ -206,6 +207,7 @@ const SidebarFilter = () => {
                                 type="button"
                                 variant={active ? "default" : "outline"}
                                 size="sm"
+                                className="rounded-full"
                                 onClick={() => setFilter(feature.key, active ? null : "true")}
                             >
                                 {feature.label}

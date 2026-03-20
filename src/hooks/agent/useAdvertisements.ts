@@ -1,6 +1,6 @@
 import type { Advertisement } from "@/types/types"
 import { useEffect, useState } from "react"
-import axios from "axios"
+import { isCancel } from "axios"
 import { apiClient } from "@/lib/api/config"
 
 export default function useAdvertisements() {
@@ -21,7 +21,7 @@ export default function useAdvertisements() {
                 })
                 setAdvertisements(data.items)
             } catch (error) {
-                if (axios.isCancel(error)) return
+                if (isCancel(error)) return
 
                 setError(error instanceof Error ? error.message : "Errore")
             } finally {

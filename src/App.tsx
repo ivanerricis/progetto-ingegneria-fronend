@@ -1,14 +1,13 @@
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import ProtectedRoute from './components/protected-route';
 import { AccountProvider } from '@/providers/account-provider';
 import { AgentProvider } from '@/providers/agent-provider';
-import Loading from '@/pages/Loading/Loading';
 import { apiClient } from '@/lib/api/config';
 
 // Lazy loading delle pagine Account
@@ -86,7 +85,7 @@ function App() {
     >
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <TooltipProvider>
-          <Suspense fallback={<Loading />}>
+          {/* <Suspense fallback={<Loading />}> */}
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<SessionEntryRedirect />} />
@@ -144,7 +143,7 @@ function App() {
                 <Route path="*" element={<Navigate to="/login" replace />} />
               </Routes>
             </BrowserRouter>
-          </Suspense>
+          {/* </Suspense> */}
           <Toaster closeButton position='top-center' richColors />
         </TooltipProvider>
       </ThemeProvider>

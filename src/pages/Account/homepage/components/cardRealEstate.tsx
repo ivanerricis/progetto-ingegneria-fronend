@@ -123,7 +123,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
                             onClick={handleOfferButtonClick}
                         >
                             Offerta
-                            <HandCoins />
+                            <HandCoins className="size-5" />
                         </Button>
                         <Button
                             variant={"outline"}
@@ -131,7 +131,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
                             onClick={handleAppointmentButtonClick}
                         >
                             Prenota
-                            <CalendarDays />
+                            <CalendarDays className="size-5" />
                         </Button>
                     </div>
                 </div>

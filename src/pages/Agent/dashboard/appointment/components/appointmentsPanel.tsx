@@ -1,18 +1,20 @@
-import AdvertisementListSkeleton from "@/pages/Account/homepage/components/advertisementListSkeleton"
 import AppointmentsList from "./appointmentsList"
 import type { AppointmentsResult } from "@/hooks/agent/useAppointments"
+import { CardAppointmentSkeleton } from "./cardAppointmentSkeleton"
 
 type AppointmentsTabPanelProps = {
     appointments: AppointmentsResult[]
     isLoading: boolean
     error: string | null
+    onConfirm: (id: number) => Promise<void>
+    onReject: (id: number) => Promise<void>
 }
 
-export default function AppointmentsPanel({ appointments, isLoading, error }: AppointmentsTabPanelProps) {
+export default function AppointmentsPanel({ appointments, isLoading, error, onConfirm, onReject }: AppointmentsTabPanelProps) {
     return (
         <div className="flex flex-col gap-2">
             {isLoading && (
-                <AdvertisementListSkeleton />
+                <CardAppointmentSkeleton />
             )}
 
             {error && (
@@ -27,7 +29,11 @@ export default function AppointmentsPanel({ appointments, isLoading, error }: Ap
 
             {!isLoading && !error && appointments.length > 0 && (
                 <div className="pr-1">
-                    <AppointmentsList appointments={appointments} />
+                    <AppointmentsList
+                        appointments={appointments}
+                        onConfirm={onConfirm}
+                        onReject={onReject}
+                    />
                 </div>
             )}
         </div>

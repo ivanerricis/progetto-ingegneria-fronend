@@ -1,4 +1,4 @@
-import axios from "axios"
+import { isAxiosError } from "axios"
 import { apiClient } from "./config"
 
 export async function registerAccount(data: {
@@ -11,7 +11,7 @@ export async function registerAccount(data: {
         const response = await apiClient.post("/auth/account/register", data)
         return response.data
     } catch (err) {
-        if (axios.isAxiosError(err)) {
+        if (isAxiosError(err)) {
             const message =
                 err.response?.data?.error ??
                 err.response?.data?.message ??
@@ -30,7 +30,7 @@ export async function loginAccount(data: {
         const response = await apiClient.post("/auth/account/login", data)
         return response.data
     } catch (err) {
-        if (axios.isAxiosError(err)) {
+        if (isAxiosError(err)) {
             console.log(err)
             const message =
                 err.response?.data?.error ??
@@ -52,7 +52,7 @@ export async function loginAgent(data: {
         console.log("Login Agent Response:", response.data)
         return response.data
     } catch (err) {
-        if (axios.isAxiosError(err)) {
+        if (isAxiosError(err)) {
             const message =
                 err.response?.data?.error ??
                 err.response?.data?.message ??
@@ -68,7 +68,7 @@ export async function logoutAccount() {
         const response = await apiClient.post("/auth/account/logout")
         return response.data
     } catch (err) {
-        if (axios.isAxiosError(err)) {
+        if (isAxiosError(err)) {
             const message =
                 err.response?.data?.error ??
                 err.response?.data?.message ??
@@ -84,7 +84,7 @@ export async function logoutAgent() {
         const response = await apiClient.post("/auth/agent/logout")
         return response.data
     } catch (err) {
-        if (axios.isAxiosError(err)) {
+        if (isAxiosError(err)) {
             const message =
                 err.response?.data?.error ??
                 err.response?.data?.message ??
@@ -100,7 +100,7 @@ export async function deleteAccount(accountId: string | number) {
         const response = await apiClient.delete(`/account/delete/${accountId}`)
         return response.data
     } catch (err) {
-        if (axios.isAxiosError(err)) {
+        if (isAxiosError(err)) {
             const message =
                 err.response?.data?.error ??
                 err.response?.data?.message ??

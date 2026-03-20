@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react"
-import axios from "axios"
+import { useEffect, useState, useCallback } from "react"
 import { apiClient } from "@/lib/api/config"
+import { ConfirmAppointment, RejectAppointment } from "@/lib/api/agent"
+import { isCancel } from "axios"
 
 export type AppointmentsResult = {
     appointmentId: number
-    account: { id: number, firstName: string, lastName: string }
-    advertisement: {id: number, addressFormatted: string, previewPhoto: string}
+    account: { id: number; firstName: string; lastName: string }
+    advertisement: { id: number; addressFormatted: string; previewPhoto: string }
     appointmentAt: string
     status: "requested" | "confirmed" | "rejected" | "cancelled"
 }
@@ -15,32 +16,60 @@ export default function useAppointments() {
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
-    useEffect(() => {
-        const abortController = new AbortController()
+    const fetchAppointments = useCallback(async (signal?: AbortSignal) => {
+        setError(null)
+        setIsLoading(true)
 
-        const fetchAdvertisements = async () => {
-            setError(null)
-            setIsLoading(true)
+        try {
+            const { data } = await apiClient.get("/agent/appointments", {
+                signal,
+            })
 
-            try {
-                const { data } = await apiClient.get("/agent/appointments", {
-                    signal: abortController.signal,
-                })
-                setAppointments(data.appointments)
-                console.log(data.appointments)
-            } catch (error) {
-                if (axios.isCancel(error)) return
-
-                setError(error instanceof Error ? error.message : "Errore")
-            } finally {
-                setIsLoading(false)
-            }
+            setAppointments(data.appointments)
+        } catch (error) {
+            if (isCancel(error)) return
+            setError(error instanceof Error ? error.message : "Errore")
+        } finally {
+            setIsLoading(false)
         }
-
-        fetchAdvertisements()
-
-        return () => abortController.abort()
     }, [])
 
-    return { appointments, isLoading, error }
+    useEffect(() => {
+        const abortController = new AbortController()
+        fetchAppointments(abortController.signal)
+        return () => abortController.abort()
+    }, [fetchAppointments])
+
+    const confirmAppointment = async (id: number) => {
+        await ConfirmAppointment(id)
+
+        setAppointments(prev =>
+            prev.map(a =>
+                a.appointmentId === id
+                    ? { ...a, status: "confirmed" }
+                    : a
+            )
+        )
+    }
+
+    const rejectAppointment = async (id: number) => {
+        await RejectAppointment(id)
+
+        setAppointments(prev =>
+            prev.map(a =>
+                a.appointmentId === id
+                    ? { ...a, status: "rejected" }
+                    : a
+            )
+        )
+    }
+
+    return {
+        appointments,
+        isLoading,
+        error,
+        refetch: fetchAppointments,
+        confirmAppointment,
+        rejectAppointment,
+    }
 }

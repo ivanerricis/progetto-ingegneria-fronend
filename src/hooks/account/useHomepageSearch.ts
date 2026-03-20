@@ -59,7 +59,6 @@ export const useHomepageSearch = () => {
     const clearFilters = useCallback(() => {
         setSearchParams((prev) => {
             const next = new URLSearchParams(prev)
-            // Mantieni solo city, cityLat, cityLon
             const city = next.get("city")
             const cityLat = next.get("cityLat")
             const cityLon = next.get("cityLon")

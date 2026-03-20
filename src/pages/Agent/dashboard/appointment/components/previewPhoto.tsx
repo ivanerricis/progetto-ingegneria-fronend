@@ -9,7 +9,7 @@ export const PreviewPhoto = ({ photo }: PreviewPhotoProps) => {
             <img
                 src={photo}
                 alt="Immagine immobile"
-                className="block w-92 h-60 object-cover rounded-t-sm"
+                className="block w-98 h-60 object-cover rounded-t-sm"
                 loading="lazy"
             />
         </div>

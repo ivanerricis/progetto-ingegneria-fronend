@@ -1,4 +1,4 @@
-import axios, { isAxiosError } from "axios"
+import { isAxiosError } from "axios"
 import { apiClient } from "./config"
 import { formatLocalDate } from "@/utils/formatLocalDate"
 
@@ -13,7 +13,7 @@ export async function updateAccountPassword(
         const response = await apiClient.patch(`/account/${accountId}/password`, data)
         return response.data
     } catch (err) {
-        if (axios.isAxiosError(err)) {
+        if (isAxiosError(err)) {
             const message =
                 err.response?.data?.error ??
                 err.response?.data?.message ??

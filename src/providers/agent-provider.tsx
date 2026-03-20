@@ -1,5 +1,6 @@
 import {
     createContext,
+    useCallback,
     useContext,
     useEffect,
     useState,
@@ -29,7 +30,7 @@ export const AgentProvider = ({ children }: Props) => {
     const [agent, setAgentState] = useState<Agent | null>(null);
     const [loading, setLoading] = useState(true);
 
-    const setAgent = (ag: Agent | null) => {
+    const setAgent = useCallback((ag: Agent | null) => {
         setAgentState(ag);
 
         if (ag) {
@@ -37,21 +38,23 @@ export const AgentProvider = ({ children }: Props) => {
         } else {
             localStorage.removeItem(STORAGE_KEY);
         }
-    };
+    }, []);
 
-    const refreshAgent = async () => {
+    const refreshAgent = useCallback(async () => {
         try {
             const res = await apiClient.get<Agent>("/auth/agent");
             setAgent(res.data);
         } catch {
             setAgent(null);
         }
-    };
+    }, [setAgent]);
 
     const logout = async () => {
         try {
             await apiClient.post("/auth/agent/logout");
-        } catch { }
+        } catch {
+            console.log("Logout failed, but clearing agent data anyway.");
+         }
 
         setAgent(null);
     };
@@ -60,7 +63,7 @@ export const AgentProvider = ({ children }: Props) => {
         setLogoutHandler(() => {
             setAgent(null);
         });
-    }, []);
+    }, [setAgent]);
 
     useEffect(() => {
         const init = async () => {
@@ -78,7 +81,7 @@ export const AgentProvider = ({ children }: Props) => {
         };
 
         init();
-    }, []);
+    }, [refreshAgent]);
 
     return (
         <AgentContext.Provider

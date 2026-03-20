@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import axios from "axios"
+import { isCancel } from "axios"
 import { apiClient } from "@/lib/api/config"
 import type { Offer } from "@/types/types"
 
@@ -22,7 +22,7 @@ export default function useOffers() {
                 setOffers(data.items)
                 console.log(data)
             } catch (error) {
-                if (axios.isCancel(error)) return
+                if (isCancel(error)) return
 
                 setError(error instanceof Error ? error.message : "Errore")
             } finally {

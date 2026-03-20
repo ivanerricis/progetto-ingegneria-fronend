@@ -1,6 +1,6 @@
 import type { Advertisement } from "@/types/types"
 import { useEffect, useState } from "react"
-import axios from "axios"
+import { isCancel } from "axios"
 import { apiClient } from "@/lib/api/config"
 
 export default function useAdvertisement(advertisementId?: string) {
@@ -29,7 +29,7 @@ export default function useAdvertisement(advertisementId?: string) {
                 const item = data?.item ?? data?.advertisement ?? data
                 setAdvertisement(item)
             } catch (error) {
-                if (axios.isCancel(error)) return
+                if (isCancel(error)) return
 
                 setError(error instanceof Error ? error.message : "Errore")
             } finally {

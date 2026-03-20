@@ -35,10 +35,10 @@ export default function DashboardFilterSelect({
 
             <SelectContent position="popper">
                 {options.map((option) => (
-                    <SelectItem key={option.value} value={option.value} className="text-foreground">
-                        <div className="flex items-center justify-start gap-2">
+                    <SelectItem key={option.value} value={option.value} className="group text-foreground">
+                        <div className="flex items-center justify-start gap-2 group-hover:*:text-background group-hover:dark:*:text-foreground group-focus:*:text-background group-focus:dark:*:text-foreground">
                             {option.icon}
-                            <Label className="text-lg">{option.label}</Label>
+                            <Label className="text-lg cursor-pointer group-hover:text-background">{option.label}</Label>
                         </div>
                     </SelectItem>
                 ))}

@@ -26,7 +26,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
         >
 
             {/* Carousel */}
-            <div className="flex w-full h-full sm:h-60 min-w-60 min-h-60">
+            <div className="flex items-center justify-center">
                 <RealEstateCarousel photos={advertisement.photos} />
             </div>
 
@@ -36,7 +36,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
                 className="flex flex-col flex-1 gap-2 p-2 justify-between border-t">
 
                 {/* Informazioni generali */}
-                <div className="flex flex-col justify-start w-full text-bold">
+                <div className="flex flex-col justify-start w-full h-12 text-bold">
                     {addressLabel}
                 </div>
 

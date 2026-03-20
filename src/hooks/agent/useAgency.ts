@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import type { Agency } from "@/types/types"
-import axios from "axios"
+import { isCancel } from "axios"
 import { apiClient } from "@/lib/api/config"
 
 type AgenciesResponse = {
@@ -26,7 +26,7 @@ export function useAgencies() {
 
                 setAgencies(data.agencies ?? [])
             } catch (err) {
-                if (axios.isCancel(err)) return
+                if (isCancel(err)) return
 
                 setError(err instanceof Error ? err.message : "Errore")
                 setAgencies([])

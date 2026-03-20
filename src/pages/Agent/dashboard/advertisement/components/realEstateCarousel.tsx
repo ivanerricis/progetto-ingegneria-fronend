@@ -25,7 +25,7 @@ const RealEstateCarousel = ({ photos = [] }: RealEstateCarouselProps) => {
                             <img
                                 src={photo.url}
                                 alt="Immagine immobile"
-                                className="block h-full w-full object-cover"
+                                className="block w-full sm:w-120 h-60 object-cover"
                                 loading="lazy"
                             />
                         </CarouselItem>

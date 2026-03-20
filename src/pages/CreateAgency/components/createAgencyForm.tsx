@@ -45,8 +45,13 @@ export const CreateAgencyForm = () => {
             await apiClient.post("/auth/agency/create", formData)
             toast.success("Agenzia creata con successo!")
             navigate("/homepage")
-        } catch (err: any) {
-            toast.error(err?.response?.data?.message ?? "Errore")
+        } catch (submitError) {
+            const message =
+                submitError instanceof Error
+                    ? submitError.message
+                    : "Errore durante la creazione dell'agenzia"
+
+            toast.error("Creazione agenzia fallita: " + message)
         } finally {
             setLoading(false)
         }
