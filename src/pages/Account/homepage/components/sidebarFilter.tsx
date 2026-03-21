@@ -89,7 +89,7 @@ const SidebarFilter = () => {
                 </div>
             </div>
 
-            <Separator orientation="horizontal" className="shrink-0"/>
+            <Separator orientation="horizontal" className="shrink-0" />
 
             <div className="flex flex-col gap-2">
                 <Label className="text-lg">
@@ -121,8 +121,8 @@ const SidebarFilter = () => {
                 </div>
             </div>
 
-            <Separator orientation="horizontal" className="shrink-0"/>
-i
+            <Separator orientation="horizontal" className="shrink-0" />
+
             <div className="flex flex-col gap-2">
                 <Label className="text-lg">
                     Numero locali
@@ -143,7 +143,7 @@ i
                 </div>
             </div>
 
-            <Separator orientation="horizontal" className="shrink-0"/>
+            <Separator orientation="horizontal" className="shrink-0" />
 
             <div className="flex flex-col gap-2">
                 <Label className="text-lg">
@@ -165,7 +165,7 @@ i
                 </div>
             </div>
 
-            <Separator orientation="horizontal" className="shrink-0"/>
+            <Separator orientation="horizontal" className="shrink-0" />
 
             <div className="flex flex-col gap-2">
                 <Label className="text-lg">
@@ -192,7 +192,7 @@ i
                 </div>
             </div>
 
-            <Separator orientation="horizontal" className="shrink-0"/>
+            <Separator orientation="horizontal" className="shrink-0" />
 
             <div className="flex flex-col gap-2">
                 <Label className="text-lg">
@@ -207,7 +207,7 @@ i
                                 type="button"
                                 variant={active ? "default" : "outline"}
                                 size="sm"
-                                className="rounded-full"
+                                className="rounded-full border-2"
                                 onClick={() => setFilter(feature.key, active ? null : "true")}
                             >
                                 {feature.label}
