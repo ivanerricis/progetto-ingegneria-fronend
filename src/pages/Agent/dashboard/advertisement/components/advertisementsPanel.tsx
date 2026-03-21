@@ -6,9 +6,10 @@ type AdvertisementTabPanelProps = {
     advertisements: Advertisement[]
     isLoading: boolean
     error: string | null
+    onDelete: (id: number) => Promise<void>
 }
 
-export default function AdvertisementsPanel({ advertisements, isLoading, error }: AdvertisementTabPanelProps) {
+export default function AdvertisementsPanel({ advertisements, isLoading, error, onDelete }: AdvertisementTabPanelProps) {
     return (
         <div className="flex flex-col gap-2">
             {isLoading && (
@@ -27,7 +28,10 @@ export default function AdvertisementsPanel({ advertisements, isLoading, error }
 
             {!isLoading && !error && advertisements.length > 0 && (
                 <div className="pr-1">
-                    <AdvertisementsList advertisements={advertisements} />
+                    <AdvertisementsList
+                    advertisements={advertisements}
+                    onDelete={onDelete} 
+                    />
                 </div>
             )}
         </div>

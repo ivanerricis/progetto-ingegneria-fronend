@@ -1,12 +1,13 @@
-import { useState, type FormEvent } from "react"
+import { useState } from "react"
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 import { apiClient } from "@/lib/api/config"
 import { Label } from "@/components/ui/label"
 import { Stepper } from "@/components/stepper"
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
+import { Image, Mail, Phone, User } from "lucide-react"
 
 const steps = ["Agenzia", "Amministratore", "Conferma"]
 
@@ -28,8 +29,8 @@ export const CreateAgencyForm = () => {
     const next = () => setStep((s) => Math.min(s + 1, steps.length - 1))
     const back = () => setStep((s) => Math.max(s - 1, 0))
 
-    const handleSubmit = async (e?: FormEvent) => {
-        e?.preventDefault()
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         setLoading(true)
 
         const formData = new FormData()
@@ -63,67 +64,104 @@ export const CreateAgencyForm = () => {
 
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col h-full">
                 <CardContent className="flex flex-col">
-                    <Stepper steps={steps} current={step}/>
+                    <Stepper steps={steps} current={step} />
 
                     {/* STEP 1 */}
                     {step === 0 && (
                         <div className="flex flex-col gap-4">
-                            <Input
-                                placeholder="Nome agenzia"
-                                value={agencyName}
-                                onChange={e => setAgencyName(e.target.value)}
-                                className="text-lg!"
-                                required
-                            />
-                            <Input
-                                placeholder="Telefono agenzia"
-                                value={agencyPhone}
-                                onChange={e => setAgencyPhone(e.target.value)}
-                                className="text-lg!"
-                                required
-                            />
-                            <Input
-                                type="email"
-                                placeholder="Email"
-                                value={email}
-                                onChange={e => setEmail(e.target.value)}
-                                className="text-lg!"
-                                required
-                            />
-                            <Input
-                                type="file"
-                                accept="image/*"
-                                onChange={e => setLogoFile(e.target.files?.[0] ?? null)}
-                                className="text-lg!"
-                                required
-                            />
+                            <InputGroup>
+                                <InputGroupInput
+                                    placeholder="Nome agenzia"
+                                    value={agencyName}
+                                    onChange={e => setAgencyName(e.target.value)}
+                                    className="text-lg!"
+                                    required
+                                />
+                                <InputGroupAddon>
+                                    <User />
+                                </InputGroupAddon>
+                            </InputGroup>
+                            <InputGroup>
+                                <InputGroupInput
+                                    placeholder="Telefono agenzia"
+                                    value={agencyPhone}
+                                    type="number"
+                                    min={0}
+                                    onChange={e => setAgencyPhone(e.target.value)}
+                                    className="text-lg!"
+                                    required
+                                />
+                                <InputGroupAddon>
+                                    <Phone />
+                                </InputGroupAddon>
+                            </InputGroup>
+                            <InputGroup>
+                                <InputGroupInput
+                                    type="email"
+                                    placeholder="Email"
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
+                                    className="text-lg!"
+                                    required
+                                />
+                                <InputGroupAddon>
+                                    <Mail />
+                                </InputGroupAddon>
+                            </InputGroup>
+                            <InputGroup>
+                                <InputGroupInput
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={e => setLogoFile(e.target.files?.[0] ?? null)}
+                                    className="text-lg!"
+                                    required
+                                />
+                                <InputGroupAddon>
+                                    <Image />
+                                </InputGroupAddon>
+                            </InputGroup>
                         </div>
                     )}
 
                     {/* STEP 2 */}
                     {step === 1 && (
                         <div className="flex flex-col gap-4">
-                            <Input
-                                placeholder="Nome amministratore"
-                                value={adminName}
-                                onChange={e => setAdminName(e.target.value)}
-                                className="text-lg!"
-                                required
-                            />
-                            <Input
-                                placeholder="Cognome amministratore"
-                                value={adminLastName}
-                                onChange={e => setAdminLastName(e.target.value)}
-                                className="text-lg!"
-                                required
-                            />
-                            <Input
-                                placeholder="Telefono amministratore"
-                                value={adminPhone}
-                                onChange={e => setAdminPhone(e.target.value)}
-                                className="text-lg!"
-                                required
-                            />
+                            <InputGroup>
+                                <InputGroupInput
+                                    placeholder="Nome amministratore"
+                                    value={adminName}
+                                    onChange={e => setAdminName(e.target.value)}
+                                    className="text-lg!"
+                                    required
+                                />
+                                <InputGroupAddon>
+                                    <User />
+                                </InputGroupAddon>
+                            </InputGroup>
+                            <InputGroup>
+                                <InputGroupInput
+                                    placeholder="Cognome amministratore"
+                                    value={adminLastName}
+                                    onChange={e => setAdminLastName(e.target.value)}
+                                    className="text-lg!"
+                                    required
+                                />
+                                <InputGroupAddon>
+                                    <User />
+                                </InputGroupAddon>
+                            </InputGroup>
+                            <InputGroup>
+                                <InputGroupInput
+                                    placeholder="Telefono amministratore"
+                                    value={adminPhone}
+                                    onChange={e => setAdminPhone(e.target.value)}
+                                    className="text-lg!"
+                                    required
+                                />
+                                <InputGroupAddon>
+                                    <Phone />
+                                </InputGroupAddon>
+                            </InputGroup>
                         </div>
                     )}
 
@@ -174,7 +212,7 @@ export const CreateAgencyForm = () => {
                 {step < steps.length - 1 ? (
                     <Button onClick={next}>Avanti</Button>
                 ) : (
-                    <Button onClick={handleSubmit} disabled={loading}>
+                    <Button type="submit" disabled={loading}>
                         {loading ? "Creazione..." : "Crea agenzia"}
                     </Button>
                 )}

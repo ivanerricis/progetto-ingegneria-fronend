@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Check, Trash, X } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { PreviewPhoto } from "./previewPhoto";
 import type { AppointmentsResult } from "@/hooks/agent/useAppointments";
 import { formatDaysTimes } from "@/utils/formatDayTimes";
@@ -54,7 +54,7 @@ export const CardAppointment = ({ appointment, onConfirm, onReject }: CardAppoin
             </div>
 
             {/* Buttons */}
-            {((appointment.status === "requested") || (appointment.status === "confirmed")) &&
+            {((appointment.status === "requested")) &&
                 <div className="flex flex-col w-f h-full gap-2">
                     {appointment.status === "requested" && (
                         <div className="flex gap-2 w-full">
@@ -69,14 +69,6 @@ export const CardAppointment = ({ appointment, onConfirm, onReject }: CardAppoin
                             </Button>
                         </div>
                     )}
-                    {appointment.status === "confirmed" &&
-                        <div className="flex w-full">
-                            <Button variant="destructive" size={"lg"} className="flex-1 rounded-sm">
-                                <Trash className="size-5" />
-                                Elimina
-                            </Button>
-                        </div>
-                    }
                 </div>
             }
 

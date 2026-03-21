@@ -23,10 +23,11 @@ export default function useAdvertisement(advertisementId?: string) {
             setIsLoading(true)
 
             try {
-                const { data } = await apiClient.get(`/agent/advertisements/${advertisementId}`, {
+                const { data } = await apiClient.get(`/agent/advertisement/${advertisementId}`, {
                     signal: abortController.signal,
                 })
                 const item = data?.item ?? data?.advertisement ?? data
+                console.log("Fetched advertisement:", data)
                 setAdvertisement(item)
             } catch (error) {
                 if (isCancel(error)) return

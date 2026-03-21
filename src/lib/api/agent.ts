@@ -60,3 +60,35 @@ export async function RejectAppointment(appointmentId: string | number) {
         throw error
     }
 }
+
+export async function DeleteAdvertisement(advertisementId: string | number) {
+    try {
+        const response = await apiClient.delete(`/advertisement/delete/${advertisementId}`)
+        return response.data
+    } catch (err) {
+        if (isAxiosError(err)) {
+            const message =
+                err.response?.data?.error ??
+                err.response?.data?.message ??
+                "Eliminazione annuncio non riuscita"
+            throw new Error(message)
+        }
+        throw err
+    }
+}
+
+export async function DeleteAgent(agentId: string | number) {
+    try {
+        const response = await apiClient.delete(`/agent/delete/${agentId}`)
+        return response.data
+    } catch (err) {
+        if (isAxiosError(err)) {
+            const message =
+                err.response?.data?.error ??
+                err.response?.data?.message ??
+                "Eliminazione agente non riuscita"
+            throw new Error(message)
+        }
+        throw err
+    }
+}

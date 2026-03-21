@@ -122,7 +122,7 @@ const SidebarFilter = () => {
             </div>
 
             <Separator orientation="horizontal" className="shrink-0"/>
-
+i
             <div className="flex flex-col gap-2">
                 <Label className="text-lg">
                     Numero locali

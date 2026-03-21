@@ -24,10 +24,11 @@ const CreateAgency = lazy(() => import('@/pages/CreateAgency/CreateAgency'));
 const DashboardLayout = lazy(() => import('@/pages/Agent/dashboard/DashboardLayout'));
 const DashboardHome = lazy(() => import('@/pages/Agent/dashboard/DashboardHome'));
 const Advertisements = lazy(() => import('@/pages/Agent/dashboard/advertisement/Advertisements'));
+const AdvertisementPage = lazy(() => import('@/pages/Agent/dashboard/advertisement/AdvertisementPage'));
+const CreateAdvertisement = lazy(() => import('@/pages/Agent/dashboard/createAdvertisement/CreateAdvertisement'));
 const Appointments = lazy(() => import('@/pages/Agent/dashboard/appointment/Appointments'));
 const Offers = lazy(() => import('@/pages/Agent/dashboard/offer/Offers'));
 const Agents = lazy(() => import('@/pages/Agent/dashboard/agents/Agents'));
-const CreateAdvertisement = lazy(() => import('@/pages/Agent/dashboard/CreateAdvertisement'));
 const AgentProfile = lazy(() => import('@/pages/Agent/dashboard/profile/Profile'));
 const AgentPassword = lazy(() => import('@/pages/Agent/dashboard/password/Password'));
 
@@ -136,6 +137,7 @@ function App() {
                     <Route path="/agent/dashboard/agents" element={<Agents />} />
                     <Route path="/agent/dashboard/password" element={<AgentPassword />} />
                     <Route path="/agent/dashboard/create-advertisement" element={<CreateAdvertisement />} />
+                    <Route path="/agent/dashboard/advertisement/:id" element={<AdvertisementPage />} />
                   </Route>
                 </Route>
 

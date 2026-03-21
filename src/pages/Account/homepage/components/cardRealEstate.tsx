@@ -26,8 +26,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
     const agencyLabel = advertisement.agent.agency.name.trim() || "not found"
 
     const handleCardClick = () => {
-        const routeId = advertisement.id
-        navigate(`/account/advertisement/${String(routeId)}`)
+        navigate(`/account/advertisement/${String(advertisement.id)}`)
     }
 
     const handleOfferButtonClick = (event: MouseEvent<HTMLButtonElement>) => {

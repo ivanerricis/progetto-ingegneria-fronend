@@ -1,43 +1,48 @@
+// FileUpload.tsx
 "use client";
 
 import { File as FileIcon, Trash } from "lucide-react";
-import React from "react";
 import { useDropzone } from "react-dropzone";
 
 import { Button } from "@/components/ui/button";
-import {
-    Card,
-    CardContent,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
-export default function FileUpload() {
-    const MAX_FILES = 10;
-    const [files, setFiles] = React.useState<File[]>([]);
+interface FileUploadProps {
+    files: File[];
+    onFilesChange: (files: File[]) => void;
+    maxFiles?: number;
+}
+
+export default function FileUpload({
+    files,
+    onFilesChange,
+    maxFiles = 10,
+}: FileUploadProps) {
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop: (acceptedFiles) => {
-            const remainingSlots = MAX_FILES - files.length;
+            const remainingSlots = maxFiles - files.length;
 
             if (remainingSlots <= 0) {
-                toast.error(`Puoi caricare al massimo ${MAX_FILES} foto.`);
+                toast.error(`Puoi caricare al massimo ${maxFiles} foto.`);
                 return;
             }
 
             if (acceptedFiles.length > remainingSlots) {
-                toast.error(`Puoi caricare al massimo ${MAX_FILES} foto.`);
+                toast.error(`Puoi caricare al massimo ${maxFiles} foto.`);
             }
 
             const nextFiles = [...files, ...acceptedFiles.slice(0, remainingSlots)];
-            setFiles(nextFiles);
+            onFilesChange(nextFiles);
         },
     });
 
     const formatFileSizeInMb = (bytes: number) => `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
 
     const filesList = files.map((file) => (
-        <Card className="relative rounded-sm p-0">
+        <Card key={file.name} className="relative rounded-sm p-0">
             <CardContent className="flex items-center justify-center gap-3 p-3 text-center">
                 <span className="hidden sm:flex h-8 w-8 xl:h-10 xl:w-10 shrink-0 items-center justify-center rounded-sm bg-muted">
                     <FileIcon className="h-5 w-5 xl:h-6 xl:w-6 text-foreground" aria-hidden={true} />
@@ -56,9 +61,7 @@ export default function FileUpload() {
                     aria-label="Remove file"
                     className="rounded-sm"
                     onClick={() =>
-                        setFiles((prevFiles) =>
-                            prevFiles.filter((prevFile) => prevFile.name !== file.name)
-                        )
+                        onFilesChange(files.filter((prevFile) => prevFile.name !== file.name))
                     }
                 >
                     <Trash aria-hidden={true} />
@@ -69,7 +72,7 @@ export default function FileUpload() {
 
     return (
         <div className="flex items-center justify-center">
-            <form action="#" method="post" className="w-full">
+            <div className="w-full">
                 <Label htmlFor="file-upload-2" className="text-2xl">
                     Carica le foto della casa
                 </Label>
@@ -117,7 +120,7 @@ export default function FileUpload() {
                         </div>
                     )}
                 </div>
-            </form>
+            </div>
         </div>
     );
 }

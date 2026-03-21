@@ -1,5 +1,5 @@
 export type Advertisement = {
-    id: string | number
+    id: number
     title: string
     description: string
     agent: Agent
@@ -65,6 +65,7 @@ export type Agent = {
     username: string
     createdAt: Date
     agency: Agency
+    isPasswordChange: boolean
 }
 
 export type Agency = {
@@ -98,3 +99,29 @@ export type Offer = {
     advertisement: Advertisement
     account: Account
 }
+
+export type Services = {
+    ariaCondizionata: boolean;
+    balcone: boolean;
+    portineria: boolean;
+    ascensore: boolean;
+    piano: boolean;
+    arredata: boolean;
+    garage: boolean;
+    giardino: boolean;
+    riscaldamenti: boolean;
+    postoAuto: boolean;
+    pannelliSolari: boolean;
+    terrazzo: boolean;
+};
+
+export type AddressData = {
+    street: string;
+    housenumber: string;
+    city: string;
+    state: string;
+    postcode: string;
+    country: string;
+    lat: number | null;
+    lon: number | null;
+};

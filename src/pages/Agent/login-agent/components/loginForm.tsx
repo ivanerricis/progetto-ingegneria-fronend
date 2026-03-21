@@ -40,8 +40,6 @@ export const LoginForm = () => {
                 agencyId: Number(selectedAgencyId),
             })
 
-            // const selectedAgency = agencies.find((agency) => String(agency.id) === selectedAgencyId)
-
             if (loginResponse) {
                 setAgent(loginResponse)
             } else {
@@ -52,6 +50,7 @@ export const LoginForm = () => {
                     lastName: "",
                     phoneNumber: "",
                     createdAt: new Date(),
+                    isPasswordChange: false,
                     agency: {
                         id: "",
                         name: "",

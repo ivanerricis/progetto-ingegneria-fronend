@@ -61,8 +61,9 @@ export const useGeoapifyCities = () => {
                 })
 
             setSuggestions(cities)
-        } catch (error: any) {
-            if (error.name !== "AbortError") {
+        } catch (submitError) {
+            if(!(submitError instanceof Error)) return
+            if (submitError.message !== "AbortError") {
                 setSuggestions([])
             }
         } finally {
