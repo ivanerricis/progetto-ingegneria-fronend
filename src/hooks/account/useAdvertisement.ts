@@ -23,7 +23,7 @@ export default function useAdvertisement(advertisementId?: string) {
             setIsLoading(true)
 
             try {
-                const { data } = await apiClient.get(`/account/advertisements/${advertisementId}`, {
+                const { data } = await apiClient.get(`/account/advertisement/${advertisementId}`, {
                     signal: abortController.signal,
                 })
                 const item = data?.item ?? data?.advertisement ?? data
