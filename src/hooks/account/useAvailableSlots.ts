@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { apiClient } from "@/lib/api/config";
+import { isCancel } from "axios";
 
 export function useAvailableSlots(advertisementId?: string | number, date?: Date) {
   const [slots, setSlots] = useState<string[]>([]);
@@ -30,10 +31,10 @@ export function useAvailableSlots(advertisementId?: string | number, date?: Date
         );
 
         setSlots(Array.isArray(data) ? data : data?.slots ?? []);
-      } catch (err: any) {
-        if (err.name === "CanceledError" || err.code === "ERR_CANCELED") return;
+      } catch (err) {
+        if (isCancel(err)) return;
 
-        setError(err.message || "Errore nel caricamento degli orari disponibili");
+        setError("Errore nel caricamento degli orari disponibili");
       } finally {
         setLoading(false);
       }

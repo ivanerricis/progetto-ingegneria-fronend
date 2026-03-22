@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { apiClient } from "@/lib/api/config";
+import { isCancel } from "axios";
 
 export function useAvailableDays(advertisementId?: string | number) {
   const [daysSet, setDaysSet] = useState<Set<string>>(new Set());
@@ -26,10 +27,9 @@ export function useAvailableDays(advertisementId?: string | number) {
         );
 
         setDaysSet(new Set(Array.isArray(data) ? data : data?.days ?? []));
-      } catch (err: any) {
-        if (err.name === "CanceledError" || err.code === "ERR_CANCELED") return;
-
-        setError(err.message || "Errore nel caricamento degli orari disponibili");
+      } catch (err) {
+        if (isCancel(err)) return;
+        setError("Errore nel caricamento degli orari disponibili");
       } finally {
         setLoading(false);
       }

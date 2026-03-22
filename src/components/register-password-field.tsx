@@ -78,7 +78,7 @@ export function RegisterPasswordField({
                         onChange={(event) => onChange(event.currentTarget.value)}
                         type={showPassword ? "text" : "password"}
                         placeholder={placeholder}
-                        className="pr-10 w-full"
+                        className="pr-9 w-full"
                         required
                         disabled={disabled}
                     />

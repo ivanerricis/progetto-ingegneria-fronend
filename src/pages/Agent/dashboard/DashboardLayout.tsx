@@ -67,7 +67,7 @@ const DashboardLayout = () => {
                         }
                     />
                     <main className="min-h-0 flex-1">
-                        <div className="h-full w-full overflow-y-auto bg-background">
+                        <div className="h-full w-full overflow-y-auto bg-sidebar">
                             <Outlet />
                         </div>
                     </main>

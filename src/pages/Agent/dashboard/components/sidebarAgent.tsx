@@ -22,14 +22,16 @@ function SideBarItem({ icon, label, active, onClick }: SideBarItemProps) {
                 variant={"outline"}
                 onClick={onClick}
                 size={"lg"}
-                className="[&>svg]:size-6 border flex items-center justify-start relative rounded-sm! px-3!"
+                className={`
+                    [&>svg]:size-6
+                    border flex items-center justify-start relative
+                    px-3!
+                    ${active ? "border-primary border-2 bg-primary! text-background! dark:text-foreground!" : ""}
+                `}
                 isActive={active}
             >
                 {icon}
-                <Label className="text-xl cursor-pointer">{label}</Label>
-                {active && (
-                    <div className="absolute right-0 w-1.5 h-full bg-primary rounded-r-md transition-all" />
-                )}
+                <Label className={`text-xl cursor-pointer`}>{label}</Label>
             </SidebarMenuButton>
         </SidebarMenuItem>
     );
@@ -74,7 +76,7 @@ const SidebarAgent = () => {
                                 variant={"outline"}
                                 size={"lg"}
                                 onClick={() => navigateTo("/agent/dashboard/profile")}
-                                className="w-full flex items-center justify-between pl-3! pr-2! rounded-sm"
+                                className="w-full flex items-center justify-between pl-3! pr-2!"
                             >
                                 <div className="flex items-center justify-start gap-2">
                                     <User className="size-6!" />
@@ -84,7 +86,7 @@ const SidebarAgent = () => {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuItem className="group/edit text-md" onClick={() => navigateTo("/agent/dashboard/profile")}> 
+                            <DropdownMenuItem className="group/edit text-md" onClick={() => navigateTo("/agent/dashboard/profile")}>
                                 <Pencil className="text-foreground size-5 group-hover/edit:text-background group-hover/edit:dark:text-foreground" />
                                 Modifica
                             </DropdownMenuItem>

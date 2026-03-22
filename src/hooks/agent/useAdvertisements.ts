@@ -19,6 +19,7 @@ export default function useAdvertisements() {
             })
 
             setAdvertisements(data.items)
+            console.log("Fetched advertisements:", data.items)
         } catch (error) {
             if (isCancel(error)) return
             setError(error instanceof Error ? error.message : "Errore")

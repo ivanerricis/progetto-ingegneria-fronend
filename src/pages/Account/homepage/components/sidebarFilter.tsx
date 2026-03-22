@@ -44,7 +44,7 @@ const SidebarFilter = () => {
     const isFeatureActive = (key: string) => searchParams.get(key) === "true";
 
     return (
-        <aside className="flex h-full w-72 flex-col gap-4 overflow-y-auto border-r p-4">
+        <aside className="flex h-full w-70 flex-col gap-4 overflow-y-auto border-r p-4">
             <div className="flex items-center justify-between">
                 <Label className="text-xl font-bold">Filtri</Label>
                 <Button

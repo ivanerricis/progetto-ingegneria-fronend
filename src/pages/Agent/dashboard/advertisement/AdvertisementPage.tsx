@@ -41,8 +41,8 @@ const Advertisement = () => {
     const { advertisement, isLoading, error } = useAdvertisement(id)
 
     const renderPage = (content: ReactNode) => (
-        <div className="flex h-screen flex-col overflow-hidden">
-            <div className="flex-1 p-2 overflow-y-auto sm:overflow-hidden">
+        <div className="flex h-screen flex-col">
+            <div className="flex-1 p-2 bg-background">
                 {content}
             </div>
         </div>
@@ -75,110 +75,108 @@ const Advertisement = () => {
 
     return (
         renderPage(
-            <div className="flex w-full flex-col gap-2 sm:h-full sm:min-h-0 sm:flex-row 2xl:px-60">
-                <div className="flex flex-1 flex-col gap-4 sm:min-h-0 sm:overflow-y-auto sm:pr-2">
-                    <div className="flex w-full border rounded-md aspect-video sm:min-h-120 max-h-140">
-                        <RealEstateCarousel photos={advertisement.photos} />
+            <div className="flex flex-col gap-4 min-h-0 2xl:px-60">
+                <div className="flex w-full border rounded-md aspect-video sm:min-h-120 max-h-140">
+                    <RealEstateCarousel photos={advertisement.photos} />
+                </div>
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                        <Label className="text-2xl font-bold">{advertisement.title}</Label>
+                        <Label className="text-lg text-muted-foreground!">{advertisement.realEstate.addressFormatted}</Label>
                     </div>
-                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                        <div>
-                            <Label className="text-2xl font-bold">{advertisement.title}</Label>
-                            <Label className="text-lg text-muted-foreground!">{advertisement.realEstate.addressFormatted}</Label>
-                        </div>
-                        <Label className="text-2xl font-bold">{formatPrice(advertisement.price)}</Label>
-                    </div>
+                    <Label className="text-2xl font-bold">{formatPrice(advertisement.price)}</Label>
+                </div>
 
-                    <Separator orientation="horizontal" className="shrink-0" />
+                <Separator orientation="horizontal" className="shrink-0" />
 
-                    <div className="flex flex-col gap-1">
-                        <Label className="font-bold text-2xl">Descrizione</Label>
-                        <Label className="text-muted-foreground! text-lg">{advertisement.description}</Label>
-                    </div>
+                <div className="flex flex-col gap-1">
+                    <Label className="font-bold text-2xl">Descrizione</Label>
+                    <Label className="text-muted-foreground! text-lg">{advertisement.description}</Label>
+                </div>
 
-                    <Separator orientation="horizontal" className="shrink-0" />
+                <Separator orientation="horizontal" className="shrink-0" />
 
-                    <div className="flex flex-col gap-1">
-                        <Label className="font-bold text-2xl">Caratteristiche</Label>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 *:text-foreground">
-                            {hasValue(advertisement.realEstate.rooms) && (
-                                <FeatureItem icon={<FloorPlanIcon />}>
-                                    {advertisement.realEstate.rooms} locali
-                                </FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.size) && (
-                                <FeatureItem icon={<ExpandIcon />}>
-                                    {advertisement.realEstate.size} m²
-                                </FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.bathrooms) && (
-                                <FeatureItem icon={<Bath />}>
-                                    {advertisement.realEstate.bathrooms === 1
-                                        ? "1 bagno"
-                                        : advertisement.realEstate.bathrooms + " bagni"}
-                                </FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.floor) && (
-                                <FeatureItem icon={<StairsIcon />}>
-                                    {advertisement.realEstate.floor === 0
-                                        ? "Piano terra"
-                                        : advertisement.realEstate.floor + " piano"}
-                                </FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.airConditioning) && (
-                                <FeatureItem icon={<AirVent />}>
-                                    Con condizionatore
-                                </FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.balcony) && (
-                                <FeatureItem icon={<BalconyIcon />}>Con balcone</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.concierge) && (
-                                <FeatureItem icon={<Contact />}>Con concierge</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.elevator) && (
-                                <FeatureItem icon={<ElevatorIcon />}>Con ascensore</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.energyClass) && (
-                                <FeatureItem icon={<Lightbulb />}>
-                                    Classe energetica: {advertisement.realEstate.energyClass}
-                                </FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.furnished) && (
-                                <FeatureItem icon={<ShelvingUnit />}>Arredato</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.garage) && (
-                                <FeatureItem icon={<GarageIcon />}>Con garage</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.garden) && (
-                                <FeatureItem icon={<Fence />}>Con giardino</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.heating) && (
-                                <FeatureItem icon={<Heater />}>Con riscaldamento</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.parking) && (
-                                <FeatureItem icon={<SquareParking />}>Con parcheggio</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.solarPanels) && (
-                                <FeatureItem icon={<SolarPanel />}>Con pannelli solari</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.terrace) && (
-                                <FeatureItem icon={<TerraceIcon />}>Con terrazzo</FeatureItem>
-                            )}
-                        </div>
-                    </div>
-
-                    <Separator orientation="horizontal" className="shrink-0" />
-
-                    <div className="flex flex-col gap-2">
-                        <Label className="font-bold text-2xl">Posizione</Label>
-                        {hasMapCoordinates ? (
-                            <div className="h-100 overflow-hidden rounded-md border">
-                                <RealEstateMap advertisements={[advertisement]} />
-                            </div>
-                        ) : (
-                            <Label className="text-muted-foreground!">Posizione non disponibile per questo immobile.</Label>
+                <div className="flex flex-col gap-1">
+                    <Label className="font-bold text-2xl">Caratteristiche</Label>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 *:text-foreground">
+                        {hasValue(advertisement.realEstate.rooms) && (
+                            <FeatureItem icon={<FloorPlanIcon />}>
+                                {advertisement.realEstate.rooms} locali
+                            </FeatureItem>
+                        )}
+                        {hasValue(advertisement.realEstate.size) && (
+                            <FeatureItem icon={<ExpandIcon />}>
+                                {advertisement.realEstate.size} m²
+                            </FeatureItem>
+                        )}
+                        {hasValue(advertisement.realEstate.bathrooms) && (
+                            <FeatureItem icon={<Bath />}>
+                                {advertisement.realEstate.bathrooms === 1
+                                    ? "1 bagno"
+                                    : advertisement.realEstate.bathrooms + " bagni"}
+                            </FeatureItem>
+                        )}
+                        {hasValue(advertisement.realEstate.floor) && (
+                            <FeatureItem icon={<StairsIcon />}>
+                                {advertisement.realEstate.floor === 0
+                                    ? "Piano terra"
+                                    : advertisement.realEstate.floor + " piano"}
+                            </FeatureItem>
+                        )}
+                        {hasValue(advertisement.realEstate.airConditioning) && (
+                            <FeatureItem icon={<AirVent />}>
+                                Con condizionatore
+                            </FeatureItem>
+                        )}
+                        {hasValue(advertisement.realEstate.balcony) && (
+                            <FeatureItem icon={<BalconyIcon />}>Con balcone</FeatureItem>
+                        )}
+                        {hasValue(advertisement.realEstate.concierge) && (
+                            <FeatureItem icon={<Contact />}>Con concierge</FeatureItem>
+                        )}
+                        {hasValue(advertisement.realEstate.elevator) && (
+                            <FeatureItem icon={<ElevatorIcon />}>Con ascensore</FeatureItem>
+                        )}
+                        {hasValue(advertisement.realEstate.energyClass) && (
+                            <FeatureItem icon={<Lightbulb />}>
+                                Classe energetica: {advertisement.realEstate.energyClass}
+                            </FeatureItem>
+                        )}
+                        {hasValue(advertisement.realEstate.furnished) && (
+                            <FeatureItem icon={<ShelvingUnit />}>Arredato</FeatureItem>
+                        )}
+                        {hasValue(advertisement.realEstate.garage) && (
+                            <FeatureItem icon={<GarageIcon />}>Con garage</FeatureItem>
+                        )}
+                        {hasValue(advertisement.realEstate.garden) && (
+                            <FeatureItem icon={<Fence />}>Con giardino</FeatureItem>
+                        )}
+                        {hasValue(advertisement.realEstate.heating) && (
+                            <FeatureItem icon={<Heater />}>Con riscaldamento</FeatureItem>
+                        )}
+                        {hasValue(advertisement.realEstate.parking) && (
+                            <FeatureItem icon={<SquareParking />}>Con parcheggio</FeatureItem>
+                        )}
+                        {hasValue(advertisement.realEstate.solarPanels) && (
+                            <FeatureItem icon={<SolarPanel />}>Con pannelli solari</FeatureItem>
+                        )}
+                        {hasValue(advertisement.realEstate.terrace) && (
+                            <FeatureItem icon={<TerraceIcon />}>Con terrazzo</FeatureItem>
                         )}
                     </div>
+                </div>
+
+                <Separator orientation="horizontal" className="shrink-0" />
+
+                <div className="flex flex-col gap-2">
+                    <Label className="font-bold text-2xl">Posizione</Label>
+                    {hasMapCoordinates ? (
+                        <div className="h-100 overflow-hidden rounded-md border">
+                            <RealEstateMap advertisements={[advertisement]} />
+                        </div>
+                    ) : (
+                        <Label className="text-muted-foreground!">Posizione non disponibile per questo immobile.</Label>
+                    )}
                 </div>
             </div>
         )

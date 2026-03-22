@@ -157,7 +157,7 @@ export default function Password() {
                                         onChange={(event) => setCurrentPassword(event.currentTarget.value)}
                                         type={showCurrentPassword ? "text" : "password"}
                                         placeholder="Inserisci la password attuale"
-                                        className="pr-10"
+                                        className="pr-9"
                                         required
                                         disabled={isSubmitting}
                                     />
@@ -192,7 +192,7 @@ export default function Password() {
                                         onChange={(event) => setConfirmPassword(event.currentTarget.value)}
                                         type={showConfirmPassword ? "text" : "password"}
                                         placeholder="Ripeti la nuova password"
-                                        className="pr-10"
+                                        className="pr-9"
                                         required
                                         disabled={isSubmitting}
                                     />

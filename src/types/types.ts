@@ -4,7 +4,7 @@ export type Advertisement = {
     description: string
     agent: Agent
     photos: Photo[]
-    previewPhoto: Photo
+    previewPhoto: string
     price: string | number
     realEstate: RealEstate
     type: "sale" | "rent"
@@ -81,7 +81,7 @@ export type Logo = {
     id: string | number
     format: string
     url: string
-    agency: Agency
+    agency?: Agency
 }
 export type Account = {
     id: string | number

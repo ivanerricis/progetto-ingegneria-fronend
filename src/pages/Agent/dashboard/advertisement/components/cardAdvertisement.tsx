@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button"
 import { Pencil, Trash } from "lucide-react"
 import type { Advertisement } from "@/types/types"
-import RealEstateCarousel from "@/pages/Agent/dashboard/advertisement/components/realEstateCarousel"
 import { formatPrice } from "@/utils/formatPrice"
 import { useNavigate } from "react-router-dom"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { useState, type MouseEvent } from "react"
 import { toast } from "sonner"
+import { PreviewPhoto } from "../../appointment/components/previewPhoto"
 
 type CardRealEstateProps = {
     advertisement: Advertisement
@@ -42,17 +42,17 @@ export const CardAdvertisement = ({ advertisement, onDelete }: CardRealEstatePro
 
     return (
         <div
-            className="border-2 w-full h-fit flex flex-col rounded-sm shadow-md hover:cursor-pointer hover:bg-secondary dark:text-foreground"
+            className="border-2 w-full h-fit flex flex-col rounded-sm shadow-sm hover:cursor-pointer bg-background hover:bg-secondary dark:text-foreground"
+            onClick={handleCardClick}
         >
 
             {/* Carousel */}
             <div className="flex items-center justify-center">
-                <RealEstateCarousel photos={advertisement.photos} />
+                <PreviewPhoto photo={advertisement.previewPhoto} />
             </div>
 
             {/* Informazioni immobile */}
             <div
-                onClick={handleCardClick}
                 className="flex flex-col flex-1 gap-2 p-2 justify-between border-t">
 
                 {/* Informazioni generali */}
@@ -79,7 +79,10 @@ export const CardAdvertisement = ({ advertisement, onDelete }: CardRealEstatePro
                             variant={"destructive"}
                             size={"icon"}
                             className="rounded-sm"
-                            onClick={handleDelete}
+                            onClick={e => {
+                                e.stopPropagation();
+                                setShowDeleteDialog(true);
+                            }}
                             disabled={isDeleting}
                         >
                             <Trash />

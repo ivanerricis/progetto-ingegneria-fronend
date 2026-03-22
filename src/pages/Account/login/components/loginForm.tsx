@@ -86,7 +86,7 @@ export const LoginForm = () => {
                                     id="password"
                                     type={showPassword ? "text" : "password"}
                                     placeholder={t("fields.password.placeholder")}
-                                    className="text-lg!"
+                                    className="text-lg! pr-9"
                                     value={password}
                                     onChange={(event) => setPassword(event.target.value)}
                                     required

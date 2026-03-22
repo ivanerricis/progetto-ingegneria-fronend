@@ -1,6 +1,6 @@
-import AdvertisementListSkeleton from "@/pages/Account/homepage/components/advertisementListSkeleton"
 import type { Advertisement } from "@/types/types"
 import AdvertisementsList from "./advertisementList"
+import CardAdvertisementSkeleton from "./cardAdvertisementSkeleton"
 
 type AdvertisementTabPanelProps = {
     advertisements: Advertisement[]
@@ -13,7 +13,7 @@ export default function AdvertisementsPanel({ advertisements, isLoading, error, 
     return (
         <div className="flex flex-col gap-2">
             {isLoading && (
-                <AdvertisementListSkeleton />
+                <CardAdvertisementSkeleton />
             )}
 
             {error && (
@@ -29,8 +29,8 @@ export default function AdvertisementsPanel({ advertisements, isLoading, error, 
             {!isLoading && !error && advertisements.length > 0 && (
                 <div className="pr-1">
                     <AdvertisementsList
-                    advertisements={advertisements}
-                    onDelete={onDelete} 
+                        advertisements={advertisements}
+                        onDelete={onDelete}
                     />
                 </div>
             )}

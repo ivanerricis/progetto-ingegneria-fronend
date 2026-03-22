@@ -16,7 +16,7 @@ export const PaginationAdvertisements = () => {
     if (totalPages <= 1) return null
 
     return (
-        <Pagination>
+        <Pagination className="bg-background p-1">
             <PaginationContent>
                 <PaginationItem>
                     <PaginationPrevious

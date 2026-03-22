@@ -29,7 +29,7 @@ export const CardAppointment = ({ appointment, onConfirm, onReject }: CardAppoin
     }
 
     return (
-        <div className="flex flex-col w-fit border rounded-sm divide-y *:flex *:items-center *:justify-start [&>*:not(:first-child)]:p-2">
+        <div className="flex flex-col w-fit border rounded-sm divide-y bg-background shadow-sm *:flex *:items-center *:justify-start [&>*:not(:first-child)]:p-2">
             <div className="flex items-center justify-center">
                 {appointment?.advertisement.previewPhoto &&
                     <PreviewPhoto photo={appointment.advertisement.previewPhoto} />}

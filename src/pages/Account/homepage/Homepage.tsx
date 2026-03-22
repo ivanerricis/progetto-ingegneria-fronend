@@ -89,12 +89,12 @@ export const Homepage = () => {
                 advertisements={advertisements}
             />
 
-            <main className="flex flex-1 xl:min-h-0 xl:h-full xl:overflow-hidden">
+            <main className="flex flex-1 xl:min-h-0 xl:h-full xl:overflow-hidden bg-sidebar">
                 <div className="hidden xl:block">
                     <SidebarFilter />
                 </div>
 
-                <div className="flex flex-1 flex-col gap-2 p-2 sm:border-l xl:min-h-0 xl:overflow-hidden">
+                <div className="flex flex-1 flex-col gap-2 sm:border-l xl:min-h-0 xl:overflow-hidden">
                     {isLoading && <AdvertisementListSkeleton />}
 
                     {hasError && (
@@ -109,7 +109,7 @@ export const Homepage = () => {
 
                     {hasResults && (
                         <div className="flex items-center justify-between">
-                            <div className="flex w-full items-center text-start text-foreground">
+                            <div className="flex w-full items-center text-start text-foreground p-2 pb-0">
                                 Risultati della ricerca: {advertisements.length}
                             </div>
                         </div>
@@ -117,7 +117,7 @@ export const Homepage = () => {
 
                     {hasResults && (
                         <>
-                            <div className="overflow-x-hidden pr-1 xl:min-h-0 xl:flex-1 xl:overflow-y-auto">
+                            <div className="overflow-x-hidden pr-1 xl:min-h-0 xl:flex-1 p-2 xl:overflow-y-auto">
                                 <AdvertisementsList advertisements={advertisements} />
                             </div>
                             <PaginationAdvertisements />

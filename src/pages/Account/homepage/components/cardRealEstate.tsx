@@ -50,7 +50,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
             </div>
 
             {/* Carousel */}
-            <div className="flex w-full sm:w-80 h-full sm:h-60 min-w-60 min-h-60">
+            <div className="flex w-full sm:w-80 min-w-60 h-70 sm:h-76">
                 <RealEstateCarousel photos={advertisement.photos} />
             </div>
 

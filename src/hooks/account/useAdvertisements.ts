@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import type { Advertisement } from "@/types/types";
 import { apiClient } from "@/lib/api/config";
+import { isCancel } from "axios";
 
 const useAdvertisements = () => {
     const [searchParams] = useSearchParams();
@@ -62,10 +63,9 @@ const useAdvertisements = () => {
                     setTotalPages(response.data.pagination.totalPages ?? 1);
                     setTotalElements(response.data.pagination.total ?? 0);
                 }
-            } catch (err: any) {
-                if (err.name !== "AbortError" && err.name !== "CanceledError") {
-                    setError("Errore nel caricamento degli annunci.");
-                }
+            } catch (err) {
+                if (isCancel(err)) return;
+                setError("Errore nel caricamento degli annunci.");
             } finally {
                 setIsLoading(false);
             }

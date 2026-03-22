@@ -29,7 +29,7 @@ export default function DashboardFilterSelect({
 }: DashboardFilterSelectProps) {
     return (
         <Select value={value} onValueChange={onValueChange}>
-            <SelectTrigger className="w-44 rounded-sm h-10! text-foreground">
+            <SelectTrigger className="w-44 rounded-sm h-10! text-foreground bg-background!">
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
 
