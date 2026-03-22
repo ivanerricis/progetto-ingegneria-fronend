@@ -25,14 +25,14 @@ const statusOptions = [
 
 const typeOptions = [
     {
-        value: "rent",
-        label: "In affitto",
-        icon: <CalendarClock className="text-foreground size-5" />,
-    },
-    {
         value: "sale",
         label: "In vendita",
         icon: <Tag className="text-foreground size-5" />,
+    },
+    {
+        value: "rent",
+        label: "In affitto",
+        icon: <CalendarClock className="text-foreground size-5" />,
     },
 ] as const
 
@@ -75,8 +75,8 @@ export default function Advertisements() {
                             />
                         </div>
                         <Button size={"lg"} className="size-10 sm:w-fit sm:h-10 sm:px-4 sm:py-2" onClick={() => navigate("/agent/dashboard/create-advertisement")}>
-                            <Plus className="size-6"/>
-                            <Label className="hidden sm:block text-lg">Aggiungi annuncio</Label>
+                            <Plus className="size-6" />
+                            <Label className="hidden sm:block text-lg">Crea annuncio</Label>
                         </Button>
                     </div>
 

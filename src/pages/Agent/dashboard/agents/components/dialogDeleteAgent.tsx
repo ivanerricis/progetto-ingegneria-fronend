@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useState } from "react";
+import { toast } from "sonner";
 
 type DialogDeleteProps = {
     showDeleteDialog: boolean
@@ -15,8 +16,13 @@ export const DialogDeleteAgent = ({ showDeleteDialog, setShowDeleteDialog, onCon
         setIsDeleting(true)
         try {
             await onConfirm();
-        } catch (error) {
-            console.error("Errore durante l'eliminazione dell'agente:", error)
+            toast.success("Agente eliminato con successo")
+        } catch (submitError) {
+            const message =
+                submitError instanceof Error
+                    ? submitError.message
+                    : "Errore durante l'eliminazione dell'agente"
+            toast.error("Eliminazione fallita: " + message)
         } finally {
             setIsDeleting(false)
             setShowDeleteDialog(false)

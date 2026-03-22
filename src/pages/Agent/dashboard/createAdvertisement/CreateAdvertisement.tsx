@@ -60,6 +60,7 @@ export default function CreateAdvertisement() {
     const [priceInput, setPriceInput] = useState("");
     const [formattedPrice, setFormattedPrice] = useState("");
     const [loading, setLoading] = useState(false);
+    const [typeValue, setTypeValue] = useState<"sale" | "rent">("sale");
 
     const navigate = useNavigate();
 
@@ -102,6 +103,7 @@ export default function CreateAdvertisement() {
             description,
             address: addressData,
             price: parseFloat(priceInput),
+            type: typeValue,
         };
 
         try {
@@ -150,6 +152,8 @@ export default function CreateAdvertisement() {
                             onServiceChange={handleServiceChange}
                             description={description}
                             setDescription={setDescription}
+                            typeValue={typeValue}
+                            setTypeValue={setTypeValue}
                         />
                     )}
 
@@ -192,19 +196,19 @@ export default function CreateAdvertisement() {
             </form>
             <div className="flex items-center w-full justify-between border-t p-2">
                 {step > 0 && (
-                    <Button variant="outline" onClick={back} type="button">
+                    <Button variant="outline" onClick={back} type="button" size={"lg"}>
                         Indietro
                     </Button>
                 )}
                 {step < steps.length - 1 ? (
                     <>
                         <div />
-                        <Button onClick={next} type="button">
+                        <Button onClick={next} type="button" size={"lg"}>
                             Avanti
                         </Button>
                     </>
                 ) : (
-                    <Button type="submit" disabled={loading}>
+                    <Button type="submit" size={"lg"} disabled={loading}>
                         {loading ? "Creazione..." : "Crea annuncio"}
                     </Button>
                 )}

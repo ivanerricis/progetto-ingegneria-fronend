@@ -16,14 +16,10 @@ type CardRealEstateProps = {
 export const CardAdvertisement = ({ advertisement, onDelete }: CardRealEstateProps) => {
     const [showDeleteDialog, setShowDeleteDialog] = useState(false)
     const [isDeleting, setIsDeleting] = useState(false)
-
     const navigate = useNavigate()
-    const addressLabel = advertisement.realEstate?.addressFormatted?.trim()
-        || "not found"
 
     const handleCardClick = () => {
         navigate(`/agent/dashboard/advertisement/${String(advertisement.id)}`)
-        console.log(advertisement)
     }
 
     const handleDelete = async (event: MouseEvent<HTMLButtonElement>) => {
@@ -57,7 +53,7 @@ export const CardAdvertisement = ({ advertisement, onDelete }: CardRealEstatePro
 
                 {/* Informazioni generali */}
                 <div className="flex flex-col justify-start w-full h-12 text-bold">
-                    {addressLabel}
+                    {advertisement.realEstate.addressFormatted}
                 </div>
 
                 {/* Prezzo + Buttons */}
@@ -91,32 +87,37 @@ export const CardAdvertisement = ({ advertisement, onDelete }: CardRealEstatePro
                 </div>
             </div>
 
-            <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-                <DialogContent showCloseButton={false} className="border border-destructive">
-                    <DialogHeader>
-                        <DialogTitle className="text-destructive!">Elimina annuncio</DialogTitle>
-                        <DialogDescription>
-                            Sei sicuro di voler eliminare questo annuncio? Questa azione è irreversibile e tutti i dati verranno persi.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <DialogFooter className="gap-2">
-                        <Button
-                            variant="outline"
-                            onClick={() => setShowDeleteDialog(false)}
-                            disabled={isDeleting}
-                        >
-                            Annulla
-                        </Button>
-                        <Button
-                            variant="destructive"
-                            onClick={handleDelete}
-                            disabled={isDeleting}
-                        >
-                            {isDeleting ? "Eliminazione..." : "Elimina"}
-                        </Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
+            {showDeleteDialog && (
+                <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+                    <DialogContent showCloseButton={false} className="border border-destructive">
+                        <DialogHeader>
+                            <DialogTitle className="text-destructive!">Elimina annuncio</DialogTitle>
+                            <DialogDescription>
+                                Sei sicuro di voler eliminare questo annuncio? Questa azione è irreversibile e tutti i dati verranno persi.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <DialogFooter className="gap-2">
+                            <Button
+                                variant="outline"
+                                onClick={e => {
+                                    e.stopPropagation();
+                                    setShowDeleteDialog(false);
+                                }}
+                                disabled={isDeleting}
+                            >
+                                Annulla
+                            </Button>
+                            <Button
+                                variant="destructive"
+                                onClick={handleDelete}
+                                disabled={isDeleting}
+                            >
+                                {isDeleting ? "Eliminazione..." : "Elimina"}
+                            </Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
+            )}
         </div>
     )
 }

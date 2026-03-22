@@ -74,22 +74,24 @@ const DashboardLayout = () => {
                 </SidebarInset>
             </SidebarProvider>
 
-            <Dialog open={showDialog}>
-                <DialogContent showCloseButton={false}>
-                    <DialogHeader>
-                        <DialogDescription />
-                        <DialogTitle>Devi cambiare la password</DialogTitle>
-                    </DialogHeader>
-                    <p
-                        className="text-foreground">Per motivi di sicurezza, puoi accedere solo al profilo o cambiare la password. Vuoi cambiare la password ora o effettuare il logout?
-                    </p>
-                    <DialogFooter className="flex items-center! justify-between!">
-                        <Button variant="outline" onClick={handleLogout}>Logout</Button>
-                        <Button onClick={handleProfile}>Visualizza profilo</Button>
-                        <Button onClick={handleChangePassword}>Cambia password</Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
+            {showDialog && (
+                <Dialog open={showDialog}>
+                    <DialogContent showCloseButton={false}>
+                        <DialogHeader>
+                            <DialogDescription />
+                            <DialogTitle>Devi cambiare la password</DialogTitle>
+                        </DialogHeader>
+                        <p
+                            className="text-foreground">Per motivi di sicurezza, puoi accedere solo al profilo o cambiare la password. Vuoi cambiare la password ora o effettuare il logout?
+                        </p>
+                        <DialogFooter className="flex! items-center! justify-between!">
+                            <Button variant="outline" onClick={handleLogout}>Logout</Button>
+                            <Button onClick={handleProfile}>Visualizza profilo</Button>
+                            <Button onClick={handleChangePassword}>Cambia password</Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
+            )}
         </>
     );
 }
