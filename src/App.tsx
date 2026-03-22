@@ -29,6 +29,7 @@ const CreateAdvertisement = lazy(() => import('@/pages/Agent/dashboard/createAdv
 const Appointments = lazy(() => import('@/pages/Agent/dashboard/appointment/Appointments'));
 const Offers = lazy(() => import('@/pages/Agent/dashboard/offer/Offers'));
 const Agents = lazy(() => import('@/pages/Agent/dashboard/agents/Agents'));
+const CreateAgentPage = lazy(() => import('@/pages/Agent/dashboard/createAgent/CreateAgentPage'));
 const AgentProfile = lazy(() => import('@/pages/Agent/dashboard/profile/Profile'));
 const AgentPassword = lazy(() => import('@/pages/Agent/dashboard/password/Password'));
 
@@ -138,6 +139,7 @@ function App() {
                     <Route path="/agent/dashboard/password" element={<AgentPassword />} />
                     <Route path="/agent/dashboard/create-advertisement" element={<CreateAdvertisement />} />
                     <Route path="/agent/dashboard/advertisement/:id" element={<AdvertisementPage />} />
+                    <Route path="/agent/dashboard/create-agent" element={<CreateAgentPage />} />
                   </Route>
                 </Route>
 

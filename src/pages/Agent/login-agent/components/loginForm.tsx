@@ -41,7 +41,9 @@ export const LoginForm = () => {
             })
 
             if (loginResponse) {
+                console.log("Login response:", loginResponse)
                 setAgent(loginResponse)
+                window.location.replace("/agent/dashboard")
             } else {
                 setAgent({
                     id: "",
@@ -51,6 +53,7 @@ export const LoginForm = () => {
                     phoneNumber: "",
                     createdAt: new Date(),
                     isPasswordChange: false,
+                    isAdmin: false,
                     agency: {
                         id: "",
                         name: "",

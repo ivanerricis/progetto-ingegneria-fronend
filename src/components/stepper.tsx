@@ -19,7 +19,7 @@ export const Stepper = ({
                 {steps.map((_, i) => (
                     <>
                         <div key={i} className={`transition h-10 w-10 text-lg flex items-center justify-center rounded-full border 
-                            ${i <= current ? "bg-primary border-foreground text-background dark:text-foreground" : "bg-secondary"}
+                            ${i <= current ? "bg-primary border-muted text-background dark:text-foreground" : "bg-secondary"}
                             `}>
                             {i + 1}
                         </div>

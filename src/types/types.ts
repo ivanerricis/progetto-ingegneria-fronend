@@ -64,8 +64,9 @@ export type Agent = {
     phoneNumber: string
     username: string
     createdAt: Date
-    agency: Agency
     isPasswordChange: boolean
+    isAdmin: boolean
+    agency: Agency
 }
 
 export type Agency = {

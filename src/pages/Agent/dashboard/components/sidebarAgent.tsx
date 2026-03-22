@@ -66,7 +66,7 @@ const SidebarAgent = () => {
 
     return (
         <Sidebar>
-            <SidebarHeader className="border-b">
+            <SidebarHeader className="border-b bg-background">
                 <SidebarMenuItem>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -84,7 +84,7 @@ const SidebarAgent = () => {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuItem className="group/edit text-md" onClick={() => navigateTo("/agent/dashboard/profile")}>
+                            <DropdownMenuItem className="group/edit text-md" onClick={() => navigateTo("/agent/dashboard/profile")}> 
                                 <Pencil className="text-foreground size-5 group-hover/edit:text-background group-hover/edit:dark:text-foreground" />
                                 Modifica
                             </DropdownMenuItem>
@@ -123,12 +123,14 @@ const SidebarAgent = () => {
                         active={currentPath.startsWith("/agent/dashboard/offers")}
                         onClick={() => navigateTo("/agent/dashboard/offers")}
                     />
-                    <SideBarItem
-                        icon={<BookUser />}
-                        label="Agenti"
-                        active={currentPath.startsWith("/agent/dashboard/agents")}
-                        onClick={() => navigateTo("/agent/dashboard/agents")}
-                    />
+                    {agent?.isAdmin && (
+                        <SideBarItem
+                            icon={<BookUser />}
+                            label="Agenti"
+                            active={currentPath.startsWith("/agent/dashboard/agents")}
+                            onClick={() => navigateTo("/agent/dashboard/agents")}
+                        />
+                    )}
                 </SidebarMenu>
             </SidebarContent>
         </Sidebar >

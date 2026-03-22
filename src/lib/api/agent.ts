@@ -61,6 +61,41 @@ export async function RejectAppointment(appointmentId: string | number) {
     }
 }
 
+export async function CreateAdvertisement(data: {
+    description: string
+    price: number
+    propertyType: string
+    type: "sale" | "rent"
+    address: string
+    size: number
+    rooms: number
+    bathrooms: number
+    floor: number
+    energyClass: string
+    hasElevator: boolean
+    hasParking: boolean
+    hasGarden: boolean
+    hasBalcony: boolean
+    hasGarage: boolean
+    hasFurnished: boolean
+    hasAirConditioning: boolean
+    hasSolarPanels: boolean
+}) {
+    try {
+        const response = await apiClient.post(`/agent/create_advertisement`, data)
+        return response.data
+    } catch (err) {
+        if (isAxiosError(err)) {
+            const message =
+                err.response?.data?.error ??
+                err.response?.data?.message ??
+                "Creazione annuncio non riuscita"
+            throw new Error(message)
+        }
+        throw err
+    }
+}
+
 export async function DeleteAdvertisement(advertisementId: string | number) {
     try {
         const response = await apiClient.delete(`/advertisement/delete/${advertisementId}`)
@@ -71,6 +106,27 @@ export async function DeleteAdvertisement(advertisementId: string | number) {
                 err.response?.data?.error ??
                 err.response?.data?.message ??
                 "Eliminazione annuncio non riuscita"
+            throw new Error(message)
+        }
+        throw err
+    }
+}
+
+export async function CreateAgent(data: {
+    firstName: string
+    lastName: string
+    phoneNumber: string
+    isAdmin: boolean
+}) {
+    try {
+        const response = await apiClient.post(`/agent/create_agent`, data)
+        return response.data
+    } catch (err) {
+        if (isAxiosError(err)) {
+            const message =
+                err.response?.data?.error ??
+                err.response?.data?.message ??
+                "Creazione agente non riuscita"
             throw new Error(message)
         }
         throw err

@@ -1,9 +1,10 @@
 import type { Agent } from "@/types/types"
-
+import { useState } from "react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Trash } from "lucide-react"
 import { CardAgent } from "./cardAgent"
+import { DialogDeleteAgent } from "./dialogDeleteAgent"
 
 type AgentListProps = {
     agents: Agent[]
@@ -11,14 +12,32 @@ type AgentListProps = {
 }
 
 export default function AgentsList({ agents, onDelete }: AgentListProps) {
+    const [open, setOpen] = useState(false)
+    const [selectedId, setSelectedId] = useState<number | null>(null)
+
+    const handleAskDelete = (id: number) => {
+        setSelectedId(id)
+        setOpen(true)
+    }
+
+    const handleConfirmDelete = async () => {
+        if (selectedId !== null) {
+            await onDelete(selectedId)
+            setOpen(false)
+            setSelectedId(null)
+        }
+    }
+
     return (
         <div className="w-full">
-            {agents.map(agent => (
-                <div key={agent.id} className="block sm:hidden">
-                    <CardAgent agent={agent} onDelete={onDelete} />
-                </div>
-            ))}
-            <Table className="hidden sm:table">
+            <div className="flex flex-col gap-2 sm:hidden">
+                {agents.map(agent => (
+                    <div key={agent.id} className="block sm:hidden">
+                        <CardAgent agent={agent} onAskDelete={handleAskDelete} />
+                    </div>
+                ))}
+            </div>
+            <Table className="hidden sm:table bg-background">
                 <TableHeader className="w-full">
                     <TableRow>
                         <TableHead>Nome</TableHead>
@@ -26,6 +45,7 @@ export default function AgentsList({ agents, onDelete }: AgentListProps) {
                         <TableHead>Telefono</TableHead>
                         <TableHead>Username</TableHead>
                         <TableHead>Creato il</TableHead>
+                        <TableHead>Admin</TableHead>
                         <TableHead className="text-right">Azioni</TableHead>
                     </TableRow>
                 </TableHeader>
@@ -37,11 +57,12 @@ export default function AgentsList({ agents, onDelete }: AgentListProps) {
                             <TableCell>{agent.phoneNumber}</TableCell>
                             <TableCell>{agent.username}</TableCell>
                             <TableCell>{new Date(agent.createdAt).toLocaleDateString()}</TableCell>
+                            <TableCell>{agent.isAdmin ? "Sì" : "No"}</TableCell>
                             <TableCell className="text-right">
                                 <Button
                                     variant={"destructive"}
                                     size={"lg"}
-                                    onClick={() => onDelete(Number(agent.id))}
+                                    onClick={() => handleAskDelete(Number(agent.id))}
                                 >
                                     <Trash className="size-5" />
                                     Elimina
@@ -51,6 +72,11 @@ export default function AgentsList({ agents, onDelete }: AgentListProps) {
                     ))}
                 </TableBody>
             </Table>
+            <DialogDeleteAgent
+                showDeleteDialog={open}
+                setShowDeleteDialog={setOpen}
+                onConfirm={handleConfirmDelete}
+            />
         </div>
     );
 }

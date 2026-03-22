@@ -6,12 +6,12 @@ import { Trash } from "lucide-react";
 
 type CardAgentProps = {
     agent: Agent
-    onDelete: (id: number) => Promise<void>
+    onAskDelete: (id: number) => void
 }
-export const CardAgent = ({ agent, onDelete }: CardAgentProps) => {
+export const CardAgent = ({ agent, onAskDelete }: CardAgentProps) => {
     return (
         <div className="
-        flex flex-col w-full h-full gap-2 border rounded-sm p-2
+        flex flex-col w-full h-full gap-2 border rounded-sm p-2 bg-background
         *:flex *:items-center *:text-nowrap *:gap-2
         *:*:text-lg
         ">
@@ -31,11 +31,15 @@ export const CardAgent = ({ agent, onDelete }: CardAgentProps) => {
                 <Label className="font-bold">Creato il:</Label>
                 <Label>{formatCreatedAt(agent.createdAt)}</Label>
             </div>
+            <div>
+                <Label className="font-bold">Admin:</Label>
+                <Label>{agent.isAdmin ? "Sì" : "No"}</Label>
+            </div>
             <Button
                 variant={"destructive"}
                 size={"lg"}
                 className="flex items-center justify-center text-lg!"
-                onClick={() => onDelete(Number(agent.id))}
+                onClick={() => onAskDelete(Number(agent.id))}
             >
                 <Trash className="size-5"/>
                 Elimina
