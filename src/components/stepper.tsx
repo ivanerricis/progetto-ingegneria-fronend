@@ -24,7 +24,7 @@ export const Stepper = ({
                             {i + 1}
                         </div>
                         {(i < steps.length - 1) &&
-                            <div className={`h-1 ${barWidthClass} sm:w-17 transition rounded-sm ${i < current ? "bg-primary" : "bg-background dark:bg-secondary"}`}></div>
+                            <div className={`h-1 ${barWidthClass} sm:w-17 transition rounded-sm ${i < current ? "bg-primary" : "bg-muted dark:bg-secondary"}`}></div>
                         }
                     </>
                 ))}

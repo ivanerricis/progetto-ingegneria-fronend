@@ -2,6 +2,11 @@ import { useSearchParams } from "react-router-dom"
 import { useCallback } from "react"
 import type { CityOption } from "@/hooks/account/useGeoapifyCities"
 
+/**
+ * Hook for managing the search parameters on the homepage. Provides functions to update filters, set the city, change pages, and clear filters.
+ * It abstracts away the manipulation of URL search parameters and provides a convenient API for components to interact with the search state.
+ * @returns An object containing the current search parameters, individual filter values, and functions to update the city, set specific filters, change the page, clear filters while keeping the city, and clear all search parameters.
+ */
 export const useHomepageSearch = () => {
     const [searchParams, setSearchParams] = useSearchParams()
 

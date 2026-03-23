@@ -84,19 +84,27 @@ export type Logo = {
     agency?: Agency
 }
 export type Account = {
-    id: string | number
+    id: number
     firstName: string
     lastName: string
     email: string
     createdAt: Date
 }
 
+export type Negotiation = {
+    price: number
+    status: "pending" | "accepted" | "rejected"
+    advertisement: Advertisement
+    account: Account
+    lastOffer: Offer
+}
+
 export type Offer = {
-    id: string | number
+    id: number
     createdAt: Date
     price: number
     status: "pending" | "accepted" | "rejected"
-    madeBy: Account | Agent
+    madeBy: "account" | "agent"
     advertisement: Advertisement
     account: Account
 }

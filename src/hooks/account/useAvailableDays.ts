@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import { apiClient } from "@/lib/api/config";
 import { isCancel } from "axios";
 
+/**
+ * Hook for fetching the available days for an advertisement. Handles loading and error states.
+ * @param advertisementId The ID of the advertisement to fetch available days for. If not provided, the hook will not attempt to fetch data and will return an empty set of days.
+ * @returns An object containing the set of available days, loading state, and error message (if any).
+ */
 export function useAvailableDays(advertisementId?: string | number) {
   const [daysSet, setDaysSet] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(false);

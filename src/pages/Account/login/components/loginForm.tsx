@@ -31,7 +31,7 @@ export const LoginForm = () => {
                 setAccount(loginResponse)
             } else {
                 setAccount({
-                    id: "",
+                    id: -1,
                     firstName: "",
                     lastName: "",
                     email,

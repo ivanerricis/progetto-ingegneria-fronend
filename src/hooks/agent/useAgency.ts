@@ -7,6 +7,10 @@ type AgenciesResponse = {
     agencies: Agency[]
 }
 
+/**
+ * Hook for fetching the list of agencies. Handles loading and error states.
+ * @returns An object containing the list of agencies, loading state, and error message (if any).
+ */
 export function useAgencies() {
     const [agencies, setAgencies] = useState<Agency[]>([])
     const [loading, setLoading] = useState(true)

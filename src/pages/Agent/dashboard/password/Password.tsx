@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Footer } from "@/components/footer"
 import { RegisterPasswordField, isRegisterPasswordValid } from "@/components/register-password-field"
-import { updateAgentPassword } from "@/lib/api/agent"
+import { updateAgentFirstLoginPassword, updateAgentPassword } from "@/lib/api/agent"
 import { useAgent } from "@/providers/agent-provider"
 
 export default function Password() {
@@ -65,10 +65,19 @@ export default function Password() {
         setIsSubmitting(true)
 
         try {
-            await updateAgentPassword(String(agent.id), {
-                currentPassword,
-                newPassword,
-            })
+            if (agent.isPasswordChange) {
+                {
+                    await updateAgentPassword(String(agent.id), {
+                        currentPassword,
+                        newPassword,
+                    })
+                }
+            } else {
+                await updateAgentFirstLoginPassword({
+                    currentPassword,
+                    newPassword,
+                })
+            }
 
             toast.success("Password aggiornata con successo")
             navigate("/agent/dashboard/profile")
@@ -167,7 +176,7 @@ export default function Password() {
                     </form>
                 </Card>
             </div>
-            <Footer isHomepage/>
+            <Footer isHomepage />
         </div>
     )
 }

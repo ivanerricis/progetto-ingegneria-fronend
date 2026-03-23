@@ -10,6 +10,11 @@ export interface CityOption {
 
 const GEOAPIFY_API_KEY = import.meta.env.VITE_GEOAPIFY_KEY
 
+/**
+ * Hook for fetching city suggestions from the Geoapify API based on a search query.
+ * Handles loading state and allows for cancellation of ongoing requests when a new search is initiated.
+ * @returns An object containing the list of city suggestions, loading state, a function to search for cities based on a query, and a function to clear the suggestions.
+ */
 export const useGeoapifyCities = () => {
     const [suggestions, setSuggestions] = useState<CityOption[]>([])
     const [isLoading, setIsLoading] = useState(false)

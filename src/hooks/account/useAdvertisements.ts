@@ -4,6 +4,11 @@ import type { Advertisement } from "@/types/types";
 import { apiClient } from "@/lib/api/config";
 import { isCancel } from "axios";
 
+/**
+ * Hook for fetching the list of advertisements for an account. Handles loading and error states,
+ * and supports pagination and filtering based on URL search parameters.
+ * @returns An object containing the list of advertisements, loading state, error message (if any), and pagination information.
+ */
 const useAdvertisements = () => {
     const [searchParams] = useSearchParams();
     const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);

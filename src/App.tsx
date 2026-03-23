@@ -22,7 +22,7 @@ const Advertisement = lazy(() => import('@/pages/Account/advertisement/Advertise
 const LoginAgent = lazy(() => import('@/pages/Agent/login-agent/Login'));
 const CreateAgency = lazy(() => import('@/pages/CreateAgency/CreateAgency'));
 const DashboardLayout = lazy(() => import('@/pages/Agent/dashboard/DashboardLayout'));
-const DashboardHome = lazy(() => import('@/pages/Agent/dashboard/DashboardHome'));
+// const DashboardHome = lazy(() => import('@/pages/Agent/dashboard/DashboardHome'));
 const Advertisements = lazy(() => import('@/pages/Agent/dashboard/advertisement/Advertisements'));
 const AdvertisementPage = lazy(() => import('@/pages/Agent/dashboard/advertisement/AdvertisementPage'));
 const CreateAdvertisement = lazy(() => import('@/pages/Agent/dashboard/createAdvertisement/CreateAdvertisement'));
@@ -130,7 +130,7 @@ function App() {
                       <DashboardLayout />
                     </ProtectedRoute>
                   }>
-                    <Route index element={<DashboardHome />} />
+                    <Route index element={<Navigate to="/agent/dashboard/advertisements" replace />} />
                     <Route path="/agent/dashboard/profile" element={<AgentProfile />} />
                     <Route path="/agent/dashboard/advertisements" element={<Advertisements />} />
                     <Route path="/agent/dashboard/appointments" element={<Appointments />} />

@@ -11,6 +11,10 @@ export type AppointmentsResult = {
     status: "requested" | "confirmed" | "rejected" | "cancelled"
 }
 
+/**
+ * Hook for fetching the list of appointments for an agent. Handles loading and error states, and provides functions to confirm or reject appointments.
+ * @returns An object containing the list of appointments, loading state, error message (if any), a refetch function to reload the appointments, and functions to confirm or reject an appointment by ID.
+ */
 export default function useAppointments() {
     const [appointments, setAppointments] = useState<AppointmentsResult[]>([])
     const [isLoading, setIsLoading] = useState(true)

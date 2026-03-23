@@ -4,6 +4,10 @@ import { isCancel } from "axios"
 import { apiClient } from "@/lib/api/config"
 import { DeleteAdvertisement } from "@/lib/api/agent"
 
+/**
+ * Hook for fetching the list of advertisements for an agent. Handles loading and error states, and provides a refetch function.
+ * @returns An object containing the list of advertisements, loading state, error message (if any), a refetch function to reload the advertisements, and a deleteAdvertisement function to remove an advertisement by ID.
+ */
 export default function useAdvertisements() {
     const [advertisements, setAdvertisements] = useState<Advertisement[]>([])
     const [isLoading, setIsLoading] = useState(true)
@@ -19,7 +23,6 @@ export default function useAdvertisements() {
             })
 
             setAdvertisements(data.items)
-            console.log("Fetched advertisements:", data.items)
         } catch (error) {
             if (isCancel(error)) return
             setError(error instanceof Error ? error.message : "Errore")

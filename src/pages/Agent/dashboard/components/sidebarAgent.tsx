@@ -1,6 +1,6 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Sidebar, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
-import { BookUser, Building2, ChevronDown, HandCoins, LayoutDashboard, LogOut, Pencil, User, Users } from "lucide-react";
+import { BookUser, Building2, ChevronDown, HandCoins, LogOut, Pencil, User, Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAgent } from "@/providers/agent-provider";
 import { toast } from "sonner";
@@ -101,12 +101,6 @@ const SidebarAgent = () => {
             </SidebarHeader>
             <SidebarContent className="px-2 pt-2">
                 <SidebarMenu className="gap-2">
-                    <SideBarItem
-                        icon={<LayoutDashboard />}
-                        label="Dashboard"
-                        active={currentPath === "/agent/dashboard" || currentPath === "/agent/dashboard/"}
-                        onClick={() => navigateTo("/agent/dashboard")}
-                    />
                     <SideBarItem
                         icon={<Building2 />}
                         label="Annunci"

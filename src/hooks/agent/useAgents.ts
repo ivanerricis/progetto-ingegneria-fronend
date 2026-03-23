@@ -4,6 +4,10 @@ import { isCancel } from "axios"
 import { apiClient } from "@/lib/api/config"
 import { DeleteAgent } from "@/lib/api/agent"
 
+/**
+ * Hook for fetching the list of agents. Handles loading and error states, and provides a refetch function.
+ * @returns An object containing the list of agents, loading state, error message (if any), a refetch function to reload the agents, and a deleteAgent function to remove an agent by ID.
+ */
 export default function useAgents() {
     const [agents, setAgents] = useState<Agent[]>([])
     const [isLoading, setIsLoading] = useState(true)
@@ -19,7 +23,6 @@ export default function useAgents() {
             })
 
             setAgents(data.items)
-            console.log(data)
         } catch (error) {
             if (isCancel(error)) return
             setError(error instanceof Error ? error.message : "Errore")

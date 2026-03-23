@@ -23,6 +23,27 @@ export async function updateAgentPassword(
     }
 }
 
+export async function updateAgentFirstLoginPassword(
+    data: {
+        currentPassword: string
+        newPassword: string
+    }
+) {
+    try {
+        const response = await apiClient.post(`/auth/agent/login/change_password`, data)
+        return response.data
+    } catch (err) {
+        if (isAxiosError(err)) {
+            const message =
+                err.response?.data?.error ??
+                err.response?.data?.message ??
+                "Aggiornamento password non riuscito"
+            throw new Error(message)
+        }
+        throw err
+    }
+}
+
 export async function ConfirmAppointment(appointmentId: string | number) {
     try {
         const response = await apiClient.patch(`/appointment/agents/${appointmentId}/confirm`);
@@ -109,6 +130,44 @@ export async function DeleteAdvertisement(advertisementId: string | number) {
             throw new Error(message)
         }
         throw err
+    }
+}
+
+export async function AcceptOffer(offerId: number) {
+    try {
+        const response = await apiClient.post(`/offer/agents/${offerId}/accept`);
+
+        return response.data
+    } catch (error) {
+        if (isAxiosError(error)) {
+
+            const message =
+                error.response?.data?.error ??
+                error.response?.data?.message ??
+                "Impossibile confermare l'offerta"
+            throw new Error(message)
+        }
+
+        throw error
+    }
+}
+
+export async function RejectOffer(offerId: number) {
+    try {
+        const response = await apiClient.post(`/offer/agents/${offerId}/reject`);
+
+        return response.data
+    } catch (error) {
+        if (isAxiosError(error)) {
+
+            const message =
+                error.response?.data?.error ??
+                error.response?.data?.message ??
+                "Impossibile rifiutare l'offerta"
+            throw new Error(message)
+        }
+
+        throw error
     }
 }
 
