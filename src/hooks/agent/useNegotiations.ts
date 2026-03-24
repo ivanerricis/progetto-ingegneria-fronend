@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
 import { isCancel } from "axios"
 import { apiClient } from "@/lib/api/config"
-import type { Offer } from "@/types/types"
+import type { Negotiation } from "@/types/types"
 
 /**
  * Hook for fetching the list of offers (negotiations) for an agent. Handles loading and error states.
  * @returns An object containing the list of offers, loading state, and error message (if any).
  */
 export default function useNegotiations() {
-     const [negotiations, setNegotiations] = useState<Offer[]>([])
+     const [negotiations, setNegotiations] = useState<Negotiation[]>([])
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 

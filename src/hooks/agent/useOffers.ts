@@ -56,6 +56,6 @@ export default function useOffers(
         error,
         refetch: fetchOffers,
         acceptOffer,
-        rejectOffer
+        rejectOffer,
     };
 }

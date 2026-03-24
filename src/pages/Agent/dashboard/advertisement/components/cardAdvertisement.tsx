@@ -52,8 +52,8 @@ export const CardAdvertisement = ({ advertisement, onDelete }: CardRealEstatePro
                 className="flex flex-col flex-1 gap-2 p-2 justify-between border-t">
 
                 {/* Informazioni generali */}
-                <div className="flex flex-col justify-start w-full h-12 text-bold">
-                    {advertisement.realEstate.addressFormatted}
+                <div className="flex flex-col justify-start w-full h-12 text-bold min-w-0">
+                    <p className="line-clamp-2">{advertisement.realEstate.addressFormatted}</p>
                 </div>
 
                 {/* Prezzo + Buttons */}

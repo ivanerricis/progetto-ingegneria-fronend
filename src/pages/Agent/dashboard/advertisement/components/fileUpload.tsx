@@ -22,6 +22,9 @@ export default function FileUpload({
     maxFiles = 10,
 }: FileUploadProps) {
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        accept: {
+            "image/*": [],
+        },
         onDrop: (acceptedFiles) => {
             const remainingSlots = maxFiles - files.length;
 

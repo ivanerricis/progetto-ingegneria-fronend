@@ -35,10 +35,12 @@ export const ContactCard = ({ advertisement }: ContactCardProps) => {
                     <Calendar />
                     Prenota un appuntamento
                 </Button>
-                <Button size={"lg"} onClick={() => setShowOfferDialog(true)}>
-                    <HandCoins />
-                    Fai un'offerta
-                </Button>
+                {advertisement.type === "sale" && (
+                    <Button size={"lg"} onClick={() => setShowOfferDialog(true)}>
+                        <HandCoins />
+                        Fai un'offerta
+                    </Button>
+                )}
             </div>
             <Separator className="mt-2" />
             <div>

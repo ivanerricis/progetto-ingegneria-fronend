@@ -124,7 +124,7 @@ export default function CreateAdvertisement() {
     return (
         <div className="w-full flex flex-col gap-2 items-center justify-between h-full">
             <Label className="text-3xl font-bold my-2">Crea annuncio</Label>
-            <form onSubmit={handleSubmit} className="gap-4 flex flex-col h-full w-full overflow-auto p-2 sm:px-20 ">
+            <form onSubmit={handleSubmit} className="gap-4 flex flex-col h-full w-full overflow-auto p-2 sm:px-12 ">
                 <div className="flex flex-col px-2 gap-6">
                     <Stepper
                         big

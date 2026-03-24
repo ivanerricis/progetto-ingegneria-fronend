@@ -1,4 +1,4 @@
-import type { Offer } from "@/types/types";
+import type { Negotiation } from "@/types/types";
 import { useEffect, useRef } from "react";
 import { HeaderOffer } from "./headerOffer";
 import { OfferItem } from "./offerItem";
@@ -7,14 +7,14 @@ import useOffers from "@/hooks/agent/useOffers";
 import { Spinner } from "@/components/ui/spinner";
 
 type Props = {
-    selectedOffer: Offer | null;
+    selectedNegotiation: Negotiation | null;
     onBack: () => void;
 };
 
-export default function OfferChat({ selectedOffer, onBack }: Props) {
+export default function OfferChat({ selectedNegotiation, onBack }: Props) {
     const { offers, isLoading, error } = useOffers(
-        selectedOffer?.advertisement.id,
-        selectedOffer?.account.id
+        selectedNegotiation?.advertisement.id,
+        selectedNegotiation?.account.id
     );
     const bottomRef = useRef<HTMLDivElement | null>(null);
 
@@ -28,20 +28,20 @@ export default function OfferChat({ selectedOffer, onBack }: Props) {
 
     return (
         <div
-            className={`w-full md:w-3/4 border border-l-0 h-full ${!selectedOffer ? "hidden md:flex" : "flex"
+            className={`w-full md:w-3/4 border border-l-0 h-full ${!selectedNegotiation ? "hidden md:flex" : "flex"
                 } flex-col`}
         >
-            {!selectedOffer ? (
+            {!selectedNegotiation ? (
                 <div className="flex-1 flex items-center justify-center text-muted-foreground">
                     Seleziona una trattativa
                 </div>
             ) : (
                 <>
-                    <HeaderOffer selectedOffer={selectedOffer} onBack={onBack} />
+                    <HeaderOffer selectedNegotiation={selectedNegotiation} onBack={onBack} />
 
                     <div className="flex-1 overflow-y-auto p-2 space-y-2">
                         {isLoading && <div className="w-full h-full flex items-center justify-center">
-                            <Spinner className="size-7 text-foreground"/>
+                            <Spinner className="size-7 text-foreground" />
                         </div>
                         }
                         {error && <div>{error}</div>}
@@ -53,7 +53,13 @@ export default function OfferChat({ selectedOffer, onBack }: Props) {
                         <div ref={bottomRef} />
                     </div>
 
-                    <FooterChat sortedOffers={sortedOffers} />
+                    {selectedNegotiation.lastOffer.status === "pending" &&
+                        <FooterChat
+                            sortedOffers={sortedOffers}
+                            advertisement={selectedNegotiation.advertisement}
+                            account={selectedNegotiation.account}
+                        />
+                    }
                 </>
             )}
         </div>

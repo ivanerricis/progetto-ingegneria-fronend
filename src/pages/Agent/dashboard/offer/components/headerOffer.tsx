@@ -1,13 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import type { Offer } from "@/types/types";
+import type { Negotiation } from "@/types/types";
 import { ArrowLeft } from "lucide-react";
 
 type Props = {
-    selectedOffer: Offer;
+    selectedNegotiation: Negotiation | null;
     onBack: () => void;
 }
-export const HeaderOffer = ({ selectedOffer, onBack }: Props) => {
+export const HeaderOffer = ({ selectedNegotiation, onBack }: Props) => {
     return (
         <div className="flex gap-3 border-b p-2 items-center bg-background">
             <Button
@@ -20,15 +20,12 @@ export const HeaderOffer = ({ selectedOffer, onBack }: Props) => {
             </Button>
 
             <div className="flex flex-col">
-                <Label className="text-lg">
-                    {
-                        selectedOffer.advertisement.realEstate
-                            .addressFormatted
-                    }
+                <Label className="text-md">
+                    {selectedNegotiation?.advertisement.realEstate.addressFormatted}
                 </Label>
                 <Label>
-                    {selectedOffer.account.firstName}{" "}
-                    {selectedOffer.account.lastName}
+                    {selectedNegotiation?.account.firstName}{" "}
+                    {selectedNegotiation?.account.lastName}
                 </Label>
             </div>
         </div>

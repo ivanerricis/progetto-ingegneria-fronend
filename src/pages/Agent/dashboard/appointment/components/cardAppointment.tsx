@@ -36,9 +36,9 @@ export const CardAppointment = ({ appointment, onConfirm, onReject }: CardAppoin
             </div>
 
             {/* Advertisement Address */}
-            <div className="flex flex-col items-start! gap-2">
+            <div className="flex flex-col items-start! gap-2 h-28">
                 <Label className="text-lg font-bold">Indirizzo</Label>
-                <Label className="text-lg">{appointment.advertisement.addressFormatted}</Label>
+                <p className="text-lg text-foreground line-clamp-2">{appointment.advertisement.addressFormatted}</p>
             </div>
 
             {/* DateTime */}

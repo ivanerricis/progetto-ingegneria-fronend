@@ -1,20 +1,20 @@
 import { BadgeChat } from "./badgeChat";
-import type { Offer } from "@/types/types";
+import type { Negotiation } from "@/types/types";
 
 type Props = {
-    negotiations?: Offer[];
-    selectedOffer: Offer | null;
-    onSelect: (offer: Offer) => void;
+    negotiations?: Negotiation[];
+    selectedNegotiation: Negotiation | null;
+    onSelect: (negotiation: Negotiation) => void;
 };
 
 export default function SidebarOffers({
     negotiations,
-    selectedOffer,
+    selectedNegotiation,
     onSelect,
 }: Props) {
     return (
         <div
-            className={`w-full md:w-1/4 h-full divide-y overflow-y-auto ${selectedOffer ? "hidden md:block" : "block"
+            className={`w-full min-w-0 md:w-1/4 h-full border-t divide-y overflow-x-hidden overflow-y-auto ${selectedNegotiation ? "hidden md:block" : "block"
                 }`}
         >
             {negotiations && negotiations.length > 0 ? (
@@ -23,14 +23,8 @@ export default function SidebarOffers({
                     <BadgeChat
                         key={`${negotiation.advertisement.id}-${negotiation.account.id}`}
                         onClick={() => onSelect(negotiation)}
-                        addressFormatted={
-                            negotiation.advertisement.realEstate.addressFormatted
-                        }
-                        accountName={
-                            negotiation.account.firstName +
-                            " " +
-                            negotiation.account.lastName
-                        }
+                        addressFormatted={negotiation.advertisement.realEstate.addressFormatted}
+                        accountName={negotiation.account.firstName + " " + negotiation.account.lastName}
                         accountEmail={negotiation.account.email}
                     />
                 ))

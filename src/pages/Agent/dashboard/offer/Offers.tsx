@@ -1,17 +1,17 @@
 import { useState } from "react";
-import type { Offer } from "@/types/types";
+import type { Negotiation } from "@/types/types";
 import SidebarOffers from "./components/sidebarOffers";
 import OfferChat from "./components/offerChat";
 import useNegotiations from "@/hooks/agent/useNegotiations";
 import DashboardFilterSelect from "../advertisement/components/dashboardFilterSelect";
-import { BadgeCheck, Clock } from "lucide-react";
+import { BadgeCheck, BadgeX, Clock } from "lucide-react";
 
-type StatusFilter = "inProgress" | "accepted"
+type StatusFilter = "pending" | "accepted" | "rejected";
 
 const statusOptions = [
     {
-        value: "inProgress",
-        label: "In corso",
+        value: "pending",
+        label: "In attesa",
         icon: <Clock className="text-foreground size-5" />,
     },
     {
@@ -19,34 +19,48 @@ const statusOptions = [
         label: "Accettate",
         icon: <BadgeCheck className="text-foreground size-5" />,
     },
+    {
+        value: "rejected",
+        label: "Rifiutate",
+        icon: <BadgeX className="text-foreground size-5" />,
+    },
 ] as const
 
 export default function Offers() {
-    const [statusFilter, setStatusFilter] = useState<StatusFilter>("inProgress")
-    const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
+    const [statusFilter, setStatusFilter] = useState<StatusFilter>("pending")
+    const [selectedNegotiation, setSelectedNegotiation] = useState<Negotiation | null>(null);
     const { negotiations } = useNegotiations();
+
+    const filteredNegotiations = negotiations.filter((negotiation) => {
+        return negotiation.lastOffer?.status === statusFilter;
+    });
+
+    const handleFilterChange = (value: StatusFilter) => {
+        setStatusFilter(value);
+        setSelectedNegotiation(null);
+    }
 
     return (
         <div className="w-full h-full flex flex-col">
-            <div className={`p-2 ${selectedOffer ? "hidden" : "block"} sm:block`}>
+            <div className={`p-2 ${selectedNegotiation ? "hidden" : "block"} sm:block`}>
                 <DashboardFilterSelect
                     value={statusFilter}
                     placeholder="Stato"
                     options={[...statusOptions]}
-                    onValueChange={(value) => setStatusFilter(value as StatusFilter)}
+                    onValueChange={(value) => handleFilterChange(value as StatusFilter)}
                 />
             </div>
 
             <div className="flex flex-row w-full h-full divide-x">
                 <SidebarOffers
-                    negotiations={negotiations}
-                    selectedOffer={selectedOffer}
-                    onSelect={setSelectedOffer}
+                    negotiations={filteredNegotiations}
+                    selectedNegotiation={selectedNegotiation}
+                    onSelect={setSelectedNegotiation}
                 />
 
                 <OfferChat
-                    selectedOffer={selectedOffer}
-                    onBack={() => setSelectedOffer(null)}
+                    selectedNegotiation={selectedNegotiation}
+                    onBack={() => setSelectedNegotiation(null)}
                 />
             </div>
         </div>

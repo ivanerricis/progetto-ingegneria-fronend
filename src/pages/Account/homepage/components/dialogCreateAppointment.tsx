@@ -27,6 +27,9 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
     const { daysSet, loading: daysLoading } = useAvailableDays(advertisement.id)
     const { slots, loading: slotsLoading } = useAvailableSlots(advertisement.id, date);
 
+    console.log("Available days:", daysSet)
+    console.log("Available slots for", date, ":", slots)
+
     const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         setShowAppointmentDialog(false)
@@ -109,7 +112,7 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
                                     <SelectItem
                                         key={slot}
                                         value={slot}
-                                        className="text-lg"
+                                        className="text-lg dark:text-foreground!"
                                     >
                                         {slot}
                                     </SelectItem>
