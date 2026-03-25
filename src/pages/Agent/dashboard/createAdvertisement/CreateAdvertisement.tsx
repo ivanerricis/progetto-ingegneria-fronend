@@ -37,7 +37,7 @@ export default function CreateAdvertisement() {
 
     const [files, setFiles] = useState<File[]>([]);
     const [rooms, setRooms] = useState(1);
-    const [bedrooms, setBedrooms] = useState(1);
+    const [floor, setFloor] = useState(1);
     const [surface, setSurface] = useState(1);
     const [bathrooms, setBathrooms] = useState(1);
     const [services, setServices] = useState({
@@ -96,7 +96,7 @@ export default function CreateAdvertisement() {
         const payload = {
             files,
             rooms,
-            bedrooms,
+            floor,
             surface,
             bathrooms,
             services,
@@ -142,8 +142,8 @@ export default function CreateAdvertisement() {
                         <StepFeatures
                             rooms={rooms}
                             setRooms={setRooms}
-                            bedrooms={bedrooms}
-                            setBedrooms={setBedrooms}
+                            floor={floor}
+                            setFloor={setFloor}
                             surface={surface}
                             setSurface={setSurface}
                             bathrooms={bathrooms}
@@ -181,7 +181,7 @@ export default function CreateAdvertisement() {
                         <StepSummary
                             files={files}
                             rooms={rooms}
-                            bedrooms={bedrooms}
+                            floor={floor}
                             surface={surface}
                             bathrooms={bathrooms}
                             services={services}

@@ -23,7 +23,7 @@ export const HeaderOffer = ({ selectedNegotiation, onBack }: Props) => {
                 <Label className="text-md">
                     {selectedNegotiation?.advertisement.realEstate.addressFormatted}
                 </Label>
-                <Label>
+                <Label className="text-sm">
                     {selectedNegotiation?.account.firstName}{" "}
                     {selectedNegotiation?.account.lastName}
                 </Label>

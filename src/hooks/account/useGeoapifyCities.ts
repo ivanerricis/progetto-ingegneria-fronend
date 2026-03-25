@@ -8,6 +8,18 @@ export interface CityOption {
     country: string
 }
 
+interface GeoapifyFeature {
+    properties: {
+        city?: string
+        name?: string
+        state?: string
+        county?: string
+        lat: number
+        lon: number
+        country?: string
+    }
+}
+
 const GEOAPIFY_API_KEY = import.meta.env.VITE_GEOAPIFY_KEY
 
 /**
@@ -51,8 +63,8 @@ export const useGeoapifyCities = () => {
             const data = await response.json()
 
             const cities: CityOption[] = (data.features ?? [])
-                .filter((feature: any) => feature.properties?.city || feature.properties?.name)
-                .map((feature: any) => {
+                .filter((feature: GeoapifyFeature) => feature.properties?.city || feature.properties?.name)
+                .map((feature: GeoapifyFeature) => {
                     const props = feature.properties
                     const cityName = props.city ?? props.name
                     const region = props.state ?? props.county ?? ""
@@ -67,7 +79,7 @@ export const useGeoapifyCities = () => {
 
             setSuggestions(cities)
         } catch (submitError) {
-            if(!(submitError instanceof Error)) return
+            if (!(submitError instanceof Error)) return
             if (submitError.message !== "AbortError") {
                 setSuggestions([])
             }

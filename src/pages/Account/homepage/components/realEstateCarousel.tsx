@@ -25,10 +25,13 @@ const RealEstateCarousel = ({ photos = [] }: RealEstateCarouselProps) => {
 
     useEffect(() => {
         if (!api) return
-        onSelect(api)
+
+        const timeout = setTimeout(() => onSelect(api), 0)
         api.on("select", onSelect)
         api.on("reInit", onSelect)
+
         return () => {
+            clearTimeout(timeout)
             api.off("select", onSelect)
             api.off("reInit", onSelect)
         }

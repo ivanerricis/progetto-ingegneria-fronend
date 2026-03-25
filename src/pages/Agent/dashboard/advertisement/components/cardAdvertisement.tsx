@@ -63,7 +63,7 @@ export const CardAdvertisement = ({ advertisement, onDelete }: CardRealEstatePro
                     </div>
 
                     {/* Buttons */}
-                    <div className="flex w-full justify-end gap-1">
+                    {advertisement.status !== "sold" && <div className="flex w-full justify-end gap-1">
                         <Button
                             variant={"outline"}
                             size={"icon"}
@@ -83,7 +83,7 @@ export const CardAdvertisement = ({ advertisement, onDelete }: CardRealEstatePro
                         >
                             <Trash />
                         </Button>
-                    </div>
+                    </div>}
                 </div>
             </div>
 

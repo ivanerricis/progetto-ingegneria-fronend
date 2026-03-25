@@ -20,6 +20,7 @@ export const FooterChat = ({ sortedOffers, advertisement, account }: Props) => {
 
     const lastOfferStatus = sortedOffers[sortedOffers.length - 1]?.status;
     const lastOfferOwner = sortedOffers[sortedOffers.length - 1]?.madeBy;
+    const lastOfferDisableActions = lastOfferStatus === "pending" && lastOfferOwner === "AGENT";
 
     return (
         <>
@@ -30,7 +31,7 @@ export const FooterChat = ({ sortedOffers, advertisement, account }: Props) => {
                     size="icon-lg"
                     className="flex-1"
                     onClick={() => setIsRejectDialogOpen(true)}
-                    disabled={lastOfferStatus !== "pending" && lastOfferOwner !== "agent"}
+                    disabled={lastOfferDisableActions}
                 >
                     <Trash className="size-5"/>
                     <div className="flex gap-1">
@@ -43,7 +44,7 @@ export const FooterChat = ({ sortedOffers, advertisement, account }: Props) => {
                     size="icon-lg"
                     className="flex-1"
                     onClick={() => setIsAcceptDialogOpen(true)}
-                    disabled={lastOfferStatus !== "pending" && lastOfferOwner !== "agent"}>
+                    disabled={lastOfferDisableActions}>
                     <Check className="size-5"/>
                     <div className="flex gap-1">
                         <Label>Accetta</Label>
@@ -56,7 +57,7 @@ export const FooterChat = ({ sortedOffers, advertisement, account }: Props) => {
                     size="icon-lg"
                     className="flex-1"
                     onClick={() => setIsCounterOfferDialogOpen(true)}
-                    disabled={lastOfferStatus !== "pending" && lastOfferOwner !== "agent"}
+                    disabled={lastOfferDisableActions}
                 >
                     <Send className="size-5"/>
                     <div className="flex gap-1">

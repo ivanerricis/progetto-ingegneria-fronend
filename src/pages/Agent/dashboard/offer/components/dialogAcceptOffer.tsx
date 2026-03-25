@@ -22,7 +22,7 @@ export const DialogAcceptOffer = ({ isAcceptDialogOpen, setIsAcceptDialogOpen, o
             }
             await acceptOffer(offerId);
             toast.success("Offerta accettata con successo");
-            navigate("/agent/dashboard/offers");
+            navigate(0);
         } catch (error) {
             console.error("Errore durante l'accettazione dell'offerta:", error);
             toast.error("Errore durante l'accettazione dell'offerta: " + (error instanceof Error ? error.message : "Errore sconosciuto"));

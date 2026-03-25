@@ -124,8 +124,9 @@ export const RealEstateMap = ({ advertisements }: Props) => {
     }
 
     useEffect(() => {
+        const timeouts = closePopupTimeouts.current
         return () => {
-            Object.values(closePopupTimeouts.current).forEach((timeoutId) => {
+            Object.values(timeouts).forEach((timeoutId) => {
                 window.clearTimeout(timeoutId)
             })
         }

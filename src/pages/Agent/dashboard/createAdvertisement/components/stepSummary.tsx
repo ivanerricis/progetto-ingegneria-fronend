@@ -5,7 +5,7 @@ import type { Services, AddressData } from "@/types/types";
 interface StepSummaryProps {
     files: File[];
     rooms: number;
-    bedrooms: number;
+    floor: number;
     surface: number;
     bathrooms: number;
     services: Services;
@@ -17,7 +17,7 @@ interface StepSummaryProps {
 }
 
 const StepSummary: FC<StepSummaryProps> = ({
-    files, rooms, bedrooms, surface, bathrooms, services,
+    files, rooms, floor, surface, bathrooms, services,
     description, addressData, formattedPrice, priceInput, formatPrice
 }) => (
     <div className="flex flex-col gap-4 text-sm *:flex *:gap-2 *:*:text-lg">
@@ -34,8 +34,8 @@ const StepSummary: FC<StepSummaryProps> = ({
                 </div>
 
                 <div>
-                    <Label className="font-bold">Stanze: </Label>
-                    <Label>{bedrooms}</Label>
+                    <Label className="font-bold">Piano: </Label>
+                    <Label>{floor}</Label>
                 </div>
             </div>
             <div className="flex flex-col flex-1 gap-2  *:flex *:gap-2 *:*:text-lg">

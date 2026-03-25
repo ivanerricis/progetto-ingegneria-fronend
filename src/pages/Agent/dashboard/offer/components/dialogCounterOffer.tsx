@@ -24,7 +24,7 @@ export const DialogCounterOffer = ({ isCounterOfferDialogOpen, setIsCounterOffer
         try {
             await CounterOffer(advertisementId, accountId, price);
             toast.success("Contro-offerta inviata con successo");
-            navigate("/agent/dashboard/offers");
+            navigate(0);
         } catch (error) {
             console.error("Errore durante l'invio della contro-offerta:", error);
             toast.error("Errore durante l'invio della contro-offerta: " + (error instanceof Error ? error.message : "Errore sconosciuto"));

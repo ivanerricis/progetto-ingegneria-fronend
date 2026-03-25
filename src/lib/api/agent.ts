@@ -173,7 +173,7 @@ export async function RejectOffer(offerId: number) {
 
 export async function CounterOffer(advertisementId: number, accountId: number, price: number) {
     try {
-        const response = await apiClient.post(`/agents/${advertisementId}/${accountId}/offer/counter`, { price });
+        const response = await apiClient.post(`/offer/agents/${advertisementId}/${accountId}/offer/counter`, { price });
 
         return response.data
     } catch (error) {

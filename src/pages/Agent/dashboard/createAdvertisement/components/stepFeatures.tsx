@@ -10,8 +10,8 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 interface StepFeaturesProps {
     rooms: number;
     setRooms: (value: number) => void;
-    bedrooms: number;
-    setBedrooms: (value: number) => void;
+    floor: number;
+    setFloor: (value: number) => void;
     surface: number;
     setSurface: (value: number) => void;
     bathrooms: number;
@@ -25,7 +25,7 @@ interface StepFeaturesProps {
 }
 
 const StepFeatures: FC<StepFeaturesProps> = ({
-    rooms, setRooms, bedrooms, setBedrooms, surface, setSurface, bathrooms, setBathrooms,
+    rooms, setRooms, floor, setFloor, surface, setSurface, bathrooms, setBathrooms,
     services, onServiceChange, description, setDescription, typeValue, setTypeValue
 }) => (
     <div className="flex flex-col gap-4">
@@ -37,8 +37,8 @@ const StepFeatures: FC<StepFeaturesProps> = ({
                     <Input type="number" value={rooms} onChange={e => setRooms(parseInt(e.target.value) || 0)} />
                 </div>
                 <div>
-                    <Label className="text-lg">Numero di stanze</Label>
-                    <Input type="number" value={bedrooms} onChange={e => setBedrooms(parseInt(e.target.value) || 0)} />
+                    <Label className="text-lg">Piano</Label>
+                    <Input type="number" value={floor} onChange={e => setFloor(parseInt(e.target.value) || 0)} />
                 </div>
                 <div>
                     <Label className="text-lg">Superficie (m²)</Label>
@@ -48,6 +48,22 @@ const StepFeatures: FC<StepFeaturesProps> = ({
                     <Label className="text-lg">Numero di bagni</Label>
                     <Input type="number" value={bathrooms} onChange={e => setBathrooms(parseInt(e.target.value) || 0)} />
                 </div>
+            </div>
+
+            <Separator orientation="horizontal" className="sm:hidden" />
+            <Separator orientation="vertical" className="hidden sm:block" />
+
+            <div className="flex flex-col gap-2">
+                <Label className="text-lg">Tipo di annuncio</Label>
+                <Select value={typeValue} onValueChange={setTypeValue}>
+                    <SelectTrigger className="w-40">
+                        <SelectValue placeholder="Seleziona tipo" />
+                    </SelectTrigger>
+                    <SelectContent position="popper">
+                        <SelectItem value="sale">Vendita</SelectItem>
+                        <SelectItem value="rent">Affitto</SelectItem>
+                    </SelectContent>
+                </Select>
             </div>
 
             <Separator orientation="horizontal" className="sm:hidden" />
@@ -82,21 +98,6 @@ const StepFeatures: FC<StepFeaturesProps> = ({
                 onChange={e => setDescription(e.target.value)}
                 maxLength={2000}
             />
-        </div>
-
-        <Separator orientation="horizontal" />
-
-        <div className="flex flex-col gap-2">
-            <Label className="text-lg">Tipo di annuncio</Label>
-            <Select value={typeValue} onValueChange={setTypeValue}>
-                <SelectTrigger className="w-40">
-                    <SelectValue placeholder="Seleziona tipo" />
-                </SelectTrigger>
-                <SelectContent position="popper">
-                    <SelectItem value="sale">Vendita</SelectItem>
-                    <SelectItem value="rent">Affitto</SelectItem>
-                </SelectContent>
-            </Select>
         </div>
     </div>
 );

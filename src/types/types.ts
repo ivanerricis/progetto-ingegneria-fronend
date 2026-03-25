@@ -42,7 +42,6 @@ export type RealEstate = {
     balcony: boolean
     concierge: boolean
     elevator: boolean
-    energyClass: string
     furnished: boolean
     garage: boolean
     garden: boolean
@@ -50,6 +49,7 @@ export type RealEstate = {
     parking: boolean
     solarPanels: boolean
     terrace: boolean
+    energyClass: string
     housetype: string
     rooms: number
     size: number
@@ -104,7 +104,7 @@ export type Offer = {
     createdAt: Date
     price: number
     status: "pending" | "accepted" | "rejected"
-    madeBy: "account" | "agent"
+    madeBy: "ACCOUNT" | "AGENT"
     advertisement: Advertisement
     account: Account
 }

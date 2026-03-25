@@ -29,8 +29,8 @@ export const CardAppointment = ({ appointment, onConfirm, onReject }: CardAppoin
     }
 
     return (
-        <div className="flex flex-col w-fit border rounded-sm divide-y bg-background shadow-sm *:flex *:items-center *:justify-start [&>*:not(:first-child)]:p-2">
-            <div className="flex items-center justify-center">
+        <div className="flex flex-col w-full sm:w-fit border rounded-sm divide-y bg-background shadow-sm *:flex *:items-center *:justify-start [&>*:not(:first-child)]:p-2">
+            <div className="flex items-center justify-center w-full">
                 {appointment?.advertisement.previewPhoto &&
                     <PreviewPhoto photo={appointment.advertisement.previewPhoto} />}
             </div>
@@ -54,23 +54,28 @@ export const CardAppointment = ({ appointment, onConfirm, onReject }: CardAppoin
             </div>
 
             {/* Buttons */}
-            {((appointment.status === "requested")) &&
-                <div className="flex flex-col w-f h-full gap-2">
-                    {appointment.status === "requested" && (
-                        <div className="flex gap-2 w-full">
-                            <Button onClick={handleAppointmentButtonClick} size={"lg"} className="flex-1 rounded-sm">
-                                <Check className="size-5" />
-                                Conferma
-                            </Button>
+            {appointment.status === "requested" && (
+                <div className="flex gap-2 w-full">
+                    <Button
+                        onClick={handleAppointmentButtonClick}
+                        size={"lg"}
+                        className="flex-1 rounded-sm"
+                    >
+                        <Check className="size-5" />
+                        Conferma
+                    </Button>
 
-                            <Button onClick={handleRejectButtonClick} variant="outline" size={"lg"} className="flex-1 rounded-sm">
-                                <X className="size-5" />
-                                Rifiuta
-                            </Button>
-                        </div>
-                    )}
+                    <Button
+                        onClick={handleRejectButtonClick}
+                        variant="outline"
+                        size={"lg"}
+                        className="flex-1 rounded-sm"
+                    >
+                        <X className="size-5" />
+                        Rifiuta
+                    </Button>
                 </div>
-            }
+            )}
 
             {showConfirmDialog && (
                 <DialogConfirmAppointment
