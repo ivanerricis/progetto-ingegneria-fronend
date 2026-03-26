@@ -6,7 +6,7 @@ type Props = {
 }
 
 export const OfferItem = ({ offer }: Props) => {
-    const isMine = offer.madeBy === "AGENT";
+    const isMine = offer.madeBy === "ACCOUNT";
     console.log(offer)
     return (
         <div

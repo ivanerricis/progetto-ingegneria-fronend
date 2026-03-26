@@ -7,7 +7,6 @@ import SidebarFilter from "./components/sidebarFilter"
 import { Footer } from "@/components/footer"
 import AdvertisementsList from "./components/advertisementList"
 import useAdvertisements from "@/hooks/account/useAdvertisements"
-import { Label } from "@/components/ui/label"
 import AdvertisementListSkeleton from "./components/advertisementListSkeleton"
 import { AccountBadge } from "@/pages/Account/homepage/components/accountBadge"
 import MobileSidebar from "./components/mobileSidebar"
@@ -62,9 +61,7 @@ export const Homepage = () => {
                             <Map className="size-6" />
                         </Button>
 
-                        <Label className="hidden xl:flex text-xl">
-                            DietiEstates
-                        </Label>
+                        <img src="/public/LogoIntero(Senza_Sfondo).png" alt="DietiEstates Logo" className="size-10 w-40 object-cover" />
                     </>
                 }
                 center={

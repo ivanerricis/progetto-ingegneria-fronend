@@ -58,7 +58,7 @@ export type RealEstate = {
 }
 
 export type Agent = {
-    id: string | number
+    id: number
     firstName: string
     lastName: string
     phoneNumber: string
@@ -97,6 +97,7 @@ export type Negotiation = {
     advertisement: Advertisement
     account: Account
     lastOffer: Offer
+    agent: Agent
 }
 
 export type Offer = {
@@ -107,6 +108,7 @@ export type Offer = {
     madeBy: "ACCOUNT" | "AGENT"
     advertisement: Advertisement
     account: Account
+    agent: Agent
 }
 
 export type Services = {

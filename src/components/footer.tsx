@@ -10,7 +10,7 @@ export const Footer = ({ isHomepage }: FooterProps) => {
     return (
         <div className={`flex w-full flex-col items-center gap-2 border-t ${horizontalPadding} p-2 lg:h-10 lg:flex-row lg:items-center lg:justify-between`}>
             <div className="flex gap-1 sm:gap-2">
-                <span className="text-foreground">
+                <span className="hidden sm:flex text-foreground">
                     All rights reserved. © 2026 DietiEstates.
                 </span>
             </div>

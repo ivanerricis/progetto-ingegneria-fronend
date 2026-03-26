@@ -33,6 +33,7 @@ export default function useAdvertisement(advertisementId?: string) {
                 })
                 const item = data?.item ?? data?.advertisement ?? data
                 setAdvertisement(item)
+                console.log("Fetched advertisement:", item)
             } catch (error) {
                 if (isCancel(error)) return
 

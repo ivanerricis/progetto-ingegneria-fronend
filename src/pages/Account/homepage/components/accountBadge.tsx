@@ -33,11 +33,11 @@ export const AccountBadge = () => {
                     <User className="text-foreground group-hover/profile:text-background dark:group-hover/profile:text-foreground size-5" />
                     Profilo
                 </DropdownMenuItem>
-                <DropdownMenuItem className="group/calendar text-md">
+                <DropdownMenuItem onClick={() => navigate("/appointments")} className="group/calendar text-md">
                     <Calendar className="text-foreground group-hover/calendar:text-background dark:group-hover/calendar:text-foreground size-5" />
                     Appuntamenti
                 </DropdownMenuItem>
-                <DropdownMenuItem className="group/tag text-md">
+                <DropdownMenuItem onClick={() => navigate("/offers")} className="group/tag text-md">
                     <Tag className="text-foreground group-hover/tag:text-background dark:group-hover/tag:text-foreground size-5" />
                     Offerte
                 </DropdownMenuItem>

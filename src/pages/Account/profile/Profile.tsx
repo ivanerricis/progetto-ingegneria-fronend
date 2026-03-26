@@ -19,6 +19,7 @@ import {
 import { deleteAccount } from "@/lib/api/auth";
 import { toast } from "sonner";
 import { formatCreatedAt } from "@/utils/formatCreatedAt";
+import { AccountBadge } from "../homepage/components/accountBadge";
 
 export default function Profile() {
     const { account } = useAccount()
@@ -53,7 +54,12 @@ export default function Profile() {
                         <Label className="hidden sm:inline text-md">Indietro</Label>
                     </Button>
                 }
-                right={<ModeToggle />}
+                right={
+                    <>
+                        <ModeToggle />
+                        <AccountBadge />
+                    </>
+                }
             />
 
             <div className="flex-1 flex items-center justify-center sm:px-40">

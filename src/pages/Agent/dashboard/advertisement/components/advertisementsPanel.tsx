@@ -13,11 +13,12 @@ export default function AdvertisementsPanel({ advertisements, isLoading, error, 
     return (
         <div className="flex flex-col gap-2">
             {isLoading && (
-                <>
+                <div className="flex flex-col sm:flex-row gap-2">
                     <CardAdvertisementSkeleton />
                     <CardAdvertisementSkeleton />
                     <CardAdvertisementSkeleton />
-                </>
+                    <CardAdvertisementSkeleton />
+                </div>
             )}
 
             {error && (

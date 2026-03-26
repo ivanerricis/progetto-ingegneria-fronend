@@ -14,11 +14,12 @@ export default function AppointmentsPanel({ appointments, isLoading, error, onCo
     return (
         <div className="flex flex-col gap-2">
             {isLoading && (
-                <>
+                <div className="flex flex-col sm:flex-row gap-2">
                     <CardAppointmentSkeleton />
                     <CardAppointmentSkeleton />
                     <CardAppointmentSkeleton />
-                </>
+                    <CardAppointmentSkeleton />
+                </div>
             )}
 
             {error && (

@@ -46,7 +46,7 @@ export const LoginForm = () => {
                 window.location.replace("/agent/dashboard")
             } else {
                 setAgent({
-                    id: "",
+                    id: -1,
                     username: "",
                     firstName: "",
                     lastName: "",
