@@ -75,7 +75,7 @@ export const CitySearchInput = ({
     return (
         <div ref={containerRef} className={cn("relative w-full h-full", className)}>
             <div className="relative h-full!">
-                <InputGroup>
+                <InputGroup className="h-full">
                     <InputGroupInput
                         value={inputValue}
                         onChange={handleInputChange}
@@ -84,7 +84,9 @@ export const CitySearchInput = ({
                         className="pr-8 h-full text-lg!"
                         autoComplete="off"
                     />
-                    <InputGroupAddon><Search className="size-5"/></InputGroupAddon>
+                    <InputGroupAddon>
+                        <Search className="size-5" />
+                    </InputGroupAddon>
                 </InputGroup>
                 <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center">
                     {isLoading && (

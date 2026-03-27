@@ -8,9 +8,9 @@
 export const formatPrice = (price: string | number) => {
     const rawValue = String(price).trim()
     const normalizedValue = rawValue
-        .replace(/\./g, "")
-        .replace(",", ".")
-        .replace(/[^\d.-]/g, "")
+        .replaceAll(/\./g, "")
+        .replaceAll(",", ".")
+        .replaceAll(/[^\d.-]/g, "")
 
     const numericValue = Number(normalizedValue)
 

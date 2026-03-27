@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { Pencil, Trash } from "lucide-react"
+import { CalendarClock, Pencil, Trash } from "lucide-react"
 import type { Advertisement } from "@/types/types"
 import { formatPrice } from "@/utils/formatPrice"
 import { useNavigate } from "react-router-dom"
@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { useState, type MouseEvent } from "react"
 import { toast } from "sonner"
 import { PreviewPhoto } from "../../appointment/components/previewPhoto"
+import { Label } from "@/components/ui/label"
 
 type CardRealEstateProps = {
     advertisement: Advertisement
@@ -57,31 +58,40 @@ export const CardAdvertisement = ({ advertisement, onDelete }: CardRealEstatePro
                 </div>
 
                 {/* Prezzo + Buttons */}
-                <div className="flex items-center justify-between gap-2">
-                    <div className="flex h-full items-center justify-start border-2 border-primary text-primary text-2xl text-bold rounded-sm px-2">
+                <div className="flex justify-between lg:flex-col lg:gap-2">
+                    <div className="flex w-fit items-center justify-start border-2 border-primary text-primary text-2xl text-bold rounded-sm px-2">
                         {formatPrice(advertisement.price)}
                     </div>
 
                     {/* Buttons */}
-                    {advertisement.status !== "sold" && <div className="flex w-full justify-end gap-1">
+                    {advertisement.status !== "sold" && <div className="flex w-full items-center justify-end lg:justify-between gap-1">
                         <Button
                             variant={"outline"}
-                            size={"icon"}
-                            className="rounded-sm"
+                            className="size-10 lg:flex-1 lg:h-10 lg:px-4 lg:py-2"
                         >
-                            <Pencil />
+                            <Pencil className="size-5"/>
+                            <Label className="hidden lg:block text-md">Modifica</Label>
                         </Button>
+                        {advertisement.type === "rent" && (
+                            <Button
+                                variant={"outline"}
+                                className="size-10 lg:flex-1 lg:h-10 lg:px-4 lg:py-2"
+                            >
+                                <CalendarClock className="size-5"/>
+                                <Label className="hidden lg:block text-md">Affittato</Label>
+                            </Button>
+                        )}
                         <Button
                             variant={"destructive"}
-                            size={"icon"}
-                            className="rounded-sm"
+                            className="size-10 lg:flex-1 lg:h-10 lg:px-4 lg:py-2"
                             onClick={e => {
                                 e.stopPropagation();
                                 setShowDeleteDialog(true);
                             }}
                             disabled={isDeleting}
                         >
-                            <Trash />
+                            <Trash className="size-5"/>
+                            <Label className="hidden lg:block text-md">Elimina</Label>
                         </Button>
                     </div>}
                 </div>

@@ -28,7 +28,7 @@ export const ContactCard = ({ advertisement }: ContactCardProps) => {
     const [showAppointmentDialog, setShowAppointmentDialog] = useState(false)
 
     return (
-        <div className="flex md:w-80 h-fit shrink-0 flex-col gap-2 rounded-md border p-6 sm:sticky sm:self-start">
+        <div className="sticky top-0 flex md:w-80 h-fit shrink-0 flex-col gap-2 rounded-md border p-6 sm:sticky sm:self-start">
             <Label className="text-2xl text-bold">Contatta l'agenzia</Label>
             <div className="flex flex-col gap-2">
                 <Button size={"lg"} onClick={() => setShowAppointmentDialog(true)}>
@@ -68,17 +68,21 @@ export const ContactCard = ({ advertisement }: ContactCardProps) => {
                 )}
             </div>
 
-            <DialogCreateOffer
-                advertisement={advertisement}
-                showOfferDialog={showOfferDialog}
-                setShowOfferDialog={setShowOfferDialog}
-            />
+            {showOfferDialog && (
+                <DialogCreateOffer
+                    advertisement={advertisement}
+                    showOfferDialog={showOfferDialog}
+                    setShowOfferDialog={setShowOfferDialog}
+                />
+            )}
 
-            <DialogCreateAppointment
-                advertisement={advertisement}
-                showAppointmentDialog={showAppointmentDialog}
-                setShowAppointmentDialog={setShowAppointmentDialog}
-            />
+            {showAppointmentDialog && (
+                <DialogCreateAppointment
+                    advertisement={advertisement}
+                    showAppointmentDialog={showAppointmentDialog}
+                    setShowAppointmentDialog={setShowAppointmentDialog}
+                />
+            )}
         </div>
     );
 }

@@ -26,7 +26,7 @@ export const DialogCreateOffer = ({ showOfferDialog, setShowOfferDialog, adverti
 
     const handleCreateOffer = async () => {
         setIsLoading(true)
-        if (!price || isNaN(Number(price))) return;
+        if (!price || Number.isNaN(Number(price))) return;
         try {
             CreateOffer(advertisement.id, Number(price))
             setShowOfferDialog(false);
@@ -71,7 +71,7 @@ export const DialogCreateOffer = ({ showOfferDialog, setShowOfferDialog, adverti
                 </div>
                 <DialogFooter>
                     <Button variant={"outline"} onClick={handleClose} disabled={isLoading}>Annulla</Button>
-                    <Button disabled={!price || isNaN(Number(price)) || isLoading} onClick={handleCreateOffer}>
+                    <Button disabled={!price || Number.isNaN(Number(price)) || isLoading} onClick={handleCreateOffer}>
                         {isLoading ? "Invio offerta..." : "Offri"}
                     </Button>
                 </DialogFooter>

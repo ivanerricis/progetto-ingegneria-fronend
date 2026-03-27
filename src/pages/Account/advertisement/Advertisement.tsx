@@ -22,27 +22,19 @@ import GarageIcon from "@/assets/icons/garage.svg?react"
 import FloorPlanIcon from "@/assets/icons/floorplan.svg?react"
 import BalconyIcon from "@/assets/icons/balcony.svg?react"
 import TerraceIcon from "@/assets/icons/terrace.svg?react"
+import FeatureItem from "./components/featureItem";
 
-const hasValue = <T,>(value: T | null | undefined): value is T => value !== null && value !== undefined
-
-type FeatureItemProps = {
-    children: ReactNode
-    icon?: ReactNode
-    iconSizeClassName?: string
+type AdvertisementPageProps = {
+    hasContactCard?: boolean
 }
 
-const FeatureItem = ({ children, icon, iconSizeClassName = "size-8" }: FeatureItemProps) => (
-    <div className="flex items-center gap-1 rounded-sm border dark:*:text-primary *:text-primary bg-primary/20 p-1">
-        {icon && <div className={`${iconSizeClassName} flex items-center justify-center *:size-7`}>{icon}</div>}
-        <Label className="text-md font-semibold">{children}</Label>
-    </div>
-)
+const hasValue = <T,>(value: T | null | undefined): value is T => value !== null && value !== undefined
 
 const hasCoordinates = (latitude?: number, longitude?: number) => (
     Number.isFinite(latitude) && Number.isFinite(longitude)
 )
 
-const Advertisement = () => {
+const Advertisement = ({ hasContactCard }: AdvertisementPageProps) => {
     const navigate = useNavigate()
     const { id } = useParams()
     const { advertisement, isLoading, error } = useAdvertisement(id)
@@ -104,6 +96,18 @@ const Advertisement = () => {
         )
     }
 
+    const schools = advertisement.pois
+        .filter(p => p.type === "school")
+        .map(p => ({ ...p, name: p.name !== "POI" ? p.name : "Scuola" }))
+
+    const parks = advertisement.pois
+        .filter(p => p.type === "park")
+        .map(p => ({ ...p, name: p.name !== "POI" ? p.name : "Parco" }))
+
+    const transports = advertisement.pois
+        .filter(p => p.type === "public_transport")
+        .map(p => ({ ...p, name: p.name !== "POI" ? p.name : "Trasporto pubblico" }))
+
     const latitude = advertisement.realEstate.coordinates?.latitude
     const longitude = advertisement.realEstate.coordinates?.longitude
     const locationCoordinates = advertisement.realEstate.location?.coordinates
@@ -113,8 +117,8 @@ const Advertisement = () => {
 
     return (
         renderPage(
-            <div className="flex w-full flex-col gap-2 sm:h-full sm:min-h-0 sm:flex-row 2xl:px-60">
-                <div className="flex flex-1 flex-col gap-4 sm:min-h-0 sm:overflow-y-auto sm:pr-2">
+            <div className="flex w-full flex-col gap-2 sm:h-full sm:min-h-0 sm:flex-row 2xl:px-60 sm:overflow-y-auto">
+                <div className="flex flex-1 flex-col gap-4 sm:min-h-0 sm:pr-2">
                     <div className="flex w-full border rounded-md aspect-video sm:min-h-120 max-h-140">
                         <RealEstateCarousel photos={advertisement.photos} />
                     </div>
@@ -208,17 +212,64 @@ const Advertisement = () => {
                     <Separator orientation="horizontal" className="shrink-0" />
 
                     <div className="flex flex-col gap-2">
+                        <Label className="font-bold text-2xl">Punti di interesse vicini</Label>
+                        <div className="flex flex-col gap-4">
+                            <div className="flex flex-col gap-1">
+                                {schools.length > 0 && (
+                                    <>
+                                        <Label className="text-xl">Scuole</Label>
+                                        <div className="flex gap-2 flex-wrap">
+                                            {schools.map(school => (
+                                                <FeatureItem key={school.id}>{school.name}</FeatureItem>
+                                            ))}
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                            <div className="flex flex-col gap-1">
+                                {parks.length > 0 && (
+                                    <>
+                                        <Label className="text-xl">Parchi</Label>
+                                        <div className="flex gap-2 flex-wrap">
+                                            {parks.map(park => (
+                                                <FeatureItem key={park.id}>{park.name}</FeatureItem>
+                                            ))}
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                            <div className="flex flex-col gap-1">
+                                {transports.length > 0 && (
+                                    <>
+                                        <Label className="text-xl">Trasporti pubblici</Label>
+                                        <div className="flex gap-2 flex-wrap">
+                                            {transports.map(transport => (
+                                                <FeatureItem key={transport.id}>{transport.name}</FeatureItem>
+                                            ))}
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
+                    <Separator orientation="horizontal" className="shrink-0" />
+
+                    <div className="flex flex-col gap-2">
                         <Label className="font-bold text-2xl">Posizione</Label>
                         {hasMapCoordinates ? (
                             <div className="h-100 overflow-hidden rounded-md border">
-                                <RealEstateMap advertisements={[advertisement]} />
+                                <RealEstateMap
+                                    advertisements={[advertisement]}
+                                    pois={[...schools, ...parks, ...transports]}
+                                />
                             </div>
                         ) : (
                             <Label className="text-muted-foreground!">Posizione non disponibile per questo immobile.</Label>
                         )}
                     </div>
                 </div>
-                <ContactCard advertisement={advertisement} />
+                {hasContactCard && <ContactCard advertisement={advertisement} />}
             </div>
         )
     );

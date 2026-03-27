@@ -61,7 +61,11 @@ export const Homepage = () => {
                             <Map className="size-6" />
                         </Button>
 
-                        <img src="/public/LogoIntero(Senza_Sfondo).png" alt="DietiEstates Logo" className="size-10 w-40 object-cover" />
+                        <img
+                            src="LogoIntero.ico"
+                            alt="DietiEstates Logo"
+                            className="hidden sm:block w-14 h-10 object-center"
+                        />
                     </>
                 }
                 center={

@@ -9,7 +9,12 @@ type PasswordStrengthProps = {
     disable?: boolean
 }
 
-function PasswordRequirement({ meets, label }: { meets: boolean; label: string }) {
+type PasswordRequirementProps = {
+    meets: boolean
+    label: string
+}
+
+function PasswordRequirement({ meets, label }: PasswordRequirementProps) {
     return (
         <div className={cn('mt-1.5 text-sm', meets ? 'text-confirm' : 'text-destructive')}>
             <div className="inline-flex items-center gap-1.5">
@@ -50,7 +55,7 @@ export function PasswordStrength({ big = false, disable = false }: PasswordStren
     const barColorClass =
         strength > 80 ? 'bg-confirm' : strength > 50 ? 'bg-yellow-500' : 'bg-red-500';
 
-    const bars = Array(4)
+    const bars = new Array(4)
         .fill(0)
         .map((_, index) => (
             <div

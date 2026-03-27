@@ -34,19 +34,19 @@ const StepFeatures: FC<StepFeaturesProps> = ({
             <div className="w-full sm:w-1/2 gap-3 grid grid-cols-2">
                 <div>
                     <Label className="text-lg">Numero di locali</Label>
-                    <Input type="number" value={rooms} onChange={e => setRooms(parseInt(e.target.value) || 0)} />
+                    <Input type="number" value={rooms} onChange={e => setRooms(Number.parseInt(e.target.value) || 0)} />
                 </div>
                 <div>
                     <Label className="text-lg">Piano</Label>
-                    <Input type="number" value={floor} onChange={e => setFloor(parseInt(e.target.value) || 0)} />
+                    <Input type="number" value={floor} onChange={e => setFloor(Number.parseInt(e.target.value) || 0)} />
                 </div>
                 <div>
                     <Label className="text-lg">Superficie (m²)</Label>
-                    <Input type="number" value={surface} onChange={e => setSurface(parseInt(e.target.value) || 0)} />
+                    <Input type="number" value={surface} onChange={e => setSurface(Number.parseInt(e.target.value) || 0)} />
                 </div>
                 <div>
                     <Label className="text-lg">Numero di bagni</Label>
-                    <Input type="number" value={bathrooms} onChange={e => setBathrooms(parseInt(e.target.value) || 0)} />
+                    <Input type="number" value={bathrooms} onChange={e => setBathrooms(Number.parseInt(e.target.value) || 0)} />
                 </div>
             </div>
 

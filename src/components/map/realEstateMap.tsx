@@ -7,8 +7,12 @@ import type { Advertisement } from "@/types/types"
 import { MarkerHoverCard } from "./markerHoverCard"
 import type { Marker as LeafletMarker } from "leaflet"
 
+import type { Poi } from "@/types/types"
+import L from "leaflet"
+
 type Props = {
     advertisements: Advertisement[]
+    pois?: Poi[]
 }
 
 type MarkerData = {
@@ -101,13 +105,12 @@ const RefreshMapSize = () => {
     return null
 }
 
-export const RealEstateMap = ({ advertisements }: Props) => {
+export const RealEstateMap = ({ advertisements, pois = [] }: Props) => {
     const navigate = useNavigate()
     const closePopupTimeouts = useRef<Record<string, number>>({})
 
     const clearCloseTimeout = (markerId: string) => {
         const timeoutId = closePopupTimeouts.current[markerId]
-
         if (timeoutId !== undefined) {
             window.clearTimeout(timeoutId)
             delete closePopupTimeouts.current[markerId]
@@ -116,7 +119,6 @@ export const RealEstateMap = ({ advertisements }: Props) => {
 
     const scheduleClosePopup = (markerId: string, marker: LeafletMarker) => {
         clearCloseTimeout(markerId)
-
         closePopupTimeouts.current[markerId] = window.setTimeout(() => {
             marker.closePopup()
             delete closePopupTimeouts.current[markerId]
@@ -135,13 +137,10 @@ export const RealEstateMap = ({ advertisements }: Props) => {
     const markers = advertisements
         .map((ad) => {
             const coordinates = extractCoordinates(ad)
-
             if (coordinates === null) {
                 return null
             }
-
             const parsedPrice = Number(ad.price)
-
             return {
                 id: String(ad.id),
                 price: Number.isFinite(parsedPrice) ? parsedPrice : 0,
@@ -151,6 +150,31 @@ export const RealEstateMap = ({ advertisements }: Props) => {
             }
         })
         .filter((marker): marker is NonNullable<typeof marker> => marker !== null)
+
+    // POI marker icons
+    const poiIcons: Record<string, L.Icon> = {
+        school: new L.Icon({
+            iconUrl: "https://cdn.jsdelivr.net/npm/@tabler/icons@2.39.0/icons/school.svg",
+            iconSize: [28, 28],
+            iconAnchor: [14, 28],
+            popupAnchor: [0, -28],
+            className: "poi-marker poi-school"
+        }),
+        park: new L.Icon({
+            iconUrl: "https://cdn.jsdelivr.net/npm/@tabler/icons@2.39.0/icons/tree.svg",
+            iconSize: [28, 28],
+            iconAnchor: [14, 28],
+            popupAnchor: [0, -28],
+            className: "poi-marker poi-park"
+        }),
+        public_transport: new L.Icon({
+            iconUrl: "https://cdn.jsdelivr.net/npm/@tabler/icons@2.39.0/icons/bus.svg",
+            iconSize: [28, 28],
+            iconAnchor: [14, 28],
+            popupAnchor: [0, -28],
+            className: "poi-marker poi-transport"
+        })
+    }
 
     return (
         <MapContainer
@@ -181,13 +205,10 @@ export const RealEstateMap = ({ advertisements }: Props) => {
                             },
                             popupopen: (event) => {
                                 const popupElement = event.target.getPopup()?.getElement()
-
                                 if (!popupElement) return
-
                                 popupElement.onmouseenter = () => {
                                     clearCloseTimeout(marker.id)
                                 }
-
                                 popupElement.onmouseleave = () => {
                                     scheduleClosePopup(marker.id, event.target)
                                 }
@@ -208,6 +229,24 @@ export const RealEstateMap = ({ advertisements }: Props) => {
                         </Popup>
                     </Marker>
                 ))}
+                {/* POI markers */}
+                {pois.map((poi) => {
+                    const coords = poi.location?.coordinates
+                    if (!Array.isArray(coords) || coords.length < 2) return null
+                    const [lng, lat] = coords
+                    const icon = poiIcons[poi.type] || poiIcons["school"]
+                    return (
+                        <Marker
+                            key={`poi-${poi.id}`}
+                            position={[lat, lng]}
+                            icon={icon}
+                        >
+                            <Popup>
+                                <span>{poi.name}</span>
+                            </Popup>
+                        </Marker>
+                    )
+                })}
             </MarkerClusterGroup>
         </MapContainer>
     )

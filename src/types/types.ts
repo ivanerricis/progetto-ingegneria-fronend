@@ -9,6 +9,18 @@ export type Advertisement = {
     realEstate: RealEstate
     type: "sale" | "rent"
     status: "active" | "sold" | "rented"
+    pois: Poi[]
+}
+
+export type Poi = {
+    id: number
+    name: string
+    type: string
+    geoapifyPlaceId: string
+    location: {
+        type: string
+        coordinates: [number, number]
+    }
 }
 
 export type Appointment = {

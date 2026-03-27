@@ -25,7 +25,7 @@ const LoginAgent = lazy(() => import('@/pages/Agent/login-agent/Login'));
 const CreateAgency = lazy(() => import('@/pages/CreateAgency/CreateAgency'));
 const DashboardLayout = lazy(() => import('@/pages/Agent/dashboard/DashboardLayout'));
 const Advertisements = lazy(() => import('@/pages/Agent/dashboard/advertisement/Advertisements'));
-const AdvertisementPage = lazy(() => import('@/pages/Agent/dashboard/advertisement/AdvertisementPage'));
+const AgentAdvertisement = lazy(() => import('@/pages/Agent/dashboard/advertisement/Advertisement'));
 const CreateAdvertisement = lazy(() => import('@/pages/Agent/dashboard/createAdvertisement/CreateAdvertisement'));
 const Appointments = lazy(() => import('@/pages/Agent/dashboard/appointment/Appointments'));
 const Offers = lazy(() => import('@/pages/Agent/dashboard/offer/Offers'));
@@ -149,7 +149,7 @@ function App() {
                   <Route path="/agent/dashboard/agents" element={<Agents />} />
                   <Route path="/agent/dashboard/password" element={<AgentPassword />} />
                   <Route path="/agent/dashboard/create-advertisement" element={<CreateAdvertisement />} />
-                  <Route path="/agent/dashboard/advertisement/:id" element={<AdvertisementPage />} />
+                  <Route path="/agent/dashboard/advertisement/:id" element={<AgentAdvertisement />} />
                   <Route path="/agent/dashboard/create-agent" element={<CreateAgentPage />} />
                 </Route>
               </Route>
@@ -159,7 +159,17 @@ function App() {
             </Routes>
           </BrowserRouter>
           {/* </Suspense> */}
-          <Toaster closeButton position='top-center' richColors />
+          <Toaster
+            closeButton
+            position='top-center'
+            richColors
+            toastOptions={{
+              classNames: {
+                title: "text-base",
+                description: "text-sm",
+                closeButton: "[&>svg]:h-4 [&>svg]:w-4 w-6! h-6!",
+              }
+            }} />
         </TooltipProvider>
       </ThemeProvider>
     </MantineProvider>
