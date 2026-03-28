@@ -24,17 +24,13 @@ import BalconyIcon from "@/assets/icons/balcony.svg?react"
 import TerraceIcon from "@/assets/icons/terrace.svg?react"
 import FeatureItem from "./components/featureItem";
 
-type AdvertisementPageProps = {
-    hasContactCard?: boolean
-}
-
 const hasValue = <T,>(value: T | null | undefined): value is T => value !== null && value !== undefined
 
 const hasCoordinates = (latitude?: number, longitude?: number) => (
     Number.isFinite(latitude) && Number.isFinite(longitude)
 )
 
-const Advertisement = ({ hasContactCard }: AdvertisementPageProps) => {
+const Advertisement = () => {
     const navigate = useNavigate()
     const { id } = useParams()
     const { advertisement, isLoading, error } = useAdvertisement(id)
@@ -269,7 +265,7 @@ const Advertisement = ({ hasContactCard }: AdvertisementPageProps) => {
                         )}
                     </div>
                 </div>
-                {hasContactCard && <ContactCard advertisement={advertisement} />}
+                <ContactCard advertisement={advertisement} />
             </div>
         )
     );

@@ -2,7 +2,7 @@ import type { Advertisement } from "@/types/types"
 import { useCallback, useEffect, useState } from "react"
 import { isCancel } from "axios"
 import { apiClient } from "@/lib/api/config"
-import { DeleteAdvertisement } from "@/lib/api/agent"
+import { DeleteAdvertisement, RentAdvertisement } from "@/lib/api/agent"
 
 /**
  * Hook for fetching the list of advertisements for an agent. Handles loading and error states, and provides a refetch function.
@@ -43,11 +43,22 @@ export default function useAdvertisements() {
         setAdvertisements(prev => prev.filter(a => a.id !== id))
     }
 
+    const rentAdvertisement = async (id: number) => {
+        await RentAdvertisement(id)
+
+        setAdvertisements(prev =>
+            prev.map(a =>
+                a.id === id ? { ...a, status: "rented" } : a
+            )
+        )
+    }
+
     return {
         advertisements,
         isLoading,
         error,
         refetch: fetchAdvertisement,
-        deleteAdvertisement
+        deleteAdvertisement,
+        rentAdvertisement
     }
 }

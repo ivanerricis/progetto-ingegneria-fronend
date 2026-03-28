@@ -3,28 +3,32 @@ import { CalendarClock, Pencil, Trash } from "lucide-react"
 import type { Advertisement } from "@/types/types"
 import { formatPrice } from "@/utils/formatPrice"
 import { useNavigate } from "react-router-dom"
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { useState, type MouseEvent } from "react"
+import { useState } from "react"
 import { toast } from "sonner"
 import { PreviewPhoto } from "../../appointment/components/previewPhoto"
 import { Label } from "@/components/ui/label"
+import { DialogDeleteAdvertisement } from "./dialogDeleteAdvertisement"
+import { DialogRentAdvertisement } from "./dialogRentAdvertisement"
 
 type CardRealEstateProps = {
     advertisement: Advertisement
     onDelete: (id: number) => Promise<void>
+    onRent: (id: number) => Promise<void>
 }
 
-export const CardAdvertisement = ({ advertisement, onDelete }: CardRealEstateProps) => {
+export const CardAdvertisement = ({ advertisement, onDelete, onRent }: CardRealEstateProps) => {
     const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+    const [showRentDialog, setShowRentDialog] = useState(false)
     const [isDeleting, setIsDeleting] = useState(false)
+    const [isRenting, setIsRenting] = useState(false)
     const navigate = useNavigate()
 
     const handleCardClick = () => {
         navigate(`/agent/dashboard/advertisement/${String(advertisement.id)}`)
     }
 
-    const handleDelete = async (event: MouseEvent<HTMLButtonElement>) => {
-        event.stopPropagation()
+    const handleDelete = async (ev: React.MouseEvent<HTMLButtonElement>) => {
+        ev.stopPropagation();
         setIsDeleting(true)
         try {
             await onDelete(advertisement.id)
@@ -34,6 +38,21 @@ export const CardAdvertisement = ({ advertisement, onDelete }: CardRealEstatePro
         } finally {
             setIsDeleting(false)
             setShowDeleteDialog(false)
+        }
+    }
+
+    const handleRent = async (ev: React.MouseEvent<HTMLButtonElement>) => {
+        ev.stopPropagation();
+        setIsRenting(true)
+        try {
+            await onRent(advertisement.id)
+            toast.success("Annuncio affittato con successo")
+        }
+        catch (err) {
+            toast.error(err instanceof Error ? err.message : "Errore durante l'affitto dell'annuncio")
+        } finally {
+            setIsRenting(false)
+            setShowRentDialog(false)
         }
     }
 
@@ -58,75 +77,65 @@ export const CardAdvertisement = ({ advertisement, onDelete }: CardRealEstatePro
                 </div>
 
                 {/* Prezzo + Buttons */}
-                <div className="flex justify-between lg:flex-col lg:gap-2">
+                <div className="flex justify-between 2xl:flex-col 2xl:gap-2">
                     <div className="flex w-fit items-center justify-start border-2 border-primary text-primary text-2xl text-bold rounded-sm px-2">
                         {formatPrice(advertisement.price)}
                     </div>
 
                     {/* Buttons */}
-                    {advertisement.status !== "sold" && <div className="flex w-full items-center justify-end lg:justify-between gap-1">
+                    {advertisement.status !== "sold" && <div className="flex w-full items-center justify-end 2xl:justify-between gap-1">
                         <Button
                             variant={"outline"}
-                            className="size-10 lg:flex-1 lg:h-10 lg:px-4 lg:py-2"
+                            className="size-10 2xl:flex-1 2xl:h-10 2xl:px-4 2xl:py-2"
                         >
-                            <Pencil className="size-5"/>
-                            <Label className="hidden lg:block text-md">Modifica</Label>
+                            <Pencil className="size-5" />
+                            <Label className="hidden 2xl:block text-md">Modifica</Label>
                         </Button>
                         {advertisement.type === "rent" && (
                             <Button
                                 variant={"outline"}
-                                className="size-10 lg:flex-1 lg:h-10 lg:px-4 lg:py-2"
+                                className="size-10 2xl:flex-1 2xl:h-10 2xl:px-4 2xl:py-2"
+                                onClick={e => {
+                                    e.stopPropagation();
+                                    setShowRentDialog(true);
+                                }}
                             >
-                                <CalendarClock className="size-5"/>
-                                <Label className="hidden lg:block text-md">Affittato</Label>
+                                <CalendarClock className="size-5" />
+                                <Label className="hidden 2xl:block text-md">Affittato</Label>
                             </Button>
                         )}
                         <Button
                             variant={"destructive"}
-                            className="size-10 lg:flex-1 lg:h-10 lg:px-4 lg:py-2"
+                            className="size-10 2xl:flex-1 2xl:h-10 2xl:px-4 2xl:py-2"
                             onClick={e => {
                                 e.stopPropagation();
                                 setShowDeleteDialog(true);
                             }}
                             disabled={isDeleting}
                         >
-                            <Trash className="size-5"/>
-                            <Label className="hidden lg:block text-md">Elimina</Label>
+                            <Trash className="size-5" />
+                            <Label className="hidden 2xl:block text-md">Elimina</Label>
                         </Button>
                     </div>}
                 </div>
             </div>
 
             {showDeleteDialog && (
-                <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-                    <DialogContent showCloseButton={false} className="border border-destructive">
-                        <DialogHeader>
-                            <DialogTitle className="text-destructive!">Elimina annuncio</DialogTitle>
-                            <DialogDescription>
-                                Sei sicuro di voler eliminare questo annuncio? Questa azione è irreversibile e tutti i dati verranno persi.
-                            </DialogDescription>
-                        </DialogHeader>
-                        <DialogFooter className="gap-2">
-                            <Button
-                                variant="outline"
-                                onClick={e => {
-                                    e.stopPropagation();
-                                    setShowDeleteDialog(false);
-                                }}
-                                disabled={isDeleting}
-                            >
-                                Annulla
-                            </Button>
-                            <Button
-                                variant="destructive"
-                                onClick={handleDelete}
-                                disabled={isDeleting}
-                            >
-                                {isDeleting ? "Eliminazione..." : "Elimina"}
-                            </Button>
-                        </DialogFooter>
-                    </DialogContent>
-                </Dialog>
+                <DialogDeleteAdvertisement
+                    showDeleteDialog={showDeleteDialog}
+                    setShowDeleteDialog={setShowDeleteDialog}
+                    isDeleting={isDeleting}
+                    handleDelete={handleDelete}
+                />
+            )}
+
+            {showRentDialog && (
+                <DialogRentAdvertisement
+                    showRentDialog={showRentDialog}
+                    setShowRentDialog={setShowRentDialog}
+                    isRenting={isRenting}
+                    handleRent={handleRent}
+                />
             )}
         </div>
     )

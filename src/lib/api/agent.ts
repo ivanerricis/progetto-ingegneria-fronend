@@ -133,6 +133,22 @@ export async function DeleteAdvertisement(advertisementId: string | number) {
     }
 }
 
+export async function RentAdvertisement(advertisementId: string | number) {
+    try {
+        const response = await apiClient.patch(`/agent/${advertisementId}/rented`)
+        return response.data
+    } catch (err) {
+        if (isAxiosError(err)) {
+            const message =
+                err.response?.data?.error ??
+                err.response?.data?.message ??
+                "Affitto annuncio non riuscito"
+            throw new Error(message)
+        }
+        throw err
+    }
+}
+
 export async function AcceptOffer(offerId: number) {
     try {
         const response = await apiClient.post(`/offer/agents/${offerId}/accept`);

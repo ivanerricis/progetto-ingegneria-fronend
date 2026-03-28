@@ -114,7 +114,7 @@ export const LoginForm = () => {
                             <div className="flex items-center justify-between">
                                 <Label htmlFor="password" className="text-lg">{t("fields.password.label")}</Label>
                                 <a
-                                    href="#"
+                                    href="/request-reset-password"
                                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                                 >
                                     {t("links.forgotPassword")}

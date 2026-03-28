@@ -38,7 +38,7 @@ const typeOptions = [
 
 export default function Advertisements() {
     const navigate = useNavigate()
-    const { advertisements, isLoading, error, deleteAdvertisement } = useAdvertisements()
+    const { advertisements, isLoading, error, deleteAdvertisement, rentAdvertisement } = useAdvertisements()
 
     const [statusFilter, setStatusFilter] = useState<StatusFilter>("inProgress")
     const [typeFilter, setTypeFilter] = useState<TypeFilter>("sale")
@@ -93,6 +93,7 @@ export default function Advertisements() {
                         isLoading={isLoading}
                         error={error}
                         onDelete={deleteAdvertisement}
+                        onRent={rentAdvertisement}
                     />
                 </div>
             </div>

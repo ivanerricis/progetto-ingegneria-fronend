@@ -40,7 +40,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
     }
 
     return (
-        <div
+        <button
             onClick={handleCardClick}
             className="relative bg-background border w-full h-fit flex flex-col md:flex-row rounded-md shadow-md hover:cursor-pointer hover:bg-secondary dark:text-foreground"
         >
@@ -151,7 +151,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
                     advertisement={advertisement}
                 />
             )}
-        </div>
+        </button>
     )
 }
 

@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { useHomepageSearch } from "@/hooks/account/useHomepageSearch";
 import { X } from "lucide-react";
 
+const ENERGY_CLASS_OPTIONS = ["A", "B", "C", "D", "E", "F", "G"];
 const HOUSING_TYPES = ["apartment", "villa"];
 const HOUSING_TYPE_LABELS: Record<string, string> = {
     apartment: "Appartamento",
@@ -37,6 +39,7 @@ const SidebarFilter = () => {
         maxSize,
         rooms,
         bathrooms,
+        energyClass,
         setFilter,
         clearFilters,
     } = useHomepageSearch();
@@ -163,6 +166,28 @@ const SidebarFilter = () => {
                         </Button>
                     ))}
                 </div>
+            </div>
+
+            <Separator orientation="horizontal" className="shrink-0" />
+
+            <div className="flex flex-col gap-2">
+                <Label className="text-lg">Classe energetica</Label>
+                <Select
+                    value={energyClass || ""}
+                    onValueChange={(value) => setFilter("energyClass", value === "all" ? null : value)}
+                >
+                    <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Qualsiasi" />
+                    </SelectTrigger>
+                    <SelectContent position="popper">
+                        <SelectItem value="all">Qualsiasi</SelectItem>
+                        {ENERGY_CLASS_OPTIONS.map((cls) => (
+                            <SelectItem key={cls} value={cls}>
+                                {cls}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
             </div>
 
             <Separator orientation="horizontal" className="shrink-0" />

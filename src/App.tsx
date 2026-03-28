@@ -10,6 +10,9 @@ import { AccountProvider } from '@/providers/account-provider';
 import { AgentProvider } from '@/providers/agent-provider';
 import { apiClient } from '@/lib/api/config';
 
+const RequestResetPassword = lazy(() => import('@/pages/ResetPassword/RequestResetPassword'));
+const SendResetPassword = lazy(() => import('@/pages/ResetPassword/SendResetPassword'));
+
 // Lazy loading delle pagine Account
 const Login = lazy(() => import('@/pages/Account/login/Login'));
 const Register = lazy(() => import('@/pages/Account/register/Register'));
@@ -93,6 +96,8 @@ function App() {
             <Routes>
               <Route path="/" element={<SessionEntryRedirect />} />
               <Route path="/create-agency" element={<CreateAgency />} />
+              <Route path="/request-reset-password" element={<RequestResetPassword />} />
+              <Route path="/send-reset-password" element={<SendResetPassword />} />
 
               {/* Account Routes */}
               <Route element={<AccountProvider><Outlet /></AccountProvider>}>
