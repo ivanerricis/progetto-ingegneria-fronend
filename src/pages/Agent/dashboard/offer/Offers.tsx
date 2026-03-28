@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Negotiation } from "@/types/types";
 import SidebarOffers from "./components/sidebarOffers";
 import OfferChat from "./components/offerChat";
-import useNegotiations from "@/hooks/agent/useNegotiations";
+import useNegotiations from "@/hooks/useNegotiations";
 import DashboardFilterSelect from "../advertisement/components/dashboardFilterSelect";
 import { BadgeCheck, BadgeX, Clock } from "lucide-react";
 
@@ -29,7 +29,7 @@ const statusOptions = [
 export default function Offers() {
     const [statusFilter, setStatusFilter] = useState<StatusFilter>("pending")
     const [selectedNegotiation, setSelectedNegotiation] = useState<Negotiation | null>(null);
-    const { negotiations } = useNegotiations();
+    const { negotiations } = useNegotiations("AGENT");
 
     const filteredNegotiations = negotiations.filter((negotiation) => {
         return negotiation.lastOffer?.status === statusFilter;

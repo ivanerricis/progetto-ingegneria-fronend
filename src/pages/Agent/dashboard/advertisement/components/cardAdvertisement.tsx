@@ -3,7 +3,7 @@ import { CalendarClock, Pencil, Trash } from "lucide-react"
 import type { Advertisement } from "@/types/types"
 import { formatPrice } from "@/utils/formatPrice"
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useState, type MouseEvent } from "react"
 import { toast } from "sonner"
 import { PreviewPhoto } from "../../appointment/components/previewPhoto"
 import { Label } from "@/components/ui/label"
@@ -27,7 +27,7 @@ export const CardAdvertisement = ({ advertisement, onDelete, onRent }: CardRealE
         navigate(`/agent/dashboard/advertisement/${String(advertisement.id)}`)
     }
 
-    const handleDelete = async (ev: React.MouseEvent<HTMLButtonElement>) => {
+    const handleDelete = async (ev: MouseEvent<HTMLButtonElement>) => {
         ev.stopPropagation();
         setIsDeleting(true)
         try {
@@ -41,7 +41,7 @@ export const CardAdvertisement = ({ advertisement, onDelete, onRent }: CardRealE
         }
     }
 
-    const handleRent = async (ev: React.MouseEvent<HTMLButtonElement>) => {
+    const handleRent = async (ev: MouseEvent<HTMLButtonElement>) => {
         ev.stopPropagation();
         setIsRenting(true)
         try {

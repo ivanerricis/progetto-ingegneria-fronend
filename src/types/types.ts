@@ -123,6 +123,8 @@ export type Offer = {
     agent: Agent
 }
 
+export type Role = "AGENT" | "ACCOUNT";
+
 export type Services = {
     ariaCondizionata: boolean;
     balcone: boolean;

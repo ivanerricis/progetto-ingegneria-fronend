@@ -3,8 +3,8 @@ import { useEffect, useRef } from "react";
 import { HeaderOffer } from "@/pages/components/headerOffer";
 import { FooterChat } from "./footerChat";
 import { Spinner } from "@/components/ui/spinner";
-import { OfferItem } from "./offerItem";
-import useOffers from "@/hooks/account/useOffers";
+import { OfferItem } from "@/pages/components/offerItem";
+import useOffers from "@/hooks/useOffers";
 
 type Props = {
     selectedNegotiation: Negotiation | null;
@@ -13,6 +13,7 @@ type Props = {
 
 export default function OfferChat({ selectedNegotiation, onBack }: Props) {
     const { offers, isLoading, error } = useOffers(
+        "ACCOUNT",
         selectedNegotiation?.advertisement.id,
         selectedNegotiation?.agent.id
     );
@@ -51,7 +52,11 @@ export default function OfferChat({ selectedNegotiation, onBack }: Props) {
                         {error && <div>{error}</div>}
 
                         {sortedOffers.map((offer) => {
-                            return <OfferItem offer={offer} key={offer.id} />;
+                            return <OfferItem
+                                key={offer.id}
+                                offer={offer}
+                                role="ACCOUNT"
+                            />;
                         })}
 
                         <div ref={bottomRef} />
