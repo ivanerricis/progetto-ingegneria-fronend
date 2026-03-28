@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import useOffers from "@/hooks/account/useOffers";
+import useOffers from "@/hooks/useOffers";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 

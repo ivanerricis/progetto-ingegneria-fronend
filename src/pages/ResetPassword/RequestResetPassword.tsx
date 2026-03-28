@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import sfondo from "@/assets/sfondo.webp";
 import { RequestResetPasswordForm } from "./components/requestResetPasswordForm";
 
 const RequestResetPassword = () => {
@@ -46,7 +45,7 @@ const RequestResetPassword = () => {
             <main className="relative flex-1 min-h-0 flex items-center justify-center sm:rounded-xl overflow-hidden overflow-y-auto sm:mx-26">
                 <div
                     className="hidden sm:block absolute inset-0 bg-cover bg-center bg-no-repeat"
-                    style={{ backgroundImage: `url(${sfondo})` }}
+                    style={{ backgroundImage: `url(/sfondo.webp)` }}
                 />
                 <RequestResetPasswordForm />
             </main>

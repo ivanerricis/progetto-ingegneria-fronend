@@ -129,7 +129,7 @@ body,
 @layer base {
     @font-face {
         font-family: "Poppins";
-        src: url("./assets/fonts/NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf");
+        src: url("./assets/fonts/NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.woff2") format("woff2");
         font-weight: normal;
         font-display: swap;
     }
@@ -185,6 +185,8 @@ body,
     background: var(--primary);
 }
 
+
+/* Custom styles for real estate price icons and popups */
 .real-estate-price-icon:hover .real-estate-price-icon__badge {
     border-color: var(--primary) !important;
 }
@@ -232,4 +234,22 @@ body,
 /* Keep Leaflet internal z-index layers confined under app overlays/dialogs. */
 .leaflet-container {
     z-index: 0;
+}
+
+/* Custom styles for language flags */
+.fi {
+  width: 1.333em;
+  line-height: 1em;
+  background-size: cover;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+
+.fi-it {
+  background-image: url("../node_modules/flag-icons/flags/4x3/it.svg");
+}
+
+.fi-gb {
+  background-image: url("../node_modules/flag-icons/flags/4x3/gb.svg");
 }

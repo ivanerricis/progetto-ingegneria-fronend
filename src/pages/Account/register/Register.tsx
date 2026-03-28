@@ -1,6 +1,5 @@
 import { Footer } from "@/components/footer"
 import Header from "@/components/header"
-import sfondo from "@/assets/sfondo.webp"
 import RegisterForm from "@/pages/Account/register/components/registerForm"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle"
@@ -38,7 +37,7 @@ export const Register = () => {
             <main className="relative flex-1 min-h-0 flex items-center justify-center sm:rounded-xl overflow-hidden sm:mx-26">
                 <div
                     className="hidden sm:block absolute inset-0 bg-cover bg-center bg-no-repeat"
-                    style={{ backgroundImage: `url(${sfondo})` }}
+                    style={{ backgroundImage: `url(/sfondo.webp)` }}
                 />
                 <RegisterForm />
             </main>

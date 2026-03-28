@@ -1,7 +1,6 @@
 import { Footer } from "@/components/footer"
 import Header from "@/components/header"
 import LoginForm from "@/pages/Account/login/components/loginForm"
-import sfondo from "@/assets/sfondo.webp"
 import { Button } from "@/components/ui/button"
 import { useNavigate } from "react-router-dom"
 import { ModeToggle } from "@/components/mode-toggle"
@@ -72,7 +71,7 @@ export const Login = () => {
             <main className="relative flex-1 min-h-0 flex items-center justify-center sm:rounded-xl overflow-hidden sm:mx-26">
                 <div
                     className="hidden sm:block absolute inset-0 bg-cover bg-center bg-no-repeat"
-                    style={{ backgroundImage: `url(${sfondo})` }}
+                    style={{ backgroundImage: `url(/sfondo.webp)` }}
                 />
                 <LoginForm />
             </main>
