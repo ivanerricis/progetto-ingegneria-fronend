@@ -7,9 +7,10 @@ type CarouselApi = UseEmblaCarouselType[1]
 
 type RealEstateCarouselProps = {
     photos?: Photo[]
+    variant?: "card" | "standalone"
 }
 
-const RealEstateCarousel = ({ photos = [] }: RealEstateCarouselProps) => {
+const RealEstateCarousel = ({ photos = [], variant = "card" }: RealEstateCarouselProps) => {
     const slides = photos
         .filter((photo) => typeof photo.url === "string" && photo.url.trim() !== "")
         .sort((a, b) => a.position - b.position)
@@ -26,19 +27,26 @@ const RealEstateCarousel = ({ photos = [] }: RealEstateCarouselProps) => {
     useEffect(() => {
         if (!api) return
 
-        const timeout = setTimeout(() => onSelect(api), 0)
+        const timer = setTimeout(() => onSelect(api), 0)
         api.on("select", onSelect)
         api.on("reInit", onSelect)
 
         return () => {
-            clearTimeout(timeout)
+            clearTimeout(timer)
             api.off("select", onSelect)
             api.off("reInit", onSelect)
         }
     }, [api, onSelect])
 
+    // "card" = angoli arrotondati solo in alto (mobile) o a sinistra (desktop), nessun aspect-ratio fisso
+    // "standalone" = angoli arrotondati su tutti i lati + aspect-video
+    const carouselClassName =
+        variant === "standalone"
+            ? "h-full w-full overflow-hidden rounded-md aspect-video **:data-[slot=carousel-content]:h-full"
+            : "h-full w-full overflow-hidden rounded-t-md sm:rounded-t-none sm:rounded-l-md **:data-[slot=carousel-content]:h-full"
+
     return (
-        <Carousel setApi={setApi} className="h-full w-full overflow-hidden rounded-t-md sm:rounded-t-none sm:rounded-l-md **:data-[slot=carousel-content]:h-full">
+        <Carousel setApi={setApi} className={carouselClassName}>
             <CarouselContent className="ml-0 h-full">
                 {slides.length === 0 ? (
                     <CarouselItem className="h-full basis-full pl-0">
@@ -61,6 +69,8 @@ const RealEstateCarousel = ({ photos = [] }: RealEstateCarouselProps) => {
             </CarouselContent>
             <CarouselPrevious className="left-2" />
             <CarouselNext className="right-2" />
+
+            {/* Slide counter */}
             {count > 1 && (
                 <div className="absolute bottom-2 right-2 bg-black/50 text-white text-xs px-2 py-0.5 rounded-sm pointer-events-none">
                     {current} / {count}

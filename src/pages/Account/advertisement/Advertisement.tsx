@@ -1,14 +1,14 @@
 import Header from "@/components/header";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
-import useAdvertisement from "@/hooks/account/useAdvertisement";
+import useAdvertisement from "@/hooks/useAdvertisement";
 import { formatPrice } from "@/utils/formatPrice";
 import { AirVent, ArrowLeft, Bath, Contact, Fence, Heater, Lightbulb, ShelvingUnit, SolarPanel, SquareParking } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AccountBadge } from "@/pages/Account/homepage/components/accountBadge";
 import { Label } from "@/components/ui/label";
 import { Footer } from "@/components/footer";
-import RealEstateCarousel from "@/pages/Account/advertisement/components/realEstateCarousel";
+import RealEstateCarousel from "@/pages/components/realEstateCarousel";
 import type { ReactNode } from "react"
 import { ContactCard } from "@/pages/Account/advertisement/components/contactCard";
 import { RealEstateMap } from "@/components/map/realEstateMap";
@@ -33,7 +33,7 @@ const hasCoordinates = (latitude?: number, longitude?: number) => (
 const Advertisement = () => {
     const navigate = useNavigate()
     const { id } = useParams()
-    const { advertisement, isLoading, error } = useAdvertisement(id)
+    const { advertisement, isLoading, error } = useAdvertisement("account", id)
 
     const handleBackClick = () => {
         if (window.history.length > 1) {
@@ -116,7 +116,7 @@ const Advertisement = () => {
             <div className="flex w-full flex-col gap-2 sm:h-full sm:min-h-0 sm:flex-row 2xl:px-60 sm:overflow-y-auto">
                 <div className="flex flex-1 flex-col gap-4 sm:min-h-0 sm:pr-2">
                     <div className="flex w-full border rounded-md aspect-video sm:min-h-120 max-h-140">
-                        <RealEstateCarousel photos={advertisement.photos} />
+                        <RealEstateCarousel photos={advertisement.photos} variant="standalone"/>
                     </div>
                     <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                         <div>

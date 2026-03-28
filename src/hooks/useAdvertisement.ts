@@ -6,9 +6,10 @@ import { apiClient } from "@/lib/api/config"
 /**
  * Hook for fetching a single advertisement by ID. Handles loading and error states.
  * @param advertisementId The ID of the advertisement to fetch. If not provided, the hook will set an error state.
+ * @param role The role context used to determine the API endpoint. Defaults to "agent".
  * @returns An object containing the advertisement data, loading state, and error message (if any).
  */
-export default function useAdvertisement(advertisementId?: string) {
+export default function useAdvertisement(role: "agent" | "account", advertisementId?: string) {
     const [advertisement, setAdvertisement] = useState<Advertisement | null>(null)
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -28,12 +29,11 @@ export default function useAdvertisement(advertisementId?: string) {
             setIsLoading(true)
 
             try {
-                const { data } = await apiClient.get(`/account/advertisement/${advertisementId}`, {
+                const { data } = await apiClient.get(`/${role}/advertisement/${advertisementId}`, {
                     signal: abortController.signal,
                 })
                 const item = data?.item ?? data?.advertisement ?? data
                 setAdvertisement(item)
-                console.log("Fetched advertisement:", item)
             } catch (error) {
                 if (isCancel(error)) return
 
@@ -46,7 +46,7 @@ export default function useAdvertisement(advertisementId?: string) {
         fetchAdvertisement()
 
         return () => abortController.abort()
-    }, [advertisementId])
+    }, [advertisementId, role])
 
     return { advertisement, isLoading, error }
 }

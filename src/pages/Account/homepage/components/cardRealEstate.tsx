@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Bath, CalendarDays, HandCoins } from "lucide-react"
 import type { Advertisement } from "@/types/types"
-import RealEstateCarousel from "@/pages/Account/homepage/components/realEstateCarousel"
+import RealEstateCarousel from "@/pages/components/realEstateCarousel"
 import { formatPrice } from "@/utils/formatPrice"
 import FloorPlanIcon from "@/assets/icons/floorplan.svg?react"
 import ExpandIcon from "@/assets/icons/expand-2.svg?react"
@@ -40,9 +40,13 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
     }
 
     return (
-        <button
+        <div
             onClick={handleCardClick}
+            onKeyDown={handleCardClick}
             className="relative bg-background border w-full h-fit flex flex-col md:flex-row rounded-md shadow-md hover:cursor-pointer hover:bg-secondary dark:text-foreground"
+            role="button"
+            tabIndex={0}
+            aria-label={`Visualizza i dettagli dell'immobile per ${advertisement.realEstate.addressFormatted}`}
         >
 
             <div className="absolute z-20 top-2 left-2 bg-primary text-sm text-primary-foreground px-2 py-1 rounded-sm">
@@ -51,7 +55,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
 
             {/* Carousel */}
             <div className="flex w-full sm:w-80 min-w-60 h-70 sm:h-76">
-                <RealEstateCarousel photos={advertisement.photos} />
+                <RealEstateCarousel photos={advertisement.photos} variant="card" />
             </div>
 
             {/* Informazioni immobile */}
@@ -151,7 +155,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
                     advertisement={advertisement}
                 />
             )}
-        </button>
+        </div>
     )
 }
 

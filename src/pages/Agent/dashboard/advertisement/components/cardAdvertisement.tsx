@@ -60,6 +60,10 @@ export const CardAdvertisement = ({ advertisement, onDelete, onRent }: CardRealE
         <div
             className="border-2 w-full h-fit flex flex-col rounded-sm shadow-sm hover:cursor-pointer bg-background hover:bg-secondary dark:text-foreground"
             onClick={handleCardClick}
+            onKeyDown={handleCardClick}
+            role="button"
+            tabIndex={0}
+            aria-label={`Visualizza i dettagli dell'annuncio per ${advertisement.realEstate.addressFormatted}`}
         >
 
             {/* Carousel */}

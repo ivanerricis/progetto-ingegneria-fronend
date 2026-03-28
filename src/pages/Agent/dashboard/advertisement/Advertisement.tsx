@@ -1,9 +1,9 @@
-import useAdvertisement from "@/hooks/agent/useAdvertisement";
+import useAdvertisement from "@/hooks/useAdvertisement";
 import { formatPrice } from "@/utils/formatPrice";
 import { AirVent, Bath, Contact, Fence, Heater, Lightbulb, ShelvingUnit, SolarPanel, SquareParking } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { Label } from "@/components/ui/label";
-import RealEstateCarousel from "@/pages/Account/advertisement/components/realEstateCarousel";
+import RealEstateCarousel from "@/pages/components/realEstateCarousel";
 import type { ReactNode } from "react"
 import { RealEstateMap } from "@/components/map/realEstateMap";
 import { Separator } from "@/components/ui/separator";
@@ -38,7 +38,7 @@ const hasCoordinates = (latitude?: number, longitude?: number) => (
 
 const Advertisement = () => {
     const { id } = useParams()
-    const { advertisement, isLoading, error } = useAdvertisement(id)
+    const { advertisement, isLoading, error } = useAdvertisement("agent", id)
 
     const renderPage = (content: ReactNode) => (
         <div className="flex h-screen flex-col">
@@ -77,7 +77,7 @@ const Advertisement = () => {
         renderPage(
             <div className="flex flex-col gap-4 min-h-0 2xl:px-60">
                 <div className="flex w-full border rounded-md aspect-video sm:min-h-120 max-h-140">
-                    <RealEstateCarousel photos={advertisement.photos} />
+                    <RealEstateCarousel photos={advertisement.photos} variant="standalone"/>
                 </div>
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                     <div>
