@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/button";
-import { Check, Send, Trash } from "lucide-react";
 import { useState } from "react";
+import { Check, Send, Trash } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import type { Account, Advertisement, Offer } from "@/types/types";
 import { DialogAcceptOffer } from "./dialogAcceptOffer";
 import { DialogRejectOffer } from "./dialogRejectOffer";
-import type { Account, Advertisement, Offer } from "@/types/types";
-import { DialogCounterOffer } from "./dialogCounterOffer";
-import { Label } from "@/components/ui/label";
+import { DialogCounterOffer } from "@/pages/components/dialogCounterOffer";
 
 type Props = {
     sortedOffers: Offer[];

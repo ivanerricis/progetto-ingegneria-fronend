@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { CounterOffer } from "@/lib/api/agent";
+import { CounterOffer as CounterOfferAgent } from "@/lib/api/agent";
+import { CounterOffer as CounterOfferAccount } from "@/lib/api/account";
 import { formatPrice } from "@/utils/formatPrice";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +13,7 @@ type Props = {
     isCounterOfferDialogOpen: boolean;
     setIsCounterOfferDialogOpen: (open: boolean) => void;
     advertisementId: number;
-    accountId: number;
+    accountId?: number;
 }
 export const DialogCounterOffer = ({ isCounterOfferDialogOpen, setIsCounterOfferDialogOpen, advertisementId, accountId }: Props) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +23,10 @@ export const DialogCounterOffer = ({ isCounterOfferDialogOpen, setIsCounterOffer
     const handleSendCounterOffer = async () => {
         setIsLoading(true);
         try {
-            await CounterOffer(advertisementId, accountId, price);
+            if (accountId)
+                await CounterOfferAgent(advertisementId, accountId, price);
+            else
+                await CounterOfferAccount(advertisementId, price)
             toast.success("Contro-offerta inviata con successo");
             navigate(0);
         } catch (error) {

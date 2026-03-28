@@ -4,7 +4,7 @@ import { useState } from "react";
 import { DialogAcceptOffer } from "./dialogAcceptOffer";
 import { DialogRejectOffer } from "./dialogRejectOffer";
 import type { Advertisement, Offer } from "@/types/types";
-import { DialogCounterOffer } from "./dialogCounterOffer";
+import { DialogCounterOffer } from "@/pages/components/dialogCounterOffer";
 import { Label } from "@/components/ui/label";
 
 type Props = {

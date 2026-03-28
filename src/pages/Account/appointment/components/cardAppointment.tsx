@@ -35,6 +35,7 @@ export const CardAppointment = ({ appointment, cancelAppointment }: CardAppointm
             toast.error("Annullo fallito: " + message)
         } finally {
             setIsCancelling(false);
+            setShowCancelDialog(false)
         }
     }
 

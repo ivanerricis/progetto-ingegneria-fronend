@@ -6,8 +6,10 @@ import { ArrowLeft } from "lucide-react";
 type Props = {
     selectedNegotiation: Negotiation | null;
     onBack: () => void;
+    type: "agent" | "account"
 }
-export const HeaderOffer = ({ selectedNegotiation, onBack }: Props) => {
+
+export const HeaderOffer = ({ selectedNegotiation, onBack, type }: Props) => {
     return (
         <div className="flex gap-3 border-b p-2 items-center bg-background">
             <Button
@@ -24,8 +26,11 @@ export const HeaderOffer = ({ selectedNegotiation, onBack }: Props) => {
                     {selectedNegotiation?.advertisement.realEstate.addressFormatted}
                 </Label>
                 <Label className="text-sm">
-                    {selectedNegotiation?.agent.firstName}{" "}
-                    {selectedNegotiation?.agent.lastName}
+                    {type === "agent" ?
+                        selectedNegotiation?.agent.firstName
+                        :
+                        selectedNegotiation?.account.firstName
+                    }
                 </Label>
             </div>
         </div>

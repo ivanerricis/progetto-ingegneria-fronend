@@ -1,5 +1,5 @@
-import { BadgeChat } from "./badgeChat";
 import type { Negotiation } from "@/types/types";
+import { BadgeChat } from "@/pages/components/badgeChat";
 
 type Props = {
     negotiations?: Negotiation[];
@@ -24,8 +24,8 @@ export default function SidebarOffers({
                         key={`${negotiation.advertisement.id}-${negotiation.account.id}`}
                         onClick={() => onSelect(negotiation)}
                         addressFormatted={negotiation.advertisement.realEstate.addressFormatted}
-                        accountName={negotiation.account.firstName + " " + negotiation.account.lastName}
-                        accountEmail={negotiation.account.email}
+                        name={negotiation.account.firstName + " " + negotiation.account.lastName}
+                        email={negotiation.account.email}
                     />
                 ))
             ) : (

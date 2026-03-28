@@ -121,16 +121,16 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
                             className="flex-1 rounded-sm sm:w-fit sm:flex-none"
                             onClick={handleOfferButtonClick}
                         >
-                            Offerta
                             <HandCoins className="size-5" />
+                            Offerta
                         </Button>}
                         <Button
                             variant={"outline"}
                             className="flex-1 rounded-sm sm:w-fit sm:flex-none"
                             onClick={handleAppointmentButtonClick}
                         >
-                            Prenota
                             <CalendarDays className="size-5" />
+                            Prenota
                         </Button>
                     </div>
                 </div>

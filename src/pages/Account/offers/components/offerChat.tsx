@@ -1,6 +1,6 @@
 import type { Negotiation } from "@/types/types";
 import { useEffect, useRef } from "react";
-import { HeaderOffer } from "./headerOffer";
+import { HeaderOffer } from "@/pages/components/headerOffer";
 import { FooterChat } from "./footerChat";
 import { Spinner } from "@/components/ui/spinner";
 import { OfferItem } from "./offerItem";
@@ -37,7 +37,11 @@ export default function OfferChat({ selectedNegotiation, onBack }: Props) {
                 </div>
             ) : (
                 <>
-                    <HeaderOffer selectedNegotiation={selectedNegotiation} onBack={onBack} />
+                    <HeaderOffer
+                        selectedNegotiation={selectedNegotiation}
+                        onBack={onBack}
+                        type="agent"
+                    />
 
                     <div className="flex-1 overflow-y-auto p-2 space-y-2">
                         {isLoading && <div className="w-full h-full flex items-center justify-center">

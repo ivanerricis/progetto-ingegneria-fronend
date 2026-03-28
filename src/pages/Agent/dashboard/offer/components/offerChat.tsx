@@ -1,6 +1,6 @@
 import type { Negotiation } from "@/types/types";
 import { useEffect, useRef } from "react";
-import { HeaderOffer } from "./headerOffer";
+import { HeaderOffer } from "@/pages/components/headerOffer";
 import { OfferItem } from "./offerItem";
 import { FooterChat } from "./footerChat";
 import useOffers from "@/hooks/agent/useOffers";
@@ -37,7 +37,11 @@ export default function OfferChat({ selectedNegotiation, onBack }: Props) {
                 </div>
             ) : (
                 <>
-                    <HeaderOffer selectedNegotiation={selectedNegotiation} onBack={onBack} />
+                    <HeaderOffer
+                        selectedNegotiation={selectedNegotiation}
+                        onBack={onBack}
+                        type="account"
+                    />
 
                     <div className="flex-1 overflow-y-auto p-2 space-y-2">
                         {isLoading && <div className="w-full h-full flex items-center justify-center">
@@ -47,7 +51,10 @@ export default function OfferChat({ selectedNegotiation, onBack }: Props) {
                         {error && <div>{error}</div>}
 
                         {sortedOffers.map((offer) => {
-                            return <OfferItem offer={offer} key={offer.id} />;
+                            return <OfferItem
+                                offer={offer}
+                                key={offer.id}
+                            />;
                         })}
 
                         <div ref={bottomRef} />
