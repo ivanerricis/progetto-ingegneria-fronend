@@ -3,6 +3,7 @@ import {
     useCallback,
     useContext,
     useEffect,
+    useMemo,
     useState,
     type ReactNode,
 } from "react";
@@ -49,7 +50,7 @@ export const AgentProvider = ({ children }: Props) => {
         }
     }, [setAgent]);
 
-    const logout = async () => {
+    const logout = useCallback (async () => {
         try {
             await apiClient.post("/auth/agent/logout");
         } catch {
@@ -57,7 +58,7 @@ export const AgentProvider = ({ children }: Props) => {
         }
 
         setAgent(null);
-    };
+    }, [setAgent]);
 
     useEffect(() => {
         setLogoutHandler(() => {
@@ -83,16 +84,16 @@ export const AgentProvider = ({ children }: Props) => {
         init();
     }, [refreshAgent]);
 
+    const contextValue = useMemo(() => ({
+        agent,
+        loading,
+        setAgent,
+        logout,
+        refreshAgent,
+    }), [agent, loading, setAgent, logout, refreshAgent]);
+
     return (
-        <AgentContext.Provider
-            value={{
-                agent,
-                loading,
-                setAgent,
-                logout,
-                refreshAgent,
-            }}
-        >
+        <AgentContext.Provider value={contextValue}>
             {children}
         </AgentContext.Provider>
     );

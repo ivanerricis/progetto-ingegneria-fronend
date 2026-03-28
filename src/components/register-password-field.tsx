@@ -4,18 +4,18 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
 
-type RegisterPasswordFieldProps = {
+type RegisterPasswordFieldProps = Readonly<{
     value: string
     onChange: (value: string) => void
     disabled?: boolean
     label?: string
     placeholder?: string
-}
+}>
 
-type PasswordRequirementProps = {
+type PasswordRequirementProps = Readonly<{
     meets: boolean
     label: string
-}
+}>
 
 type PasswordRule = {
     test: (password: string) => boolean
@@ -23,7 +23,7 @@ type PasswordRule = {
 }
 
 const passwordRules: PasswordRule[] = [
-    { test: (password) => /[0-9]/.test(password), label: "Include un numero" },
+    { test: (password) => /'\d'/.test(password), label: "Include un numero" },
     { test: (password) => /[a-z]/.test(password), label: "Include una lettera minuscola" },
     { test: (password) => /[A-Z]/.test(password), label: "Include una lettera maiuscola" },
     { test: (password) => /[$&+,:;=?@#|'<>.^*()%!-]/.test(password), label: "Include un simbolo speciale" },

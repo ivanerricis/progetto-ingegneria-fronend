@@ -2,12 +2,12 @@ import type { Advertisement } from "@/types/types"
 import AdvertisementsList from "./advertisementList"
 import CardAdvertisementSkeleton from "./cardAdvertisementSkeleton"
 
-type AdvertisementTabPanelProps = {
+type AdvertisementTabPanelProps = Readonly<{
     advertisements: Advertisement[]
     isLoading: boolean
     error: string | null
     onDelete: (id: number) => Promise<void>
-}
+}>
 
 export default function AdvertisementsPanel({ advertisements, isLoading, error, onDelete }: AdvertisementTabPanelProps) {
     return (

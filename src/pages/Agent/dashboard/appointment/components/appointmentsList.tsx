@@ -1,11 +1,11 @@
 import { CardAppointment } from "./cardAppointment"
 import type { AppointmentsResult } from "@/hooks/agent/useAppointments"
 
-type Props = {
+type Props = Readonly<{
     appointments: AppointmentsResult[]
     onConfirm: (id: number) => Promise<void>
     onReject: (id: number) => Promise<void>
-}
+}>
 
 export default function AppointmentsList({ appointments, onConfirm, onReject }: Props) {
     return (

@@ -53,7 +53,8 @@ const useAdvertisements = () => {
                 params.set("skip", String(skip));
 
                 const queryString = params.toString();
-                const url = `/account/advertisements${queryString ? `?${queryString}` : ""}`;
+                const queryPart = queryString ? `?${queryString}` : "";
+                const url = `/account/advertisements${queryPart}`;
 
                 const response = await apiClient.get(url, {
                     signal: controller.signal,

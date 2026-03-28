@@ -98,15 +98,15 @@ const Advertisement = ({ hasContactCard }: AdvertisementPageProps) => {
 
     const schools = advertisement.pois
         .filter(p => p.type === "school")
-        .map(p => ({ ...p, name: p.name !== "POI" ? p.name : "Scuola" }))
+        .map(p => ({ ...p, name: p.name === "POI" ? "Scuola" : p.name }))
 
     const parks = advertisement.pois
         .filter(p => p.type === "park")
-        .map(p => ({ ...p, name: p.name !== "POI" ? p.name : "Parco" }))
+        .map(p => ({ ...p, name: p.name === "POI" ? "Parco" : p.name }))
 
     const transports = advertisement.pois
         .filter(p => p.type === "public_transport")
-        .map(p => ({ ...p, name: p.name !== "POI" ? p.name : "Trasporto pubblico" }))
+        .map(p => ({ ...p, name: p.name === "POI" ? "Trasporto pubblico" : p.name }))
 
     const latitude = advertisement.realEstate.coordinates?.latitude
     const longitude = advertisement.realEstate.coordinates?.longitude

@@ -3,17 +3,15 @@ import { useEffect, useRef } from "react"
 import MarkerClusterGroup from "react-leaflet-cluster"
 import { createPriceIcon } from "./markerIcon"
 import { useNavigate } from "react-router-dom"
-import type { Advertisement } from "@/types/types"
+import type { Advertisement, Poi } from "@/types/types"
 import { MarkerHoverCard } from "./markerHoverCard"
 import type { Marker as LeafletMarker } from "leaflet"
-
-import type { Poi } from "@/types/types"
 import L from "leaflet"
 
-type Props = {
+type RealEstateMapProps = Readonly<{
     advertisements: Advertisement[]
     pois?: Poi[]
-}
+}>
 
 type MarkerData = {
     id: string
@@ -105,7 +103,7 @@ const RefreshMapSize = () => {
     return null
 }
 
-export const RealEstateMap = ({ advertisements, pois = [] }: Props) => {
+export const RealEstateMap = ({ advertisements, pois = [] }: RealEstateMapProps) => {
     const navigate = useNavigate()
     const closePopupTimeouts = useRef<Record<string, number>>({})
 

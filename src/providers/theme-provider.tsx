@@ -2,11 +2,11 @@ import { createContext, useContext, useEffect, useState } from "react"
 
 type Theme = "dark" | "light" | "system"
 
-type ThemeProviderProps = {
+type ThemeProviderProps = Readonly<{
     children: React.ReactNode
     defaultTheme?: Theme
     storageKey?: string
-}
+}>
 
 type ThemeProviderState = {
     theme: Theme

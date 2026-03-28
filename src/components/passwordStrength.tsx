@@ -9,10 +9,10 @@ type PasswordStrengthProps = {
     disable?: boolean
 }
 
-type PasswordRequirementProps = {
+type PasswordRequirementProps = Readonly<{
     meets: boolean
     label: string
-}
+}>
 
 function PasswordRequirement({ meets, label }: PasswordRequirementProps) {
     return (
@@ -26,7 +26,7 @@ function PasswordRequirement({ meets, label }: PasswordRequirementProps) {
 }
 
 const requirements = [
-    { re: /[0-9]/, label: 'Include un numero' },
+    { re: /'\d'/, label: 'Include un numero' },
     { re: /[a-z]/, label: 'Include una lettera minuscola' },
     { re: /[A-Z]/, label: 'Include una lettera maiuscola' },
     { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: 'Include un simbolo speciale' },

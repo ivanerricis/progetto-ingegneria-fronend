@@ -16,7 +16,7 @@ const LanguageSwitcher = () => {
     const currentLabel = currentLanguage === "it" ? "Italiano" : "English";
 
     const changeLanguage = (lang: "it" | "en") => {
-        void i18n.changeLanguage(lang).catch(console.error);
+        i18n.changeLanguage(lang).catch(console.error);
     };
 
     return (

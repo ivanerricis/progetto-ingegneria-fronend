@@ -6,10 +6,10 @@ import { Trash } from "lucide-react"
 import { CardAgent } from "./cardAgent"
 import { DialogDeleteAgent } from "./dialogDeleteAgent"
 
-type AgentListProps = {
+type AgentListProps = Readonly<{
     agents: Agent[]
     onDelete: (id: number) => Promise<void>
-}
+}>
 
 export default function AgentsList({ agents, onDelete }: AgentListProps) {
     const [open, setOpen] = useState(false)

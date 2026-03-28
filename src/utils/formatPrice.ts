@@ -15,7 +15,7 @@ export const formatPrice = (price: string | number) => {
     const numericValue = Number(normalizedValue)
 
     if (!Number.isFinite(numericValue)) {
-        return rawValue
+        return rawValue;
     }
 
     return new Intl.NumberFormat("it-IT", {

@@ -14,12 +14,12 @@ type SelectOption = {
     icon?: ReactNode
 }
 
-type DashboardFilterSelectProps = {
+type DashboardFilterSelectProps = Readonly<{
     value: string
     placeholder: string
     options: SelectOption[]
     onValueChange: (value: string) => void
-}
+}>
 
 export default function DashboardFilterSelect({
     value,

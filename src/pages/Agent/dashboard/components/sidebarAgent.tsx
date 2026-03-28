@@ -8,12 +8,12 @@ import type { ReactNode } from "react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
-type SideBarItemProps = {
+type SideBarItemProps = Readonly<{
     icon: ReactNode;
     label: string;
     active: boolean;
     onClick: () => void;
-};
+}>;
 
 function SideBarItem({ icon, label, active, onClick }: SideBarItemProps) {
     return (

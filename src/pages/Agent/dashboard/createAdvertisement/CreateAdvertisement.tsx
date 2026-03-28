@@ -102,7 +102,7 @@ export default function CreateAdvertisement() {
             services,
             description,
             address: addressData,
-            price: parseFloat(priceInput),
+            price: Number.parseFloat(priceInput),
             type: typeValue,
         };
 

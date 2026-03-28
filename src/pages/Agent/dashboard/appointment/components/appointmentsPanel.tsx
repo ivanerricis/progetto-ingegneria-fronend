@@ -2,13 +2,13 @@ import AppointmentsList from "./appointmentsList"
 import type { AppointmentsResult } from "@/hooks/agent/useAppointments"
 import { CardAppointmentSkeleton } from "./cardAppointmentSkeleton"
 
-type AppointmentsTabPanelProps = {
+type AppointmentsTabPanelProps = Readonly<{
     appointments: AppointmentsResult[]
     isLoading: boolean
     error: string | null
     onConfirm: (id: number) => Promise<void>
     onReject: (id: number) => Promise<void>
-}
+}>
 
 export default function AppointmentsPanel({ appointments, isLoading, error, onConfirm, onReject }: AppointmentsTabPanelProps) {
     return (

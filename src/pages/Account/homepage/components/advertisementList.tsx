@@ -1,9 +1,9 @@
 import type { Advertisement } from "@/types/types"
 import CardRealEstate from "./cardRealEstate"
 
-type Props = {
+type Props = Readonly<{
     advertisements: Advertisement[]
-}
+}>
 
 export default function AdvertisementsList({ advertisements }: Props) {
     return (

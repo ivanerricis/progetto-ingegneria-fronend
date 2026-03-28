@@ -30,14 +30,15 @@ export const useHomepageSearch = () => {
 
     const setCity = useCallback(
         (city: CityOption | null) => {
-            if (!city) {
-                updateParams({ city: null, cityLat: null, cityLon: null })
-            } else {
+            if (city) {
                 updateParams({
                     city: city.value,
                     cityLat: String(city.lat),
                     cityLon: String(city.lon),
                 })
+
+            } else {
+                updateParams({ city: null, cityLat: null, cityLon: null })
             }
         },
         [updateParams],
@@ -67,13 +68,13 @@ export const useHomepageSearch = () => {
             const city = next.get("city")
             const cityLat = next.get("cityLat")
             const cityLon = next.get("cityLon")
-            
+
             Array.from(next.keys()).forEach((key) => next.delete(key))
-            
+
             if (city) next.set("city", city)
             if (cityLat) next.set("cityLat", cityLat)
             if (cityLon) next.set("cityLon", cityLon)
-            
+
             next.set("page", "0")
             return next
         })

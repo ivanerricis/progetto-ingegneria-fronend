@@ -14,7 +14,7 @@ const CheckboxFilter = ({
     onCheckedChange,
     className = "",
 }: CheckboxFilterProps) => {
-    const id = label.toLowerCase().replace(/\s+/g, "-");
+    const id = label.toLowerCase().replaceAll(/\s+/g, "-");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         onCheckedChange?.(e.target.checked);

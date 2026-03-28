@@ -1,10 +1,10 @@
 import type { Advertisement } from "@/types/types"
 import CardAdvertisement from "./cardAdvertisement"
 
-type Props = {
+type Props = Readonly<{
     advertisements: Advertisement[]
     onDelete: (id: number) => Promise<void>
-}
+}>
 
 export default function AdvertisementsList({ advertisements, onDelete }: Props) {
     return (

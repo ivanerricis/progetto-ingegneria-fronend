@@ -1,6 +1,3 @@
-// FileUpload.tsx
-"use client";
-
 import { File as FileIcon, Trash } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 
@@ -10,11 +7,11 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
-interface FileUploadProps {
+type FileUploadProps = Readonly<{
     files: File[];
     onFilesChange: (files: File[]) => void;
     maxFiles?: number;
-}
+}>
 
 export default function FileUpload({
     files,

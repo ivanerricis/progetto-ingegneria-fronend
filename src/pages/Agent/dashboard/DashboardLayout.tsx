@@ -16,7 +16,7 @@ const DashboardLayout = () => {
     const [showDialog, setShowDialog] = useState(false);
 
     useEffect(() => {
-        if (agent && agent.isPasswordChange === false) {
+        if (agent?.isPasswordChange === false) {
             const allowed = ["/agent/dashboard/profile", "/agent/dashboard/password"];
             if (!allowed.includes(location.pathname)) {
                 setShowDialog(true);
@@ -58,9 +58,7 @@ const DashboardLayout = () => {
                     <Header
                         isHomepage
                         left={
-                            <>
-                                <SidebarTrigger variant={"outline"} size={"icon-lg"} />
-                            </>
+                            <SidebarTrigger variant={"outline"} size={"icon-lg"} />
                         }
                         right={
                             <ModeToggle />
