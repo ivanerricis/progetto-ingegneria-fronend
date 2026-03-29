@@ -136,7 +136,7 @@ const SidebarFilter = () => {
                             key={r}
                             type="button"
                             variant={rooms === r ? "default" : "outline"}
-                            size="sm"
+                            size="icon"
                             className="w-10 rounded-sm"
                             onClick={() => setFilter("rooms", rooms === r ? null : r)}
                         >
@@ -158,7 +158,7 @@ const SidebarFilter = () => {
                             key={b}
                             type="button"
                             variant={bathrooms === b ? "default" : "outline"}
-                            size="sm"
+                            size="icon"
                             className="w-10 rounded-sm"
                             onClick={() => setFilter("bathrooms", bathrooms === b ? null : b)}
                         >
@@ -176,7 +176,7 @@ const SidebarFilter = () => {
                     value={energyClass || ""}
                     onValueChange={(value) => setFilter("energyClass", value === "all" ? null : value)}
                 >
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full text-lg!">
                         <SelectValue placeholder="Qualsiasi" />
                     </SelectTrigger>
                     <SelectContent position="popper">

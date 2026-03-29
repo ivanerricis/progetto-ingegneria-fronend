@@ -69,6 +69,7 @@ export const LoginForm = () => {
                                 value={email}
                                 onChange={(event) => setEmail(event.target.value)}
                                 required
+                                autoFocus
                             />
                         </div>
                         <div className="grid gap-1">

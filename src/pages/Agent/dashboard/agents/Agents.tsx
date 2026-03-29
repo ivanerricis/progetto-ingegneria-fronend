@@ -46,7 +46,7 @@ export default function Agents() {
                 )}
             </div>
 
-            <div className="w-full min-h-0 flex-1 overflow-y-auto pr-1">
+            <div className="w-full min-h-0 flex-1 overflow-y-auto">
                 <AgentsList
                     agents={agents}
                     onDelete={deleteAgent}

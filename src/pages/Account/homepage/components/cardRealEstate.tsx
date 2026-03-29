@@ -114,7 +114,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
 
                 {/* Prezzo + Buttons */}
                 <div className="flex flex-col items-start justify-start gap-2 sm:flex-row sm:justify-between">
-                    <div className="flex h-full items-center justify-start bg-primary text-foreground text-2xl text-bold rounded-sm px-2">
+                    <div className="flex h-full items-center justify-start bg-primary text-background dark:text-foreground text-2xl text-bold rounded-sm px-2">
                         {formatPrice(advertisement.price)}
                     </div>
 

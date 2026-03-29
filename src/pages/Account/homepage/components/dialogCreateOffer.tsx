@@ -63,6 +63,7 @@ export const DialogCreateOffer = ({ showOfferDialog, setShowOfferDialog, adverti
                         value={price}
                         onChange={e => setPrice(e.target.value)}
                         disabled={isLoading}
+                        autoFocus
                     />
                     <div className="flex gap-2 items-center">
                         <Label className="text-lg">Questa è la tua offerta:</Label>

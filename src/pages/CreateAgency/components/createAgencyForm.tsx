@@ -76,6 +76,7 @@ export const CreateAgencyForm = () => {
                                     onChange={e => setAgencyName(e.target.value)}
                                     className="text-lg!"
                                     required
+                                    autoFocus
                                 />
                                 <InputGroupAddon>
                                     <User />

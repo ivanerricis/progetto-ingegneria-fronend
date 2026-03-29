@@ -109,6 +109,7 @@ export default function Password() {
                                     className="pr-10"
                                     required
                                     disabled={isSubmitting}
+                                    autoFocus
                                 />
                                 <button
                                     type="button"

@@ -82,7 +82,7 @@ export const CardAdvertisement = ({ advertisement, onDelete, onRent }: CardRealE
 
                 {/* Prezzo + Buttons */}
                 <div className="flex justify-between 2xl:flex-col 2xl:gap-2">
-                    <div className="flex w-fit items-center justify-start bg-primary text-foreground text-2xl text-bold rounded-sm px-2">
+                    <div className="flex w-fit items-center justify-start bg-primary text-background dark:text-foreground text-2xl text-bold rounded-sm px-2">
                         {formatPrice(advertisement.price)}
                     </div>
 
