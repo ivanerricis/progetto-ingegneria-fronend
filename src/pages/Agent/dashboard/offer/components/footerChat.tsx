@@ -18,8 +18,9 @@ export const FooterChat = ({ sortedOffers, advertisement, account }: Props) => {
     const [isRejectDialogOpen, setIsRejectDialogOpen] = useState(false);
     const [isCounterOfferDialogOpen, setIsCounterOfferDialogOpen] = useState(false);
 
-    const lastOfferStatus = sortedOffers[sortedOffers.length - 1]?.status;
-    const lastOfferOwner = sortedOffers[sortedOffers.length - 1]?.madeBy;
+    const lastOffer = sortedOffers.at(-1);
+    const lastOfferStatus = lastOffer?.status;
+    const lastOfferOwner = lastOffer?.madeBy;
     const lastOfferDisableActions = lastOfferStatus === "pending" && lastOfferOwner === "AGENT";
 
     return (
@@ -33,7 +34,7 @@ export const FooterChat = ({ sortedOffers, advertisement, account }: Props) => {
                     onClick={() => setIsRejectDialogOpen(true)}
                     disabled={lastOfferDisableActions}
                 >
-                    <Trash className="size-5"/>
+                    <Trash className="size-5" />
                     <div className="flex gap-1">
                         <Label>Rifiuta</Label>
                         <Label className="hidden sm:block">offerta</Label>
@@ -45,7 +46,7 @@ export const FooterChat = ({ sortedOffers, advertisement, account }: Props) => {
                     className="flex-1"
                     onClick={() => setIsAcceptDialogOpen(true)}
                     disabled={lastOfferDisableActions}>
-                    <Check className="size-5"/>
+                    <Check className="size-5" />
                     <div className="flex gap-1">
                         <Label>Accetta</Label>
                         <Label className="hidden sm:block">offerta</Label>
@@ -59,7 +60,7 @@ export const FooterChat = ({ sortedOffers, advertisement, account }: Props) => {
                     onClick={() => setIsCounterOfferDialogOpen(true)}
                     disabled={lastOfferDisableActions}
                 >
-                    <Send className="size-5"/>
+                    <Send className="size-5" />
                     <div className="flex gap-1">
                         <Label>Invia</Label>
                         <Label className="hidden sm:block">contro-offerta</Label>
@@ -70,13 +71,13 @@ export const FooterChat = ({ sortedOffers, advertisement, account }: Props) => {
             <DialogRejectOffer
                 isRejectDialogOpen={isRejectDialogOpen}
                 setIsRejectDialogOpen={setIsRejectDialogOpen}
-                offerId={sortedOffers[sortedOffers.length - 1]?.id}
+                offerId={lastOffer?.id}
             />
 
             <DialogAcceptOffer
                 isAcceptDialogOpen={isAcceptDialogOpen}
                 setIsAcceptDialogOpen={setIsAcceptDialogOpen}
-                offerId={sortedOffers[sortedOffers.length - 1]?.id}
+                offerId={lastOffer?.id}
             />
 
             <DialogCounterOffer

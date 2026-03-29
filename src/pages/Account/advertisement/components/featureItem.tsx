@@ -9,9 +9,9 @@ type FeatureItemProps = {
 
 
 const FeatureItem = ({ children, icon, iconSizeClassName = "size-8" }: FeatureItemProps) => (
-    <div className="flex items-center gap-1 rounded-sm border dark:*:text-primary *:text-primary bg-primary/20 p-1">
+    <div className="flex items-center gap-1 rounded-sm border dark:*:text-primary *:text-primary bg-primary/10 p-1">
         {icon && <div className={`${iconSizeClassName} flex items-center justify-center *:size-7`}>{icon}</div>}
-        <Label className="text-md font-semibold">{children}</Label>
+        <Label className="text-md">{children}</Label>
     </div>
 )
 

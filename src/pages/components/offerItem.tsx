@@ -22,7 +22,9 @@ export const OfferItem = ({ offer, role }: Props) => {
             className={`flex ${isMine ? "justify-end" : "justify-start"}`}
         >
             <div
-                className={`max-w-[70%] p-2 rounded-sm border ${isMine ? "bg-primary text-background dark:text-foreground" : "bg-background text-foreground"
+                className={`max-w-[70%] p-2 rounded-sm border ${isMine ?
+                    "bg-primary text-background dark:text-foreground rounded-br-xs"
+                    : "bg-background text-foreground rounded-bl-xs"
                     }`}
             >
                 <div className="text-lg font-bold">Prezzo offerto: {formatPrice(offer.price)}</div>

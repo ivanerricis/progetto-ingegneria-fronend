@@ -10,6 +10,7 @@ import { AccountProvider } from '@/providers/account-provider';
 import { AgentProvider } from '@/providers/agent-provider';
 import { resolveSession } from './lib/api/resolveSession';
 import PublicRoute from './components/public-route';
+import { useMediaQuery } from './hooks/use-media-query';
 
 const RequestResetPassword = lazy(() => import('@/pages/ResetPassword/RequestResetPassword'));
 const SendResetPassword = lazy(() => import('@/pages/ResetPassword/SendResetPassword'));
@@ -61,6 +62,8 @@ const SessionEntryRedirect = () => {
 }
 
 function App() {
+  const isMobile = useMediaQuery("(max-width: 767px)");
+
   return (
     <MantineProvider
       theme={{
@@ -150,9 +153,10 @@ function App() {
           </BrowserRouter>
           {/* </Suspense> */}
           <Toaster
-            closeButton
+            closeButton={!isMobile}
             position='top-center'
             richColors
+            swipeDirections={['left', 'right', 'top']}
             toastOptions={{
               classNames: {
                 title: "text-base",
