@@ -47,13 +47,25 @@ function getStrength(password: string) {
 export function PasswordStrength({ big = false, disable = false }: PasswordStrengthProps) {
     const [value, setValue] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+
     const strength = getStrength(value);
     const checks = requirements.map((requirement) => (
         <PasswordRequirement key={requirement.label} label={requirement.label} meets={requirement.re.test(value)} />
     ));
 
-    const barColorClass =
-        strength > 80 ? 'bg-confirm' : strength > 50 ? 'bg-yellow-500' : 'bg-red-500';
+    const getBarColorClass = () => {
+        if (strength > 80) return 'bg-confirm';
+        if (strength > 50) return 'bg-yellow-500';
+        return 'bg-red-500';
+    }
+
+    const barColorClass = getBarColorClass();
+
+    const getBarClass = (index: number) => {
+        if (value.length === 0) return 'bg-muted'
+        if (index === 0) return barColorClass
+        return strength >= ((index + 1) / 4) * 100 ? barColorClass : 'bg-muted'
+    }
 
     const bars = new Array(4)
         .fill(0)
@@ -62,11 +74,7 @@ export function PasswordStrength({ big = false, disable = false }: PasswordStren
                 key={index}
                 className={cn(
                     'h-1 w-full rounded-full bg-muted transition-colors',
-                    value.length > 0 && index === 0
-                        ? barColorClass
-                        : strength >= ((index + 1) / 4) * 100
-                            ? barColorClass
-                            : 'bg-muted'
+                    getBarClass(index)
                 )}
                 aria-label={`Password strength segment ${index + 1}`}
             />
@@ -98,12 +106,15 @@ export function PasswordStrength({ big = false, disable = false }: PasswordStren
                 </div>
             </div>
 
-            {disable ? <></> : <div className="mb-4 mt-2 flex w-full gap-1.5">
-                {bars}
-            </div>}
-
-            {disable ? <></> : <PasswordRequirement label="Ha almeno 8 caratteri" meets={value.length > 7} />}
-            {disable ? <></> : checks}
+            {!disable && (
+                <>
+                    <div className="mb-4 mt-2 flex w-full gap-1.5">
+                        {bars}
+                    </div>
+                    <PasswordRequirement label="Ha almeno 8 caratteri" meets={value.length > 7} />
+                    {checks}
+                </>
+            )}
         </div>
     );
 }

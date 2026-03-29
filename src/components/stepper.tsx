@@ -13,6 +13,14 @@ export const Stepper = ({
     barPaddingClass = "px-3.5",
     big = false
 }: StepperProps) => {
+
+    const getTextAlignmentClass = (index: number) => {
+        if (big) return "text-center";
+        if (index === 0) return "text-start";
+        if (index === steps.length - 1) return "text-end";
+        return "text-center";
+    }
+
     return (
         <div className="flex flex-col gap-2 w-full mb-6 items-center">
             <div className={`flex w-full ${barPaddingClass} items-center justify-between`}>
@@ -32,16 +40,7 @@ export const Stepper = ({
             <div className="flex w-full items-center justify-center gap-3">
                 {steps.map((step, i) => (
                     <div key={i} className="w-full flex items-center justify-between *:text-foreground">
-                        <label
-                            className={`flex-1 ${big
-                                ? "text-center"
-                                : i === 0
-                                    ? "text-start"
-                                    : i === steps.length - 1
-                                        ? "text-end"
-                                        : "text-center"
-                                }`}
-                        >
+                        <label className={`flex-1 ${getTextAlignmentClass(i)}`}>
                             {step}
                         </label>
                     </div>

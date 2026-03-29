@@ -1,34 +1,21 @@
 import Header from "@/components/header";
 import { ModeToggle } from "@/components/mode-toggle";
 import useAdvertisement from "@/hooks/useAdvertisement";
-import { formatPrice } from "@/utils/formatPrice";
-import { AirVent, Bath, Contact, Fence, Heater, Lightbulb, ShelvingUnit, SolarPanel, SquareParking } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { AccountBadge } from "@/pages/Account/homepage/components/accountBadge";
-import { Label } from "@/components/ui/label";
 import { Footer } from "@/components/footer";
 import RealEstateCarousel from "@/pages/components/realEstateCarousel";
 import type { ReactNode } from "react"
 import { ContactCard } from "@/pages/Account/advertisement/components/contactCard";
-import { RealEstateMap } from "@/components/map/realEstateMap";
 import { Separator } from "@/components/ui/separator";
 import { AdvertisementSkeleton } from "@/pages/Account/advertisement/components/advertisementSkeleton";
-
-import ExpandIcon from "@/assets/icons/expand-2.svg?react"
-import StairsIcon from "@/assets/icons/stairs.svg?react"
-import ElevatorIcon from "@/assets/icons/elevator.svg?react"
-import GarageIcon from "@/assets/icons/garage.svg?react"
-import FloorPlanIcon from "@/assets/icons/floorplan.svg?react"
-import BalconyIcon from "@/assets/icons/balcony.svg?react"
-import TerraceIcon from "@/assets/icons/terrace.svg?react"
-import FeatureItem from "./components/featureItem";
 import ButtonBack from "@/components/buttonBack";
 
-const hasValue = <T,>(value: T | null | undefined): value is T => value !== null && value !== undefined
-
-const hasCoordinates = (latitude?: number, longitude?: number) => (
-    Number.isFinite(latitude) && Number.isFinite(longitude)
-)
+import AdvertisementDescription from "@/pages/components/advertisementDescription";
+import AdvertisementFeatures from "@/pages/components/advertisementFeatures";
+import AdvertisementPois from "@/pages/components/advertisementPois";
+import AdvertisementLocation from "@/pages/components/advertisementLocation";
+import AdvertisementInfo from "@/pages/components/advertisementInfo";
 
 const Advertisement = () => {
     const { id } = useParams()
@@ -75,25 +62,6 @@ const Advertisement = () => {
         )
     }
 
-    const schools = advertisement.pois
-        .filter(p => p.type === "school")
-        .map(p => ({ ...p, name: p.name === "POI" ? "Scuola" : p.name }))
-
-    const parks = advertisement.pois
-        .filter(p => p.type === "park")
-        .map(p => ({ ...p, name: p.name === "POI" ? "Parco" : p.name }))
-
-    const transports = advertisement.pois
-        .filter(p => p.type === "public_transport")
-        .map(p => ({ ...p, name: p.name === "POI" ? "Trasporto pubblico" : p.name }))
-
-    const latitude = advertisement.realEstate.coordinates?.latitude
-    const longitude = advertisement.realEstate.coordinates?.longitude
-    const locationCoordinates = advertisement.realEstate.location?.coordinates
-    const hasMapCoordinates = hasCoordinates(latitude, longitude)
-        || (Array.isArray(locationCoordinates)
-            && hasCoordinates(locationCoordinates[1], locationCoordinates[0]))
-
     return (
         renderPage(
             <div className="flex w-full flex-col gap-2 sm:h-full sm:min-h-0 sm:flex-row 2xl:px-60 sm:overflow-y-auto">
@@ -101,152 +69,20 @@ const Advertisement = () => {
                     <div className="flex w-full border rounded-md aspect-video sm:min-h-120 max-h-140">
                         <RealEstateCarousel photos={advertisement.photos} variant="standalone" />
                     </div>
-                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                        <div>
-                            <Label className="text-2xl font-bold">{advertisement.title}</Label>
-                            <Label className="text-lg text-muted-foreground!">{advertisement.realEstate.addressFormatted}</Label>
-                        </div>
-                        <Label className="text-2xl font-bold">{formatPrice(advertisement.price)}</Label>
-                    </div>
 
+                    <AdvertisementInfo advertisement={advertisement} />
                     <Separator orientation="horizontal" className="shrink-0" />
 
-                    <div className="flex flex-col gap-1">
-                        <Label className="font-bold text-2xl">Descrizione</Label>
-                        <Label className="text-muted-foreground! text-lg">{advertisement.description}</Label>
-                    </div>
-
+                    <AdvertisementDescription description={advertisement.description} />
                     <Separator orientation="horizontal" className="shrink-0" />
 
-                    <div className="flex flex-col gap-1">
-                        <Label className="font-bold text-2xl">Caratteristiche</Label>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 *:text-foreground">
-                            {hasValue(advertisement.realEstate.rooms) && (
-                                <FeatureItem icon={<FloorPlanIcon />}>
-                                    {advertisement.realEstate.rooms} locali
-                                </FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.size) && (
-                                <FeatureItem icon={<ExpandIcon />}>
-                                    {advertisement.realEstate.size} m²
-                                </FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.bathrooms) && (
-                                <FeatureItem icon={<Bath />}>
-                                    {advertisement.realEstate.bathrooms === 1
-                                        ? "1 bagno"
-                                        : advertisement.realEstate.bathrooms + " bagni"}
-                                </FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.floor) && (
-                                <FeatureItem icon={<StairsIcon />}>
-                                    {advertisement.realEstate.floor === 0
-                                        ? "Piano terra"
-                                        : advertisement.realEstate.floor + " piano"}
-                                </FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.airConditioning) && (
-                                <FeatureItem icon={<AirVent />}>
-                                    Con condizionatore
-                                </FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.balcony) && (
-                                <FeatureItem icon={<BalconyIcon />}>Con balcone</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.concierge) && (
-                                <FeatureItem icon={<Contact />}>Con concierge</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.elevator) && (
-                                <FeatureItem icon={<ElevatorIcon />}>Con ascensore</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.energyClass) && (
-                                <FeatureItem icon={<Lightbulb />}>
-                                    Classe energetica: {advertisement.realEstate.energyClass}
-                                </FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.furnished) && (
-                                <FeatureItem icon={<ShelvingUnit />}>Arredato</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.garage) && (
-                                <FeatureItem icon={<GarageIcon />}>Con garage</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.garden) && (
-                                <FeatureItem icon={<Fence />}>Con giardino</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.heating) && (
-                                <FeatureItem icon={<Heater />}>Con riscaldamento</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.parking) && (
-                                <FeatureItem icon={<SquareParking />}>Con parcheggio</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.solarPanels) && (
-                                <FeatureItem icon={<SolarPanel />}>Con pannelli solari</FeatureItem>
-                            )}
-                            {hasValue(advertisement.realEstate.terrace) && (
-                                <FeatureItem icon={<TerraceIcon />}>Con terrazzo</FeatureItem>
-                            )}
-                        </div>
-                    </div>
-
+                    <AdvertisementFeatures realEstate={advertisement.realEstate} />
                     <Separator orientation="horizontal" className="shrink-0" />
 
-                    <div className="flex flex-col gap-2">
-                        <Label className="font-bold text-2xl">Punti di interesse vicini</Label>
-                        <div className="flex flex-col gap-4">
-                            <div className="flex flex-col gap-1">
-                                {schools.length > 0 && (
-                                    <>
-                                        <Label className="text-xl">Scuole</Label>
-                                        <div className="flex gap-2 flex-wrap">
-                                            {schools.map(school => (
-                                                <FeatureItem key={school.id}>{school.name}</FeatureItem>
-                                            ))}
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-                            <div className="flex flex-col gap-1">
-                                {parks.length > 0 && (
-                                    <>
-                                        <Label className="text-xl">Parchi</Label>
-                                        <div className="flex gap-2 flex-wrap">
-                                            {parks.map(park => (
-                                                <FeatureItem key={park.id}>{park.name}</FeatureItem>
-                                            ))}
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-                            <div className="flex flex-col gap-1">
-                                {transports.length > 0 && (
-                                    <>
-                                        <Label className="text-xl">Trasporti pubblici</Label>
-                                        <div className="flex gap-2 flex-wrap">
-                                            {transports.map(transport => (
-                                                <FeatureItem key={transport.id}>{transport.name}</FeatureItem>
-                                            ))}
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-
+                    <AdvertisementPois pois={advertisement.pois} />
                     <Separator orientation="horizontal" className="shrink-0" />
 
-                    <div className="flex flex-col gap-2">
-                        <Label className="font-bold text-2xl">Posizione</Label>
-                        {hasMapCoordinates ? (
-                            <div className="h-100 overflow-hidden rounded-md border">
-                                <RealEstateMap
-                                    advertisements={[advertisement]}
-                                    pois={[...schools, ...parks, ...transports]}
-                                />
-                            </div>
-                        ) : (
-                            <Label className="text-muted-foreground!">Posizione non disponibile per questo immobile.</Label>
-                        )}
-                    </div>
+                    <AdvertisementLocation advertisement={advertisement} pois={advertisement.pois} />
                 </div>
                 <ContactCard advertisement={advertisement} />
             </div>
