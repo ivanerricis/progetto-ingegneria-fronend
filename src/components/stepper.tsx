@@ -31,9 +31,8 @@ export const Stepper = ({
             </div>
             <div className="flex w-full items-center justify-center gap-3">
                 {steps.map((step, i) => (
-                    <div className="w-full flex items-center justify-between *:text-foreground">
+                    <div key={i} className="w-full flex items-center justify-between *:text-foreground">
                         <label
-                            key={i}
                             className={`flex-1 ${big
                                 ? "text-center"
                                 : i === 0

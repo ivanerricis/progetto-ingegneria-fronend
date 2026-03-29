@@ -6,10 +6,10 @@ import { FooterChat } from "./footerChat";
 import useOffers from "@/hooks/useOffers";
 import { Spinner } from "@/components/ui/spinner";
 
-type Props = {
+type Props = Readonly<{
     selectedNegotiation: Negotiation | null;
     onBack: () => void;
-};
+}>;
 
 export default function OfferChat({ selectedNegotiation, onBack }: Props) {
     const { offers, isLoading, error } = useOffers(
@@ -29,8 +29,7 @@ export default function OfferChat({ selectedNegotiation, onBack }: Props) {
 
     return (
         <div
-            className={`w-full md:w-3/4 border border-l-0 h-full ${!selectedNegotiation ? "hidden md:flex" : "flex"
-                } flex-col`}
+            className={`w-full md:w-3/4 border border-l-0 h-full ${selectedNegotiation ? "flex" : "hidden md:flex"} flex-col min-w-0`}
         >
             {!selectedNegotiation ? (
                 <div className="flex-1 flex items-center justify-center text-muted-foreground">
@@ -41,7 +40,7 @@ export default function OfferChat({ selectedNegotiation, onBack }: Props) {
                     <HeaderOffer
                         selectedNegotiation={selectedNegotiation}
                         onBack={onBack}
-                        type="account"
+                        role="ACCOUNT"
                     />
 
                     <div className="flex-1 overflow-y-auto p-2 space-y-2">

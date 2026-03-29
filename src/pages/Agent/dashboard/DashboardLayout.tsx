@@ -18,10 +18,10 @@ const DashboardLayout = () => {
     useEffect(() => {
         if (agent?.isPasswordChange === false) {
             const allowed = ["/agent/dashboard/profile", "/agent/dashboard/password"];
-            if (!allowed.includes(location.pathname)) {
-                setShowDialog(true);
-            } else {
+            if (allowed.includes(location.pathname)) {
                 setShowDialog(false);
+            } else {
+                setShowDialog(true);
             }
         } else {
             setShowDialog(false);

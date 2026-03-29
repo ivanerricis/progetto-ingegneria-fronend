@@ -6,7 +6,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ModeToggle } from "@/components/mode-toggle";
 import { useAccount } from "@/providers/account-provider";
-import { ArrowLeft, Pencil, Trash } from "lucide-react";
+import { Pencil, Trash } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import {
     Dialog,
@@ -20,6 +20,7 @@ import { deleteAccount } from "@/lib/api/auth";
 import { toast } from "sonner";
 import { formatCreatedAt } from "@/utils/formatCreatedAt";
 import { AccountBadge } from "../homepage/components/accountBadge";
+import ButtonBack from "@/components/buttonBack";
 
 export default function Profile() {
     const { account } = useAccount()
@@ -49,10 +50,7 @@ export default function Profile() {
             <Header
                 isHomepage
                 left={
-                    <Button variant="outline" type="button" onClick={() => navigate("/homepage")}>
-                        <ArrowLeft />
-                        <Label className="hidden sm:inline text-md">Indietro</Label>
-                    </Button>
+                    <ButtonBack to="/homepage" />
                 }
                 right={
                     <>

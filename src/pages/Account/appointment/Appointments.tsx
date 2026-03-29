@@ -1,16 +1,14 @@
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ModeToggle } from "@/components/mode-toggle";
-import { ArrowLeft, BadgeCheck, BadgeX, Clock, Trash } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { BadgeCheck, BadgeX, Clock, Trash } from "lucide-react";
 import { AppointmentList } from "./components/appointmentsList";
 import useAppointments from "@/hooks/account/useAppointments";
 import { useState } from "react";
 import DashboardFilterSelect from "@/pages/Agent/dashboard/advertisement/components/dashboardFilterSelect";
 import { AccountBadge } from "../homepage/components/accountBadge";
 import { CardAppointmentSkeleton } from "@/pages/Agent/dashboard/appointment/components/cardAppointmentSkeleton";
+import ButtonBack from "@/components/buttonBack";
 
 type StatusFilter = "requested" | "confirmed" | "rejected" | "cancelled"
 
@@ -39,7 +37,6 @@ const statusOptions = [
 
 export default function Appointments() {
     const { appointments, isLoading, error, cancelAppointment } = useAppointments()
-    const navigate = useNavigate()
 
     const [statusFilter, setStatusFilter] = useState<StatusFilter>("requested")
 
@@ -58,10 +55,7 @@ export default function Appointments() {
             <Header
                 isHomepage
                 left={
-                    <Button variant="outline" type="button" onClick={() => navigate("/homepage")}>
-                        <ArrowLeft />
-                        <Label className="hidden sm:inline text-md">Indietro</Label>
-                    </Button>
+                    <ButtonBack />
                 }
                 right={
                     <>

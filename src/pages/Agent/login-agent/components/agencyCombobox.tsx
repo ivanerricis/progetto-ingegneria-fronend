@@ -26,6 +26,12 @@ const AgencyCombobox = ({
     const selectedAgency = agencies.find((a) => String(a.id) === value);
     const agencyNameToId = new Map(agencies.map((agency) => [agency.name, String(agency.id)]));
 
+    const getEmptyStateMessage = () => {
+        if (loading) return "Caricamento agenzie...";
+        if (loadError) return loadError;
+        return "Nessuna agenzia trovata.";
+    };
+
     return (
         <Combobox items={agencies.map((agency) => agency.name)}>
             <ComboboxInput
@@ -34,11 +40,7 @@ const AgencyCombobox = ({
             />
             <ComboboxContent>
                 <ComboboxEmpty className="text-lg">
-                    {loading
-                        ? "Caricamento agenzie..."
-                        : loadError
-                            ? loadError
-                            : "Nessuna agenzia trovata."}
+                    {getEmptyStateMessage()}
                 </ComboboxEmpty>
 
                 <ComboboxList>

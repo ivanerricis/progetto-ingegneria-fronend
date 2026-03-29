@@ -9,6 +9,13 @@ type Props = {
 export const OfferItem = ({ offer, role }: Props) => {
     const isMine = offer.madeBy === role;
 
+    const getOfferStatus = () => {
+        if (offer.status === "pending") return "In attesa";
+        if (offer.status === "accepted") return "Accettata";
+        if (offer.status === "rejected") return "Rifiutata";
+        return "Sconosciuto";
+    }
+
     return (
         <div
             key={offer.id}
@@ -21,11 +28,7 @@ export const OfferItem = ({ offer, role }: Props) => {
                 <div className="text-lg font-bold">Prezzo offerto: {formatPrice(offer.price)}</div>
                 <div>
                     Stato:{" "}
-                    {offer.status === "pending"
-                        ? "In attesa"
-                        : offer.status === "accepted"
-                            ? "Accettata"
-                            : "Rifiutata"}
+                    {getOfferStatus()}
                 </div>
                 <div
                     className={`text-sm ${isMine ? "text-background dark:text-foreground" : "text-muted-foreground"

@@ -1,11 +1,11 @@
 import type { Negotiation } from "@/types/types";
 import { BadgeChat } from "@/pages/components/badgeChat";
 
-type Props = {
+type Props = Readonly<{
     negotiations?: Negotiation[];
     selectedNegotiation: Negotiation | null;
     onSelect: (negotiation: Negotiation) => void;
-};
+}>;
 
 export default function SidebarOffers({
     negotiations,

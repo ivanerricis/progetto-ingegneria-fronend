@@ -1,8 +1,8 @@
 import { Skeleton } from "@/components/ui/skeleton"
 
-type AdvertisementListSkeletonProps = {
+type AdvertisementListSkeletonProps = Readonly<{
     items?: number
-}
+}>;
 
 export default function AdvertisementListSkeleton({ items = 4 }: AdvertisementListSkeletonProps) {
     return (

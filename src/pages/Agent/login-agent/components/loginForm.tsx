@@ -23,7 +23,7 @@ export const LoginForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [selectedAgencyId, setSelectedAgencyId] = useState("")
     const { agencies, loading, error } = useAgencies()
-    const { setAgent } = useAgent()
+    const { updateAgent } = useAgent()
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -42,10 +42,10 @@ export const LoginForm = () => {
 
             if (loginResponse) {
                 console.log("Login response:", loginResponse)
-                setAgent(loginResponse)
+                updateAgent(loginResponse)
                 window.location.replace("/agent/dashboard")
             } else {
-                setAgent({
+                updateAgent({
                     id: -1,
                     username: "",
                     firstName: "",

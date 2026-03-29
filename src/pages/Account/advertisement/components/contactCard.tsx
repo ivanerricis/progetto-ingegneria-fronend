@@ -52,11 +52,7 @@ export const ContactCard = ({ advertisement }: ContactCardProps) => {
                 <AgencyInfoRow label="Agenzia" value={advertisement.agent.agency.name} />
                 <AgencyInfoRow label="Email" value={advertisement.agent.agency.email} />
                 <AgencyInfoRow label="Telefono" value={advertisement.agent.agency.phoneNumber} />
-                {!advertisement.agent.agency.logo?.url ? (
-                    <div className="hidden sm:flex sm:items-center sm:rounded-sm sm:h-full sm:p-2 sm:text-nowrap sm:text-primary bg-primary/25">
-                        {advertisement.agent.agency.name}
-                    </div>
-                ) : (
+                {advertisement.agent.agency.logo?.url ? (
                     <div className="hidden sm:flex sm:items-center sm:rounded-sm sm:h-full">
                         <img
                             src={advertisement.agent.agency.logo.url}
@@ -64,6 +60,11 @@ export const ContactCard = ({ advertisement }: ContactCardProps) => {
                             className="block object-cover h-10 w-auto rounded-sm aspect-video"
                             loading="lazy"
                         />
+                    </div>
+
+                ) : (
+                    <div className="hidden sm:flex sm:items-center sm:rounded-sm sm:h-full sm:p-2 sm:text-nowrap sm:text-primary bg-primary/25">
+                        {advertisement.agent.agency.name}
                     </div>
                 )}
             </div>

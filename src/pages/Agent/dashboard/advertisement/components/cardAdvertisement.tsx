@@ -87,40 +87,41 @@ export const CardAdvertisement = ({ advertisement, onDelete, onRent }: CardRealE
                     </div>
 
                     {/* Buttons */}
-                    {advertisement.status !== "sold" && <div className="flex w-full items-center justify-end 2xl:justify-between gap-1">
-                        <Button
-                            variant={"outline"}
-                            className="size-10 2xl:flex-1 2xl:h-10 2xl:px-4 2xl:py-2"
-                        >
-                            <Pencil className="size-5" />
-                            <Label className="hidden 2xl:block text-md">Modifica</Label>
-                        </Button>
-                        {advertisement.type === "rent" && (
+                    {advertisement.status === "active" && (
+                        <div className="flex w-full items-center justify-end 2xl:justify-between gap-1">
                             <Button
                                 variant={"outline"}
                                 className="size-10 2xl:flex-1 2xl:h-10 2xl:px-4 2xl:py-2"
+                            >
+                                <Pencil className="size-5" />
+                                <Label className="hidden 2xl:block text-md">Modifica</Label>
+                            </Button>
+                            {advertisement.type === "rent" && (
+                                <Button
+                                    variant={"outline"}
+                                    className="size-10 2xl:flex-1 2xl:h-10 2xl:px-4 2xl:py-2"
+                                    onClick={e => {
+                                        e.stopPropagation();
+                                        setShowRentDialog(true);
+                                    }}
+                                >
+                                    <CalendarClock className="size-5" />
+                                    <Label className="hidden 2xl:block text-md">Affittato</Label>
+                                </Button>
+                            )}
+                            <Button
+                                variant={"destructive"}
+                                className="size-10 2xl:flex-1 2xl:h-10 2xl:px-4 2xl:py-2"
                                 onClick={e => {
                                     e.stopPropagation();
-                                    setShowRentDialog(true);
+                                    setShowDeleteDialog(true);
                                 }}
+                                disabled={isDeleting}
                             >
-                                <CalendarClock className="size-5" />
-                                <Label className="hidden 2xl:block text-md">Affittato</Label>
+                                <Trash className="size-5" />
+                                <Label className="hidden 2xl:block text-md">Elimina</Label>
                             </Button>
-                        )}
-                        <Button
-                            variant={"destructive"}
-                            className="size-10 2xl:flex-1 2xl:h-10 2xl:px-4 2xl:py-2"
-                            onClick={e => {
-                                e.stopPropagation();
-                                setShowDeleteDialog(true);
-                            }}
-                            disabled={isDeleting}
-                        >
-                            <Trash className="size-5" />
-                            <Label className="hidden 2xl:block text-md">Elimina</Label>
-                        </Button>
-                    </div>}
+                        </div>)}
                 </div>
             </div>
 

@@ -8,7 +8,8 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import ProtectedRoute from './components/protected-route';
 import { AccountProvider } from '@/providers/account-provider';
 import { AgentProvider } from '@/providers/agent-provider';
-import { apiClient } from '@/lib/api/config';
+import { resolveSession } from './lib/api/resolveSession';
+import PublicRoute from './components/public-route';
 
 const RequestResetPassword = lazy(() => import('@/pages/ResetPassword/RequestResetPassword'));
 const SendResetPassword = lazy(() => import('@/pages/ResetPassword/SendResetPassword'));
@@ -38,48 +39,26 @@ const AgentProfile = lazy(() => import('@/pages/Agent/dashboard/profile/Profile'
 const AgentPassword = lazy(() => import('@/pages/Agent/dashboard/password/Password'));
 
 const SessionEntryRedirect = () => {
-  const [target, setTarget] = useState<string | null>(null);
+  const [target, setTarget] = useState<string | null>(null)
 
   useEffect(() => {
-    let isMounted = true;
-
-    const resolveTarget = async () => {
-      try {
-        await apiClient.get('/auth/account');
-        if (isMounted) setTarget('/homepage');
-        return;
-      } catch {
-        // Ignore and try agent session.
-      }
-
-      try {
-        await apiClient.get('/auth/agent');
-        if (isMounted) setTarget('/agent/dashboard');
-        return;
-      } catch {
-        // Ignore and fallback to login.
-      }
-
-      if (isMounted) setTarget('/login');
-    };
-
-    void resolveTarget();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+    let isMounted = true
+    resolveSession().then(result => {
+      if (isMounted) setTarget(result ?? "/login")
+    })
+    return () => { isMounted = false }
+  }, [])
 
   if (!target) {
     return (
       <div className="h-screen w-full flex items-center justify-center text-md text-muted-foreground">
         Verifica sessione in corso...
       </div>
-    );
+    )
   }
 
-  return <Navigate to={target} replace />;
-};
+  return <Navigate to={target} replace />
+}
 
 function App() {
   return (
@@ -101,8 +80,12 @@ function App() {
 
               {/* Account Routes */}
               <Route element={<AccountProvider><Outlet /></AccountProvider>}>
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={
+                  <PublicRoute><Login /></PublicRoute>
+                } />
+                <Route path="/register" element={
+                  <PublicRoute><Register /></PublicRoute>
+                } />
                 <Route path="/homepage" element={
                   <ProtectedRoute authCheckPath="/auth/account" redirectTo="/login">
                     <Homepage />
@@ -137,7 +120,9 @@ function App() {
 
               {/* Agent Routes */}
               <Route element={<AgentProvider><Outlet /></AgentProvider>}>
-                <Route path="/agent/login" element={<LoginAgent />} />
+                <Route path="/agent/login" element={
+                  <PublicRoute><LoginAgent /></PublicRoute>
+                } />
                 <Route path="/agent/:id/password" element={
                   <Navigate to="/agent/dashboard/password" replace />
                 } />

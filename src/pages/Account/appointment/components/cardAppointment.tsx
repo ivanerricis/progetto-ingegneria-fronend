@@ -71,7 +71,7 @@ export const CardAppointment = ({ appointment, cancelAppointment }: CardAppointm
                         onClick={handleCancelButtonClick}
                         size={"lg"}
                         variant={"destructive"}
-                        className="flex-1 rounded-sm"
+                        className="flex-1"
                     >
                         <X className="size-5" />
                         Annnulla

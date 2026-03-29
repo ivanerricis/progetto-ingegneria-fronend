@@ -5,43 +5,11 @@ import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle"
 import { useNavigate } from "react-router-dom"
 import LanguageSwitcher from "@/components/languageSwitcher"
-import { useEffect } from "react"
-import { apiClient } from "@/lib/api/config"
 import { Label } from "@/components/ui/label"
+import Content from "@/components/content"
 
 export const LoginAgent = () => {
     const navigate = useNavigate()
-
-    useEffect(() => {
-        let isMounted = true
-
-        const redirectIfAuthenticated = async () => {
-            try {
-                await apiClient.get("/auth/agent")
-                if (isMounted) {
-                    navigate("/agent/dashboard", { replace: true })
-                }
-                return
-            } catch {
-                // Ignore and try account session.
-            }
-
-            try {
-                await apiClient.get("/auth/account")
-                if (isMounted) {
-                    navigate("/homepage", { replace: true })
-                }
-            } catch {
-                // Ignore: stay on agent login.
-            }
-        }
-
-        void redirectIfAuthenticated()
-
-        return () => {
-            isMounted = false
-        }
-    }, [navigate])
 
     return (
         <div className="h-screen flex flex-col overflow-hidden sm:gap-2">
@@ -68,13 +36,9 @@ export const LoginAgent = () => {
                 }
             />
 
-            <main className="relative flex-1 min-h-0 flex items-center justify-center sm:rounded-xl overflow-hidden sm:mx-26">
-                <div
-                    className="hidden sm:block absolute inset-0 bg-cover bg-center bg-no-repeat"
-                    style={{ backgroundImage: `url(/sfondo.webp)` }}
-                />
+            <Content>
                 <LoginForm />
-            </main>
+            </Content>
 
             <Footer />
         </div>

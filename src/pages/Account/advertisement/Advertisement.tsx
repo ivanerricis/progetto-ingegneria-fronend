@@ -1,10 +1,9 @@
 import Header from "@/components/header";
 import { ModeToggle } from "@/components/mode-toggle";
-import { Button } from "@/components/ui/button";
 import useAdvertisement from "@/hooks/useAdvertisement";
 import { formatPrice } from "@/utils/formatPrice";
-import { AirVent, ArrowLeft, Bath, Contact, Fence, Heater, Lightbulb, ShelvingUnit, SolarPanel, SquareParking } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { AirVent, Bath, Contact, Fence, Heater, Lightbulb, ShelvingUnit, SolarPanel, SquareParking } from "lucide-react";
+import { useParams } from "react-router-dom";
 import { AccountBadge } from "@/pages/Account/homepage/components/accountBadge";
 import { Label } from "@/components/ui/label";
 import { Footer } from "@/components/footer";
@@ -23,6 +22,7 @@ import FloorPlanIcon from "@/assets/icons/floorplan.svg?react"
 import BalconyIcon from "@/assets/icons/balcony.svg?react"
 import TerraceIcon from "@/assets/icons/terrace.svg?react"
 import FeatureItem from "./components/featureItem";
+import ButtonBack from "@/components/buttonBack";
 
 const hasValue = <T,>(value: T | null | undefined): value is T => value !== null && value !== undefined
 
@@ -31,32 +31,15 @@ const hasCoordinates = (latitude?: number, longitude?: number) => (
 )
 
 const Advertisement = () => {
-    const navigate = useNavigate()
     const { id } = useParams()
     const { advertisement, isLoading, error } = useAdvertisement("account", id)
-
-    const handleBackClick = () => {
-        if (window.history.length > 1) {
-            navigate(-1)
-            return
-        }
-
-        navigate("/account/login")
-    }
 
     const renderPage = (content: ReactNode) => (
         <div className="flex h-screen flex-col overflow-hidden">
             <Header
                 isHomepage
                 left={
-                    <Button
-                        variant={"outline"}
-                        onClick={handleBackClick}
-                        className="size-10 sm:w-fit sm:h-10 sm:px-4 sm:py-2"
-                    >
-                        <ArrowLeft className="size-5" />
-                        <Label className="hidden sm:flex text-lg">Indietro</Label>
-                    </Button>
+                    <ButtonBack />
                 }
                 right={
                     <>
@@ -116,7 +99,7 @@ const Advertisement = () => {
             <div className="flex w-full flex-col gap-2 sm:h-full sm:min-h-0 sm:flex-row 2xl:px-60 sm:overflow-y-auto">
                 <div className="flex flex-1 flex-col gap-4 sm:min-h-0 sm:pr-2">
                     <div className="flex w-full border rounded-md aspect-video sm:min-h-120 max-h-140">
-                        <RealEstateCarousel photos={advertisement.photos} variant="standalone"/>
+                        <RealEstateCarousel photos={advertisement.photos} variant="standalone" />
                     </div>
                     <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                         <div>

@@ -23,7 +23,7 @@ type PasswordRule = {
 }
 
 const passwordRules: PasswordRule[] = [
-    { test: (password) => /'\d'/.test(password), label: "Include un numero" },
+    { test: (password) => /\d/.test(password), label: "Include un numero" },
     { test: (password) => /[a-z]/.test(password), label: "Include una lettera minuscola" },
     { test: (password) => /[A-Z]/.test(password), label: "Include una lettera maiuscola" },
     { test: (password) => /[$&+,:;=?@#|'<>.^*()%!-]/.test(password), label: "Include un simbolo speciale" },

@@ -1,17 +1,15 @@
 import { useState } from "react";
 import type { Negotiation } from "@/types/types";
 import useNegotiations from "@/hooks/useNegotiations";
-import { ArrowLeft, BadgeCheck, BadgeX, Clock } from "lucide-react";
+import { BadgeCheck, BadgeX, Clock } from "lucide-react";
 import DashboardFilterSelect from "@/pages/Agent/dashboard/advertisement/components/dashboardFilterSelect";
 import SidebarOffers from "./components/sidebarOffers";
 import OfferChat from "./components/offerChat";
 import Header from "@/components/header";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { ModeToggle } from "@/components/mode-toggle";
 import { AccountBadge } from "../homepage/components/accountBadge";
 import { Footer } from "@/components/footer";
-import { useNavigate } from "react-router-dom";
+import ButtonBack from "@/components/buttonBack";
 
 type StatusFilter = "pending" | "accepted" | "rejected";
 
@@ -34,7 +32,6 @@ const statusOptions = [
 ] as const
 
 export default function Offers() {
-    const navigate = useNavigate()
     const [statusFilter, setStatusFilter] = useState<StatusFilter>("pending")
     const [selectedNegotiation, setSelectedNegotiation] = useState<Negotiation | null>(null);
     const { negotiations } = useNegotiations("ACCOUNT");
@@ -53,10 +50,7 @@ export default function Offers() {
             <Header
                 isHomepage
                 left={
-                    <Button variant="outline" type="button" onClick={() => navigate("/homepage")}>
-                        <ArrowLeft />
-                        <Label className="hidden sm:inline text-md">Indietro</Label>
-                    </Button>
+                    <ButtonBack />
                 }
                 right={
                     <>

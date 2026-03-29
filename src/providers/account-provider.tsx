@@ -14,7 +14,7 @@ import type { Account } from "@/types/types";
 type AccountContextType = {
     account: Account | null;
     loading: boolean;
-    setAccount: (account: Account | null) => void;
+    updateAccount: (account: Account | null) => void;
     logout: () => Promise<void>;
     refreshAccount: () => Promise<void>;
 };
@@ -28,11 +28,11 @@ type Props = {
 };
 
 export const AccountProvider = ({ children }: Props) => {
-    const [account, setAccountState] = useState<Account | null>(null);
+    const [account, setAccount] = useState<Account | null>(null);
     const [loading, setLoading] = useState(true);
 
-    const setAccount = useCallback((acc: Account | null) => {
-        setAccountState(acc);
+    const updateAccount = useCallback((acc: Account | null) => {
+        setAccount(acc);
 
         if (acc) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(acc));
@@ -44,11 +44,11 @@ export const AccountProvider = ({ children }: Props) => {
     const refreshAccount = useCallback(async () => {
         try {
             const res = await apiClient.get<Account>("/auth/account");
-            setAccount(res.data);
+            updateAccount(res.data);
         } catch {
-            setAccount(null);
+            updateAccount(null);
         }
-    }, [setAccount]);
+    }, [updateAccount]);
 
     const logout = useCallback(async () => {
         try {
@@ -57,14 +57,14 @@ export const AccountProvider = ({ children }: Props) => {
             console.log("Logout failed, but clearing account data anyway.");
         }
 
-        setAccount(null);
-    }, [setAccount]);
+        updateAccount(null);
+    }, [updateAccount]);
 
     useEffect(() => {
         setLogoutHandler(() => {
-            setAccount(null);
+            updateAccount(null);
         });
-    }, [setAccount]);
+    }, [updateAccount]);
 
     useEffect(() => {
         const init = async () => {
@@ -72,7 +72,7 @@ export const AccountProvider = ({ children }: Props) => {
                 const stored = localStorage.getItem(STORAGE_KEY);
 
                 if (stored) {
-                    setAccountState(JSON.parse(stored));
+                    setAccount(JSON.parse(stored));
                 }
 
                 await refreshAccount();
@@ -87,10 +87,10 @@ export const AccountProvider = ({ children }: Props) => {
     const contextValue = useMemo(() => ({
         account,
         loading,
-        setAccount,
+        updateAccount,
         logout,
         refreshAccount,
-    }), [account, loading, setAccount, logout, refreshAccount]);
+    }), [account, loading, updateAccount, logout, refreshAccount]);
 
     return (
         <AccountContext.Provider value={contextValue}>

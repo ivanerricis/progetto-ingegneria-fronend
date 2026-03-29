@@ -30,6 +30,13 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
     console.log("Available days:", daysSet)
     console.log("Available slots for", date, ":", slots)
 
+    const getPlaceholder = () => {
+        if (slotsLoading) return "Caricamento..."
+        if (!date) return "Seleziona una data prima"
+        if (slots.length === 0) return "Nessun orario disponibile"
+        return "Scegli un orario"
+    }
+
     const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         setShowAppointmentDialog(false)
@@ -103,7 +110,7 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
                     <Select value={selectedTime} onValueChange={setSelectedTime} disabled={!date || slotsLoading || slots.length === 0}>
                         <SelectTrigger className="w-full text-lg!">
                             <SelectValue
-                                placeholder={slotsLoading ? "Caricamento..." : (!date ? "Seleziona una data prima" : (slots.length === 0 ? "Nessun orario disponibile" : "Scegli un orario"))}
+                                placeholder={getPlaceholder()}
                             />
                         </SelectTrigger>
                         <SelectContent position={"popper"}>

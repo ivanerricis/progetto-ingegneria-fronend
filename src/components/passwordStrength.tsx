@@ -4,15 +4,15 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 
-type PasswordStrengthProps = {
+type PasswordStrengthProps = Readonly<{
     big?: boolean
     disable?: boolean
-}
+}>;
 
 type PasswordRequirementProps = Readonly<{
     meets: boolean
     label: string
-}>
+}>;
 
 function PasswordRequirement({ meets, label }: PasswordRequirementProps) {
     return (
@@ -26,7 +26,7 @@ function PasswordRequirement({ meets, label }: PasswordRequirementProps) {
 }
 
 const requirements = [
-    { re: /'\d'/, label: 'Include un numero' },
+    { re: /\d/, label: 'Include un numero' },
     { re: /[a-z]/, label: 'Include una lettera minuscola' },
     { re: /[A-Z]/, label: 'Include una lettera maiuscola' },
     { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: 'Include un simbolo speciale' },
@@ -48,8 +48,8 @@ export function PasswordStrength({ big = false, disable = false }: PasswordStren
     const [value, setValue] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const strength = getStrength(value);
-    const checks = requirements.map((requirement, index) => (
-        <PasswordRequirement key={index} label={requirement.label} meets={requirement.re.test(value)} />
+    const checks = requirements.map((requirement) => (
+        <PasswordRequirement key={requirement.label} label={requirement.label} meets={requirement.re.test(value)} />
     ));
 
     const barColorClass =

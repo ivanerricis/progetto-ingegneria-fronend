@@ -1,7 +1,7 @@
-import { type FormEvent, useMemo, useState } from "react"
+import { type FormEvent, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { toast } from "sonner"
-import { ArrowLeft, Eye, EyeOff } from "lucide-react"
+import { Eye, EyeOff } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -12,6 +12,8 @@ import { ModeToggle } from "@/components/mode-toggle"
 import { RegisterPasswordField, isRegisterPasswordValid } from "@/components/register-password-field"
 import { updateAccountPassword } from "@/lib/api/account"
 import { useAccount } from "@/providers/account-provider"
+import ButtonBack from "@/components/buttonBack"
+import { AccountBadge } from "../homepage/components/accountBadge"
 
 export default function Password() {
     const navigate = useNavigate()
@@ -25,11 +27,6 @@ export default function Password() {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState<string | null>(null)
-
-    const isRouteValid = useMemo(() => {
-        if (!account || !id) return false
-        return String(account.id) === id
-    }, [account, id])
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -93,50 +90,19 @@ export default function Password() {
         return null
     }
 
-    if (!isRouteValid) {
-        return (
-            <div className="w-full min-h-screen flex flex-col">
-                <Header
-                    isHomepage
-                    left={
-                        <Button variant="outline" type="button" onClick={() => navigate("/profile")}>
-                            <ArrowLeft />
-                            <Label className="hidden sm:inline text-md">Indietro</Label>
-                        </Button>
-                    }
-                    right={<ModeToggle />}
-                />
-                <div className="flex-1 flex items-center justify-center px-6 py-10">
-                    <Card className="w-full max-w-lg">
-                        <CardHeader>
-                            <CardTitle>Percorso non valido</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-sm text-muted-foreground">Puoi modificare solo la password del tuo account.</p>
-                        </CardContent>
-                        <CardFooter>
-                            <Button onClick={() => navigate("/profile")} className="w-full">
-                                Torna al profilo
-                            </Button>
-                        </CardFooter>
-                    </Card>
-                </div>
-                <Footer isHomepage/>
-            </div>
-        )
-    }
-
     return (
         <div className="w-full min-h-screen flex flex-col">
             <Header
                 isHomepage
                 left={
-                    <Button variant="outline" type="button" onClick={() => navigate("/profile")}>
-                        <ArrowLeft />
-                        <Label className="hidden sm:inline text-md">Indietro</Label>
-                    </Button>
+                    <ButtonBack to="/profile" />
                 }
-                right={<ModeToggle />}
+                right={
+                    <>
+                        <ModeToggle />
+                        <AccountBadge />
+                    </>
+                }
             />
             <div className="flex-1 flex items-center justify-center">
                 <Card className="w-full border-none max-w-lg px-6">
@@ -224,7 +190,7 @@ export default function Password() {
                     </form>
                 </Card>
             </div>
-            <Footer isHomepage/>
+            <Footer isHomepage />
         </div>
     )
 }

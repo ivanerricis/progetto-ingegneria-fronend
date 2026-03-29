@@ -15,7 +15,7 @@ import type { Account } from "@/types/types"
 export const LoginForm = () => {
     const { t } = useTranslation("login")
     const navigate = useNavigate()
-    const { setAccount } = useAccount()
+    const { updateAccount } = useAccount()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
@@ -28,9 +28,9 @@ export const LoginForm = () => {
         try {
             const loginResponse: Account = await loginAccount({ email, password })
             if (loginResponse) {
-                setAccount(loginResponse)
+                updateAccount(loginResponse)
             } else {
-                setAccount({
+                updateAccount({
                     id: -1,
                     firstName: "",
                     lastName: "",

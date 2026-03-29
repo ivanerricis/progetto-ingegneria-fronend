@@ -1,39 +1,18 @@
 import { Footer } from "@/components/footer";
 import Header from "@/components/header";
 import CreateAgencyForm from "@/pages/CreateAgency/components/createAgencyForm";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
-import { Label } from "@/components/ui/label";
 import LanguageSwitcher from "@/components/languageSwitcher";
+import ButtonBack from "@/components/buttonBack";
+import Content from "@/components/content";
 
 const CreateAgency = () => {
-    const navigate = useNavigate()
-
-    const handleGoBack = () => {
-        if (window.history.length > 1) {
-            navigate(-1)
-            return
-        }
-
-        navigate("/account/login")
-    }
 
     return (
         <div className="h-screen flex flex-col overflow-hidden sm:gap-2">
             <Header
                 left={
-                    <>
-                        <Button
-                            className="size-10 sm:w-fit sm:h-10 sm:px-4 sm:py-2"
-                            variant={"outline"}
-                            onClick={handleGoBack}
-                        >
-                            <ArrowLeft className="size-5" />
-                            <Label className="hidden sm:flex text-lg">Torna indietro</Label>
-                        </Button>
-                    </>
+                    <ButtonBack />
                 }
                 right={
                     <>
@@ -42,13 +21,11 @@ const CreateAgency = () => {
                     </>
                 }
             />
-            <main className="relative flex-1 min-h-0 flex items-center justify-center sm:rounded-xl overflow-hidden overflow-y-auto sm:mx-26">
-                <div
-                    className="hidden sm:block absolute inset-0 bg-cover bg-center bg-no-repeat"
-                    style={{ backgroundImage: `url(/sfondo.webp)` }}
-                />
+
+            <Content>
                 <CreateAgencyForm />
-            </main>
+            </Content>
+
             <Footer />
         </div>
     );

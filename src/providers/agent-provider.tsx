@@ -14,7 +14,7 @@ import type { Agent } from "@/types/types";
 type AgentContextType = {
     agent: Agent | null;
     loading: boolean;
-    setAgent: (agent: Agent | null) => void;
+    updateAgent: (agent: Agent | null) => void;
     logout: () => Promise<void>;
     refreshAgent: () => Promise<void>;
 };
@@ -28,11 +28,11 @@ type Props = {
 };
 
 export const AgentProvider = ({ children }: Props) => {
-    const [agent, setAgentState] = useState<Agent | null>(null);
+    const [agent, setAgent] = useState<Agent | null>(null);
     const [loading, setLoading] = useState(true);
 
-    const setAgent = useCallback((ag: Agent | null) => {
-        setAgentState(ag);
+    const updateAgent = useCallback((ag: Agent | null) => {
+        setAgent(ag);
 
         if (ag) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(ag));
@@ -44,11 +44,11 @@ export const AgentProvider = ({ children }: Props) => {
     const refreshAgent = useCallback(async () => {
         try {
             const res = await apiClient.get<Agent>("/auth/agent");
-            setAgent(res.data);
+            updateAgent(res.data);
         } catch {
-            setAgent(null);
+            updateAgent(null);
         }
-    }, [setAgent]);
+    }, [updateAgent]);
 
     const logout = useCallback (async () => {
         try {
@@ -57,14 +57,14 @@ export const AgentProvider = ({ children }: Props) => {
             console.log("Logout failed, but clearing agent data anyway.");
         }
 
-        setAgent(null);
-    }, [setAgent]);
+        updateAgent(null);
+    }, [updateAgent]);
 
     useEffect(() => {
         setLogoutHandler(() => {
-            setAgent(null);
+            updateAgent(null);
         });
-    }, [setAgent]);
+    }, [updateAgent]);
 
     useEffect(() => {
         const init = async () => {
@@ -72,7 +72,7 @@ export const AgentProvider = ({ children }: Props) => {
                 const stored = localStorage.getItem(STORAGE_KEY);
 
                 if (stored) {
-                    setAgentState(JSON.parse(stored));
+                    setAgent(JSON.parse(stored));
                 }
 
                 await refreshAgent();
@@ -87,10 +87,10 @@ export const AgentProvider = ({ children }: Props) => {
     const contextValue = useMemo(() => ({
         agent,
         loading,
-        setAgent,
+        updateAgent,
         logout,
         refreshAgent,
-    }), [agent, loading, setAgent, logout, refreshAgent]);
+    }), [agent, loading, updateAgent, logout, refreshAgent]);
 
     return (
         <AgentContext.Provider value={contextValue}>
