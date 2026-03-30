@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 import { Label } from "@/components/ui/label";
 import { CreateAgent } from "@/lib/api/agent";
@@ -104,12 +104,11 @@ const CreateAgentPage = () => {
                     </div>
                     <div className="flex items-center sm:mt-6 gap-2 w-full">
                         <Label htmlFor="isAdmin" className="text-lg text-nowrap">È admin:</Label>
-                        <Input
+                        <Checkbox
                             id="isAdmin"
-                            type="checkbox"
                             className="size-5"
                             checked={form.isAdmin}
-                            onChange={(e) => setForm({ ...form, isAdmin: e.target.checked })}
+                            onCheckedChange={(checked) => setForm({ ...form, isAdmin: !!checked })}
                         />
                     </div>
                 </div>

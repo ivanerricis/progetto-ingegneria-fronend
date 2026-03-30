@@ -50,7 +50,7 @@ export default function Offers() {
             <Header
                 isHomepage
                 left={
-                    <ButtonBack />
+                    <ButtonBack to="/homepage"/>
                 }
                 right={
                     <>

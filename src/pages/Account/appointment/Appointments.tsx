@@ -55,7 +55,7 @@ export default function Appointments() {
             <Header
                 isHomepage
                 left={
-                    <ButtonBack />
+                    <ButtonBack to="/homepage"/>
                 }
                 right={
                     <>

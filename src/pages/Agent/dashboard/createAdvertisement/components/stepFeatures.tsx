@@ -36,8 +36,8 @@ const StepFeatures: FC<StepFeaturesProps> = ({
     <div className="flex flex-col gap-4">
         <Label className="text-2xl">Caratteristiche</Label>
 
-        <div className="flex flex-col md:flex-row gap-4">
-            <div className="w-full sm:w-1/3 gap-3 grid grid-cols-2">
+        <div className="flex flex-col lg:flex-row gap-4">
+            <div className="w-full lg:w-1/4 gap-3 grid grid-cols-2">
                 <div>
                     <Label className="text-lg">Locali</Label>
                     <Input type="number" value={rooms} onChange={e => setRooms(Number.parseInt(e.target.value) || 0)} />
@@ -59,7 +59,7 @@ const StepFeatures: FC<StepFeaturesProps> = ({
             <Separator orientation="horizontal" className="sm:hidden" />
             <Separator orientation="vertical" className="hidden sm:block" />
 
-            <div className="flex sm:w-1/3 flex-wrap gap-4 sm:mb-3">
+            <div className="flex lg:w-1/3 flex-wrap gap-4 lg:mb-3">
                 
                 <div className="flex flex-col gap-1">
                     <Label className="text-lg">Tipo di annuncio</Label>
@@ -109,7 +109,7 @@ const StepFeatures: FC<StepFeaturesProps> = ({
             <Separator orientation="horizontal" className="sm:hidden" />
             <Separator orientation="vertical" className="hidden sm:block" />
 
-            <div className="flex flex-col w-full sm:w-1/3 gap-2">
+            <div className="flex flex-col w-full lg:w-2/3 gap-2">
                 <Label className="text-xl">Servizi</Label>
                 <div className="flex flex-wrap gap-2 h-full w-full">
                     {Object.keys(services).map((serviceKey) => (
