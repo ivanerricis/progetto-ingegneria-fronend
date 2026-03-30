@@ -33,6 +33,7 @@ export default function useAdvertisement(role: "agent" | "account", advertisemen
                     signal: abortController.signal,
                 })
                 const item = data?.item ?? data?.advertisement ?? data
+                console.log("Fetched advertisement:", item)
                 setAdvertisement(item)
             } catch (error) {
                 if (isCancel(error)) return

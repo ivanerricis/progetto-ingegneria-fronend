@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { Label } from "@/components/ui/label";
-import type { Services, AddressData } from "@/types/types";
+import type { Services } from "@/types/types";
 
 interface StepSummaryProps {
     files: File[];
@@ -10,7 +10,7 @@ interface StepSummaryProps {
     bathrooms: number;
     services: Services;
     description: string;
-    addressData: AddressData;
+    address: string;
     formattedPrice: string;
     priceInput: string;
     formatPrice: (price: string) => string;
@@ -18,7 +18,7 @@ interface StepSummaryProps {
 
 const StepSummary: FC<StepSummaryProps> = ({
     files, rooms, floor, surface, bathrooms, services,
-    description, addressData, formattedPrice, priceInput, formatPrice
+    description, address, formattedPrice, priceInput, formatPrice
 }) => (
     <div className="flex flex-col gap-4 text-sm *:flex *:gap-2 *:*:text-lg">
         <div className="flex gap-4">
@@ -51,7 +51,7 @@ const StepSummary: FC<StepSummaryProps> = ({
             </div>
         </div>
 
-        <div>
+        <div className="flex flex-col">
             <Label className="font-bold">Servizi: </Label>
             <Label>
                 {Object.entries(services)
@@ -61,7 +61,7 @@ const StepSummary: FC<StepSummaryProps> = ({
             </Label>
         </div>
 
-        <div>
+        <div className="flex flex-col">
             <Label className="font-bold">Descrizione: </Label>
             <Label>{description}</Label>
         </div>
@@ -69,7 +69,7 @@ const StepSummary: FC<StepSummaryProps> = ({
         <div>
             <Label className="font-bold">Indirizzo: </Label>
             <Label>
-                {addressData.street} {addressData.housenumber}, {addressData.city} ({addressData.state}), {addressData.postcode}, {addressData.country}
+                {address}
             </Label>
         </div>
 

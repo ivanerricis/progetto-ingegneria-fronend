@@ -12,6 +12,7 @@ import StepFeatures from "./components/stepFeatures";
 import StepAddress from "./components/stepAddress";
 import StepPrice from "./components/stepPrice";
 import StepSummary from "./components/stepSummary";
+import { CreateAdvertisement } from "@/lib/api/agent";
 
 const steps = [
     "Foto",
@@ -21,7 +22,7 @@ const steps = [
     "Riepilogo",
 ];
 
-export default function CreateAdvertisement() {
+export default function CreateAdvertisementPage() {
     const emptyAddressData: AddressData = {
         street: "",
         housenumber: "",
@@ -45,7 +46,6 @@ export default function CreateAdvertisement() {
         balcone: false,
         portineria: false,
         ascensore: false,
-        piano: false,
         arredata: false,
         garage: false,
         giardino: false,
@@ -55,22 +55,33 @@ export default function CreateAdvertisement() {
         terrazzo: false,
     });
     const [description, setDescription] = useState("");
+    const [energyClass, setEnergyClass] = useState<"A" | "B" | "C" | "D" | "E" | "F" | "G">("A");
     const [addressQuery, setAddressQuery] = useState("");
     const [addressData, setAddressData] = useState<AddressData>(emptyAddressData);
+    const [address, setAddress] = useState("");
     const [priceInput, setPriceInput] = useState("");
     const [formattedPrice, setFormattedPrice] = useState("");
     const [loading, setLoading] = useState(false);
     const [typeValue, setTypeValue] = useState<"sale" | "rent">("sale");
+    const [housingType, setHousingType] = useState<"apartment" | "villa">("apartment");
 
     const navigate = useNavigate();
 
     const next = () => setStep((s) => Math.min(s + 1, steps.length - 1));
     const back = () => setStep((s) => Math.max(s - 1, 0));
 
+    const handleAddressSelect = (data: AddressData) => {
+        setAddressData(data);
+        setAddress(
+            `${data.street} ${data.housenumber}, ${data.city} (${data.state}), ${data.postcode}, ${data.country}`
+        );
+    };
+
     const handleAddressQueryChange = (newValue: string) => {
         setAddressQuery(newValue);
         if (!newValue.trim()) {
             setAddressData(emptyAddressData);
+            setAddress("");
         }
     };
 
@@ -93,23 +104,44 @@ export default function CreateAdvertisement() {
         event.preventDefault();
         setLoading(true);
 
-        const payload = {
-            files,
-            rooms,
-            floor,
-            surface,
-            bathrooms,
-            services,
-            description,
-            address: addressData,
-            price: Number.parseFloat(priceInput),
-            type: typeValue,
-        };
+        const formData = new FormData();
+
+        // Campi base
+        formData.append("description", description);
+        formData.append("price", String(Number.parseFloat(priceInput)));
+        formData.append("type", typeValue);
+        formData.append("status", "active");
+
+        // Servizi mappati ai nomi del backend
+        const realEstate = {
+            airConditioning: services.ariaCondizionata,
+            balcony: services.balcone,
+            elevator: services.ascensore,
+            furnished: services.arredata,
+            garage: services.garage,
+            garden: services.giardino,
+            parking: services.postoAuto,
+            solarPanels: services.pannelliSolari,
+            concierge: services.portineria,
+            heating: services.riscaldamenti,
+            terrace: services.terrazzo,
+
+            size: surface,
+            rooms: rooms,
+            bathrooms: bathrooms,
+            floor: floor,
+            energyClass: energyClass,
+            housingType: housingType,
+            addressInput: address,
+        }
+
+        formData.append("realEstate", JSON.stringify(realEstate));
+
+        // File
+        files.forEach((file) => formData.append("photos", file));
 
         try {
-            // Replace with actual API call
-            // await apiClient.post("/advertisements/create", payload);
-            console.log("Payload inviato:", payload);
+            await CreateAdvertisement(formData);
             toast.success("Annuncio creato con successo!");
             navigate("/agent/dashboard/advertisements");
         } catch (error) {
@@ -124,7 +156,7 @@ export default function CreateAdvertisement() {
     return (
         <div className="w-full flex flex-col gap-2 items-center justify-between h-full">
             <Label className="text-3xl font-bold my-2">Crea annuncio</Label>
-            <form onSubmit={handleSubmit} className="gap-4 flex flex-col h-full w-full overflow-auto p-2 sm:px-12 ">
+            <form id="create-ad-form" onSubmit={handleSubmit} className="gap-4 flex flex-col h-full w-full overflow-auto p-2 sm:px-12 ">
                 <div className="flex flex-col px-2 gap-6">
                     <Stepper
                         big
@@ -154,6 +186,10 @@ export default function CreateAdvertisement() {
                             setDescription={setDescription}
                             typeValue={typeValue}
                             setTypeValue={setTypeValue}
+                            energyClass={energyClass}
+                            setEnergyClass={setEnergyClass}
+                            housingType={housingType}
+                            setHousingType={setHousingType}
                         />
                     )}
 
@@ -163,7 +199,7 @@ export default function CreateAdvertisement() {
                             addressQuery={addressQuery}
                             onAddressQueryChange={handleAddressQueryChange}
                             addressData={addressData}
-                            setAddressData={setAddressData}
+                            setAddressData={handleAddressSelect}
                         />
                     )}
 
@@ -186,7 +222,7 @@ export default function CreateAdvertisement() {
                             bathrooms={bathrooms}
                             services={services}
                             description={description}
-                            addressData={addressData}
+                            address={address}
                             formattedPrice={formattedPrice}
                             priceInput={priceInput}
                             formatPrice={formatPrice}
@@ -208,7 +244,11 @@ export default function CreateAdvertisement() {
                         </Button>
                     </>
                 ) : (
-                    <Button type="submit" size={"lg"} disabled={loading}>
+                    <Button
+                        type="submit"
+                        form="create-ad-form"
+                        size={"lg"}
+                        disabled={loading}>
                         {loading ? "Creazione..." : "Crea annuncio"}
                     </Button>
                 )}

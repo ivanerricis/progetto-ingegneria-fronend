@@ -82,38 +82,21 @@ export async function RejectAppointment(appointmentId: string | number) {
     }
 }
 
-export async function CreateAdvertisement(data: {
-    description: string
-    price: number
-    propertyType: string
-    type: "sale" | "rent"
-    address: string
-    size: number
-    rooms: number
-    bathrooms: number
-    floor: number
-    energyClass: string
-    hasElevator: boolean
-    hasParking: boolean
-    hasGarden: boolean
-    hasBalcony: boolean
-    hasGarage: boolean
-    hasFurnished: boolean
-    hasAirConditioning: boolean
-    hasSolarPanels: boolean
-}) {
+export async function CreateAdvertisement(data: FormData) {
     try {
-        const response = await apiClient.post(`/agent/create_advertisement`, data)
-        return response.data
+        const response = await apiClient.post(`/advertisement/create`, data, {
+            headers: { "Content-Type": "multipart/form-data" },
+        });
+        return response.data;
     } catch (err) {
         if (isAxiosError(err)) {
             const message =
                 err.response?.data?.error ??
                 err.response?.data?.message ??
-                "Creazione annuncio non riuscita"
-            throw new Error(message)
+                "Creazione annuncio non riuscita";
+            throw new Error(message);
         }
-        throw err
+        throw err;
     }
 }
 

@@ -130,7 +130,6 @@ export type Services = {
     balcone: boolean;
     portineria: boolean;
     ascensore: boolean;
-    piano: boolean;
     arredata: boolean;
     garage: boolean;
     giardino: boolean;

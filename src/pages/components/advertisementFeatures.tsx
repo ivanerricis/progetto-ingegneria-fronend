@@ -46,18 +46,18 @@ const AdvertisementFeatures = ({ realEstate }: Props) => {
                             : realEstate.floor + " piano"}
                     </FeatureItem>
                 )}
-                {hasValue(realEstate.airConditioning) && (
+                {realEstate.airConditioning && (
                     <FeatureItem icon={<AirVent />}>
                         Con condizionatore
                     </FeatureItem>
                 )}
-                {hasValue(realEstate.balcony) && (
+                {realEstate.balcony && (
                     <FeatureItem icon={<BalconyIcon />}>Con balcone</FeatureItem>
                 )}
-                {hasValue(realEstate.concierge) && (
+                {realEstate.concierge && (
                     <FeatureItem icon={<Contact />}>Con concierge</FeatureItem>
                 )}
-                {hasValue(realEstate.elevator) && (
+                {realEstate.elevator && (
                     <FeatureItem icon={<ElevatorIcon />}>Con ascensore</FeatureItem>
                 )}
                 {hasValue(realEstate.energyClass) && (
@@ -65,25 +65,25 @@ const AdvertisementFeatures = ({ realEstate }: Props) => {
                         Classe energetica: {realEstate.energyClass}
                     </FeatureItem>
                 )}
-                {hasValue(realEstate.furnished) && (
+                {realEstate.furnished && (
                     <FeatureItem icon={<ShelvingUnit />}>Arredato</FeatureItem>
                 )}
-                {hasValue(realEstate.garage) && (
+                {realEstate.garage && (
                     <FeatureItem icon={<GarageIcon />}>Con garage</FeatureItem>
                 )}
-                {hasValue(realEstate.garden) && (
+                {realEstate.garden && (
                     <FeatureItem icon={<Fence />}>Con giardino</FeatureItem>
                 )}
-                {hasValue(realEstate.heating) && (
+                {realEstate.heating && (
                     <FeatureItem icon={<Heater />}>Con riscaldamento</FeatureItem>
                 )}
-                {hasValue(realEstate.parking) && (
+                {realEstate.parking && (
                     <FeatureItem icon={<SquareParking />}>Con parcheggio</FeatureItem>
                 )}
-                {hasValue(realEstate.solarPanels) && (
+                {realEstate.solarPanels && (
                     <FeatureItem icon={<SolarPanel />}>Con pannelli solari</FeatureItem>
                 )}
-                {hasValue(realEstate.terrace) && (
+                {realEstate.terrace && (
                     <FeatureItem icon={<TerraceIcon />}>Con terrazzo</FeatureItem>
                 )}
             </div>
