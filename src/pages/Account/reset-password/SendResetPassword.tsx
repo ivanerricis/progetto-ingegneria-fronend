@@ -5,8 +5,12 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { SendResetPasswordForm } from "./components/sendResetPasswordForm";
 import ButtonBack from "@/components/buttonBack";
 import Content from "@/components/content";
+import { useParams } from "react-router-dom";
 
 const SendResetPassword = () => {
+    const { token } = useParams();
+
+    console.log("Token per reset password:", token);
 
     return (
         <div className="h-screen flex flex-col overflow-hidden sm:gap-2">
@@ -23,7 +27,7 @@ const SendResetPassword = () => {
             />
 
             <Content>
-                <SendResetPasswordForm />
+                <SendResetPasswordForm token={token} />
             </Content>
 
             <Footer />

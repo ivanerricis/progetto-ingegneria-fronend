@@ -110,3 +110,35 @@ export async function deleteAccount(accountId: string | number) {
         throw err
     }
 }
+
+export async function requestResetPassword(email: string) {
+    try {
+        const response = await apiClient.post("/auth/account/forgot_password", { email })
+        return response.data
+    } catch (err) {
+        if (isAxiosError(err)) {
+            const message =
+                err.response?.data?.error ??
+                err.response?.data?.message ??
+                "Richiesta di reset della password non riuscita"
+            throw new Error(message)
+        }
+        throw err
+    }
+}
+
+export async function resetPassword(token: string, newPassword: string) {
+    try {
+        const response = await apiClient.post("/auth/account/reset_password", { token, newPassword })
+        return response.data
+    } catch (err) {
+        if (isAxiosError(err)) {
+            const message =
+                err.response?.data?.error ??
+                err.response?.data?.message ??
+                "Reset della password non riuscito"
+            throw new Error(message)
+        }
+        throw err
+    }
+}
