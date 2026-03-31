@@ -79,7 +79,7 @@ function App() {
               <Route path="/" element={<SessionEntryRedirect />} />
               <Route path="/create-agency" element={<CreateAgency />} />
               <Route path="/:type/request-reset-password" element={<RequestResetPassword />} />
-              <Route path="/:type/reset-password-account/:token" element={<SendResetPassword />} />
+              <Route path="/:type/reset-password/:token" element={<SendResetPassword />} />
 
               {/* Account Routes */}
               <Route element={<AccountProvider><Outlet /></AccountProvider>}>
