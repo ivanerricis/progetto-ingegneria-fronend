@@ -1,4 +1,9 @@
+import { apiClient } from "@/lib/api/config";
+import { useAccount } from "@/providers/account-provider";
+import { isAxiosError } from "axios";
 import { useCallback, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 type GoogleCredentialResponse = {
     credential: string;
@@ -7,28 +12,34 @@ type GoogleCredentialResponse = {
 
 export default function ButtonGoogle() {
     const buttonRef = useRef<HTMLDivElement>(null);
+    const navigate = useNavigate()
+    const { updateAccount } = useAccount()
 
     const handleCredentialResponse = useCallback(async (response: GoogleCredentialResponse) => {
         const idToken = response.credential;
 
-        await fetch("/auth/google", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                id_token: idToken
-            })
-        });
-    }, []);
+        try {
+            const response = await apiClient.post("/auth/account/google", { idToken: idToken }, { withCredentials: true });
+            console.log("Login con Google riuscito", response.data);
+            updateAccount(response.data.account);
+            navigate("/homepage");
+        } catch (error) {
+            if (isAxiosError(error)) {
+                const message = error.response?.data?.error || error.response?.data?.message || "Login con Google non riuscito";
+                toast.error(message);
+            } else {
+                toast.error("Si è verificato un errore sconosciuto durante il login con Google");
+            }
+        }
+    }, [updateAccount, navigate]);
 
     useEffect(() => {
         if (!window.google) return;
 
         window.google.accounts.id.initialize({
-            client_id: import.meta.env.ID_CLIENT_GOOGLE,
-            callback: handleCredentialResponse
+            client_id: import.meta.env.VITE_ID_CLIENT_GOOGLE,
+            callback: handleCredentialResponse,
+            auto_select: false,
         });
 
         if (buttonRef.current) {
@@ -36,9 +47,14 @@ export default function ButtonGoogle() {
                 theme: "outline",
                 size: "large",
                 type: "standard",
+                locale: "it",
+                text: "continue_with",
+                logo_alignment: "center",
             });
         }
     }, [handleCredentialResponse]);
 
-    return <div ref={buttonRef}></div>;
+    return <div className="w-full flex justify-center">
+        <div ref={buttonRef} className="w-full" />
+    </div>;
 }

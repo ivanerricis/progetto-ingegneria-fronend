@@ -36,6 +36,7 @@ export const AccountProvider = ({ children }: Props) => {
 
         if (acc) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(acc));
+            console.log("Account updated:", acc);
         } else {
             localStorage.removeItem(STORAGE_KEY);
         }

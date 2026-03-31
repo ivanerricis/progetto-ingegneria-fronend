@@ -111,7 +111,9 @@ export const LoginForm = () => {
                     >
                         {isSubmitting ? "Accesso in corso..." : "Accedi"}
                     </Button>
+
                     <ButtonGoogle />
+
                     <div className="flex gap-2 w-full items-center">
                         <Separator />
                         <div className="text-center text-md text-muted-foreground">

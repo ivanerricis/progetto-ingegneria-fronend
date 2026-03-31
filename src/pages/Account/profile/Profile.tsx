@@ -87,20 +87,22 @@ export default function Profile() {
                         </div>
 
                         <div className="flex flex-col flex-1 gap-4">
-                            <Button
-                                type="button"
-                                onClick={() => navigate(`/account/${account.id}/password`)}
-                                className="flex items-center justify-center flex-1"
-                            >
-                                <Pencil />
-                                Modifica password
-                            </Button>
+                            {account.password && (
+                                <Button
+                                    type="button"
+                                    onClick={() => navigate(`/account/${account.id}/password`)}
+                                    className="flex items-center justify-center flex-1"
+                                >
+                                    <Pencil className="size-5"/>
+                                    Modifica password
+                                </Button>
+                            )}
                             <Button
                                 variant="destructive"
                                 className="flex items-center justify-center flex-1"
                                 onClick={() => setShowDeleteDialog(true)}
                             >
-                                <Trash />
+                                <Trash className="size-5" />
                                 Elimina account
                             </Button>
                         </div>

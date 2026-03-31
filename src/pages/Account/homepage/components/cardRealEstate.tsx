@@ -97,7 +97,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
                         {advertisement.realEstate.rooms + " locali"}
                     </div>
                     <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2 bg-primary/20 text-primary p-2 border">
-                        <ExpandIcon className="size-7" />
+                        <ExpandIcon className="size-6" />
                         {advertisement.realEstate.size + " m²"}
                     </div>
                     <div className="flex items-center justify-center rounded-sm h-fit text-nowrap gap-2 bg-primary/20 text-primary p-2 border">

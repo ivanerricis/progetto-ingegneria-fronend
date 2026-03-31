@@ -15,16 +15,40 @@ import { RealEstateMap } from "@/components/map/realEstateMap"
 import { PaginationAdvertisements } from "./components/paginationAdvertisements"
 import { CitySearchInput } from "./components/citySearchInput"
 import { useHomepageSearch } from "@/hooks/account/useHomepageSearch"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import type { SortOption } from "@/hooks/account/useAdvertisements"
+import { useSearchParams } from "react-router-dom"
+
+const SORT_OPTIONS: { value: SortOption; label: string }[] = [
+    { value: "nearest", label: "Più vicini" },
+    { value: "farthest", label: "Più lontani" },
+    { value: "cheapest", label: "Meno costosi" },
+    { value: "expensive", label: "Più costosi" },
+    { value: "newest", label: "Più recenti" },
+    { value: "oldest", label: "Più vecchi" },
+]
 
 export const Homepage = () => {
     const { advertisements, isLoading, error } = useAdvertisements()
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
     const [isMobileMapOpen, setIsMobileMapOpen] = useState(false)
     const { city, setCity } = useHomepageSearch()
+    const [searchParams, setSearchParams] = useSearchParams()
 
     const hasError = Boolean(error)
     const isEmpty = !isLoading && !hasError && advertisements.length === 0
     const hasResults = !isLoading && !hasError && advertisements.length > 0
+
+    const currentSort = (searchParams.get("sortBy") as SortOption) ?? ""
+
+    const handleSortChange = (value: SortOption) => {
+        setSearchParams((prev) => {
+            const next = new URLSearchParams(prev)
+            next.set("sortBy", value)
+            next.set("page", "0")
+            return next
+        })
+    }
 
     return (
         <div className="flex min-h-screen flex-col xl:h-full xl:max-h-screen">
@@ -61,7 +85,7 @@ export const Homepage = () => {
                             <Map className="size-6" />
                         </Button>
 
-                        <div className="h-10 flex items-center justify-center">
+                        <div className="hidden h-10 xl:flex items-center justify-center">
                             <img
                                 src="LogoIntero.ico"
                                 alt="DietiEstates Logo"
@@ -111,10 +135,23 @@ export const Homepage = () => {
                     )}
 
                     {hasResults && (
-                        <div className="flex items-center justify-between">
-                            <div className="flex w-full items-center text-start text-foreground p-2 pb-0">
+                        <div className="flex items-center justify-between p-2 pb-0">
+                            <div className="flex w-full items-center text-start text-foreground pb-0">
                                 Risultati della ricerca: {advertisements.length}
                             </div>
+
+                            <Select value={currentSort} onValueChange={handleSortChange}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Ordina per" />
+                                </SelectTrigger>
+                                <SelectContent position="popper">
+                                    {SORT_OPTIONS.map((opt) => (
+                                        <SelectItem key={opt.value} value={opt.value}>
+                                            {opt.label}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
                         </div>
                     )}
 

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle"
 import { useNavigate } from "react-router-dom"
 import Content from "@/components/content"
+import { Label } from "@/components/ui/label"
 
 export const Register = () => {
     const navigate = useNavigate()
@@ -14,11 +15,11 @@ export const Register = () => {
             <Header
                 left={
                     <>
-                        <Button variant={"outline"} onClick={() => navigate("/agent/login")}>
-                            Console agenti
+                        <Button variant={"outline"} size={"lg"} onClick={() => navigate("/agent/login")}>
+                            <Label className="text-lg!">Console agenti</Label>
                         </Button>
-                        <Button variant={"outline"} onClick={() => navigate("/create-agency")}>
-                            Crea agenzia
+                        <Button variant={"outline"} size={"lg"} onClick={() => navigate("/create-agency")}>
+                            <Label className="text-lg!">Crea agenzia</Label>
                         </Button>
                     </>
                 }

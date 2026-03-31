@@ -100,7 +100,10 @@ export type Account = {
     firstName: string
     lastName: string
     email: string
+    password?: boolean
     createdAt: Date
+    provider?: string
+    providerAccountId?: string
 }
 
 export type Negotiation = {

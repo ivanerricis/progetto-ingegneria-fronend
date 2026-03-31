@@ -8,6 +8,8 @@ import { Separator } from "@/components/ui/separator"
 import { useNavigate } from "react-router-dom"
 import { registerAccount } from "@/lib/api/auth"
 import { toast } from "sonner"
+import { useAccount } from "@/providers/account-provider"
+import ButtonGoogle from "@/components/buttonGoogle"
 
 export const RegisterForm = () => {
     const navigate = useNavigate()
@@ -17,6 +19,7 @@ export const RegisterForm = () => {
     const [password, setPassword] = useState("")
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState<string | null>(null)
+    const { updateAccount } = useAccount()
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -32,14 +35,14 @@ export const RegisterForm = () => {
         setIsSubmitting(true)
 
         try {
-            await registerAccount({
+            const response = await registerAccount({
                 firstName,
                 lastName,
                 email,
                 password,
             })
-
             toast.success("Registrazione completata")
+            updateAccount(response)
             navigate("/homepage")
         } catch (submitError) {
             const message = submitError instanceof Error ? submitError.message : "Errore durante la registrazione"
@@ -121,9 +124,7 @@ export const RegisterForm = () => {
                     <Button type="submit" className="w-full" disabled={isSubmitting}>
                         {isSubmitting ? "Registrazione in corso..." : "Registrati"}
                     </Button>
-                    <Button variant="outline" className="w-full" type="button" disabled={isSubmitting}>
-                        Registrati con Google
-                    </Button>
+                    <ButtonGoogle />
                     <div className="flex gap-2 w-full items-center">
                         <Separator />
                         <div className="text-center text-sm text-muted-foreground">

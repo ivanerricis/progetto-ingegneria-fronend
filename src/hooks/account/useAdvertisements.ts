@@ -4,6 +4,8 @@ import type { Advertisement } from "@/types/types";
 import { apiClient } from "@/lib/api/config";
 import { isCancel } from "axios";
 
+export type SortOption = "nearest" | "farthest" | "cheapest" | "expensive" | "newest" | "oldest";
+
 /**
  * Hook for fetching the list of advertisements for an account. Handles loading and error states,
  * and supports pagination and filtering based on URL search parameters.
@@ -40,7 +42,7 @@ const useAdvertisements = () => {
                 if (cityLat) params.set("lat", cityLat);
                 if (cityLon) params.set("lon", cityLon);
 
-                // pagination mapping - CONVERTI A 1-INDEXED PER IL BACKEND
+                // pagination mapping - CONVERTO A 1-INDEXED PER IL BACKEND
                 const page = Number(searchParams.get("page") ?? "0");
                 const size = Number(searchParams.get("size") ?? "10");
 
@@ -51,6 +53,9 @@ const useAdvertisements = () => {
                 params.set("page", String(backendPage));
                 params.set("take", String(take));
                 params.set("skip", String(skip));
+
+                const sortBy = searchParams.get("sortBy") as SortOption | null;
+                if (sortBy) params.set("sortBy", sortBy);
 
                 const queryString = params.toString();
                 const queryPart = queryString ? `?${queryString}` : "";
