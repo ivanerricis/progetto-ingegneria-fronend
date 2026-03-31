@@ -10,6 +10,7 @@ import { toast } from "sonner"
 import { loginAccount } from "@/lib/api/auth"
 import { useAccount } from "@/providers/account-provider"
 import type { Account } from "@/types/types"
+import ButtonGoogle from "@/components/buttonGoogle"
 
 export const LoginForm = () => {
     const navigate = useNavigate()
@@ -110,15 +111,7 @@ export const LoginForm = () => {
                     >
                         {isSubmitting ? "Accesso in corso..." : "Accedi"}
                     </Button>
-                    <Button
-                        variant="outline"
-                        size={"lg"}
-                        className="w-full"
-                        type="button"
-                        disabled={isSubmitting}
-                    >
-                        Accedi con Google
-                    </Button>
+                    <ButtonGoogle />
                     <div className="flex gap-2 w-full items-center">
                         <Separator />
                         <div className="text-center text-md text-muted-foreground">

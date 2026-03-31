@@ -42,6 +42,23 @@ export async function loginAccount(data: {
     }
 }
 
+export async function loginAccountGoogle(token: string) {
+    try {
+        const response = await apiClient.post("/auth/account/google", { token })
+        return response.data
+    } catch (err) {
+        if (isAxiosError(err)) {
+            console.log(err)
+            const message =
+                err.response?.data?.error ??
+                err.response?.data?.message ??
+                "Login con Google non riuscito"
+            throw new Error(message)
+        }
+        throw err
+    }
+}
+
 export async function loginAgent(data: {
     username: string
     password: string

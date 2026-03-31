@@ -7,7 +7,6 @@ Questo repository contiene il frontend del progetto per il corso di Ingegneria d
 - React
 - JavaScript/TypeScript
 - CSS/SCSS
-- [Altre tecnologie rilevanti]
 
 ## Installazione
 
