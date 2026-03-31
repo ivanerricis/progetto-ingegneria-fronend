@@ -12,26 +12,20 @@ import { toast } from "sonner";
 
 export const RequestResetPasswordFormAgent = () => {
     const [username, setUsername] = useState("");
-    const [agentId, setAgentId] = useState<number | null>(null);
     const { agencies, loading, error } = useAgencies();
     const [selectedAgencyId, setSelectedAgencyId] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (agentId === null) {
-            toast.error("ID agente non valido. Assicurati di inserire un numero valido.")
-            return;
-        }
         try {
-            await requestResetPasswordAgent(username, agentId);
+            await requestResetPasswordAgent(username, parseInt(selectedAgencyId));
             toast.success("Email di reset password inviata con successo. Controlla la tua casella di posta.")
             navigate("/agent/login");
         } catch (error) {
             toast.error(error instanceof Error ? error.message : "Si è verificato un errore durante la richiesta di reset password.")
         } finally {
             setUsername("");
-            setAgentId(null);
         }
     }
 

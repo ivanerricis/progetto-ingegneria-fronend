@@ -143,9 +143,9 @@ export async function resetPasswordAccount(token: string, newPassword: string) {
     }
 }
 
-export async function requestResetPasswordAgent(username: string, agentId: number) {
+export async function requestResetPasswordAgent(username: string, agencyId: number) {
     try {
-        const response = await apiClient.post("/auth/agent/forgot_password", { username, agentId })
+        const response = await apiClient.post("/auth/agent/forgot_password", { username, agencyId })
         return response.data
     } catch (err) {
         if (isAxiosError(err)) {
