@@ -4,7 +4,6 @@ import LoginForm from "@/pages/Agent/login-agent/components/loginForm"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle"
 import { useNavigate } from "react-router-dom"
-import LanguageSwitcher from "@/components/languageSwitcher"
 import { Label } from "@/components/ui/label"
 import Content from "@/components/content"
 
@@ -29,10 +28,7 @@ export const LoginAgent = () => {
                     { label: "Crea agenzia", onSelect: () => navigate("/create-agency") },
                 ]}
                 right={
-                    <>
-                        <ModeToggle />
-                        <LanguageSwitcher />
-                    </>
+                    <ModeToggle />
                 }
             />
 

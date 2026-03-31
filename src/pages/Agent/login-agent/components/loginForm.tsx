@@ -7,7 +7,6 @@ import { Separator } from "@/components/ui/separator"
 import { useNavigate } from "react-router-dom"
 import { Eye, EyeOff } from "lucide-react"
 import AgencyCombobox from "./agencyCombobox"
-import { useTranslation } from "react-i18next"
 import { useAgencies } from "@/hooks/agent/useAgency"
 import { loginAgent } from "@/lib/api/auth"
 import { useAgent } from "@/providers/agent-provider"
@@ -16,7 +15,6 @@ import { toast } from "sonner"
 
 export const LoginForm = () => {
     const navigate = useNavigate()
-    const { t } = useTranslation("loginAgent")
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
@@ -99,11 +97,11 @@ export const LoginForm = () => {
                             />
                         </div>
                         <div className="grid gap-1 mb-4">
-                            <Label htmlFor="username" className="text-lg">{t("fields.username.label")}</Label>
+                            <Label htmlFor="username" className="text-lg">Username</Label>
                             <Input
                                 id="username"
                                 type="text"
-                                placeholder={t("fields.username.placeholder")}
+                                placeholder="mariorossi123"
                                 className="text-lg!"
                                 value={username}
                                 onChange={(event) => setUsername(event.target.value)}
@@ -112,19 +110,19 @@ export const LoginForm = () => {
                         </div>
                         <div className="grid gap-1 mb-2">
                             <div className="flex items-center justify-between">
-                                <Label htmlFor="password" className="text-lg">{t("fields.password.label")}</Label>
+                                <Label htmlFor="password" className="text-lg">Password</Label>
                                 <a
-                                    href="/request-reset-password"
+                                    href="/agent/request-reset-password"
                                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                                 >
-                                    {t("links.forgotPassword")}
+                                    Hai dimenticato la password?
                                 </a>
                             </div>
                             <div className="relative">
                                 <Input
                                     id="password"
                                     type={showPassword ? "text" : "password"}
-                                    placeholder={t("fields.password.placeholder")}
+                                    placeholder="La tua password"
                                     className="text-lg! pr-9"
                                     value={password}
                                     onChange={(event) => setPassword(event.target.value)}
@@ -149,7 +147,7 @@ export const LoginForm = () => {
                         className="w-full"
                         disabled={isSubmitting}
                     >
-                        {isSubmitting ? t("buttons.submitting") : t("buttons.submit")}
+                        {isSubmitting ? "Accesso in corso..." : "Accedi"}
                     </Button>
                 </CardFooter>
             </form>

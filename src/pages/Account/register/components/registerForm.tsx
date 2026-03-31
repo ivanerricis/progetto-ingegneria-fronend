@@ -6,13 +6,11 @@ import { Label } from "@/components/ui/label"
 import { RegisterPasswordField, isRegisterPasswordValid } from "@/components/register-password-field"
 import { Separator } from "@/components/ui/separator"
 import { useNavigate } from "react-router-dom"
-import { useTranslation } from "react-i18next"
 import { registerAccount } from "@/lib/api/auth"
 import { toast } from "sonner"
 
 export const RegisterForm = () => {
     const navigate = useNavigate()
-    const { t } = useTranslation("register")
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")
@@ -54,7 +52,7 @@ export const RegisterForm = () => {
 
     return (
         <Card className="w-full px-6 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-md absolute rounded-none sm:rounded-xl" >
-            <CardTitle>{t("title")}</CardTitle>
+            <CardTitle>Registrati</CardTitle>
             <Separator orientation="horizontal" className="hidden sm:flex"></Separator>
             <form onSubmit={handleSubmit}>
                 <CardContent>
@@ -62,13 +60,13 @@ export const RegisterForm = () => {
                         <div className="flex flex-row gap-x-2">
                             <div className="grid gap-2">
                                 <Label htmlFor="firstname">
-                                    {t("fields.firstName.label")}
+                                    Nome
                                     <span className="text-destructive">*</span>
                                 </Label>
                                 <Input
                                     id="firstname"
                                     type="text"
-                                    placeholder={t("fields.firstName.placeholder")}
+                                    placeholder="Mario"
                                     value={firstName}
                                     onChange={(event) => setFirstName(event.target.value)}
                                     required
@@ -76,13 +74,13 @@ export const RegisterForm = () => {
                             </div>
                             <div className="grid gap-2">
                                 <Label htmlFor="lastname">
-                                    {t("fields.lastname.label")}
+                                    Cognome
                                     <span className="text-destructive">*</span>
                                 </Label>
                                 <Input
                                     id="lastname"
                                     type="text"
-                                    placeholder={t("fields.lastname.placeholder")}
+                                    placeholder="Rossi"
                                     value={lastName}
                                     onChange={(event) => setLastName(event.target.value)}
                                     required
@@ -91,13 +89,13 @@ export const RegisterForm = () => {
                         </div>
                         <div className="grid gap-2">
                             <Label htmlFor="email">
-                                {t("fields.email.label")}
+                                Email
                                 <span className="text-destructive">*</span>
                             </Label>
                             <Input
                                 id="email"
                                 type="email"
-                                placeholder={t("fields.email.placeholder")}
+                                placeholder="mario.rossi@example.com"
                                 value={email}
                                 onChange={(event) => setEmail(event.target.value)}
                                 required
@@ -108,8 +106,8 @@ export const RegisterForm = () => {
                                 value={password}
                                 onChange={setPassword}
                                 disabled={isSubmitting}
-                                label={t("fields.password.label")}
-                                placeholder={t("fields.password.placeholder")}
+                                label="Password"
+                                placeholder="La tua password"
                             />
                         </div>
                         {error && (
@@ -121,20 +119,20 @@ export const RegisterForm = () => {
                 </CardContent>
                 <CardFooter className="flex-col gap-2 mt-2">
                     <Button type="submit" className="w-full" disabled={isSubmitting}>
-                        {isSubmitting ? t("buttons.submitting") : t("buttons.submit")}
+                        {isSubmitting ? "Registrazione in corso..." : "Registrati"}
                     </Button>
                     <Button variant="outline" className="w-full" type="button" disabled={isSubmitting}>
-                        {t("buttons.google")}
+                        Registrati con Google
                     </Button>
                     <div className="flex gap-2 w-full items-center">
                         <Separator />
                         <div className="text-center text-sm text-muted-foreground">
-                            {t("texts.or")}
+                            oppure
                         </div>
                         <Separator />
                     </div>
                     <Button variant={"secondary"} onClick={() => navigate("/login")} className="w-full" type="button" disabled={isSubmitting}>
-                        {t("buttons.login")}
+                        Accedi
                     </Button>
                 </CardFooter>
             </form>

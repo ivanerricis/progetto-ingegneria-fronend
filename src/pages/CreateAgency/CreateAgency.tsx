@@ -2,7 +2,6 @@ import { Footer } from "@/components/footer";
 import Header from "@/components/header";
 import CreateAgencyForm from "@/pages/CreateAgency/components/createAgencyForm";
 import { ModeToggle } from "@/components/mode-toggle";
-import LanguageSwitcher from "@/components/languageSwitcher";
 import ButtonBack from "@/components/buttonBack";
 import Content from "@/components/content";
 
@@ -15,10 +14,7 @@ const CreateAgency = () => {
                     <ButtonBack />
                 }
                 right={
-                    <>
-                        <ModeToggle />
-                        <LanguageSwitcher />
-                    </>
+                    <ModeToggle />
                 }
             />
 

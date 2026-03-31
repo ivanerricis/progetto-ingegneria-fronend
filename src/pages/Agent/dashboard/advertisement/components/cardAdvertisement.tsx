@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { CalendarClock, Pencil, Trash } from "lucide-react"
+import { CalendarClock, Trash } from "lucide-react"
 import type { Advertisement } from "@/types/types"
 import { formatPrice } from "@/utils/formatPrice"
 import { useNavigate } from "react-router-dom"
@@ -89,13 +89,13 @@ export const CardAdvertisement = ({ advertisement, onDelete, onRent }: CardRealE
                     {/* Buttons */}
                     {advertisement.status === "active" && (
                         <div className="flex w-full items-center justify-end 2xl:justify-between gap-1">
-                            <Button
+                            {/* <Button
                                 variant={"outline"}
                                 className="size-10 2xl:flex-1 2xl:h-10 2xl:px-4 2xl:py-2"
                             >
                                 <Pencil className="size-5" />
                                 <Label className="hidden 2xl:block text-md">Modifica</Label>
-                            </Button>
+                            </Button> */}
                             {advertisement.type === "rent" && (
                                 <Button
                                     variant={"outline"}

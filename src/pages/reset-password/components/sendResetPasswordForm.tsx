@@ -1,17 +1,18 @@
 import { RegisterPasswordField } from "@/components/register-password-field";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { resetPassword } from "@/lib/api/auth";
+import { resetPasswordAccount, resetPasswordAgent } from "@/lib/api/auth";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 type Props = Readonly<{
+    type: string | undefined;
     token: string | undefined;
 }>;
 
-export const SendResetPasswordForm = ({ token }: Props) => {
+export const SendResetPasswordForm = ({ type, token }: Props) => {
     const navigate = useNavigate();
     const [password, setPassword] = useState("");
 
@@ -19,13 +20,17 @@ export const SendResetPasswordForm = ({ token }: Props) => {
         e.preventDefault();
         if (!token) {
             toast.error("Token mancante per il reset della password.");
-            navigate("/login");
+            navigate(type === "agent" ? "/agent/login" : "/account/login");
             return;
         }
         try {
-            await resetPassword(token, password);
+            if (type === "agent") {
+                await resetPasswordAgent(token, password);
+            } else {
+                await resetPasswordAccount(token, password);
+            }
             toast.success("Password reset con successo! Ora puoi accedere con la tua nuova password.");
-            navigate("/login");
+            navigate(type === "agent" ? "/agent/login" : "/account/login");
         } catch (error) {
             toast.error(error instanceof Error ? error.message : "Si è verificato un errore durante il reset della password.");
         }

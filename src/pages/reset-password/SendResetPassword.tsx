@@ -1,6 +1,5 @@
 import { Footer } from "@/components/footer";
 import Header from "@/components/header";
-import LanguageSwitcher from "@/components/languageSwitcher";
 import { ModeToggle } from "@/components/mode-toggle";
 import { SendResetPasswordForm } from "./components/sendResetPasswordForm";
 import ButtonBack from "@/components/buttonBack";
@@ -9,25 +8,21 @@ import { useParams } from "react-router-dom";
 
 const SendResetPassword = () => {
     const { token } = useParams();
-
-    console.log("Token per reset password:", token);
+    const { type } = useParams();
 
     return (
         <div className="h-screen flex flex-col overflow-hidden sm:gap-2">
             <Header
                 left={
-                    <ButtonBack />
+                    <ButtonBack to={type === "agent" ? "/agent/login" : "/account/login"} />
                 }
                 right={
-                    <>
-                        <ModeToggle />
-                        <LanguageSwitcher />
-                    </>
+                    <ModeToggle />
                 }
             />
 
             <Content>
-                <SendResetPasswordForm token={token} />
+                <SendResetPasswordForm type={type} token={token} />
             </Content>
 
             <Footer />

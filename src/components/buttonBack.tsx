@@ -11,12 +11,13 @@ const ButtonBack = ({ to }: ButtonBackProps) => {
     const navigate = useNavigate()
 
     const handleGoBack = () => {
+        if (to) navigate(to)
         if (window.history.length > 1) {
             navigate(-1)
             return
         }
 
-        navigate(to || "/account/login")
+        navigate("/account/login")
     }
 
     return (

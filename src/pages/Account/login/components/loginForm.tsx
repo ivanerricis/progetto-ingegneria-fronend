@@ -7,13 +7,11 @@ import { Separator } from "@/components/ui/separator"
 import { useNavigate } from "react-router-dom"
 import { Eye, EyeOff } from "lucide-react"
 import { toast } from "sonner"
-import { useTranslation } from "react-i18next"
 import { loginAccount } from "@/lib/api/auth"
 import { useAccount } from "@/providers/account-provider"
 import type { Account } from "@/types/types"
 
 export const LoginForm = () => {
-    const { t } = useTranslation("login")
     const navigate = useNavigate()
     const { updateAccount } = useAccount()
     const [email, setEmail] = useState("")
@@ -54,13 +52,13 @@ export const LoginForm = () => {
 
     return (
         <Card className="w-full px-6 border-none shadow-none sm:shadow-sm sm:px-0 sm:border sm:max-w-md absolute rounded-none sm:rounded-xl">
-            <CardTitle>{t("title")}</CardTitle>
+            <CardTitle>Accedi</CardTitle>
             <Separator orientation="horizontal" className="hidden sm:flex"></Separator>
             <form onSubmit={handleSubmit} className="gap-4 flex flex-col sm:p-2">
                 <CardContent>
                     <div className="flex flex-col">
                         <div className="grid gap-1 mb-4">
-                            <Label htmlFor="email" className="text-lg">{t("fields.email.label")}</Label>
+                            <Label htmlFor="email" className="text-lg">Email</Label>
                             <Input
                                 id="email"
                                 type="email"
@@ -74,19 +72,19 @@ export const LoginForm = () => {
                         </div>
                         <div className="grid gap-1">
                             <div className="flex items-center justify-between gap-1">
-                                <Label htmlFor="password" className="text-lg">{t("fields.password.label")}</Label>
+                                <Label htmlFor="password" className="text-lg">Password</Label>
                                 <a
-                                    href="/request-reset-password-account"
+                                    href="/account/request-reset-password"
                                     className="inline-block text-sm underline-offset-4 hover:underline sm:ml-auto sm:text-md"
                                 >
-                                    {t("links.forgotPassword")}
+                                    Hai dimenticato la password?
                                 </a>
                             </div>
                             <div className="relative">
                                 <Input
                                     id="password"
                                     type={showPassword ? "text" : "password"}
-                                    placeholder={t("fields.password.placeholder")}
+                                    placeholder="La tua password"
                                     className="text-lg! pr-9"
                                     value={password}
                                     onChange={(event) => setPassword(event.target.value)}
@@ -110,7 +108,7 @@ export const LoginForm = () => {
                         className="w-full"
                         disabled={isSubmitting}
                     >
-                        {isSubmitting ? t("buttons.submitting") : t("buttons.submit")}
+                        {isSubmitting ? "Accesso in corso..." : "Accedi"}
                     </Button>
                     <Button
                         variant="outline"
@@ -119,12 +117,12 @@ export const LoginForm = () => {
                         type="button"
                         disabled={isSubmitting}
                     >
-                        {t("buttons.google")}
+                        Accedi con Google
                     </Button>
                     <div className="flex gap-2 w-full items-center">
                         <Separator />
                         <div className="text-center text-md text-muted-foreground">
-                            {t("texts.or")}
+                            oppure
                         </div>
                         <Separator />
                     </div>
@@ -135,7 +133,7 @@ export const LoginForm = () => {
                         className="w-full"
                         disabled={isSubmitting}
                     >
-                        {t("links.register")}
+                        Registrati
                     </Button>
                 </CardFooter>
             </form>

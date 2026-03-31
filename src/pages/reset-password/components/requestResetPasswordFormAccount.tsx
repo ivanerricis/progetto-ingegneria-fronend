@@ -1,20 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
-import { requestResetPassword } from "@/lib/api/auth";
+import { requestResetPasswordAccount } from "@/lib/api/auth";
 import { ArrowRight, Mail } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
-export const RequestResetPasswordForm = () => {
+export const RequestResetPasswordFormAccount = () => {
     const [email, setEmail] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await requestResetPassword(email);
+            await requestResetPasswordAccount(email);
             toast.success("Email di reset password inviata con successo. Controlla la tua casella di posta.")
             navigate("/login");
         } catch (error) {

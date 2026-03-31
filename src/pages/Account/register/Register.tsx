@@ -4,7 +4,6 @@ import RegisterForm from "@/pages/Account/register/components/registerForm"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle"
 import { useNavigate } from "react-router-dom"
-import LanguageSwitcher from "@/components/languageSwitcher"
 import Content from "@/components/content"
 
 export const Register = () => {
@@ -28,10 +27,7 @@ export const Register = () => {
                     { label: "Crea agenzia", onSelect: () => navigate("/create-agency") },
                 ]}
                 right={
-                    <>
-                        <ModeToggle />
-                        <LanguageSwitcher />
-                    </>
+                    <ModeToggle />
                 }
             />
 
