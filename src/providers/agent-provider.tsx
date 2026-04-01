@@ -45,7 +45,6 @@ export const AgentProvider = ({ children }: Props) => {
         try {
             const res = await apiClient.get<Agent>("/auth/agent");
             updateAgent(res.data);
-            console.log("Agent refreshed:", res.data);
         } catch {
             updateAgent(null);
         }

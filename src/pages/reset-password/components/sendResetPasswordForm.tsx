@@ -1,5 +1,5 @@
 import { PasswordInput } from "@/components/password-input";
-import { RegisterPasswordField } from "@/components/register-password-field";
+import { isRegisterPasswordValid, RegisterPasswordField } from "@/components/register-password-field";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { resetPasswordAccount, resetPasswordAgent } from "@/lib/api/auth";
@@ -20,6 +20,11 @@ export const SendResetPasswordForm = ({ type, token }: Props) => {
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (!isRegisterPasswordValid(password)) {
+            toast.error("La password non rispetta i requisiti minimi.");
+            return;
+        }
 
         if (password !== confirmPassword) {
             toast.error("Le password non coincidono.");

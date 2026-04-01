@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { CalendarClock, Trash } from "lucide-react"
+import { CalendarClock, HandCoins, Trash } from "lucide-react"
 import type { Advertisement } from "@/types/types"
 import { formatPrice } from "@/utils/formatPrice"
 import { useNavigate } from "react-router-dom"
@@ -9,6 +9,8 @@ import { PreviewPhoto } from "../../appointment/components/previewPhoto"
 import { Label } from "@/components/ui/label"
 import { DialogDeleteAdvertisement } from "./dialogDeleteAdvertisement"
 import { DialogRentAdvertisement } from "./dialogRentAdvertisement"
+import { DialogOfferAdvertisement } from "./dialogOfferAdvertisement"
+import { InsertExternalAppointment } from "@/lib/api/agent"
 
 type CardRealEstateProps = {
     advertisement: Advertisement
@@ -19,8 +21,10 @@ type CardRealEstateProps = {
 export const CardAdvertisement = ({ advertisement, onDelete, onRent }: CardRealEstateProps) => {
     const [showDeleteDialog, setShowDeleteDialog] = useState(false)
     const [showRentDialog, setShowRentDialog] = useState(false)
+    const [showOfferDialog, setShowOfferDialog] = useState(false)
     const [isDeleting, setIsDeleting] = useState(false)
     const [isRenting, setIsRenting] = useState(false)
+    const [isOffering, setIsOffering] = useState(false)
     const navigate = useNavigate()
 
     const handleCardClick = () => {
@@ -53,6 +57,23 @@ export const CardAdvertisement = ({ advertisement, onDelete, onRent }: CardRealE
         } finally {
             setIsRenting(false)
             setShowRentDialog(false)
+        }
+    }
+
+    const handleOffer = async (advertisementId: number, firstName: string, lastName: string, email: string, price: number) => {
+        setIsOffering(true)
+        try {
+            if (advertisementId !== advertisement.id) {
+                throw new Error("ID annuncio non valido")
+            }
+            await InsertExternalAppointment(advertisementId, firstName, lastName, email, price)
+            toast.success("Funzionalità non ancora implementata")
+        } catch (error) {
+            toast.error(error instanceof Error ? error.message : "Errore durante l'inserimento dell'offerta")
+        }
+        finally {
+            setIsOffering(false)
+            setShowOfferDialog(false)
         }
     }
 
@@ -96,6 +117,17 @@ export const CardAdvertisement = ({ advertisement, onDelete, onRent }: CardRealE
                                 <Pencil className="size-5" />
                                 <Label className="hidden 2xl:block text-md">Modifica</Label>
                             </Button> */}
+                            <Button
+                                variant={"outline"}
+                                className="size-10 2xl:flex-1 2xl:h-10 2xl:px-4 2xl:py-2"
+                                onClick={e => {
+                                    e.stopPropagation();
+                                    setShowOfferDialog(true);
+                                }}
+                            >
+                                <HandCoins className="size-5" />
+                                <Label className="hidden 2xl:block text-md">Offerta</Label>
+                            </Button>
                             {advertisement.type === "rent" && (
                                 <Button
                                     variant={"outline"}
@@ -140,6 +172,16 @@ export const CardAdvertisement = ({ advertisement, onDelete, onRent }: CardRealE
                     setShowRentDialog={setShowRentDialog}
                     isRenting={isRenting}
                     handleRent={handleRent}
+                />
+            )}
+
+            {showOfferDialog && (
+                <DialogOfferAdvertisement
+                    showOfferDialog={showOfferDialog}
+                    setShowOfferDialog={setShowOfferDialog}
+                    isOffering={isOffering}
+                    handleOffer={handleOffer}
+                    advertisementId={advertisement.id}
                 />
             )}
         </div>

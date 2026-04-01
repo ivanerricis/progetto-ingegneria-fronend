@@ -132,6 +132,33 @@ export async function RentAdvertisement(advertisementId: string | number) {
     }
 }
 
+export async function InsertExternalAppointment(
+    advertisementId: number,
+    firstName: string,
+    lastName: string,
+    email: string,
+    price: number) {
+    try {
+        const response = await apiClient.post(`/agent/create_external_offer`, {
+            advertisementId,
+            firstName,
+            lastName,
+            email,
+            price
+        })
+        return response.data
+    } catch (error) {
+        if (isAxiosError(error)) {
+            const message =
+                error.response?.data?.error ??
+                error.response?.data?.message ??
+                "Creazione offerta non riuscita"
+            throw new Error(message)
+        }
+        throw error
+    }
+}
+
 export async function AcceptOffer(offerId: number) {
     try {
         const response = await apiClient.post(`/offer/agents/${offerId}/accept`);

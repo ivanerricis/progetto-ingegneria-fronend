@@ -129,7 +129,7 @@ export const RegisterForm = () => {
                         {isSubmitting ? "Registrazione in corso..." : "Registrati"}
                     </Button>
 
-                    <ButtonGoogle width={400} mobileWidth={295} />
+                    <ButtonGoogle width={400} mobileWidth={305} />
 
                     <div className="flex gap-2 w-full items-center">
                         <Separator />
