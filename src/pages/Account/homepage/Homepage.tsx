@@ -39,7 +39,7 @@ export const Homepage = () => {
     const isEmpty = !isLoading && !hasError && advertisements.length === 0
     const hasResults = !isLoading && !hasError && advertisements.length > 0
 
-    const currentSort = (searchParams.get("sortBy") as SortOption) ?? ""
+    const currentSort = (searchParams.get("sortBy") as SortOption) ?? "nearest"
 
     const handleSortChange = (value: SortOption) => {
         setSearchParams((prev) => {
@@ -141,12 +141,16 @@ export const Homepage = () => {
                             </div>
 
                             <Select value={currentSort} onValueChange={handleSortChange}>
-                                <SelectTrigger>
+                                <SelectTrigger className="bg-background!">
                                     <SelectValue placeholder="Ordina per" />
                                 </SelectTrigger>
                                 <SelectContent position="popper">
                                     {SORT_OPTIONS.map((opt) => (
-                                        <SelectItem key={opt.value} value={opt.value}>
+                                        <SelectItem
+                                            key={opt.value}
+                                            value={opt.value}
+                                            className="text-foreground! hover:text-background! dark:hover:text-foreground!"
+                                        >
                                             {opt.label}
                                         </SelectItem>
                                     ))}

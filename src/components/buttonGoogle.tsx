@@ -21,7 +21,8 @@ export default function ButtonGoogle() {
         try {
             const response = await apiClient.post("/auth/account/google", { idToken: idToken }, { withCredentials: true });
             console.log("Login con Google riuscito", response.data);
-            updateAccount(response.data.account);
+            const account = response.data?.account ?? response.data;
+            updateAccount(account);
             navigate("/homepage");
         } catch (error) {
             if (isAxiosError(error)) {

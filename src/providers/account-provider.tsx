@@ -15,6 +15,7 @@ type AccountContextType = {
     account: Account | null;
     loading: boolean;
     updateAccount: (account: Account | null) => void;
+    SetAccount: (account: Account | null) => void
     logout: () => Promise<void>;
     refreshAccount: () => Promise<void>;
 };
@@ -27,6 +28,26 @@ type Props = {
     children: ReactNode;
 };
 
+const isAccount = (value: unknown): value is Account => {
+    if (!value || typeof value !== "object") return false;
+    const candidate = value as Partial<Account>;
+    return typeof candidate.id === "number"
+        && typeof candidate.firstName === "string"
+        && typeof candidate.lastName === "string"
+        && typeof candidate.email === "string";
+};
+
+const extractAccountFromPayload = (payload: unknown): Account | null => {
+    if (isAccount(payload)) return payload;
+
+    if (payload && typeof payload === "object" && "account" in payload) {
+        const nestedAccount = (payload as { account?: unknown }).account;
+        if (isAccount(nestedAccount)) return nestedAccount;
+    }
+
+    return null;
+};
+
 export const AccountProvider = ({ children }: Props) => {
     const [account, setAccount] = useState<Account | null>(null);
     const [loading, setLoading] = useState(true);
@@ -36,16 +57,21 @@ export const AccountProvider = ({ children }: Props) => {
 
         if (acc) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(acc));
-            console.log("Account updated:", acc);
         } else {
             localStorage.removeItem(STORAGE_KEY);
         }
     }, []);
 
+    const SetAccount = useCallback((acc: Account | null) => {
+        updateAccount(acc);
+    }, [updateAccount]);
+
     const refreshAccount = useCallback(async () => {
         try {
-            const res = await apiClient.get<Account>("/auth/account");
-            updateAccount(res.data);
+            const res = await apiClient.get<Account | { account: Account }>("/auth/account");
+            const resolvedAccount = extractAccountFromPayload(res.data);
+            updateAccount(resolvedAccount);
+            console.log("Account refreshed:", res.data);
         } catch {
             updateAccount(null);
         }
@@ -71,9 +97,18 @@ export const AccountProvider = ({ children }: Props) => {
         const init = async () => {
             try {
                 const stored = localStorage.getItem(STORAGE_KEY);
-
                 if (stored) {
-                    setAccount(JSON.parse(stored));
+                    try {
+                        const parsedStored = JSON.parse(stored);
+                        const storedAccount = extractAccountFromPayload(parsedStored);
+                        if (storedAccount) {
+                            setAccount(storedAccount);
+                        } else {
+                            localStorage.removeItem(STORAGE_KEY);
+                        }
+                    } catch {
+                        localStorage.removeItem(STORAGE_KEY);
+                    }
                 }
 
                 await refreshAccount();
@@ -91,7 +126,8 @@ export const AccountProvider = ({ children }: Props) => {
         updateAccount,
         logout,
         refreshAccount,
-    }), [account, loading, updateAccount, logout, refreshAccount]);
+        SetAccount
+    }), [account, loading, updateAccount, logout, refreshAccount, SetAccount]);
 
     return (
         <AccountContext.Provider value={contextValue}>

@@ -15,13 +15,13 @@ type DialogProps = {
 };
 
 export const DialogCreateOffer = ({ showOfferDialog, setShowOfferDialog, advertisement }: DialogProps) => {
-    const [price, setPrice] = useState("");
+    const [price, setPrice] = useState<number | undefined>();
     const [isLoading, setIsLoading] = useState(false)
 
     const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setShowOfferDialog(false);
-        setPrice("");
+        setPrice(undefined);
     };
 
     const handleCreateOffer = async () => {
@@ -30,7 +30,7 @@ export const DialogCreateOffer = ({ showOfferDialog, setShowOfferDialog, adverti
         try {
             CreateOffer(advertisement.id, Number(price))
             setShowOfferDialog(false);
-            setPrice("");
+            setPrice(undefined);
             toast.success("Offerta inviata con successo!");
         } catch (submitError) {
             console.log(submitError)
@@ -61,7 +61,7 @@ export const DialogCreateOffer = ({ showOfferDialog, setShowOfferDialog, adverti
                         type="number"
                         min={0}
                         value={price}
-                        onChange={e => setPrice(e.target.value)}
+                        onChange={e => setPrice(Number(e.target.value))}
                         disabled={isLoading}
                         autoFocus
                     />

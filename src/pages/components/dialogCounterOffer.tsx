@@ -50,7 +50,7 @@ export const DialogCounterOffer = ({ isCounterOfferDialogOpen, setIsCounterOffer
                     <DialogTitle>Invia contro proposta</DialogTitle>
                 </DialogHeader>
                 <DialogDescription>
-                    Sei sicuro di voler inviare una contro-offerta per questa proposta? Questa azione è irreversibile.
+                    Sei sicuro di voler inviare una contro proposta? Questa azione è irreversibile.
                 </DialogDescription>
                 <div className="flex flex-col gap-2">
                     <Label htmlFor="price" className="text-lg">

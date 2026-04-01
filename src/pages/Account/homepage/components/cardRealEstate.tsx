@@ -7,7 +7,7 @@ import FloorPlanIcon from "@/assets/icons/floorplan.svg?react"
 import ExpandIcon from "@/assets/icons/expand-2.svg?react"
 import StairsIcon from "@/assets/icons/stairs.svg?react"
 import { useNavigate } from "react-router-dom"
-import { useState, type MouseEvent } from "react"
+import { useState, type KeyboardEvent, type MouseEvent } from "react"
 import { DialogCreateAppointment } from "./dialogCreateAppointment"
 import { DialogCreateOffer } from "./dialogCreateOffer"
 
@@ -29,6 +29,13 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
         navigate(`/account/advertisement/${String(advertisement.id)}`)
     }
 
+    const handleCardKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+        if (event.target !== event.currentTarget) return
+        if (event.key !== "Enter" && event.key !== " ") return
+        event.preventDefault()
+        handleCardClick()
+    }
+
     const handleOfferButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation()
         setShowOfferDialog(true)
@@ -42,7 +49,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
     return (
         <div
             onClick={handleCardClick}
-            onKeyDown={handleCardClick}
+            onKeyDown={handleCardKeyDown}
             className="relative bg-background border w-full h-fit flex flex-col md:flex-row rounded-md shadow-md hover:cursor-pointer hover:bg-secondary dark:text-foreground"
             role="button"
             tabIndex={0}
