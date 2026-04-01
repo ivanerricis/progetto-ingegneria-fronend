@@ -6,6 +6,7 @@ import type { Services } from "@/types/types";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { SERVICE_LABELS } from "../constants/serviceLabels";
 
 interface StepFeaturesProps {
     rooms: number;
@@ -62,9 +63,9 @@ const StepFeatures: FC<StepFeaturesProps> = ({
             <div className="flex lg:w-1/3 flex-wrap gap-4 lg:mb-3">
                 
                 <div className="flex flex-col gap-1">
-                    <Label className="text-lg">Tipo di annuncio</Label>
+                    <Label className="text-lg">Tipo annuncio</Label>
                     <Select value={typeValue} onValueChange={setTypeValue}>
-                        <SelectTrigger className="w-40">
+                        <SelectTrigger className="w-40 bg-background">
                             <SelectValue placeholder="Seleziona tipo" />
                         </SelectTrigger>
                         <SelectContent position="popper">
@@ -77,7 +78,7 @@ const StepFeatures: FC<StepFeaturesProps> = ({
                 <div className="flex flex-col gap-1">
                     <Label className="text-lg">Classe energetica</Label>
                     <Select value={energyClass} onValueChange={setEnergyClass}>
-                        <SelectTrigger className="w-40">
+                        <SelectTrigger className="w-40 bg-background">
                             <SelectValue placeholder="Seleziona classe" />
                         </SelectTrigger>
                         <SelectContent position="popper">
@@ -93,9 +94,9 @@ const StepFeatures: FC<StepFeaturesProps> = ({
                 </div>
 
                 <div className="flex flex-col gap-1">
-                    <Label className="text-lg">Tipologia</Label>
+                    <Label className="text-lg">Tipo immobile</Label>
                     <Select value={housingType} onValueChange={setHousingType}>
-                        <SelectTrigger className="w-40">
+                        <SelectTrigger className="w-40 bg-background">
                             <SelectValue placeholder="Seleziona tipologia" />
                         </SelectTrigger>
                         <SelectContent position="popper">
@@ -115,7 +116,7 @@ const StepFeatures: FC<StepFeaturesProps> = ({
                     {Object.keys(services).map((serviceKey) => (
                         <CheckboxFilter
                             key={serviceKey}
-                            label={serviceKey}
+                            label={SERVICE_LABELS[serviceKey as keyof Services]}
                             checked={services[serviceKey as keyof Services]}
                             onCheckedChange={() => onServiceChange(serviceKey as keyof Services)}
                         />
@@ -133,7 +134,7 @@ const StepFeatures: FC<StepFeaturesProps> = ({
             </div>
             <Textarea
                 placeholder="Descrizione dell'immobile"
-                className="h-40 min-h-40 max-h-40 w-full text-foreground border p-2"
+                className="h-40 min-h-40 max-h-40 w-full text-foreground border p-2 bg-background"
                 value={description}
                 onChange={e => setDescription(e.target.value)}
                 maxLength={2000}

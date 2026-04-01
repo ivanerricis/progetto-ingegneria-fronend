@@ -220,6 +220,9 @@ export default function CreateAdvertisementPage() {
                             floor={floor}
                             surface={surface}
                             bathrooms={bathrooms}
+                            typeValue={typeValue}
+                            energyClass={energyClass}
+                            housingType={housingType}
                             services={services}
                             description={description}
                             address={address}
@@ -230,7 +233,7 @@ export default function CreateAdvertisementPage() {
                     )}
                 </div>
             </form>
-            <div className="flex items-center w-full justify-between border-t p-2">
+            <div className="flex items-center w-full justify-between border-t p-2 bg-background">
                 {step > 0 && (
                     <Button variant="outline" onClick={back} type="button" size={"lg"}>
                         Indietro

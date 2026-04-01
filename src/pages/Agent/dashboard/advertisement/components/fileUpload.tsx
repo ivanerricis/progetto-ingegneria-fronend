@@ -84,7 +84,7 @@ export default function FileUpload({
                                 isDragActive
                                     ? "border-primary bg-primary/10 ring-2 ring-primary/20"
                                     : "border-border",
-                                "flex justify-center items-center p-10 sm:h-91 rounded-sm border border-dashed transition-colors duration-200"
+                                "flex justify-center items-center p-10 sm:h-91 rounded-sm border border-dashed transition-colors duration-200 bg-background"
                             )}
                         >
                             <div>

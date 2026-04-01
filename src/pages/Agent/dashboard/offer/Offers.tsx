@@ -6,6 +6,7 @@ import useNegotiations from "@/hooks/useNegotiations";
 import DashboardFilterSelect from "../advertisement/components/dashboardFilterSelect";
 import { BadgeCheck, BadgeX, Clock, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 type StatusFilter = "pending" | "accepted" | "rejected";
 
@@ -43,7 +44,7 @@ export default function Offers() {
 
     return (
         <div className="w-full h-full flex flex-col">
-            <div className={`flex items-center justify-between p-2 ${selectedNegotiation ? "hidden" : "block"} sm:block`}>
+            <div className={`flex items-center justify-between p-2 ${selectedNegotiation ? "hidden" : "block"} sm:flex`}>
                 <DashboardFilterSelect
                     value={statusFilter}
                     placeholder="Stato"
@@ -51,10 +52,11 @@ export default function Offers() {
                     onValueChange={(value) => handleFilterChange(value as StatusFilter)}
                 />
                 <Button
-                    size={"lg"}
+                    size={"icon-lg"}
+                    className="xl:w-fit xl:py-2 xl:px-3"
                 >
                     <Plus className="size-5"/>
-                    Inserisci offerta
+                    <Label className="hidden xl:inline text-lg!">Inserisci offerta</Label>
                 </Button>
             </div>
 

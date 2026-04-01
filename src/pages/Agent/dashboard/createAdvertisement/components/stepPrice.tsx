@@ -14,6 +14,7 @@ const StepPrice: FC<StepPriceProps> = ({ priceInput, setPriceInput, formattedPri
         <Label className="text-2xl">Prezzo</Label>
         <div className="flex items-center gap-3">
             <Input
+            className="text-lg!"
                 type="number"
                 placeholder="Prezzo dell'immobile"
                 value={priceInput}
