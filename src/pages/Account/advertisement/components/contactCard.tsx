@@ -63,7 +63,7 @@ export const ContactCard = ({ advertisement }: ContactCardProps) => {
                     </div>
 
                 ) : (
-                    <div className="hidden sm:flex sm:items-center sm:rounded-sm sm:h-full sm:p-2 sm:text-nowrap sm:text-primary bg-primary/25">
+                    <div className="hidden sm:flex sm:items-center sm:rounded-sm sm:h-full sm:p-2 sm:text-nowrap sm:text-primary bg-primary/20">
                         {advertisement.agent.agency.name}
                     </div>
                 )}

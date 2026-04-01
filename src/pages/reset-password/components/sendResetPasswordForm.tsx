@@ -1,9 +1,11 @@
 import { RegisterPasswordField } from "@/components/register-password-field";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { resetPasswordAccount, resetPasswordAgent } from "@/lib/api/auth";
 import { ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -15,9 +17,16 @@ type Props = Readonly<{
 export const SendResetPasswordForm = ({ type, token }: Props) => {
     const navigate = useNavigate();
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (password !== confirmPassword) {
+            toast.error("Le password non coincidono.");
+            return;
+        }
+
         if (!token) {
             toast.error("Token mancante per il reset della password.");
             navigate(type === "agent" ? "/agent/login" : "/account/login");
@@ -44,25 +53,43 @@ export const SendResetPasswordForm = ({ type, token }: Props) => {
                     Inserisci la tua nuova password per completare il reset della password.
                 </CardDescription>
             </CardHeader>
-            <CardContent className="flex flex-col gap-4">
-                <RegisterPasswordField
-                    value={password}
-                    onChange={setPassword}
-                    label={"Nuova password"}
-                    placeholder={"Password"}
-                />
-            </CardContent>
-            <CardFooter>
-                <Button
-                    className="w-full"
-                    type="submit"
-                    size={"lg"}
-                    onClick={handleSubmit}
-                >
-                    Conferma reset password
-                    <ArrowRight className="ml-2 size-5" />
-                </Button>
-            </CardFooter>
+            <form onSubmit={handleSubmit}>
+                <CardContent className="flex flex-col gap-4">
+                    <RegisterPasswordField
+                        value={password}
+                        onChange={setPassword}
+                        label={"Nuova password"}
+                        placeholder={"Password"}
+                    />
+
+                    <div className="grid gap-2">
+                        <div className="flex flex-row">
+                            <Label htmlFor="confirm-password" className="mr-2">
+                                Ripeti password
+                            </Label>
+                            <Label className="text-destructive!">*</Label>
+                        </div>
+                        <Input
+                            id="confirm-password"
+                            value={confirmPassword}
+                            onChange={(event) => setConfirmPassword(event.currentTarget.value)}
+                            type="password"
+                            placeholder="Ripeti la password"
+                            required
+                        />
+                    </div>
+                </CardContent>
+                <CardFooter>
+                    <Button
+                        className="w-full"
+                        type="submit"
+                        size={"lg"}
+                    >
+                        Conferma reset password
+                        <ArrowRight className="ml-2 size-5" />
+                    </Button>
+                </CardFooter>
+            </form>
         </Card>
     );
 }

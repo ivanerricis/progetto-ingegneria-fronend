@@ -138,7 +138,14 @@ export const RegisterForm = () => {
                         </div>
                         <Separator />
                     </div>
-                    <Button variant={"secondary"} onClick={() => navigate("/login")} className="w-full" type="button" disabled={isSubmitting}>
+                    <Button
+                        variant={"secondary"}
+                        size={"lg"}
+                        onClick={() => navigate("/login")}
+                        className="w-full"
+                        type="button"
+                        disabled={isSubmitting}
+                    >
                         Accedi
                     </Button>
                 </CardFooter>
