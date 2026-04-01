@@ -39,7 +39,7 @@ export const Homepage = () => {
     const isEmpty = !isLoading && !hasError && advertisements.length === 0
     const hasResults = !isLoading && !hasError && advertisements.length > 0
 
-    const currentSort = (searchParams.get("sortBy") as SortOption) ?? "nearest"
+    const currentSort = (searchParams.get("sortBy") as SortOption)
 
     const handleSortChange = (value: SortOption) => {
         setSearchParams((prev) => {

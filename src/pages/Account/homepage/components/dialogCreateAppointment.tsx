@@ -41,13 +41,14 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
         e.preventDefault()
         setShowAppointmentDialog(false)
         setDate(undefined)
+        setSelectedTime("");
     }
 
     const handleCreateAppointment = async () => {
         if (!date || !selectedTime) return;
         setIsLoading(true);
         try {
-            CreateAppointment(date, selectedTime, advertisement.id)
+            await CreateAppointment(date, selectedTime, advertisement.id)
             setShowAppointmentDialog(false);
             setDate(undefined);
             setSelectedTime("");
@@ -93,8 +94,9 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
                                 defaultMonth={daysSet.size ? new Date([...daysSet][0]) : new Date()}
                                 captionLayout="dropdown"
                                 onSelect={(date) => {
-                                    setDate(date)
-                                    setIsOpenPopover(false)
+                                    setDate(date);
+                                    setSelectedTime("");
+                                    setIsOpenPopover(false);
                                 }}
                                 disabled={(day) => {
                                     if (daysLoading) return true;

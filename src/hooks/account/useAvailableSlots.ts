@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiClient } from "@/lib/api/config";
 import { isCancel } from "axios";
+import { formatLocalDate } from "@/utils/formatLocalDate";
 
 /**
  * Hook for fetching the available time slots for a specific advertisement on a given date. Handles loading and error states.
@@ -26,7 +27,7 @@ export function useAvailableSlots(advertisementId?: string | number, date?: Date
       setError(null);
 
       try {
-        const formattedDate = date.toISOString().split("T")[0];
+        const formattedDate = formatLocalDate(date);
 
         const { data } = await apiClient.get(
           `/advertisement/available_slots/${advertisementId}/${formattedDate}`,

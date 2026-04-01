@@ -44,7 +44,7 @@ export const DialogOfferAdvertisement = ({
         <Dialog open={showOfferDialog} onOpenChange={setShowOfferDialog}>
             <DialogContent showCloseButton={false} className="border border-primary" onClick={(e) => e.stopPropagation()}>
                 <DialogHeader>
-                    <DialogTitle>Aggiungi offerta</DialogTitle>
+                    <DialogTitle>Fai un'offerta esterna</DialogTitle>
                     <DialogDescription />
                 </DialogHeader>
                 <div className="grid gap-4">
