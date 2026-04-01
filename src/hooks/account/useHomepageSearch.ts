@@ -95,6 +95,7 @@ export const useHomepageSearch = () => {
         maxSize: searchParams.get("maxSize") ?? "",
         rooms: searchParams.get("rooms") ?? "",
         bathrooms: searchParams.get("bathrooms") ?? "",
+        types: searchParams.get("type") ?? "",
         energyClass: searchParams.get("energyClass") ?? "",
         housingType: searchParams.get("propertyType") ?? "",
         page: Number(searchParams.get("page") ?? "0"),

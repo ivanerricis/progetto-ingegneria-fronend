@@ -50,7 +50,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
         <div
             onClick={handleCardClick}
             onKeyDown={handleCardKeyDown}
-            className="relative bg-background border w-full h-fit flex flex-col md:flex-row rounded-md shadow-md hover:cursor-pointer hover:bg-secondary dark:text-foreground"
+            className="relative bg-background/80 border w-full h-fit flex flex-col md:flex-row rounded-md shadow-md hover:cursor-pointer hover:bg-background dark:text-foreground"
             role="button"
             tabIndex={0}
             aria-label={`Visualizza i dettagli dell'immobile per ${advertisement.realEstate.addressFormatted}`}
@@ -129,7 +129,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
                     <div className="flex w-full justify-between sm:justify-end gap-1">
                         {advertisement.type === "sale" && <Button
                             variant={"outline"}
-                            className="flex-1 rounded-sm sm:w-fit sm:flex-none"
+                            className="flex-1 rounded-sm sm:w-fit sm:flex-none border-[#FE991C]! text-[#FE991C]!"
                             onClick={handleOfferButtonClick}
                         >
                             <HandCoins className="size-5" />
@@ -137,7 +137,7 @@ export const CardRealEstate = ({ advertisement }: CardRealEstateProps) => {
                         </Button>}
                         <Button
                             variant={"outline"}
-                            className="flex-1 rounded-sm sm:w-fit sm:flex-none"
+                            className="flex-1 rounded-sm sm:w-fit sm:flex-none border-[#FE991C]! text-[#FE991C]!"
                             onClick={handleAppointmentButtonClick}
                         >
                             <CalendarDays className="size-5" />

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Map, SlidersHorizontal } from "lucide-react"
+import { ArrowUpDown, Map, SlidersHorizontal } from "lucide-react"
 import { ModeToggle } from "@/components/mode-toggle"
 import Header from "@/components/header"
 import SidebarFilter from "./components/sidebarFilter"
@@ -39,7 +39,7 @@ export const Homepage = () => {
     const isEmpty = !isLoading && !hasError && advertisements.length === 0
     const hasResults = !isLoading && !hasError && advertisements.length > 0
 
-    const currentSort = (searchParams.get("sortBy") as SortOption)
+    const currentSort = (searchParams.get("sortBy") as SortOption) ?? undefined
 
     const handleSortChange = (value: SortOption) => {
         setSearchParams((prev) => {
@@ -141,7 +141,8 @@ export const Homepage = () => {
                             </div>
 
                             <Select value={currentSort} onValueChange={handleSortChange}>
-                                <SelectTrigger className="bg-background!">
+                                <SelectTrigger className="bg-background! text-lg!">
+                                    <ArrowUpDown className="size-5 text-foreground" />
                                     <SelectValue placeholder="Ordina per" />
                                 </SelectTrigger>
                                 <SelectContent position="popper">
@@ -149,7 +150,7 @@ export const Homepage = () => {
                                         <SelectItem
                                             key={opt.value}
                                             value={opt.value}
-                                            className="text-foreground! hover:text-background! dark:hover:text-foreground!"
+                                            className="text-foreground! text-lg! hover:text-background! dark:hover:text-foreground!"
                                         >
                                             {opt.label}
                                         </SelectItem>

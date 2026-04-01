@@ -7,6 +7,11 @@ import { useHomepageSearch } from "@/hooks/account/useHomepageSearch";
 import { X } from "lucide-react";
 
 const ENERGY_CLASS_OPTIONS = ["A", "B", "C", "D", "E", "F", "G"];
+const TYPES = ["sale", "rent"];
+const TYPES_LABELS: Record<string, string> = {
+    sale: "Vendita",
+    rent: "Affitto",
+};
 const HOUSING_TYPES = ["apartment", "villa"];
 const HOUSING_TYPE_LABELS: Record<string, string> = {
     apartment: "Appartamento",
@@ -15,7 +20,6 @@ const HOUSING_TYPE_LABELS: Record<string, string> = {
 const ROOMS_OPTIONS = ["1", "2", "3", "4", "5+"];
 const BATHROOMS_OPTIONS = ["1", "2", "3", "4+"];
 
-// Aggiungi/rimuovi qui in base ai campi reali di realEstate nel backend
 const REAL_ESTATE_FEATURES: { key: string; label: string }[] = [
     { key: "airConditioning", label: "Aria condizionata" },
     { key: "balcony", label: "Balcone" },
@@ -40,6 +44,7 @@ const SidebarFilter = () => {
         rooms,
         bathrooms,
         energyClass,
+        types,
         setFilter,
         clearFilters,
     } = useHomepageSearch();
@@ -57,8 +62,8 @@ const SidebarFilter = () => {
                     onClick={clearFilters}
                     className="gap-1 rounded-sm"
                 >
-                    <X className="h-3 w-3" />
-                    Cancella filtri
+                    <X className="size-5" />
+                    Elimina filtri
                 </Button>
             </div>
 
@@ -171,12 +176,34 @@ const SidebarFilter = () => {
             <Separator orientation="horizontal" className="shrink-0" />
 
             <div className="flex flex-col gap-2">
+                <Label className="text-lg">Tipo annuncio</Label>
+                <Select
+                    value={types || ""}
+                    onValueChange={(value) => setFilter("type", value === "all" ? null : value)}
+                >
+                    <SelectTrigger className="w-full text-lg! bg-background">
+                        <SelectValue placeholder="Qualsiasi" />
+                    </SelectTrigger>
+                    <SelectContent position="popper">
+                        <SelectItem value="all">Qualsiasi</SelectItem>
+                        {TYPES.map((type) => (
+                            <SelectItem key={type} value={type}>
+                                {TYPES_LABELS[type] || type}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+            </div>
+
+            <Separator orientation="horizontal" className="shrink-0" />
+
+            <div className="flex flex-col gap-2">
                 <Label className="text-lg">Classe energetica</Label>
                 <Select
                     value={energyClass || ""}
                     onValueChange={(value) => setFilter("energyClass", value === "all" ? null : value)}
                 >
-                    <SelectTrigger className="w-full text-lg!">
+                    <SelectTrigger className="w-full text-lg! bg-background">
                         <SelectValue placeholder="Qualsiasi" />
                     </SelectTrigger>
                     <SelectContent position="popper">
