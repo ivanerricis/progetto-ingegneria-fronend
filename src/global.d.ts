@@ -23,6 +23,7 @@ interface Window {
                         text?: string
                         logo_alignment?: string
                         shape?: "rectangular" | "pill" | "circle" | "square";
+                        width?: string | number;
                     }) => void;
             };
         };

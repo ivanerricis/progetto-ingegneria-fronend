@@ -58,6 +58,7 @@ export default function ButtonGoogle({ maxWidthClass = "max-w-97.5" }: ButtonGoo
                 locale: "it",
                 text: "continue_with",
                 logo_alignment: "center",
+                width: "100%",
             });
         }
     }, [handleCredentialResponse]);
