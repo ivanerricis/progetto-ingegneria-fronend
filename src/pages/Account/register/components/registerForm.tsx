@@ -124,7 +124,9 @@ export const RegisterForm = () => {
                     <Button type="submit" className="w-full" disabled={isSubmitting}>
                         {isSubmitting ? "Registrazione in corso..." : "Registrati"}
                     </Button>
-                    <ButtonGoogle />
+
+                    <ButtonGoogle maxWidthClass="max-w-100"/>
+
                     <div className="flex gap-2 w-full items-center">
                         <Separator />
                         <div className="text-center text-sm text-muted-foreground">

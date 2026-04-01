@@ -1,4 +1,5 @@
 import { apiClient } from "@/lib/api/config";
+import { cn } from "@/lib/utils";
 import { useAccount } from "@/providers/account-provider";
 import { isAxiosError } from "axios";
 import { useCallback, useEffect, useRef } from "react";
@@ -10,7 +11,11 @@ type GoogleCredentialResponse = {
     select_by?: string;
 };
 
-export default function ButtonGoogle() {
+type ButtonGoogleProps = {
+    maxWidthClass?: string;
+};
+
+export default function ButtonGoogle({ maxWidthClass = "max-w-97.5" }: ButtonGoogleProps) {
     const buttonRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate()
     const { updateAccount } = useAccount()
@@ -44,6 +49,8 @@ export default function ButtonGoogle() {
         });
 
         if (buttonRef.current) {
+            // Clear previous GIS content to avoid duplicated/stale button nodes.
+            buttonRef.current.innerHTML = "";
             window.google.accounts.id.renderButton(buttonRef.current, {
                 theme: "outline",
                 size: "large",
@@ -55,7 +62,9 @@ export default function ButtonGoogle() {
         }
     }, [handleCredentialResponse]);
 
-    return <div className="w-full flex justify-center">
-        <div ref={buttonRef} className="w-full" />
-    </div>;
+    return (
+        <div className="w-full flex justify-center">
+            <div ref={buttonRef} className={cn("w-full", maxWidthClass)} />
+        </div>
+    );
 }

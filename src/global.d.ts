@@ -1,3 +1,8 @@
+type GoogleCredentialResponse = {
+    credential: string;
+    select_by?: string;
+};
+
 interface Window {
     google: {
         accounts: {
@@ -5,7 +10,7 @@ interface Window {
                 initialize: (
                     config: {
                         client_id: string;
-                        callback: (response: any) => void;
+                        callback: (response: GoogleCredentialResponse) => void;
                         auto_select?: boolean
                     }) => void;
                 renderButton: (
