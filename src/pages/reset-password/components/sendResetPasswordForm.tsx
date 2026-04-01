@@ -1,8 +1,7 @@
+import { PasswordInput } from "@/components/password-input";
 import { RegisterPasswordField } from "@/components/register-password-field";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { resetPasswordAccount, resetPasswordAgent } from "@/lib/api/auth";
 import { ArrowRight } from "lucide-react";
 import { useState, type FormEvent } from "react";
@@ -62,18 +61,12 @@ export const SendResetPasswordForm = ({ type, token }: Props) => {
                         placeholder={"Password"}
                     />
 
-                    <div className="grid gap-2">
-                        <div className="flex flex-row">
-                            <Label htmlFor="confirm-password" className="mr-2">
-                                Ripeti password
-                            </Label>
-                            <Label className="text-destructive!">*</Label>
-                        </div>
-                        <Input
+                    <div className="mb-4">
+                        <PasswordInput
                             id="confirm-password"
                             value={confirmPassword}
-                            onChange={(event) => setConfirmPassword(event.currentTarget.value)}
-                            type="password"
+                            onChange={setConfirmPassword}
+                            label="Ripeti password"
                             placeholder="Ripeti la password"
                             required
                         />

@@ -19,7 +19,7 @@ export const RequestResetPasswordFormAgent = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await requestResetPasswordAgent(username, parseInt(selectedAgencyId));
+            await requestResetPasswordAgent(username, Number.parseInt(selectedAgencyId));
             toast.success("Email di reset password inviata con successo. Controlla la tua casella di posta.")
             navigate("/agent/login");
         } catch (error) {
