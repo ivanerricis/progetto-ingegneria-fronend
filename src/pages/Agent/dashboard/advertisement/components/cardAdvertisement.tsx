@@ -117,17 +117,19 @@ export const CardAdvertisement = ({ advertisement, onDelete, onRent }: CardRealE
                                 <Pencil className="size-5" />
                                 <Label className="hidden 2xl:block text-md">Modifica</Label>
                             </Button> */}
-                            <Button
-                                variant={"outline"}
-                                className="size-10 2xl:flex-1 2xl:h-10 2xl:px-4 2xl:py-2"
-                                onClick={e => {
-                                    e.stopPropagation();
-                                    setShowOfferDialog(true);
-                                }}
-                            >
-                                <HandCoins className="size-5" />
-                                <Label className="hidden 2xl:block text-md">Offerta</Label>
-                            </Button>
+                            {advertisement.type === "sale" && (
+                                <Button
+                                    variant={"outline"}
+                                    className="size-10 2xl:flex-1 2xl:h-10 2xl:px-4 2xl:py-2"
+                                    onClick={e => {
+                                        e.stopPropagation();
+                                        setShowOfferDialog(true);
+                                    }}
+                                >
+                                    <HandCoins className="size-5" />
+                                    <Label className="hidden 2xl:block text-md">Offerta</Label>
+                                </Button>
+                            )}
                             {advertisement.type === "rent" && (
                                 <Button
                                     variant={"outline"}
