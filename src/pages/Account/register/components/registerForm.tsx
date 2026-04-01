@@ -1,5 +1,5 @@
 import { type FormEvent, useState } from "react"
-import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -55,10 +55,9 @@ export const RegisterForm = () => {
 
     return (
         <Card className="w-full px-6 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-md absolute rounded-none sm:rounded-xl" >
-            <CardTitle>Registrati</CardTitle>
             <Separator orientation="horizontal" className="hidden sm:flex"></Separator>
             <form onSubmit={handleSubmit}>
-                <CardContent>
+                <CardContent >
                     <div className="flex flex-col gap-4">
                         <div className="flex flex-row gap-x-2">
                             <div className="grid gap-2">
@@ -121,11 +120,16 @@ export const RegisterForm = () => {
                     </div>
                 </CardContent>
                 <CardFooter className="flex-col gap-2 mt-2">
-                    <Button type="submit" className="w-full" disabled={isSubmitting}>
+                    <Button
+                        size={"lg"}
+                        type="submit"
+                        className="w-full"
+                        disabled={isSubmitting}
+                    >
                         {isSubmitting ? "Registrazione in corso..." : "Registrati"}
                     </Button>
 
-                    <ButtonGoogle maxWidthClass="max-w-100"/>
+                    <ButtonGoogle width={400} mobileWidth={295} />
 
                     <div className="flex gap-2 w-full items-center">
                         <Separator />

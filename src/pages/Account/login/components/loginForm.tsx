@@ -112,7 +112,7 @@ export const LoginForm = () => {
                         {isSubmitting ? "Accesso in corso..." : "Accedi"}
                     </Button>
 
-                    <ButtonGoogle />
+                    <ButtonGoogle width={384} mobileWidth={295}/>
 
                     <div className="flex gap-2 w-full items-center">
                         <Separator />

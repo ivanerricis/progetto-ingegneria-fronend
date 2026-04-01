@@ -1,5 +1,5 @@
 import { apiClient } from "@/lib/api/config";
-import { cn } from "@/lib/utils";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { useAccount } from "@/providers/account-provider";
 import { isAxiosError } from "axios";
 import { useCallback, useEffect, useRef } from "react";
@@ -12,13 +12,16 @@ type GoogleCredentialResponse = {
 };
 
 type ButtonGoogleProps = {
-    maxWidthClass?: string;
+    width?: number;
+    mobileWidth?: number;
 };
 
-export default function ButtonGoogle({ maxWidthClass = "max-w-97.5" }: ButtonGoogleProps) {
+export default function ButtonGoogle({ width, mobileWidth }: ButtonGoogleProps) {
     const buttonRef = useRef<HTMLDivElement>(null);
+    const isMobile = useMediaQuery("(max-width: 639px)");
     const navigate = useNavigate()
     const { updateAccount } = useAccount()
+    const computedWidth = isMobile ? (mobileWidth ?? width) : width;
 
     const handleCredentialResponse = useCallback(async (response: GoogleCredentialResponse) => {
         const idToken = response.credential;
@@ -49,7 +52,6 @@ export default function ButtonGoogle({ maxWidthClass = "max-w-97.5" }: ButtonGoo
         });
 
         if (buttonRef.current) {
-            // Clear previous GIS content to avoid duplicated/stale button nodes.
             buttonRef.current.innerHTML = "";
             window.google.accounts.id.renderButton(buttonRef.current, {
                 theme: "outline",
@@ -58,14 +60,12 @@ export default function ButtonGoogle({ maxWidthClass = "max-w-97.5" }: ButtonGoo
                 locale: "it",
                 text: "continue_with",
                 logo_alignment: "center",
-                width: "100%",
+                width: computedWidth,
             });
         }
-    }, [handleCredentialResponse]);
+    }, [computedWidth, handleCredentialResponse]);
 
     return (
-        <div className="w-full flex justify-center">
-            <div ref={buttonRef} className={cn("w-full", maxWidthClass)} />
-        </div>
+        <div ref={buttonRef} />
     );
 }
