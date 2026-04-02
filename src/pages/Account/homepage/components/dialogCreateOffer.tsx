@@ -15,25 +15,25 @@ type DialogProps = {
 };
 
 export const DialogCreateOffer = ({ showOfferDialog, setShowOfferDialog, advertisement }: DialogProps) => {
-    const [price, setPrice] = useState<number | undefined>();
+    const [price, setPrice] = useState("");
     const [isLoading, setIsLoading] = useState(false)
 
     const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setShowOfferDialog(false);
-        setPrice(undefined);
+        setPrice("");
     };
 
     const handleCreateOffer = async () => {
         setIsLoading(true)
-        if (!price || Number.isNaN(Number(price))) return;
+        if (Number.parseInt(price) <= 0)
+            toast.error("Il prezzo deve essere maggiore di zero");
         try {
-            CreateOffer(advertisement.id, Number(price))
+            CreateOffer(advertisement.id, Number.parseInt(price))
             setShowOfferDialog(false);
-            setPrice(undefined);
+            setPrice("");
             toast.success("Offerta inviata con successo!");
         } catch (submitError) {
-            console.log(submitError)
             const message =
                 submitError instanceof Error
                     ? submitError.message
@@ -59,9 +59,8 @@ export const DialogCreateOffer = ({ showOfferDialog, setShowOfferDialog, adverti
                         className="text-lg!"
                         placeholder="Inserisci la tua offerta"
                         type="number"
-                        min={0}
                         value={price}
-                        onChange={e => setPrice(Number(e.target.value))}
+                        onChange={e => setPrice(e.target.value)}
                         disabled={isLoading}
                         autoFocus
                     />

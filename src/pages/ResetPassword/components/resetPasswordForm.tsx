@@ -13,7 +13,7 @@ type Props = Readonly<{
     token: string | undefined;
 }>;
 
-export const SendResetPasswordForm = ({ type, token }: Props) => {
+export const ResetPasswordForm = ({ type, token }: Props) => {
     const navigate = useNavigate();
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");

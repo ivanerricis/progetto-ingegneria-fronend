@@ -69,7 +69,6 @@ const useAdvertisements = () => {
                     setAdvertisements(response.data);
                     setTotalPages(1);
                     setTotalElements(response.data.length);
-                    console.log(response.data);
                 } else {
                     setAdvertisements(response.data.items ?? []);
                     setTotalPages(response.data.pagination.totalPages ?? 1);

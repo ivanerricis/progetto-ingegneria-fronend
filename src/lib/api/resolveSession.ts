@@ -2,6 +2,7 @@ import { apiClient } from "@/lib/api/config"
 
 export const resolveSession = async (): Promise<string | null> => {
     try {
+        console.warn("Faccio /auth/account")
         await apiClient.get("/auth/account")
         return "/homepage"
     } catch (error) {
@@ -9,6 +10,7 @@ export const resolveSession = async (): Promise<string | null> => {
     }
 
     try {
+        console.warn("Faccio /auth/agent")
         await apiClient.get("/auth/agent")
         return "/agent/dashboard"
     } catch (error) {

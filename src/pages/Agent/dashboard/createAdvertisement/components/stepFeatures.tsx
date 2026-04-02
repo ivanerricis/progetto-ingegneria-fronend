@@ -9,14 +9,14 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { SERVICE_LABELS } from "../constants/serviceLabels";
 
 interface StepFeaturesProps {
-    rooms: number;
-    setRooms: (value: number) => void;
-    floor: number;
-    setFloor: (value: number) => void;
-    surface: number;
-    setSurface: (value: number) => void;
-    bathrooms: number;
-    setBathrooms: (value: number) => void;
+    rooms: string;
+    setRooms: (value: string) => void;
+    floor: string;
+    setFloor: (value: string) => void;
+    surface: string;
+    setSurface: (value: string) => void;
+    bathrooms: string;
+    setBathrooms: (value: string) => void;
     services: Services;
     onServiceChange: (service: keyof Services) => void;
     description: string;
@@ -41,19 +41,39 @@ const StepFeatures: FC<StepFeaturesProps> = ({
             <div className="w-full lg:w-1/4 gap-3 grid grid-cols-2">
                 <div>
                     <Label className="text-lg">Locali</Label>
-                    <Input type="number" value={rooms} onChange={e => setRooms(Number.parseInt(e.target.value) || 0)} />
+                    <Input
+                        type="number"
+                        value={rooms}
+                        placeholder="0"
+                        onChange={e => setRooms(e.target.value || "")}
+                    />
                 </div>
                 <div>
                     <Label className="text-lg">Piano</Label>
-                    <Input type="number" value={floor} onChange={e => setFloor(Number.parseInt(e.target.value) || 0)} />
+                    <Input
+                        type="number"
+                        value={floor}
+                        placeholder="0"
+                        onChange={e => setFloor(e.target.value || "")}
+                    />
                 </div>
                 <div>
                     <Label className="text-lg">Superficie (m²)</Label>
-                    <Input type="number" value={surface} onChange={e => setSurface(Number.parseInt(e.target.value) || 0)} />
+                    <Input
+                        type="number"
+                        value={surface}
+                        placeholder="0"
+                        onChange={e => setSurface(e.target.value || "")}
+                    />
                 </div>
                 <div>
                     <Label className="text-lg">Bagni</Label>
-                    <Input type="number" value={bathrooms} onChange={e => setBathrooms(Number.parseInt(e.target.value) || 0)} />
+                    <Input
+                        type="number"
+                        value={bathrooms}
+                        placeholder="0"
+                        onChange={e => setBathrooms(e.target.value || "")}
+                    />
                 </div>
             </div>
 
@@ -61,7 +81,7 @@ const StepFeatures: FC<StepFeaturesProps> = ({
             <Separator orientation="vertical" className="hidden sm:block" />
 
             <div className="flex lg:w-1/3 flex-wrap gap-4 lg:mb-3">
-                
+
                 <div className="flex flex-col gap-1">
                     <Label className="text-lg">Tipo annuncio</Label>
                     <Select value={typeValue} onValueChange={setTypeValue}>

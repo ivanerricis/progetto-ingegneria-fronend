@@ -37,10 +37,10 @@ export default function CreateAdvertisementPage() {
     const [step, setStep] = useState(0);
 
     const [files, setFiles] = useState<File[]>([]);
-    const [rooms, setRooms] = useState(1);
-    const [floor, setFloor] = useState(1);
-    const [surface, setSurface] = useState(1);
-    const [bathrooms, setBathrooms] = useState(1);
+    const [rooms, setRooms] = useState("");
+    const [floor, setFloor] = useState("");
+    const [surface, setSurface] = useState("");
+    const [bathrooms, setBathrooms] = useState("");
     const [services, setServices] = useState({
         ariaCondizionata: false,
         balcone: false,
@@ -126,10 +126,10 @@ export default function CreateAdvertisementPage() {
             heating: services.riscaldamenti,
             terrace: services.terrazzo,
 
-            size: surface,
-            rooms: rooms,
-            bathrooms: bathrooms,
-            floor: floor,
+            size: Number.parseInt(surface),
+            rooms: Number.parseInt(rooms),
+            bathrooms: Number.parseInt(bathrooms),
+            floor: Number.parseInt(floor),
             energyClass: energyClass,
             housingType: housingType,
             addressInput: address,

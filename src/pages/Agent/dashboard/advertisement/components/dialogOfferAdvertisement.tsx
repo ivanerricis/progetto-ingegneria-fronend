@@ -26,7 +26,7 @@ export const DialogOfferAdvertisement = ({
     const [email, setEmail] = useState("")
 
     const handleSubmitOffer = async () => {
-        const parsedPrice = Number(offerPrice)
+        const parsedPrice = Number.parseInt(offerPrice)
         if (!offerPrice || Number.isNaN(parsedPrice) || parsedPrice <= 0) {
             toast.error("Inserisci un prezzo valido")
             return

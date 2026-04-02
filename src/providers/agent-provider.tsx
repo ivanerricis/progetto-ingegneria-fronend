@@ -54,7 +54,7 @@ export const AgentProvider = ({ children }: Props) => {
         try {
             await apiClient.post("/auth/agent/logout");
         } catch {
-            console.log("Logout failed, but clearing agent data anyway.");
+            console.warn("Logout failed, but clearing agent data anyway.");
         }
 
         updateAgent(null);

@@ -1,12 +1,12 @@
 import { Footer } from "@/components/footer";
 import Header from "@/components/header";
 import { ModeToggle } from "@/components/mode-toggle";
-import { SendResetPasswordForm } from "./components/sendResetPasswordForm";
+import { ResetPasswordForm } from "./components/resetPasswordForm";
 import ButtonBack from "@/components/buttonBack";
 import Content from "@/components/content";
 import { useParams } from "react-router-dom";
 
-const SendResetPassword = () => {
+const ResetPassword = () => {
     const { token } = useParams();
     const { type } = useParams();
 
@@ -22,7 +22,7 @@ const SendResetPassword = () => {
             />
 
             <Content>
-                <SendResetPasswordForm type={type} token={token} />
+                <ResetPasswordForm type={type} token={token} />
             </Content>
 
             <Footer />
@@ -30,4 +30,4 @@ const SendResetPassword = () => {
     );
 }
 
-export default SendResetPassword;
+export default ResetPassword;

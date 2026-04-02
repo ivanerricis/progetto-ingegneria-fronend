@@ -29,8 +29,7 @@ export const CreateAgencyForm = () => {
     const next = () => setStep((s) => Math.min(s + 1, steps.length - 1))
     const back = () => setStep((s) => Math.max(s - 1, 0))
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    const handleSubmit = async () => {
         setLoading(true)
 
         const formData = new FormData()
@@ -62,8 +61,7 @@ export const CreateAgencyForm = () => {
         <Card className="w-full flex justify-between px-6 border-none shadow-none sm:shadow-sm sm:px-0 sm:max-w-sm absolute h-115 rounded-none sm:rounded-xl">
             <CardTitle>Crea la tua agenzia</CardTitle>
 
-            <form onSubmit={handleSubmit} className="gap-4 flex flex-col h-full">
-                <CardContent className="flex flex-col">
+                <CardContent className="flex flex-col gap-4 h-full">
                     <Stepper steps={steps} current={step} />
 
                     {/* STEP 1 */}
@@ -196,28 +194,31 @@ export const CreateAgencyForm = () => {
                         </div>
                     )}
                 </CardContent>
-            </form>
 
-            <CardFooter className="flex justify-between">
-                {step === 0 && (
-                    <div>
+                <CardFooter className="flex justify-between">
+                    {step === 0 && (
+                        <div>
 
-                    </div>
-                )}
-                {step > 0 && (
-                    <Button variant="outline" onClick={back}>
-                        Indietro
-                    </Button>
-                )}
+                        </div>
+                    )}
+                    {step > 0 && (
+                        <Button type="button" variant="outline" onClick={back}>
+                            Indietro
+                        </Button>
+                    )}
 
-                {step < steps.length - 1 ? (
-                    <Button onClick={next}>Avanti</Button>
-                ) : (
-                    <Button type="submit" disabled={loading}>
-                        {loading ? "Creazione..." : "Crea agenzia"}
-                    </Button>
-                )}
-            </CardFooter>
+                    {step < steps.length - 1 ? (
+                        <Button type="button" onClick={next}>Avanti</Button>
+                    ) : (
+                        <Button
+                            type="submit"
+                            disabled={loading}
+                            onClick={handleSubmit}
+                        >
+                            {loading ? "Creazione..." : "Crea agenzia"}
+                        </Button>
+                    )}
+                </CardFooter>
         </Card>
     )
 }

@@ -31,7 +31,6 @@ export async function loginAccount(data: {
         return response.data
     } catch (err) {
         if (isAxiosError(err)) {
-            console.log(err)
             const message =
                 err.response?.data?.error ??
                 err.response?.data?.message ??
@@ -48,7 +47,6 @@ export async function loginAccountGoogle(token: string) {
         return response.data
     } catch (err) {
         if (isAxiosError(err)) {
-            console.log(err)
             const message =
                 err.response?.data?.error ??
                 err.response?.data?.message ??
@@ -66,7 +64,6 @@ export async function loginAgent(data: {
 }) {
     try {
         const response = await apiClient.post("/auth/agent/login", data)
-        console.log("Login Agent Response:", response.data)
         return response.data
     } catch (err) {
         if (isAxiosError(err)) {

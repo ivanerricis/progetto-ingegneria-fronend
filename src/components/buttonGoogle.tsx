@@ -28,7 +28,6 @@ export default function ButtonGoogle({ width, mobileWidth }: ButtonGoogleProps) 
 
         try {
             const response = await apiClient.post("/auth/account/google", { idToken: idToken }, { withCredentials: true });
-            console.log("Login con Google riuscito", response.data);
             const account = response.data?.account ?? response.data;
             updateAccount(account);
             navigate("/homepage");

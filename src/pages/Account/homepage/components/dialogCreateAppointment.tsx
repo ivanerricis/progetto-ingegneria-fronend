@@ -27,9 +27,6 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
     const { daysSet, loading: daysLoading } = useAvailableDays(advertisement.id)
     const { slots, loading: slotsLoading } = useAvailableSlots(advertisement.id, date);
 
-    console.log("Available days:", daysSet)
-    console.log("Available slots for", date, ":", slots)
-
     const getPlaceholder = () => {
         if (slotsLoading) return "Caricamento..."
         if (!date) return "Seleziona una data prima"
@@ -54,7 +51,6 @@ export const DialogCreateAppointment = ({ showAppointmentDialog, setShowAppointm
             setSelectedTime("");
             toast.success("Appuntamento creato con successo!");
         } catch (submitError) {
-            console.log(submitError)
             const message =
                 submitError instanceof Error
                     ? submitError.message

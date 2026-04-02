@@ -12,8 +12,8 @@ import { resolveSession } from './lib/api/resolveSession';
 import PublicRoute from './components/public-route';
 import { useMediaQuery } from './hooks/use-media-query';
 
-const RequestResetPassword = lazy(() => import('@/pages/reset-password/RequestResetPassword'));
-const SendResetPassword = lazy(() => import('@/pages/reset-password/SendResetPassword'));
+const RequestResetPassword = lazy(() => import('@/pages/ResetPassword/RequestResetPassword'));
+const ResetPassword = lazy(() => import('@/pages/ResetPassword/ResetPassword'));
 
 // Lazy loading delle pagine Account
 const Login = lazy(() => import('@/pages/Account/login/Login'));
@@ -79,7 +79,7 @@ function App() {
               <Route path="/" element={<SessionEntryRedirect />} />
               <Route path="/create-agency" element={<CreateAgency />} />
               <Route path="/:type/request-reset-password" element={<RequestResetPassword />} />
-              <Route path="/:type/reset-password/:token" element={<SendResetPassword />} />
+              <Route path="/:type/reset-password/:token" element={<ResetPassword />} />
 
               {/* Account Routes */}
               <Route element={<AccountProvider><Outlet /></AccountProvider>}>

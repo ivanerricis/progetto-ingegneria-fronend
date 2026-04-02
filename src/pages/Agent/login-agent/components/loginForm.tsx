@@ -39,7 +39,6 @@ export const LoginForm = () => {
             })
 
             if (loginResponse) {
-                console.log("Login response:", loginResponse)
                 updateAgent(loginResponse)
                 window.location.replace("/agent/dashboard")
             } else {

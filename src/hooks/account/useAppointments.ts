@@ -27,7 +27,6 @@ export default function useAppointments() {
             })
             const item = data?.appointments ?? data?.items ?? data
             setAppointments(item)
-            console.log("Fetched appointments:", data.appointments)
         } catch (error) {
             if (isCancel(error)) return
 

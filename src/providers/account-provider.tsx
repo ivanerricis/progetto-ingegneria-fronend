@@ -71,7 +71,6 @@ export const AccountProvider = ({ children }: Props) => {
             const res = await apiClient.get<Account | { account: Account }>("/auth/account");
             const resolvedAccount = extractAccountFromPayload(res.data);
             updateAccount(resolvedAccount);
-            console.log("Account refreshed:", res.data);
         } catch {
             updateAccount(null);
         }
@@ -81,7 +80,7 @@ export const AccountProvider = ({ children }: Props) => {
         try {
             await apiClient.post("/auth/account/logout");
         } catch {
-            console.log("Logout failed, but clearing account data anyway.");
+            console.warn("Logout failed, but clearing account data anyway.");
         }
 
         updateAccount(null);

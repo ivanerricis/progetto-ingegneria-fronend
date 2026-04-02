@@ -67,7 +67,7 @@ export const CardAdvertisement = ({ advertisement, onDelete, onRent }: CardRealE
                 throw new Error("ID annuncio non valido")
             }
             await InsertExternalAppointment(advertisementId, firstName, lastName, email, price)
-            toast.success("Funzionalità non ancora implementata")
+            toast.success("Offerta e utente esterno creati con successo")
         } catch (error) {
             toast.error(error instanceof Error ? error.message : "Errore durante l'inserimento dell'offerta")
         }

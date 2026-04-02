@@ -5,10 +5,10 @@ import { SERVICE_LABELS } from "../constants/serviceLabels";
 
 interface StepSummaryProps {
     files: File[];
-    rooms: number;
-    floor: number;
-    surface: number;
-    bathrooms: number;
+    rooms: string;
+    floor: string;
+    surface: string;
+    bathrooms: string;
     typeValue: string;
     energyClass: string;
     housingType: string;

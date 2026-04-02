@@ -17,20 +17,21 @@ type Props = {
 }
 export const DialogCounterOffer = ({ isCounterOfferDialogOpen, setIsCounterOfferDialogOpen, advertisementId, accountId }: Props) => {
     const [isLoading, setIsLoading] = useState(false);
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState("");
     const navigate = useNavigate();
 
     const handleSendCounterOffer = async () => {
         setIsLoading(true);
         try {
-            if (accountId)
-                await CounterOfferAgent(advertisementId, accountId, price);
-            else
-                await CounterOfferAccount(advertisementId, price)
-            toast.success("Contro-offerta inviata con successo");
-            navigate(0);
+            if (price !== "") {
+                if (accountId)
+                    await CounterOfferAgent(advertisementId, accountId, Number.parseInt(price));
+                else
+                    await CounterOfferAccount(advertisementId, Number.parseInt(price))
+                toast.success("Contro-offerta inviata con successo");
+                navigate(0);
+            }
         } catch (error) {
-            console.error("Errore durante l'invio della contro-offerta:", error);
             toast.error("Errore durante l'invio della contro-offerta: " + (error instanceof Error ? error.message : "Errore sconosciuto"));
         } finally {
             setIsLoading(false);
@@ -40,7 +41,7 @@ export const DialogCounterOffer = ({ isCounterOfferDialogOpen, setIsCounterOffer
 
     const handleCloseDialog = () => {
         setIsCounterOfferDialogOpen(false);
-        setPrice(0);
+        setPrice("");
     }
 
     return (
@@ -61,10 +62,10 @@ export const DialogCounterOffer = ({ isCounterOfferDialogOpen, setIsCounterOffer
                         type="number"
                         value={price}
                         className="text-lg!"
-                        onChange={(e) => setPrice(Number(e.target.value))}
+                        onChange={(e) => setPrice(e.target.value || "")}
                     />
                     <Label className="text-lg">
-                        Qeusta è la tua offerta: {formatPrice(price)}
+                        Qeusta è la tua offerta: {price === "" ? "" : formatPrice(price)}
                     </Label>
                 </div>
                 <DialogFooter>
@@ -74,7 +75,7 @@ export const DialogCounterOffer = ({ isCounterOfferDialogOpen, setIsCounterOffer
                     >
                         Annulla
                     </Button>
-                    <Button onClick={handleSendCounterOffer} disabled={isLoading || price <= 0}>
+                    <Button onClick={handleSendCounterOffer} disabled={isLoading || price === ""}>
                         {isLoading ? "Invio..." : "Invia"}
                     </Button>
                 </DialogFooter>
