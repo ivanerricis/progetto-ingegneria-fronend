@@ -4,9 +4,7 @@ import SidebarOffers from "./components/sidebarOffers";
 import OfferChat from "./components/offerChat";
 import useNegotiations from "@/hooks/useNegotiations";
 import DashboardFilterSelect from "../advertisement/components/dashboardFilterSelect";
-import { BadgeCheck, BadgeX, Clock, Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+import { CheckCircle2, Clock, XCircle } from "lucide-react";
 
 type StatusFilter = "pending" | "accepted" | "rejected";
 
@@ -19,12 +17,12 @@ const statusOptions = [
     {
         value: "accepted",
         label: "Accettate",
-        icon: <BadgeCheck className="text-foreground size-5" />,
+        icon: <CheckCircle2 className="text-foreground size-5" />,
     },
     {
         value: "rejected",
         label: "Rifiutate",
-        icon: <BadgeX className="text-foreground size-5" />,
+        icon: <XCircle className="text-foreground size-5" />,
     },
 ] as const
 
@@ -51,13 +49,6 @@ export default function Offers() {
                     options={[...statusOptions]}
                     onValueChange={(value) => handleFilterChange(value as StatusFilter)}
                 />
-                <Button
-                    size={"icon-lg"}
-                    className="xl:w-fit xl:py-2 xl:px-3"
-                >
-                    <Plus className="size-5"/>
-                    <Label className="hidden xl:inline text-lg!">Inserisci offerta</Label>
-                </Button>
             </div>
 
             <div className="flex flex-row w-full h-full divide-x">

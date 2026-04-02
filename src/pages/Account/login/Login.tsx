@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { ModeToggle } from "@/components/mode-toggle"
 import { Label } from "@/components/ui/label"
 import Content from "@/components/content"
+import { CircleUserRound, HousePlus } from "lucide-react"
 
 export const Login = () => {
     const navigate = useNavigate()
@@ -16,9 +17,11 @@ export const Login = () => {
                 left={
                     <>
                         <Button variant={"outline"} size={"lg"} onClick={() => navigate("/agent/login")}>
+                            <CircleUserRound className="size-5" />
                             <Label className="text-lg">Console agenti</Label>
                         </Button>
                         <Button variant={"outline"} size={"lg"} onClick={() => navigate("/create-agency")}>
+                            <HousePlus className="size-5" />
                             <Label className="text-lg">Crea agenzia</Label>
                         </Button>
                     </>

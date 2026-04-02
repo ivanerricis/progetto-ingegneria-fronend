@@ -1,7 +1,7 @@
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ModeToggle } from "@/components/mode-toggle";
-import { BadgeCheck, BadgeX, Clock, Trash } from "lucide-react";
+import { CheckCircle2, Clock, Trash, XCircle } from "lucide-react";
 import { AppointmentList } from "./components/appointmentsList";
 import useAppointments from "@/hooks/account/useAppointments";
 import { useState } from "react";
@@ -21,7 +21,7 @@ const statusOptions = [
     {
         value: "confirmed",
         label: "Confermati",
-        icon: <BadgeCheck className="text-foreground size-5" />,
+        icon: <CheckCircle2 className="text-foreground size-5" />,
     },
     {
         value: "rejected",
@@ -31,7 +31,7 @@ const statusOptions = [
     {
         value: "cancelled",
         label: "Annullati",
-        icon: <BadgeX className="text-foreground size-5" />,
+        icon: <XCircle className="text-foreground size-5" />,
     },
 ] as const
 
@@ -55,7 +55,7 @@ export default function Appointments() {
             <Header
                 isHomepage
                 left={
-                    <ButtonBack to="/homepage"/>
+                    <ButtonBack to="/homepage" />
                 }
                 right={
                     <>

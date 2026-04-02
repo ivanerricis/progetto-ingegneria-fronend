@@ -2,7 +2,7 @@ import useAppointments from "@/hooks/agent/useAppointments";
 import AppointmentsPanel from "./components/appointmentsPanel";
 import DashboardFilterSelect from "../advertisement/components/dashboardFilterSelect";
 import { useState } from "react";
-import { BadgeCheck, BadgeX, Clock, Trash } from "lucide-react";
+import { CheckCircle2, Clock, Trash, XCircle } from "lucide-react";
 
 type StatusFilter = "requested" | "confirmed" | "rejected" | "cancelled"
 
@@ -15,7 +15,7 @@ const statusOptions = [
     {
         value: "confirmed",
         label: "Confermati",
-        icon: <BadgeCheck className="text-foreground size-5" />,
+        icon: <CheckCircle2 className="text-foreground size-5" />,
     },
     {
         value: "rejected",
@@ -25,7 +25,7 @@ const statusOptions = [
     {
         value: "cancelled",
         label: "Annullati",
-        icon: <BadgeX className="text-foreground size-5" />,
+        icon: <XCircle className="text-foreground size-5" />,
     },
 ] as const
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Negotiation } from "@/types/types";
 import useNegotiations from "@/hooks/useNegotiations";
-import { BadgeCheck, BadgeX, Clock } from "lucide-react";
+import { CheckCircle2, Clock, XCircle } from "lucide-react";
 import DashboardFilterSelect from "@/pages/Agent/dashboard/advertisement/components/dashboardFilterSelect";
 import SidebarOffers from "./components/sidebarOffers";
 import OfferChat from "./components/offerChat";
@@ -22,12 +22,12 @@ const statusOptions = [
     {
         value: "accepted",
         label: "Accettate",
-        icon: <BadgeCheck className="text-foreground size-5" />,
+        icon: <CheckCircle2 className="text-foreground size-5" />,
     },
     {
         value: "rejected",
         label: "Rifiutate",
-        icon: <BadgeX className="text-foreground size-5" />,
+        icon: <XCircle className="text-foreground size-5" />,
     },
 ] as const
 
@@ -50,7 +50,7 @@ export default function Offers() {
             <Header
                 isHomepage
                 left={
-                    <ButtonBack to="/homepage"/>
+                    <ButtonBack to="/homepage" />
                 }
                 right={
                     <>

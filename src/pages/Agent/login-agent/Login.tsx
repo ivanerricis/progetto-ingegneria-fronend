@@ -6,6 +6,7 @@ import { ModeToggle } from "@/components/mode-toggle"
 import { useNavigate } from "react-router-dom"
 import { Label } from "@/components/ui/label"
 import Content from "@/components/content"
+import { HousePlus, User2 } from "lucide-react"
 
 export const LoginAgent = () => {
     const navigate = useNavigate()
@@ -16,9 +17,11 @@ export const LoginAgent = () => {
                 left={
                     <>
                         <Button variant={"outline"} size={"lg"} onClick={() => navigate("/login")}>
+                            <User2 className="size-5" />
                             <Label className="text-lg">Console utente</Label>
                         </Button>
                         <Button variant={"outline"} size={"lg"} onClick={() => navigate("/create-agency")}>
+                            <HousePlus className="size-5" />
                             <Label className="text-lg">Crea agenzia</Label>
                         </Button>
                     </>

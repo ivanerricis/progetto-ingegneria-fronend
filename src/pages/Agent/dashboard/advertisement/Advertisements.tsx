@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import useAdvertisements from "@/hooks/agent/useAdvertisements";
 import DashboardFilterSelect from "@/pages/Agent/dashboard/advertisement/components/dashboardFilterSelect";
-import { BadgeCheck, CalendarClock, Clock, Plus, Tag } from "lucide-react";
+import { CalendarClock, CheckCircle2, Clock, Plus, Tag } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdvertisementsPanel from "@/pages/Agent/dashboard/advertisement/components/advertisementsPanel";
@@ -19,7 +19,7 @@ const statusOptions = [
     {
         value: "completed",
         label: "Conclusi",
-        icon: <BadgeCheck className="text-foreground size-5" />,
+        icon: <CheckCircle2 className="text-foreground size-5" />,
     },
 ] as const
 

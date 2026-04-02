@@ -62,6 +62,7 @@ export const DialogCounterOffer = ({ isCounterOfferDialogOpen, setIsCounterOffer
                         type="number"
                         value={price}
                         className="text-lg!"
+                        placeholder="0"
                         onChange={(e) => setPrice(e.target.value || "")}
                     />
                     <Label className="text-lg">
