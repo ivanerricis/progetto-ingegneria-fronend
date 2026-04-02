@@ -53,8 +53,6 @@ export const DialogOfferAdvertisement = ({
                         <Input
                             id="offer-price"
                             type="number"
-                            min={1}
-                            step={1}
                             value={offerPrice}
                             placeholder="Inserisci un prezzo"
                             onChange={event => setOfferPrice(event.currentTarget.value)}

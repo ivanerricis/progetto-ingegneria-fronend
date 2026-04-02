@@ -57,7 +57,7 @@ export const DialogCreateOffer = ({ showOfferDialog, setShowOfferDialog, adverti
                 <div className="flex flex-col gap-2">
                     <Input
                         className="text-lg!"
-                        placeholder="Inserisci la tua offerta"
+                        placeholder="0"
                         type="number"
                         value={price}
                         onChange={e => setPrice(e.target.value)}

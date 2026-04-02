@@ -66,7 +66,7 @@ export const DialogCounterOffer = ({ isCounterOfferDialogOpen, setIsCounterOffer
                         onChange={(e) => setPrice(e.target.value || "")}
                     />
                     <Label className="text-lg">
-                        Qeusta è la tua offerta: {price === "" ? "" : formatPrice(price)}
+                        Qeusta è la tua offerta: {price === formatPrice("0") ? "" : formatPrice(price)}
                     </Label>
                 </div>
                 <DialogFooter>

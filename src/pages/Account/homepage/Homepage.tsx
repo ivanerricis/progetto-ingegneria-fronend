@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown, Map, SlidersHorizontal } from "lucide-react"
 import { ModeToggle } from "@/components/mode-toggle"
@@ -32,14 +32,21 @@ export const Homepage = () => {
     const { advertisements, isLoading, error } = useAdvertisements()
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
     const [isMobileMapOpen, setIsMobileMapOpen] = useState(false)
-    const { city, setCity } = useHomepageSearch()
+    const { city, page, setCity } = useHomepageSearch()
     const [searchParams, setSearchParams] = useSearchParams()
+    const resultsListRef = useRef<HTMLDivElement>(null)
 
     const hasError = Boolean(error)
     const isEmpty = !isLoading && !hasError && advertisements.length === 0
     const hasResults = !isLoading && !hasError && advertisements.length > 0
 
     const currentSort = (searchParams.get("sortBy") as SortOption) ?? undefined
+    const queryString = searchParams.toString()
+
+    useEffect(() => {
+        resultsListRef.current?.scrollTo({ top: 0, behavior: "auto" })
+        window.scrollTo({ top: 0, behavior: "auto" })
+    }, [page, queryString])
 
     const handleSortChange = (value: SortOption) => {
         setSearchParams((prev) => {
@@ -51,7 +58,7 @@ export const Homepage = () => {
     }
 
     return (
-        <div className="flex min-h-screen flex-col xl:h-full xl:max-h-screen">
+        <div className="flex min-h-screen flex-col h-full max-h-screen">
 
             <Header
                 isHomepage
@@ -116,12 +123,12 @@ export const Homepage = () => {
                 advertisements={advertisements}
             />
 
-            <main className="flex flex-1 xl:min-h-0 xl:h-full xl:overflow-hidden bg-sidebar">
+            <main className="flex flex-1 min-h-0 h-full overflow-hidden bg-sidebar">
                 <div className="hidden xl:block">
                     <SidebarFilter />
                 </div>
 
-                <div className="flex flex-1 flex-col gap-2 sm:border-l xl:min-h-0 xl:overflow-hidden">
+                <div className="flex flex-1 flex-col gap-2 sm:border-l min-h-0 overflow-hidden">
                     {isLoading && <AdvertisementListSkeleton />}
 
                     {hasError && (
@@ -162,10 +169,13 @@ export const Homepage = () => {
 
                     {hasResults && (
                         <>
-                            <div className="overflow-x-hidden pr-1 xl:min-h-0 xl:flex-1 p-2 xl:overflow-y-auto">
+                            <div
+                                ref={resultsListRef}
+                                className="overflow-x-hidden pr-1 min-h-0 flex-1 gap-2 overflow-y-auto"
+                            >
                                 <AdvertisementsList advertisements={advertisements} />
+                                <PaginationAdvertisements />
                             </div>
-                            <PaginationAdvertisements />
                         </>
                     )}
                 </div>

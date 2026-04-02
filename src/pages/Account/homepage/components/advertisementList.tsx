@@ -7,7 +7,7 @@ type Props = Readonly<{
 
 export default function AdvertisementsList({ advertisements }: Props) {
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col p-2 gap-4">
             {advertisements.map((advertisement, index) => {
                 const hasValidId =
                     advertisement.id !== undefined &&

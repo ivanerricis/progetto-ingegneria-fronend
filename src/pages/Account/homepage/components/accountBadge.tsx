@@ -24,7 +24,7 @@ export const AccountBadge = () => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
-                <div className="border-2 rounded-full h-10 w-10 bg-secondary text-foreground cursor-pointer flex items-center justify-center">
+                <div className="border-2 rounded-full h-10 w-10 bg-sidebar text-foreground cursor-pointer flex items-center justify-center">
                     {(account?.firstName?.charAt(0) ?? '') + (account?.lastName?.charAt(0) ?? '')}
                 </div>
             </DropdownMenuTrigger>

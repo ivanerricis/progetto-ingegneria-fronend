@@ -77,7 +77,6 @@ const SidebarFilter = () => {
                         <Input
                             id="minPrice"
                             type="number"
-                            min={0}
                             placeholder="0"
                             value={minPrice}
                             onChange={(e) => setFilter("minPrice", e.target.value || null)}
@@ -88,7 +87,6 @@ const SidebarFilter = () => {
                         <Input
                             id="maxPrice"
                             type="number"
-                            min={0}
                             placeholder="∞"
                             value={maxPrice}
                             onChange={(e) => setFilter("maxPrice", e.target.value || null)}
@@ -109,7 +107,6 @@ const SidebarFilter = () => {
                         <Input
                             id="minSize"
                             type="number"
-                            min={0}
                             placeholder="0"
                             value={minSize}
                             onChange={(e) => setFilter("minSize", e.target.value || null)}
@@ -120,7 +117,6 @@ const SidebarFilter = () => {
                         <Input
                             id="maxSize"
                             type="number"
-                            min={0}
                             placeholder="∞"
                             value={maxSize}
                             onChange={(e) => setFilter("maxSize", e.target.value || null)}
