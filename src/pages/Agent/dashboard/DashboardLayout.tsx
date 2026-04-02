@@ -80,7 +80,8 @@ const DashboardLayout = () => {
                             <DialogTitle>Devi cambiare la password</DialogTitle>
                         </DialogHeader>
                         <p
-                            className="text-foreground">Per motivi di sicurezza, puoi accedere solo al profilo o cambiare la password. Vuoi cambiare la password ora o effettuare il logout?
+                            className="text-foreground">Per motivi di sicurezza, puoi accedere solo al profilo o cambiare la password.
+                            Vuoi cambiare la password ora o effettuare il logout?
                         </p>
                         <DialogFooter className="flex! items-center! justify-between!">
                             <Button variant="outline" onClick={handleLogout}>Logout</Button>

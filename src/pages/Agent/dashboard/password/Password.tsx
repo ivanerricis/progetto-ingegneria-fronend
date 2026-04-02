@@ -12,7 +12,7 @@ import { useAgent } from "@/providers/agent-provider"
 
 export default function Password() {
     const navigate = useNavigate()
-    const { agent } = useAgent()
+    const { agent, updateAgent } = useAgent()
 
     const [currentPassword, setCurrentPassword] = useState("")
     const [newPassword, setNewPassword] = useState("")
@@ -74,6 +74,7 @@ export default function Password() {
                     currentPassword,
                     newPassword,
                 })
+                updateAgent({ ...agent, isPasswordChange: true })
             }
 
             toast.success("Password aggiornata con successo")
