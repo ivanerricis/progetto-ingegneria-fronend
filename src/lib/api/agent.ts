@@ -255,7 +255,7 @@ export async function DeleteAgent(agentId: string | number) {
 
 export async function DeleteAgency(agencyId: number) {
     try {
-        const response = await apiClient.delete(`/agent/agency/delete/${agencyId}`)
+        const response = await apiClient.delete(`/agent/delete/${agencyId}/founder`)
         return response.data
     } catch (error) {
         if (isAxiosError(error)) {
