@@ -32,6 +32,7 @@ export const AgentProvider = ({ children }: Props) => {
     const [loading, setLoading] = useState(true);
 
     const updateAgent = useCallback((ag: Agent | null) => {
+        console.log("Updating agent:", ag);
         setAgent(ag);
 
         if (ag) {
@@ -45,6 +46,7 @@ export const AgentProvider = ({ children }: Props) => {
         try {
             const res = await apiClient.get<Agent>("/auth/agent");
             updateAgent(res.data);
+            console.log("Agent refreshed:", res.data);
         } catch {
             updateAgent(null);
         }

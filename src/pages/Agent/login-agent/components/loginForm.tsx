@@ -51,8 +51,9 @@ export const LoginForm = () => {
                     createdAt: new Date(),
                     isPasswordChange: false,
                     isAdmin: false,
+                    administrator: null,
                     agency: {
-                        id: "",
+                        id: -1,
                         name: "",
                         phoneNumber: "",
                         email: "",

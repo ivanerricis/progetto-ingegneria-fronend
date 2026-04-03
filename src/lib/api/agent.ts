@@ -252,3 +252,19 @@ export async function DeleteAgent(agentId: string | number) {
         throw err
     }
 }
+
+export async function DeleteAgency(agencyId: number) {
+    try {
+        const response = await apiClient.delete(`/agent/agency/delete/${agencyId}`)
+        return response.data
+    } catch (error) {
+        if (isAxiosError(error)) {
+            const message =
+                error.response?.data?.error ??
+                error.response?.data?.message ??
+                "Eliminazione agenzia non riuscita"
+            throw new Error(message)
+        }
+        throw error
+    }
+}

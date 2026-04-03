@@ -79,10 +79,11 @@ export type Agent = {
     isPasswordChange: boolean
     isAdmin: boolean
     agency: Agency
+    administrator: number | null
 }
 
 export type Agency = {
-    id: string | number
+    id: number
     name: string
     phoneNumber: string
     email: string
