@@ -22,7 +22,7 @@ import { useSearchParams } from "react-router-dom"
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
     { value: "nearest", label: "Più vicini" },
     { value: "farthest", label: "Più lontani" },
-    { value: "cheapest", label: "Meno costosi" },
+    { value: "cheapest", label: "Più economici" },
     { value: "expensive", label: "Più costosi" },
     { value: "newest", label: "Più recenti" },
     { value: "oldest", label: "Più vecchi" },
@@ -40,7 +40,7 @@ export const Homepage = () => {
     const isEmpty = !isLoading && !hasError && advertisements.length === 0
     const hasResults = !isLoading && !hasError && advertisements.length > 0
 
-    const currentSort = (searchParams.get("sortBy") as SortOption) ?? undefined
+    const currentSort = (searchParams.get("sortBy") as SortOption) ?? ""
     const queryString = searchParams.toString()
 
     useEffect(() => {

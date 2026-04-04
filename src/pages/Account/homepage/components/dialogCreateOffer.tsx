@@ -29,7 +29,7 @@ export const DialogCreateOffer = ({ showOfferDialog, setShowOfferDialog, adverti
         if (Number.parseInt(price) <= 0)
             toast.error("Il prezzo deve essere maggiore di zero");
         try {
-            CreateOffer(advertisement.id, Number.parseInt(price))
+            await CreateOffer(advertisement.id, Number.parseInt(price))
             setShowOfferDialog(false);
             setPrice("");
             toast.success("Offerta inviata con successo!");
