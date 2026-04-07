@@ -14,7 +14,7 @@ export async function registerAccount(data: {
         if (isAxiosError(err)) {
             const message =
                 err.response?.data?.error ??
-                err.response?.data?.message ??
+                err.response?.data?.error.message ??
                 "Registrazione non valida"
             throw new Error(message)
         }
@@ -33,7 +33,7 @@ export async function loginAccount(data: {
         if (isAxiosError(err)) {
             const message =
                 err.response?.data?.error ??
-                err.response?.data?.message ??
+                err.response?.data?.error.message ??
                 "Credenziali non valide"
             throw new Error(message)
         }
@@ -49,7 +49,7 @@ export async function loginAccountGoogle(token: string) {
         if (isAxiosError(err)) {
             const message =
                 err.response?.data?.error ??
-                err.response?.data?.message ??
+                err.response?.data?.error.message ??
                 "Login con Google non riuscito"
             throw new Error(message)
         }
@@ -67,9 +67,10 @@ export async function loginAgent(data: {
         return response.data
     } catch (err) {
         if (isAxiosError(err)) {
+            console.log(err.response?.data.error.message)
             const message =
                 err.response?.data?.error ??
-                err.response?.data?.message ??
+                err.response?.data?.error.message ??
                 "Credenziali non valide"
             throw new Error(message)
         }
@@ -85,7 +86,7 @@ export async function logoutAccount() {
         if (isAxiosError(err)) {
             const message =
                 err.response?.data?.error ??
-                err.response?.data?.message ??
+                err.response?.data?.error.message ??
                 "Logout non riuscito"
             throw new Error(message)
         }
@@ -101,7 +102,7 @@ export async function logoutAgent() {
         if (isAxiosError(err)) {
             const message =
                 err.response?.data?.error ??
-                err.response?.data?.message ??
+                err.response?.data?.error.message ??
                 "Logout non riuscito"
             throw new Error(message)
         }
@@ -117,7 +118,7 @@ export async function deleteAccount(accountId: string | number) {
         if (isAxiosError(err)) {
             const message =
                 err.response?.data?.error ??
-                err.response?.data?.message ??
+                err.response?.data?.error.message ??
                 "Eliminazione account non riuscita"
             throw new Error(message)
         }
@@ -133,7 +134,7 @@ export async function requestResetPasswordAccount(email: string) {
         if (isAxiosError(err)) {
             const message =
                 err.response?.data?.error ??
-                err.response?.data?.message ??
+                err.response?.data?.error.message ??
                 "Richiesta di reset della password non riuscita"
             throw new Error(message)
         }
@@ -149,7 +150,7 @@ export async function resetPasswordAccount(token: string, newPassword: string) {
         if (isAxiosError(err)) {
             const message =
                 err.response?.data?.error ??
-                err.response?.data?.message ??
+                err.response?.data?.error.message ??
                 "Reset della password non riuscito"
             throw new Error(message)
         }
@@ -165,7 +166,7 @@ export async function requestResetPasswordAgent(username: string, agencyId: numb
         if (isAxiosError(err)) {
             const message =
                 err.response?.data?.error ??
-                err.response?.data?.message ??
+                err.response?.data?.error.message ??
                 "Richiesta di reset della password non riuscita"
             throw new Error(message)
         }
@@ -181,7 +182,7 @@ export async function resetPasswordAgent(token: string, newPassword: string) {
         if (isAxiosError(err)) {
             const message =
                 err.response?.data?.error ??
-                err.response?.data?.message ??
+                err.response?.data?.error.message ??
                 "Reset della password non riuscito"
             throw new Error(message)
         }

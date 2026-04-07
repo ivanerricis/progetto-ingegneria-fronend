@@ -29,7 +29,7 @@ const statusOptions = [
 export default function Offers() {
     const [statusFilter, setStatusFilter] = useState<StatusFilter>("pending")
     const [selectedNegotiation, setSelectedNegotiation] = useState<Negotiation | null>(null);
-    const { negotiations } = useNegotiations("AGENT");
+    const { negotiations, refetch } = useNegotiations("AGENT");
 
     const filteredNegotiations = negotiations.filter((negotiation) => {
         return negotiation.lastOffer?.status === statusFilter;
@@ -39,6 +39,11 @@ export default function Offers() {
         setStatusFilter(value);
         setSelectedNegotiation(null);
     }
+
+    const handleOfferStatusChange = async () => {
+        await refetch();
+        setSelectedNegotiation(null);
+    };
 
     return (
         <div className="w-full h-full flex flex-col">
@@ -61,6 +66,7 @@ export default function Offers() {
                 <OfferChat
                     selectedNegotiation={selectedNegotiation}
                     onBack={() => setSelectedNegotiation(null)}
+                    onOfferStatusChange={handleOfferStatusChange}
                 />
             </div>
         </div>

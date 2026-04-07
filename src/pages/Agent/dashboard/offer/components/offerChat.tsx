@@ -9,9 +9,10 @@ import { Spinner } from "@/components/ui/spinner";
 type Props = Readonly<{
     selectedNegotiation: Negotiation | null;
     onBack: () => void;
+    onOfferStatusChange: () => Promise<void>;
 }>;
 
-export default function OfferChat({ selectedNegotiation, onBack }: Props) {
+export default function OfferChat({ selectedNegotiation, onBack, onOfferStatusChange }: Props) {
     const { offers, isLoading, error } = useOffers(
         "AGENT",
         selectedNegotiation?.advertisement.id,
@@ -66,6 +67,7 @@ export default function OfferChat({ selectedNegotiation, onBack }: Props) {
                             sortedOffers={sortedOffers}
                             advertisement={selectedNegotiation.advertisement}
                             account={selectedNegotiation.account}
+                            onOfferStatusChange={onOfferStatusChange}
                         />
                     }
                 </>

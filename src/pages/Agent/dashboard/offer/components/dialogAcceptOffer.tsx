@@ -1,18 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import useOffers from "@/hooks/useOffers";
-import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 type Props = {
     isAcceptDialogOpen: boolean;
     setIsAcceptDialogOpen: (open: boolean) => void;
     offerId: number | undefined;
+    onSuccess: () => Promise<void>;
 }
 
-export const DialogAcceptOffer = ({ isAcceptDialogOpen, setIsAcceptDialogOpen, offerId }: Props) => {
+export const DialogAcceptOffer = ({ isAcceptDialogOpen, setIsAcceptDialogOpen, offerId, onSuccess }: Props) => {
     const { acceptOffer, isLoading } = useOffers("AGENT");
-    const navigate = useNavigate();
 
     const handleAccept = async () => {
         try {
@@ -21,7 +20,7 @@ export const DialogAcceptOffer = ({ isAcceptDialogOpen, setIsAcceptDialogOpen, o
                 return;
             }
             await acceptOffer(offerId);
-            navigate(0);
+            await onSuccess();
             toast.success("Offerta accettata con successo");
         } catch (error) {
             console.error("Errore durante l'accettazione dell'offerta:", error);

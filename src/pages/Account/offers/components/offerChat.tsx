@@ -9,9 +9,10 @@ import useOffers from "@/hooks/useOffers";
 type Props = Readonly<{
     selectedNegotiation: Negotiation | null;
     onBack: () => void;
+    onOfferStatusChange: () => Promise<void>;
 }>;
 
-export default function OfferChat({ selectedNegotiation, onBack }: Props) {
+export default function OfferChat({ selectedNegotiation, onBack, onOfferStatusChange }: Props) {
     const { offers, isLoading, error } = useOffers(
         "ACCOUNT",
         selectedNegotiation?.advertisement.id,
@@ -65,6 +66,7 @@ export default function OfferChat({ selectedNegotiation, onBack }: Props) {
                         <FooterChat
                             sortedOffers={sortedOffers}
                             advertisement={selectedNegotiation.advertisement}
+                            onOfferStatusChange={onOfferStatusChange}
                         />
                     }
                 </>

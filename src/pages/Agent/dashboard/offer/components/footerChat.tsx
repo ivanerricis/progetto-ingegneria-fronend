@@ -11,9 +11,10 @@ type Props = {
     sortedOffers: Offer[];
     advertisement: Advertisement;
     account: Account;
+    onOfferStatusChange: () => Promise<void>;
 }
 
-export const FooterChat = ({ sortedOffers, advertisement, account }: Props) => {
+export const FooterChat = ({ sortedOffers, advertisement, account, onOfferStatusChange }: Props) => {
     const [isAcceptDialogOpen, setIsAcceptDialogOpen] = useState(false);
     const [isRejectDialogOpen, setIsRejectDialogOpen] = useState(false);
     const [isCounterOfferDialogOpen, setIsCounterOfferDialogOpen] = useState(false);
@@ -72,12 +73,14 @@ export const FooterChat = ({ sortedOffers, advertisement, account }: Props) => {
                 isRejectDialogOpen={isRejectDialogOpen}
                 setIsRejectDialogOpen={setIsRejectDialogOpen}
                 offerId={lastOffer?.id}
+                onSuccess={onOfferStatusChange}
             />
 
             <DialogAcceptOffer
                 isAcceptDialogOpen={isAcceptDialogOpen}
                 setIsAcceptDialogOpen={setIsAcceptDialogOpen}
                 offerId={lastOffer?.id}
+                onSuccess={onOfferStatusChange}
             />
 
             <DialogCounterOffer

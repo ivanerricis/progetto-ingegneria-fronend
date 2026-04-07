@@ -1,17 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import useOffers from "@/hooks/useOffers";
-import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 type Props = {
     isRejectDialogOpen: boolean;
     setIsRejectDialogOpen: (open: boolean) => void;
     offerId: number | undefined;
+    onSuccess: () => Promise<void>;
 }
-export const DialogRejectOffer = ({ isRejectDialogOpen, setIsRejectDialogOpen, offerId }: Props) => {
+export const DialogRejectOffer = ({ isRejectDialogOpen, setIsRejectDialogOpen, offerId, onSuccess }: Props) => {
     const { rejectOffer, isLoading } = useOffers("ACCOUNT");
-    const navigate = useNavigate();
 
     const handleReject = async () => {
         try {
@@ -22,7 +21,7 @@ export const DialogRejectOffer = ({ isRejectDialogOpen, setIsRejectDialogOpen, o
             await rejectOffer(offerId);
             setIsRejectDialogOpen(false);
             toast.success("Offerta rifiutata con successo");
-            navigate(0);
+            await onSuccess();
         } catch (error) {
             console.error("Errore durante il rifiuto dell'offerta:", error);
             toast.error("Errore durante il rifiuto dell'offerta: " + (error instanceof Error ? error.message : "Errore sconosciuto"));
