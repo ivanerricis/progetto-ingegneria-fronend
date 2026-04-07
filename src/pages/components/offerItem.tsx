@@ -22,7 +22,7 @@ export const OfferItem = ({ offer, role }: Props) => {
             className={`flex ${isMine ? "justify-end" : "justify-start"}`}
         >
             <div
-                className={`max-w-[70%] p-2 rounded-sm border ${isMine ?
+                className={`max-w-[70%] py-3 px-4 rounded-xl border ${isMine ?
                     "bg-primary text-background dark:text-foreground rounded-br-xs"
                     : "bg-background text-foreground rounded-bl-xs"
                     }`}

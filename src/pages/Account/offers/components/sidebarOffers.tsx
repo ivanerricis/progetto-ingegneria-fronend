@@ -25,6 +25,10 @@ export default function SidebarOffers({
                         onClick={() => onSelect(negotiation)}
                         addressFormatted={negotiation.advertisement.realEstate.addressFormatted}
                         name={negotiation.agent.firstName + " " + negotiation.agent.lastName}
+                        selected={
+                            selectedNegotiation?.advertisement.id === negotiation.advertisement.id
+                            && selectedNegotiation?.agent.id === negotiation.agent.id
+                        }
                     />
                 ))
             ) : (

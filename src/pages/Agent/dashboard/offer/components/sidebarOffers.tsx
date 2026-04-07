@@ -19,13 +19,17 @@ export default function SidebarOffers({
         >
             {negotiations && negotiations.length > 0 ? (
                 negotiations.map((negotiation) => (
-
+                    
                     <BadgeChat
                         key={`${negotiation.advertisement.id}-${negotiation.account.id}`}
                         onClick={() => onSelect(negotiation)}
                         addressFormatted={negotiation.advertisement.realEstate.addressFormatted}
                         name={negotiation.account.firstName + " " + negotiation.account.lastName}
                         email={negotiation.account.email}
+                        selected={
+                            selectedNegotiation?.advertisement.id === negotiation.advertisement.id
+                            && selectedNegotiation?.account.id === negotiation.account.id
+                        }
                     />
                 ))
             ) : (

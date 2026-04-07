@@ -21,8 +21,8 @@ export const DialogRejectOffer = ({ isRejectDialogOpen, setIsRejectDialogOpen, o
             }
             await rejectOffer(offerId);
             setIsRejectDialogOpen(false);
-            toast.success("Offerta rifiutata con successo");
             navigate(0);
+            toast.success("Offerta rifiutata con successo");
         } catch (error) {
             console.error("Errore durante il rifiuto dell'offerta:", error);
             toast.error("Errore durante il rifiuto dell'offerta: " + (error instanceof Error ? error.message : "Errore sconosciuto"));
