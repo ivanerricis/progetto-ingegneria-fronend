@@ -10,7 +10,7 @@ type Props = {
     offerId: number | undefined;
 }
 export const DialogRejectOffer = ({ isRejectDialogOpen, setIsRejectDialogOpen, offerId }: Props) => {
-    const { rejectOffer, isLoading } = useOffers();
+    const { rejectOffer, isLoading } = useOffers("AGENT");
     const navigate = useNavigate();
 
     const handleReject = async () => {

@@ -15,7 +15,7 @@ export default function useOffers(
     const [error, setError] = useState<string | null>(null);
 
     const fetchOffers = useCallback(async (signal?: AbortSignal) => {
-        if (!role || !advertisementId || !counterpartId) return;
+        if (!role || advertisementId == null || counterpartId == null) return;
         setError(null);
         setIsLoading(true);
 
@@ -41,11 +41,17 @@ export default function useOffers(
     }, [fetchOffers]);
 
     const acceptOffer = async (id: number) => {
+        if (!role) {
+            throw new Error("Ruolo non disponibile");
+        }
         await (role === "AGENT" ? AgentAcceptOffer(id) : AccountAcceptOffer(id));
         setOffers(prev => prev.filter(o => o.id !== id));
     };
 
     const rejectOffer = async (id: number) => {
+        if (!role) {
+            throw new Error("Ruolo non disponibile");
+        }
         await (role === "AGENT" ? AgentRejectOffer(id) : AccountRejectOffer(id));
         setOffers(prev => prev.filter(o => o.id !== id));
     };

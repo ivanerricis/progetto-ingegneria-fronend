@@ -11,7 +11,7 @@ type Props = {
 }
 
 export const DialogAcceptOffer = ({ isAcceptDialogOpen, setIsAcceptDialogOpen, offerId }: Props) => {
-    const { acceptOffer, isLoading } = useOffers();
+    const { acceptOffer, isLoading } = useOffers("AGENT");
     const navigate = useNavigate();
 
     const handleAccept = async () => {
