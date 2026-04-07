@@ -72,7 +72,6 @@ export const LoginForm = () => {
                 submitError instanceof Error
                     ? submitError.message
                     : "Errore durante il login"
-
             toast.error("Login fallito: " + message)
         } finally {
             setIsSubmitting(false)
