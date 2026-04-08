@@ -15,6 +15,7 @@ export async function updateAccountPassword(
     } catch (err) {
         if (isAxiosError(err)) {
             const message =
+                err.response?.data?.error.message ??
                 err.response?.data?.error ??
                 err.response?.data?.message ??
                 "Aggiornamento password non riuscito"
@@ -37,6 +38,7 @@ export async function CreateAppointment(date: Date, selectedTime: string, advert
         if (isAxiosError(error)) {
 
             const message =
+                error.response?.data?.error.message ??
                 error.response?.data?.error ??
                 error.response?.data?.message ??
                 "Impossibile creare l'appuntamento"
@@ -56,6 +58,7 @@ export async function CancelAppointment(appointmentId: string | number) {
         if (isAxiosError(error)) {
 
             const message =
+                error.response?.data?.error.message ??
                 error.response?.data?.error ??
                 error.response?.data?.message ??
                 "Impossibile annullare l'appuntamento"
@@ -76,6 +79,7 @@ export async function CreateOffer(advertisementId: string | number, price: numbe
         if (isAxiosError(error)) {
 
             const message =
+                error.response?.data?.error.message ??
                 error.response?.data?.error ??
                 error.response?.data?.message ??
                 "Impossibile creare l'offerta"
@@ -95,6 +99,7 @@ export async function AcceptOffer(offerId: number) {
         if (isAxiosError(error)) {
 
             const message =
+                error.response?.data?.error.message ??
                 error.response?.data?.error ??
                 error.response?.data?.message ??
                 "Impossibile confermare l'offerta"
@@ -114,6 +119,7 @@ export async function RejectOffer(offerId: number) {
         if (isAxiosError(error)) {
 
             const message =
+                error.response?.data?.error.message ??
                 error.response?.data?.error ??
                 error.response?.data?.message ??
                 "Impossibile rifiutare l'offerta"
@@ -133,6 +139,7 @@ export async function CounterOffer(advertisementId: number, price: number) {
         if (isAxiosError(error)) {
 
             const message =
+                error.response?.data?.error.message ??
                 error.response?.data?.error ??
                 error.response?.data?.message ??
                 "Impossibile creare l'offerta"

@@ -14,6 +14,7 @@ export async function updateAgentPassword(
     } catch (err) {
         if (isAxiosError(err)) {
             const message =
+                err.response?.data?.error.message ??
                 err.response?.data?.error ??
                 err.response?.data?.message ??
                 "Aggiornamento password non riuscito"
@@ -35,6 +36,7 @@ export async function updateAgentFirstLoginPassword(
     } catch (err) {
         if (isAxiosError(err)) {
             const message =
+                err.response?.data?.error.message ??
                 err.response?.data?.error ??
                 err.response?.data?.message ??
                 "Aggiornamento password non riuscito"
@@ -53,6 +55,7 @@ export async function ConfirmAppointment(appointmentId: string | number) {
         if (isAxiosError(error)) {
 
             const message =
+                error.response?.data?.error.message ??
                 error.response?.data?.error ??
                 error.response?.data?.message ??
                 "Impossibile confermare l'appuntamento"
@@ -72,6 +75,7 @@ export async function RejectAppointment(appointmentId: string | number) {
         if (isAxiosError(error)) {
 
             const message =
+                error.response?.data?.error.message ??
                 error.response?.data?.error ??
                 error.response?.data?.message ??
                 "Impossibile rifiutare l'appuntamento"
@@ -91,6 +95,7 @@ export async function CreateAdvertisement(data: FormData) {
     } catch (err) {
         if (isAxiosError(err)) {
             const message =
+                err.response?.data?.error.message ??
                 err.response?.data?.error ??
                 err.response?.data?.message ??
                 "Creazione annuncio non riuscita";
@@ -107,6 +112,7 @@ export async function DeleteAdvertisement(advertisementId: string | number) {
     } catch (err) {
         if (isAxiosError(err)) {
             const message =
+                err.response?.data?.error.message ??
                 err.response?.data?.error ??
                 err.response?.data?.message ??
                 "Eliminazione annuncio non riuscita"
@@ -123,6 +129,7 @@ export async function RentAdvertisement(advertisementId: string | number) {
     } catch (err) {
         if (isAxiosError(err)) {
             const message =
+                err.response?.data?.error.message ??
                 err.response?.data?.error ??
                 err.response?.data?.message ??
                 "Affitto annuncio non riuscito"
@@ -150,6 +157,7 @@ export async function InsertExternalAppointment(
     } catch (error) {
         if (isAxiosError(error)) {
             const message =
+                error.response?.data?.error.message ??
                 error.response?.data?.error ??
                 error.response?.data?.message ??
                 "Creazione offerta non riuscita"
@@ -168,6 +176,7 @@ export async function AcceptOffer(offerId: number) {
         if (isAxiosError(error)) {
 
             const message =
+                error.response?.data?.error.message ??
                 error.response?.data?.error ??
                 error.response?.data?.message ??
                 "Impossibile confermare l'offerta"
@@ -187,6 +196,7 @@ export async function RejectOffer(offerId: number) {
         if (isAxiosError(error)) {
 
             const message =
+                error.response?.data?.error.message ??
                 error.response?.data?.error ??
                 error.response?.data?.message ??
                 "Impossibile rifiutare l'offerta"
@@ -206,6 +216,7 @@ export async function CounterOffer(advertisementId: number, accountId: number, p
         if (isAxiosError(error)) {
 
             const message =
+                error.response?.data?.error.message ??
                 error.response?.data?.error ??
                 error.response?.data?.message ??
                 "Impossibile creare l'offerta"
@@ -228,6 +239,7 @@ export async function CreateAgent(data: {
     } catch (err) {
         if (isAxiosError(err)) {
             const message =
+                err.response?.data?.error.message ??
                 err.response?.data?.error ??
                 err.response?.data?.message ??
                 "Creazione agente non riuscita"
@@ -244,6 +256,7 @@ export async function DeleteAgent(agentId: string | number) {
     } catch (err) {
         if (isAxiosError(err)) {
             const message =
+                err.response?.data?.error.message ??
                 err.response?.data?.error ??
                 err.response?.data?.message ??
                 "Eliminazione agente non riuscita"
@@ -260,6 +273,7 @@ export async function DeleteAgency(agencyId: number) {
     } catch (error) {
         if (isAxiosError(error)) {
             const message =
+                error.response?.data?.error.message ??
                 error.response?.data?.error ??
                 error.response?.data?.message ??
                 "Eliminazione agenzia non riuscita"
